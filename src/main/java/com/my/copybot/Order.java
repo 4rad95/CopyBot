@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.copybotspot;
+package com.my.copybot;
 
 //import com.binance.api.client.domain.OrderSide;
 //import com.binance.api.client.domain.OrderType;
@@ -19,6 +19,8 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+
+import com.my.copybot.util.BinanceUtils;
 import org.ta4j.core.Decimal;
 
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ public class Order {
         
             
         RequestOptions options = new RequestOptions();
-        SyncRequestClient syncRequestClient = SyncRequestClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY,
+        SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
                 options);
         System.out.println();
   //      System.out.println(syncRequestClient.getSymbolOrderBookTicker(symbol));

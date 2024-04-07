@@ -2,14 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.copybotspot;
+package com.my.copybot;
 
 /**
  *
  * @author radomir
  */
 
-import com.mycompany.copybotspot.util.BinanceTa4jUtils;
+import com.my.copybot.exceptions.GeneralException;
+import com.my.copybot.trading.TradeTask;
+import com.my.copybot.trading.TradeTaskShort;
+import com.my.copybot.util.BinanceTa4jUtils;
+import com.my.copybot.util.BinanceUtils;
+import com.my.copybot.util.ConfigUtils;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,28 +29,14 @@ import org.ta4j.core.TimeSeries;
 
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.BinanceApiWebSocketClient;
-import com.binance.api.client.domain.OrderSide;
-import com.binance.api.client.domain.OrderType;
-import com.binance.api.client.domain.TimeInForce;
 import com.binance.api.client.domain.market.Candlestick;
 import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
-import com.binance.client.model.enums.NewOrderRespType;
-import com.binance.client.model.enums.PositionSide;
-import com.binance.client.model.trade.AccountBalance;
-import com.mycompany.copybotspot.Log;
-import com.mycompany.copybotspot.exceptions.GeneralException;
-import com.mycompany.copybotspot.trading.TradeTask;
-import com.mycompany.copybotspot.trading.TradeTaskShort;
-import com.mycompany.copybotspot.util.BinanceTa4jUtils;
-import com.mycompany.copybotspot.util.BinanceUtils;
-import com.mycompany.copybotspot.util.ConfigUtils;
 
 //import com.mycompany.copybotspot.MainForm.addStringTextEdit;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Spliterator;
 
 public class CopyBotSpot { 
 
@@ -488,7 +480,7 @@ public class CopyBotSpot {
         private static BigDecimal printBalance()
         {
                 RequestOptions options = new RequestOptions();
-        SyncRequestClient syncRequestClient = SyncRequestClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY,
+        		SyncRequestClient syncRequestClient = SyncRequestClient.create( BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
                 options);
 
         

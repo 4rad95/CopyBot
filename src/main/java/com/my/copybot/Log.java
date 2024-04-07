@@ -1,5 +1,5 @@
 
-package com.mycompany.copybotspot;
+package com.my.copybot;
 
 
 import java.util.Map;

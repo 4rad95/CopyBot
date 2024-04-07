@@ -1,7 +1,7 @@
 
-package com.mycompany.copybotspot.model;
+package com.my.copybot.model;
 
-public class ExecutedOrder {
+public class ExecutedOrderShort {
 	
 	private Long creationTime;
 	private String symbol;
@@ -19,8 +19,16 @@ public class ExecutedOrder {
         return orderId;
     }
 
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
     public Double getQuantityDouble() {
         return quantityDouble;
+    }
+
+    public void setQuantityDouble(Double quantityDouble) {
+        this.quantityDouble = quantityDouble;
     }
 
     public Double getPriceAvg() {
@@ -29,14 +37,6 @@ public class ExecutedOrder {
 
     public void setPriceAvg(Double priceAvg) {
         this.priceAvg = priceAvg;
-    }
-
-    public void setQuantityDouble(Double quantityDouble) {
-        this.quantityDouble = quantityDouble;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
     }
 	
         
@@ -83,7 +83,7 @@ public class ExecutedOrder {
 		this.currentStopLoss = currentStopLoss;
 	}
 	public Double getProfit() {
-		return Double.valueOf(quantity) * (closePrice - price);
+		return Double.valueOf(quantity) * (price - closePrice);
 	}
 	public Double getInitialStopLoss() {
 		return initialStopLoss;
@@ -98,7 +98,7 @@ public class ExecutedOrder {
 		return false;
 	}
 	public String getCurrentProfit(Double currentPrice) {
-		Double profitPercentage = ((currentPrice - price)/price)*100*20;
+		Double profitPercentage = ((price -currentPrice )/price)*100*20;
 		return String.format("%.2f", profitPercentage);
 	}
 	

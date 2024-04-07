@@ -1,9 +1,10 @@
 
-package com.mycompany.copybotspot.util;
+package com.my.copybot.util;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import com.my.copybot.exceptions.GeneralException;
 import org.apache.commons.lang3.StringUtils;
 
 import com.binance.api.client.BinanceApiClientFactory;
@@ -11,11 +12,7 @@ import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.BinanceApiWebSocketClient;
 import com.binance.api.client.domain.market.Candlestick;
 import com.binance.api.client.domain.market.CandlestickInterval;
-import com.binance.api.client.domain.market.TickerPrice;
-import com.binance.client.RequestOptions;
-import com.binance.client.SyncRequestClient;
-import com.mycompany.copybotspot.PrivateConfig;
-import com.mycompany.copybotspot.exceptions.GeneralException;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -33,7 +30,23 @@ public class BinanceUtils {
 	private static BinanceApiRestClient client = null;
 	private static BinanceApiWebSocketClient liveClient = null;
 
-            public static List<String> getBitcoinSymbols() throws GeneralException, MalformedURLException, Exception {
+	public static String getApiKey() {
+		return API_KEY;
+	}
+
+	public static void setApiKey(String apiKey) {
+		API_KEY = apiKey;
+	}
+
+	public static String getApiSecret() {
+		return API_SECRET;
+	}
+
+	public static void setApiSecret(String apiSecret) {
+		API_SECRET = apiSecret;
+	}
+
+	public static List<String> getBitcoinSymbols() throws GeneralException, MalformedURLException, Exception {
             
               URL url = new URL ("https://www.binance.com/fapi/v1/premiumIndex");
            

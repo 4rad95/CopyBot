@@ -1,5 +1,5 @@
 
-package com.mycompany.copybotspot.exceptions;
+package com.my.copybot.exceptions;
 
 /**
  *

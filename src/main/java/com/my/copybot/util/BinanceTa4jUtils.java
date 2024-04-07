@@ -1,4 +1,4 @@
-package com.mycompany.copybotspot.util;
+package com.my.copybot.util;
 
 import java.time.Duration;
 import java.time.Instant;
