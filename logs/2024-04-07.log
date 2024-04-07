@@ -1,0 +1,6 @@
+2024-04-07 22:45:51 [INFO] - Initializing Binance bot
+2024-04-07 22:45:51 [INFO] - === Detected config file path (VM argument, optional): null ===
+2024-04-07 22:45:51 [INFO] - Setting candlestick interval to: 1h
+2024-04-07 22:45:55 [INFO] - Generating time series for EDUUSDT
+2024-04-07 22:45:55 [INFO] - Generating time series for BTCDOMUSDT
+2024-04-07 22:45:55 [INFO] - Generating time series for MANTAUSDT
