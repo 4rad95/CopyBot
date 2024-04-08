@@ -9,34 +9,30 @@ package com.my.copybot;
  * @author radomir
  */
 
-import com.my.copybot.exceptions.GeneralException;
-import com.my.copybot.trading.TradeTask;
-import com.my.copybot.trading.TradeTaskShort;
-import com.my.copybot.util.BinanceTa4jUtils;
-import com.my.copybot.util.BinanceUtils;
-import com.my.copybot.util.ConfigUtils;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.ta4j.core.Decimal;
-import org.ta4j.core.Strategy;
-import org.ta4j.core.Tick;
-import org.ta4j.core.TimeSeries;
-
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.BinanceApiWebSocketClient;
 import com.binance.api.client.domain.market.Candlestick;
 import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
+import com.my.copybot.exceptions.GeneralException;
+import com.my.copybot.trading.TradeTask;
+import com.my.copybot.trading.TradeTaskShort;
+import com.my.copybot.util.BinanceTa4jUtils;
+import com.my.copybot.util.BinanceUtils;
+import com.my.copybot.util.ConfigUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.ta4j.core.Decimal;
+import org.ta4j.core.Strategy;
+import org.ta4j.core.Tick;
+import org.ta4j.core.TimeSeries;
 
-//import com.mycompany.copybotspot.MainForm.addStringTextEdit;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class CopyBot {
 
@@ -58,12 +54,12 @@ public class CopyBot {
         
 
 	// We will store time series for every symbol
-	private static Map<String, TimeSeries> timeSeriesCache = new HashMap<String, TimeSeries>();
+	private static final Map<String, TimeSeries> timeSeriesCache = new HashMap<String, TimeSeries>();
 
-	private static Map<String, TradeTask> openTradesLong = new HashMap<String, TradeTask>();
-        private static Map<String, TradeTaskShort> openTradesShort = new HashMap<String, TradeTaskShort>();
+	private static final Map<String, TradeTask> openTradesLong = new HashMap<String, TradeTask>();
+        private static final Map<String, TradeTaskShort> openTradesShort = new HashMap<String, TradeTaskShort>();
         
-	private static List<String> ordersToBeClosed = new LinkedList<String>();
+	private static final List<String> ordersToBeClosed = new LinkedList<String>();
         
 
 	private static BinanceApiRestClient client;
@@ -83,7 +79,7 @@ public class CopyBot {
         
 	private static CandlestickInterval interval = null;
         
-        private static  List<String> badSymbols = new LinkedList<String> ();
+        private static final List<String> badSymbols = new LinkedList<String> ();
         
         
 
@@ -161,23 +157,17 @@ public class CopyBot {
                         
                         String makeLong= ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_LONG);
-                        if ("true".equalsIgnoreCase(makeLong)
-					|| "1".equals(makeLong)) {
-				MAKE_LONG = true;}
-                        else {MAKE_LONG= false; }
+            MAKE_LONG = "true".equalsIgnoreCase(makeLong)
+                    || "1".equals(makeLong);
                                 
                         String makeShort= ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_SHORT);
-                        if ("true".equalsIgnoreCase(makeLong)
-					|| "1".equals(makeLong)) {
-				MAKE_SHORT = true;}
-                        else {MAKE_SHORT = false;}
+            MAKE_SHORT = "true".equalsIgnoreCase(makeLong)
+                    || "1".equals(makeLong);
                         String makeAvg= ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_AVRG);
-                        if ("true".equalsIgnoreCase(makeLong)
-					|| "1".equals(makeLong)) {
-				MAKE_TRADE_AVG = true;}
-                        else {MAKE_TRADE_AVG = false;}
+            MAKE_TRADE_AVG = "true".equalsIgnoreCase(makeLong)
+                    || "1".equals(makeLong);
                         BLACK_LIST = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_BLACKLIST);
 						String strStopNoLoss = ConfigUtils
@@ -209,25 +199,25 @@ public class CopyBot {
 			while (true) {
                                 //Thread.getAllStackTraces().keySet(); 
 				if (DO_TRADES) {
-                                        Log.info(CopyBot.class,"----------------------------------------------------------------------------------------------");
-					Log.info(CopyBot.class," CopyBot 1.00 Rad creating. It is Work!!!  ");
+					Log.info(CopyBot.class, "---------------------------------------------------------------------------------------------------------------");
+					Log.info(CopyBot.class, "\u001B[36m CopyBot 1.00 Rad creating. It is Work!!!  \u001B[0m");
 					Log.info(CopyBot.class," Open trades LONG: " + openTradesLong.keySet().size() +" SHORT:" + openTradesShort.keySet().size());
 					Log.info(CopyBot.class," LONG:  " + openTradesLong.keySet());
 					Log.info(CopyBot.class," SHORT: " + openTradesShort.keySet());
-                                            Log.info(CopyBot.class,"----------------------------------------------------------------------------------------------");
-                                            Log.info(CopyBot.class,"Start Balance : " + startBalance + "               Current  Balance : "+ printBalance());
-                                            Log.info(CopyBot.class,"----------------------------------------------------------------------------------------------");
+					Log.info(CopyBot.class, "---------------------------------------------------------------------------------------------------------------");
+					Log.info(CopyBot.class, "\u001B[32m Start Balance : " + startBalance + "               Current  Balance : " + printBalance() + " \u001B[0m ");
+					Log.info(CopyBot.class, "---------------------------------------------------------------------------------------------------------------");
 					if (DO_TRADES && closedTrades > 0) {
                                                 
 						Log.info(
 								CopyBot.class,
-								"Closed trades: " + closedTrades +" Long: "+closedTradesLong+" Short: "+closedTradesShort
+								"\u001B[32mClosed trades: " + closedTrades + " Long: " + closedTradesLong + " Short: " + closedTradesShort
 										+ ", total profit: "
 										+ String.format("%.8f", totalProfit)
                                                                                 + ", LONG: " 
 										+ String.format("%.2f", totalProfitLong)	
-                                                                                + ", SHORT: " 
-										+ String.format("%.2f", totalProfitShort))
+                                                                                + ", SHORT: "
+										+ String.format("%.2f", totalProfitShort) + "\u001B[0m ")
                                                                                 ;
 						Log.info(CopyBot.class,"----------------------------------------------------------------------------------------------");
                                                 
@@ -427,11 +417,8 @@ public class CopyBot {
 	 * @return if it should be closed or not
 	 */
 	public static boolean shouldCloseOrder(String symbol) {
-		if (ordersToBeClosed.contains(symbol)) {
-			return true;
-		}
-		return false;
-	}
+        return ordersToBeClosed.contains(symbol);
+    }
         
         public static boolean check(String symbol){
 
