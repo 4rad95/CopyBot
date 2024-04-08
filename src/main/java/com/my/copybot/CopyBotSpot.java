@@ -206,11 +206,12 @@ public class CopyBotSpot {
                                 //Thread.getAllStackTraces().keySet(); 
 				if (DO_TRADES) {
                                         Log.info(CopyBotSpot.class,"----------------------------------------------------------------------------------------------");
-					Log.info(CopyBotSpot.class, "Open trades LONG: " + openTradesLong.keySet().size() +" SHORT:" + openTradesShort.keySet().size());
+					Log.info(CopyBotSpot.class," CopyBot 1.00 Rad creating. It is Work!!!  ");
+					Log.info(CopyBotSpot.class," Open trades LONG: " + openTradesLong.keySet().size() +" SHORT:" + openTradesShort.keySet().size());
 					Log.info(CopyBotSpot.class," LONG:  " + openTradesLong.keySet());
 					Log.info(CopyBotSpot.class," SHORT: " + openTradesShort.keySet());
                                             Log.info(CopyBotSpot.class,"----------------------------------------------------------------------------------------------");
-                                            Log.info(CopyBotSpot.class,"Start Balance : " + startBalance + "               Curent  Balance : "+ printBalance());
+                                            Log.info(CopyBotSpot.class,"Start Balance : " + startBalance + "               Current  Balance : "+ printBalance());
                                             Log.info(CopyBotSpot.class,"----------------------------------------------------------------------------------------------");
 					if (DO_TRADES && closedTrades > 0) {
                                                 
@@ -291,11 +292,10 @@ public class CopyBotSpot {
                          
                             Decimal checkRSIStr = BinanceTa4jUtils.StochasticRSIIndicatorTest(series, 14);
 				// If we have an open trade for the symbol, we do not create a new one
-
-                                if (DO_TRADES && openTradesLong.get(symbol) == null&& (MAKE_LONG)) {					
+				if (DO_TRADES && openTradesLong.get(symbol) == null&& (MAKE_LONG)) {
 					Decimal currentPrice = series.getLastTick().getClosePrice();
                                 //        MainForm.addStringTextEdit("Bullish signal for symbol: \" + symbol + \", price: \" + currentPrice)");
-					Log.info(CopyBotSpot.class, "LONG signal for symbol: " + symbol + ", price: " + currentPrice);
+					//Log.info(CopyBotSpot.class, "LONG signal for symbol: " + symbol + ", price: " + currentPrice);
                                         //Order newOrder = new Order(symbol,currentPrice);
                                         // newOrder.addNewOrder(symbol,currentPrice);
 					//if (false) {
@@ -314,14 +314,14 @@ public class CopyBotSpot {
 						openTradesLong.put(symbol, tradeTask);
 						//ordersToBeClosed.remove(symbol); // I know... just in case
 					} else {
-						Log.info(CopyBotSpot.class, "-------------Skipping LONG signal for symbol  " + symbol + " Wait!" );
+					//	Log.info(CopyBotSpot.class, "-------------Skipping LONG signal for symbol  " + symbol + " Wait!" );
 					}
 				}
                                 } else if (strategyShort.shouldEnter(endIndex)) //&& openTrades.get(symbol) != null && !DO_TRAILING_STOP) 
                                 {
 				// If we use trailing stop, the order will be closed when the moving stoploss is hit
-				Log.info(CopyBotSpot.class, "SHORT signal for symbol: " + symbol + ", price: " + series.getLastTick().getClosePrice()
-						);
+			//	Log.info(CopyBotSpot.class, "SHORT signal for symbol: " + symbol + ", price: " + series.getLastTick().getClosePrice()
+					//	);
 				// This object is scanned by the symbol trading thread
 				// ordersToBeClosed.add(symbol);
                                 
@@ -351,7 +351,7 @@ public class CopyBotSpot {
 
 		//	Log.debug(CopyBotSpot.class, "Symbol " + symbol + " checked in " + ((System.currentTimeMillis() - t0) / 1000.0) + " seconds");
 		} catch (GeneralException e) {
-			Log.severe(CopyBotSpot.class, "Unable to check symbol " + symbol);
+		//	Log.severe(CopyBotSpot.class, "Unable to check symbol " + symbol);
 		}
 	}}
 	
@@ -372,7 +372,7 @@ public class CopyBotSpot {
 				timeSeriesCache.put(symbol, series);
 			} catch (Exception e) {
 				// Log.severe(CopyBotSpot.class, "Unable to generate time series / strategy for " + symbol, e);
-                                System.out.println(symbol + "   Not used in playing !!!");
+                                System.out.println("\u001B[32m"  +symbol + "  -  Not used symbol !!! \u001B[0m");
                                  badSymbols.add(symbol);
 			}}
 		}
