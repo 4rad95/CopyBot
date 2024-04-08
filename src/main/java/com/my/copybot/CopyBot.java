@@ -29,10 +29,8 @@ import org.ta4j.core.TimeSeries;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.sql.Time;
+import java.util.*;
 
 public class CopyBot {
 
@@ -51,7 +49,7 @@ public class CopyBot {
         public static Boolean MAKE_TRADE_AVG   = true;
         public static String BLACK_LIST ="";
 		public static Integer STOP_NO_LOSS = 100;
-        
+	public static Long timer = System.currentTimeMillis();
 
 	// We will store time series for every symbol
 	private static final Map<String, TimeSeries> timeSeriesCache = new HashMap<String, TimeSeries>();
@@ -199,27 +197,26 @@ public class CopyBot {
 			while (true) {
                                 //Thread.getAllStackTraces().keySet(); 
 				if (DO_TRADES) {
-					Log.info(CopyBot.class, "---------------------------------------------------------------------------------------------------------------");
+					Long t0 = System.currentTimeMillis();
+					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
 					Log.info(CopyBot.class, "\u001B[36m CopyBot 1.00 Rad creating. It is Work!!!  \u001B[0m");
 					Log.info(CopyBot.class," Open trades LONG: " + openTradesLong.keySet().size() +" SHORT:" + openTradesShort.keySet().size());
 					Log.info(CopyBot.class," LONG:  " + openTradesLong.keySet());
 					Log.info(CopyBot.class," SHORT: " + openTradesShort.keySet());
-					Log.info(CopyBot.class, "---------------------------------------------------------------------------------------------------------------");
-					Log.info(CopyBot.class, "\u001B[32m Start Balance : " + startBalance + "               Current  Balance : " + printBalance() + " \u001B[0m ");
-					Log.info(CopyBot.class, "---------------------------------------------------------------------------------------------------------------");
+					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
+					Log.info(CopyBot.class, "\u001B[32m Start Start time : " + new Date(timer) + " \u001B[0m ");
+					Log.info(CopyBot.class, "\u001B[32m Execute time     : " + new Time(System.currentTimeMillis() - timer) + " \u001B[0m ");
+					Log.info(CopyBot.class, "\u001B[32m Start Balance    : " + startBalance + "               Current  Balance : " + printBalance() + " \u001B[0m ");
+					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
 					if (DO_TRADES && closedTrades > 0) {
                                                 
 						Log.info(
 								CopyBot.class,
 								"\u001B[32mClosed trades: " + closedTrades + " Long: " + closedTradesLong + " Short: " + closedTradesShort
-										+ ", total profit: "
-										+ String.format("%.8f", totalProfit)
-                                                                                + ", LONG: " 
-										+ String.format("%.2f", totalProfitLong)	
-                                                                                + ", SHORT: "
-										+ String.format("%.2f", totalProfitShort) + "\u001B[0m ")
-                                                                                ;
-						Log.info(CopyBot.class,"----------------------------------------------------------------------------------------------");
+										+ ", total profit: " + String.format("%.8f", totalProfit)
+										+ ", LONG: " + String.format("%.2f", totalProfitLong)
+										+ ", SHORT: " + String.format("%.2f", totalProfitShort) + "\u001B[0m ");
+						Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
                                                 
 					}
 					if ((openTradesLong.keySet().size()+openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
@@ -458,14 +455,14 @@ public class CopyBot {
                     if (null != openTradesLong.get(symbol))
                     {
                         ordersToBeClosed.add(symbol);
-                        Log.info(CopyBot.class, "[Close]  Close strategy for symbol = " + symbol);
+						Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
                     }}
             
             else if (strategyShort.shouldExit(endIndex)||strategyLong.shouldEnter(endIndex)){
                     if (null != openTradesShort.get(symbol))
                     {
                         ordersToBeClosed.add(symbol);
-                        Log.info(CopyBot.class, "[Close]  Close strategy for symbol = " + symbol);
+						Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
                     }}
         }
         private static BigDecimal printBalance()
