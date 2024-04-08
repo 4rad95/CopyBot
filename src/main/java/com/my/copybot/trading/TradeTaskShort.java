@@ -19,7 +19,7 @@ import com.binance.client.model.enums.OrderSide;
 import com.binance.client.model.enums.OrderType;
 import com.binance.client.model.enums.PositionSide;
 import com.binance.client.model.trade.Order;
-import com.my.copybot.CopyBotSpot;
+import com.my.copybot.CopyBot;
 import com.my.copybot.model.ExecutedOrderShort;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,9 +43,10 @@ public class TradeTaskShort implements Runnable {
 	private Long lastPriceLog = 0L;
         public Thread thisThread;
         private boolean makeAvg;
+		private Integer stopNoLoss;
 
         public TradeTaskShort(BinanceApiRestClient client, BinanceApiWebSocketClient liveClient, String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
-			Double stopLossPercentage, boolean doTrailingStop,boolean makeAvg) {
+			Double stopLossPercentage, boolean doTrailingStop,boolean makeAvg, Integer stopNoLoss) {
 //        
 //	public TradeTask( String symbol, Double alertPrice, Double btcAmount,
 //			Double stopLossPercentage, boolean doTrailingStop) {
@@ -57,8 +58,8 @@ public class TradeTaskShort implements Runnable {
 		this.usdtAmount = usdtAmount;
 		this.client = client;
 		this.liveClient = liveClient;
-                this.makeAvg = makeAvg;
-              //  this.thisThread = thread;
+        this.makeAvg = makeAvg;
+        this.stopNoLoss = stopNoLoss;
 	}
 
 	public void run() {
@@ -75,7 +76,7 @@ public class TradeTaskShort implements Runnable {
 			Log.severe(getClass(), "Unable to create buy operation", e);
 			error = true;
 			errorMessage = e.getMessage();
-			CopyBotSpot.closeOrder(symbol, null, e.getMessage(),0);
+			CopyBot.closeOrder(symbol, null, e.getMessage(),0);
 		}
 
 	}
@@ -115,7 +116,7 @@ public class TradeTaskShort implements Runnable {
                          
 		} catch (Exception e) {
                           sell(alertPrice);  
-                          CopyBotSpot.closeOrder(symbol, 0.00, null,0);
+                          CopyBot.closeOrder(symbol, 0.00, null,0);
 			  throw new GeneralException(e);
                         
 		}
@@ -159,7 +160,7 @@ public class TradeTaskShort implements Runnable {
                        // order.setOrderId(orderNew.getClientOrderId());                      
 
 		} catch (Exception e) {
-                          CopyBotSpot.closeOrder(symbol, 0.00, null,0);
+                          CopyBot.closeOrder(symbol, 0.00, null,0);
 			throw new GeneralException(e);
                         
 		}
@@ -193,7 +194,7 @@ public class TradeTaskShort implements Runnable {
 			Log.info(getClass(), "Created CLOSE order: " + order.getOrderId()+ " "+ order.getSymbol());
 			order.setClosePrice(price);
 			order.setCloseTime(System.currentTimeMillis());
-                        CopyBotSpot.closeOrder(symbol, order.getProfit(), null,0);
+                        CopyBot.closeOrder(symbol, order.getProfit(), null,0);
 //                        if(Thread.currentThread().isInterrupted()) {
 //                            break;}
 
@@ -246,7 +247,7 @@ public class TradeTaskShort implements Runnable {
 		if((now - lastPriceLog) > 60 * 1000L) {
                                       String proffit = order.getCurrentProfit(price).replace(",", ".");;  
                                       Double chkProffit =  Double.parseDouble(proffit); 
-                                    if (chkProffit > 20.00) {
+                                    if (chkProffit > stopNoLoss) {
                                         // Uppper StoppLoss level
                                                   order.setCurrentStopLoss(setStopLoss(chkProffit));
                                                   //order.setInitialStopLoss(order.getPrice()*0.6);                                                  
@@ -268,7 +269,7 @@ public class TradeTaskShort implements Runnable {
 //                }
                 
 		//if (trailingStopShouldCloseOrder(price) || CopyBotSpot.shouldCloseOrder(symbol)) //{		
-                if (price >=  order.getCurrentStopLoss() || CopyBotSpot.shouldCloseOrder(symbol) )      // Close stopLoss
+                if (price >=  order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol) )      // Close stopLoss
                 {
 			sell(price);
 			Log.info(getClass(), "[STOP][SHORT] :  ---------  Closed order for symbol: " + symbol 

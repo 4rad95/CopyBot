@@ -22,14 +22,15 @@ public class ConfigUtils {
 	public static final String CONFIG_TRADING_DO_TRADES = "trading.doTrades";
 	public static final String CONFIG_TRADING_STOPLOSS_PERCENTAGE = "trading.stopLossPercentage";
 	public static final String CONFIG_TRADING_TRADE_SIZE_BTC =  "trading.tradeSizeBTC";
-        public static final String CONFIG_TRADING_TRADE_SIZE_USDT = "trading.tradeSizeUSDT";        
+    public static final String CONFIG_TRADING_TRADE_SIZE_USDT = "trading.tradeSizeUSDT";
 	public static final String CONFIG_TRADING_MAX_SIMULTANEOUS_TRADES = "trading.maxSimultaneousTrades";
 	public static final String CONFIG_TRADING_DO_TRAILING_STOP = "trading.doTrailingStop";
 	public static final String CONFIG_TRADING_STRATEGY = "trading.strategy";
-        public static final String CONFIG_TRADING_LONG = "trading.makeLong";
-        public static final String CONFIG_TRADING_SHORT = "trading.makeShort";
-        public static final String CONFIG_TRADING_AVRG = "trading.makeAveraging";
-        public static final String CONFIG_TRADING_BLACKLIST = "trading.blackList";
+    public static final String CONFIG_TRADING_LONG = "trading.makeLong";
+    public static final String CONFIG_TRADING_SHORT = "trading.makeShort";
+    public static final String CONFIG_TRADING_AVRG = "trading.makeAveraging";
+    public static final String CONFIG_TRADING_BLACKLIST = "trading.blackList";
+    public static final String CONFIG_TRADING_STOPNOLOSS = "trading.stopNoLoss";
         
 	private static String systemConfigFilePath = "";
 	

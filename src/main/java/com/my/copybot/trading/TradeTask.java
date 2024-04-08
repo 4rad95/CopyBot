@@ -19,7 +19,7 @@ import com.binance.client.model.enums.OrderSide;
 import com.binance.client.model.enums.OrderType;
 import com.binance.client.model.enums.PositionSide;
 import com.binance.client.model.trade.Order;
-import com.my.copybot.CopyBotSpot;
+import com.my.copybot.CopyBot;
 import com.my.copybot.model.ExecutedOrder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,9 +43,10 @@ public class TradeTask implements Runnable {
 	private Long lastPriceLog = 0L;
         public Thread thisThread;
         private Boolean makeAvg;
+		private Integer stopNoLoss;
 
         public TradeTask(BinanceApiRestClient client, BinanceApiWebSocketClient liveClient, String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
-			Double stopLossPercentage, boolean doTrailingStop, boolean makeAvg) {
+			Double stopLossPercentage, boolean doTrailingStop, boolean makeAvg,Integer stopNoLoss) {
 //        
 //	public TradeTask( String symbol, Double alertPrice, Double btcAmount,
 //			Double stopLossPercentage, boolean doTrailingStop) {
@@ -57,7 +58,9 @@ public class TradeTask implements Runnable {
 		this.usdtAmount = usdtAmount;
 		this.client = client;
 		this.liveClient = liveClient;
-                this.makeAvg = makeAvg;
+        this.makeAvg = makeAvg;
+		this.stopNoLoss = stopNoLoss;
+
 	}
 
 	public void run() {
@@ -71,7 +74,7 @@ public class TradeTask implements Runnable {
 			Log.severe(getClass(), "Unable to create buy operation", e);
 			error = true;
 			errorMessage = e.getMessage();
-			CopyBotSpot.closeOrder(symbol, null, e.getMessage(),1);
+			CopyBot.closeOrder(symbol, null, e.getMessage(),1);
 		}
 
 	}
@@ -109,7 +112,7 @@ public class TradeTask implements Runnable {
                         order.setOrderId(orderNew.getClientOrderId());                      
 
 		} catch (Exception e) {
-                          CopyBotSpot.closeOrder(symbol, 0.00, null,1);
+                          CopyBot.closeOrder(symbol, 0.00, null,1);
 			  throw new GeneralException(e);
                         
 		}
@@ -153,7 +156,7 @@ public class TradeTask implements Runnable {
                        // order.setOrderId(orderNew.getClientOrderId());                      
 
 		} catch (Exception e) {
-                          CopyBotSpot.closeOrder(symbol, 0.00, null,1);
+                          CopyBot.closeOrder(symbol, 0.00, null,1);
 			throw new GeneralException(e);
                         
 		}
@@ -187,7 +190,7 @@ public class TradeTask implements Runnable {
 			Log.info(getClass(), "Created SELL order: " + order.getOrderId()+ " "+ order.getSymbol());
 			order.setClosePrice(price);
 			order.setCloseTime(System.currentTimeMillis());
-                        CopyBotSpot.closeOrder(symbol, order.getProfit(), null,1);
+                        CopyBot.closeOrder(symbol, order.getProfit(), null,1);
 
 
 		} catch (Exception e) {
@@ -236,7 +239,7 @@ public class TradeTask implements Runnable {
 		if((now - lastPriceLog) > 60 * 1000L) {
                                       String proffit = order.getCurrentProfit(price).replace(",", ".");;  
                                       Double chkProffit =  Double.parseDouble(proffit); 
-                                      if (chkProffit > 20.00) {
+                                      if (chkProffit > stopNoLoss) {
                                         // Uppper StoppLoss level
                                                   order.setCurrentStopLoss(setStopLoss(chkProffit));
 //                                                  order.setInitialStopLoss(order.getPrice()*1.4);
@@ -255,7 +258,7 @@ public class TradeTask implements Runnable {
 //                    makeAvg = false;
 //                    buySecond();
 //                }
-		if (order.trailingStopShouldCloseOrder(price) || CopyBotSpot.shouldCloseOrder(symbol)) {		
+		if (order.trailingStopShouldCloseOrder(price) || CopyBot.shouldCloseOrder(symbol)) {
                         // Close stopLoss
                     
 			sell(price);

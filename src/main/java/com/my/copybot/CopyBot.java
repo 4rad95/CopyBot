@@ -38,14 +38,14 @@ import com.binance.client.SyncRequestClient;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-public class CopyBotSpot { 
+public class CopyBot {
 
 	// Config params
 	private static Integer PAUSE_TIME_MINUTES = 5;
 	private static Boolean DO_TRADES = true;
 	private static Integer MAX_SIMULTANEOUS_TRADES = 0;
 	private static Double TRADE_SIZE_BTC;
-        private static Double TRADE_SIZE_USDT;
+    private static Double TRADE_SIZE_USDT;
 	private static Double STOPLOSS_PERCENTAGE = 1.00;
 	private static Boolean DO_TRAILING_STOP = false;
 	private static String TRADING_STRATEGY;
@@ -54,6 +54,7 @@ public class CopyBotSpot {
         public static Boolean MAKE_SHORT = true;
         public static Boolean MAKE_TRADE_AVG   = true;
         public static String BLACK_LIST ="";
+		public static Integer STOP_NO_LOSS = 100;
         
 
 	// We will store time series for every symbol
@@ -89,9 +90,9 @@ public class CopyBotSpot {
 	public static void main(String[] args) throws IOException {
                     
                
-		Log.info(CopyBotSpot.class, "Initializing Binance bot");
+		Log.info(CopyBot.class, "Initializing Binance bot");
 		String configFilePath = System.getProperty("CONFIG_FILE_PATH");
-		Log.info(CopyBotSpot.class,
+		Log.info(CopyBot.class,
 				"=== Detected config file path (VM argument, optional): "
 						+ configFilePath + " ===");
 		if (StringUtils.isNotEmpty(configFilePath)) {
@@ -118,14 +119,14 @@ public class CopyBotSpot {
 		CandlestickInterval[] intervals = CandlestickInterval.values();
 		for (CandlestickInterval _interval : intervals) {
 			if (_interval.getIntervalId().equalsIgnoreCase(candleInterval)) {
-				Log.info(CopyBotSpot.class, "Setting candlestick interval to: "
+				Log.info(CopyBot.class, "Setting candlestick interval to: "
 						+ candleInterval);
 				interval = _interval;
 			}
 		}
 		if (interval == null) {
 			interval = CandlestickInterval.FOUR_HOURLY;
-			Log.info(CopyBotSpot.class, "Using default candlestick interval: "
+			Log.info(CopyBot.class, "Using default candlestick interval: "
 					+ CandlestickInterval.FOUR_HOURLY.getIntervalId());
 		}
 
@@ -179,6 +180,9 @@ public class CopyBotSpot {
                         else {MAKE_TRADE_AVG = false;}
                         BLACK_LIST = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_BLACKLIST);
+						String strStopNoLoss = ConfigUtils
+					.readPropertyValue(ConfigUtils.CONFIG_TRADING_STOPNOLOSS);
+						STOP_NO_LOSS = Integer.valueOf(strStopNoLoss);
                 }
 		try {
 			BinanceUtils.init(ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_KEY),
@@ -187,7 +191,7 @@ public class CopyBotSpot {
 			liveClient = BinanceUtils.getWebSocketClient();
                         startBalance = printBalance();
 		} catch (GeneralException e) {
-			Log.severe(CopyBotSpot.class, "Unable to generate Binance clients!", e);
+			Log.severe(CopyBot.class, "Unable to generate Binance clients!", e);
 		}
 	}
         
@@ -205,18 +209,18 @@ public class CopyBotSpot {
 			while (true) {
                                 //Thread.getAllStackTraces().keySet(); 
 				if (DO_TRADES) {
-                                        Log.info(CopyBotSpot.class,"----------------------------------------------------------------------------------------------");
-					Log.info(CopyBotSpot.class," CopyBot 1.00 Rad creating. It is Work!!!  ");
-					Log.info(CopyBotSpot.class," Open trades LONG: " + openTradesLong.keySet().size() +" SHORT:" + openTradesShort.keySet().size());
-					Log.info(CopyBotSpot.class," LONG:  " + openTradesLong.keySet());
-					Log.info(CopyBotSpot.class," SHORT: " + openTradesShort.keySet());
-                                            Log.info(CopyBotSpot.class,"----------------------------------------------------------------------------------------------");
-                                            Log.info(CopyBotSpot.class,"Start Balance : " + startBalance + "               Current  Balance : "+ printBalance());
-                                            Log.info(CopyBotSpot.class,"----------------------------------------------------------------------------------------------");
+                                        Log.info(CopyBot.class,"----------------------------------------------------------------------------------------------");
+					Log.info(CopyBot.class," CopyBot 1.00 Rad creating. It is Work!!!  ");
+					Log.info(CopyBot.class," Open trades LONG: " + openTradesLong.keySet().size() +" SHORT:" + openTradesShort.keySet().size());
+					Log.info(CopyBot.class," LONG:  " + openTradesLong.keySet());
+					Log.info(CopyBot.class," SHORT: " + openTradesShort.keySet());
+                                            Log.info(CopyBot.class,"----------------------------------------------------------------------------------------------");
+                                            Log.info(CopyBot.class,"Start Balance : " + startBalance + "               Current  Balance : "+ printBalance());
+                                            Log.info(CopyBot.class,"----------------------------------------------------------------------------------------------");
 					if (DO_TRADES && closedTrades > 0) {
                                                 
 						Log.info(
-								CopyBotSpot.class,
+								CopyBot.class,
 								"Closed trades: " + closedTrades +" Long: "+closedTradesLong+" Short: "+closedTradesShort
 										+ ", total profit: "
 										+ String.format("%.8f", totalProfit)
@@ -225,7 +229,7 @@ public class CopyBotSpot {
                                                                                 + ", SHORT: " 
 										+ String.format("%.2f", totalProfitShort))
                                                                                 ;
-						Log.info(CopyBotSpot.class,"----------------------------------------------------------------------------------------------");
+						Log.info(CopyBot.class,"----------------------------------------------------------------------------------------------");
                                                 
 					}
 					if ((openTradesLong.keySet().size()+openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
@@ -234,7 +238,7 @@ public class CopyBotSpot {
 						try {
 							Thread.sleep(timeToWait);
 						} catch (InterruptedException e) {
-							Log.severe(CopyBotSpot.class, "Error sleeping", e);
+							Log.severe(CopyBot.class, "Error sleeping", e);
 						}
 						continue;
 					}
@@ -245,22 +249,22 @@ public class CopyBotSpot {
 					try {
 						checkSymbol(symbol);
 					} catch (Exception e) {
-						Log.severe(CopyBotSpot.class, "Error checking symbol "
+						Log.severe(CopyBot.class, "Error checking symbol "
 								+ symbol, e);
 					}
 				}
 				Long t1 = System.currentTimeMillis() - t0;
-				Log.info(CopyBotSpot.class, "All symbols analyzed, time elapsed: "
+				Log.info(CopyBot.class, "All symbols analyzed, time elapsed: "
 						+ (t1 / 1000.0) + " seconds.");
 
 				try {
 					Thread.sleep(timeToWait);
 				} catch (InterruptedException e) {
-					Log.severe(CopyBotSpot.class, "Error sleeping", e);
+					Log.severe(CopyBot.class, "Error sleeping", e);
 				}
 			}
 		} catch (Exception e) {
-			Log.severe(CopyBotSpot.class, "Unable to get symbols", e);
+			Log.severe(CopyBot.class, "Unable to get symbols", e);
 		}
 	}
 	
@@ -305,7 +309,7 @@ public class CopyBotSpot {
                                          // We create a new thread to trade with the symbol
                                                 
 						TradeTask tradeTask = new TradeTask(client, liveClient, symbol, currentPrice.toDouble(),
-                                     			TRADE_SIZE_BTC,TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP,MAKE_TRADE_AVG);
+                                     			TRADE_SIZE_BTC,TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP,MAKE_TRADE_AVG,STOP_NO_LOSS);
 						Thread thread=new Thread(tradeTask);
                                                 tradeTask.thisThread = thread;
                                                 thread.start();
@@ -329,7 +333,7 @@ public class CopyBotSpot {
 					Decimal currentPrice = series.getLastTick().getClosePrice();
                                         System.out.println(symbol);
                                                                
-					Log.info(CopyBotSpot.class, "SHORT signal for symbol: " + symbol + ", price: " + currentPrice);
+					Log.info(CopyBot.class, "SHORT signal for symbol: " + symbol + ", price: " + currentPrice);
                                         //Order newOrder = new Order(symbol,currentPrice);
                                         // newOrder.addNewOrder(symbol,currentPrice);
 					//if (false) {
@@ -339,7 +343,7 @@ public class CopyBotSpot {
                                          // We create a new thread to short trade with the symbol
                                                 
 						TradeTaskShort tradeTask = new TradeTaskShort(client, liveClient, symbol, currentPrice.toDouble(),
-                                     			TRADE_SIZE_BTC,TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP,MAKE_TRADE_AVG);
+                                     			TRADE_SIZE_BTC,TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP,MAKE_TRADE_AVG,STOP_NO_LOSS);
 						Thread thread=new Thread(tradeTask);
                                                 tradeTask.thisThread = thread;
                                                 thread.start();
@@ -365,7 +369,7 @@ public class CopyBotSpot {
 	private static void generateTimeSeriesCache(List<String> symbols) {
 		for (String symbol : symbols) {
                     if (check(symbol)){
-			Log.info(CopyBotSpot.class, "Generating time series for " + symbol);
+			Log.info(CopyBot.class, "Generating time series for " + symbol);
 			try {
 				List<Candlestick> candlesticks = BinanceUtils.getCandlestickBars(symbol, interval);
 				TimeSeries series = BinanceTa4jUtils.convertToTimeSeries(candlesticks, symbol, interval.getIntervalId());
@@ -390,11 +394,11 @@ public class CopyBotSpot {
                 int delta=0;
 		if (StringUtils.isNotEmpty(errorMessage)) {
                         
-			Log.info(CopyBotSpot.class, "Trade " + symbol + " is closed due to error: " + errorMessage);
+			Log.info(CopyBot.class, "Trade " + symbol + " is closed due to error: " + errorMessage);
                         badSymbols.add(symbol);
                         
 		} else {
-			Log.info(CopyBotSpot.class, "[Close]------- Trade " + symbol + " is closed with profit: " + String.format("%.8f", profit));
+			Log.info(CopyBot.class, "[Close]------- Trade " + symbol + " is closed with profit: " + String.format("%.8f", profit));
                         delta=1;
                         
                 }
@@ -467,14 +471,14 @@ public class CopyBotSpot {
                     if (null != openTradesLong.get(symbol))
                     {
                         ordersToBeClosed.add(symbol);
-                        Log.info(CopyBotSpot.class, "[Close]  Close strategy for symbol = " + symbol);
+                        Log.info(CopyBot.class, "[Close]  Close strategy for symbol = " + symbol);
                     }}
             
             else if (strategyShort.shouldExit(endIndex)||strategyLong.shouldEnter(endIndex)){
                     if (null != openTradesShort.get(symbol))
                     {
                         ordersToBeClosed.add(symbol);
-                        Log.info(CopyBotSpot.class, "[Close]  Close strategy for symbol = " + symbol);
+                        Log.info(CopyBot.class, "[Close]  Close strategy for symbol = " + symbol);
                     }}
         }
         private static BigDecimal printBalance()
