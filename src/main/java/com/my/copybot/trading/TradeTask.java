@@ -236,7 +236,7 @@ public class TradeTask implements Runnable {
 		if((now - lastPriceLog) > 60 * 1000L) {
                                       String proffit = order.getCurrentProfit(price).replace(",", ".");;  
                                       Double chkProffit =  Double.parseDouble(proffit); 
-                                      if (chkProffit > 25.00) {
+                                      if (chkProffit > 20.00) {
                                         // Uppper StoppLoss level
                                                   order.setCurrentStopLoss(setStopLoss(chkProffit));
 //                                                  order.setInitialStopLoss(order.getPrice()*1.4);

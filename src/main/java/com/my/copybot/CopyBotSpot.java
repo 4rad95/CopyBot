@@ -206,9 +206,9 @@ public class CopyBotSpot {
                                 //Thread.getAllStackTraces().keySet(); 
 				if (DO_TRADES) {
                                         Log.info(CopyBotSpot.class,"----------------------------------------------------------------------------------------------");
-					Log.info(CopyBotSpot.class, "Open trades LONG: "
-							+ openTradesLong.keySet().size()+" SHORT:" +openTradesShort.keySet().size() + ". Symbols LONG: "
-							+ openTradesLong.keySet()+ " SHORT: " + openTradesShort.keySet());
+					Log.info(CopyBotSpot.class, "Open trades LONG: " + openTradesLong.keySet().size() +" SHORT:" + openTradesShort.keySet().size());
+					Log.info(CopyBotSpot.class," LONG:  " + openTradesLong.keySet());
+					Log.info(CopyBotSpot.class," SHORT: " + openTradesShort.keySet());
                                             Log.info(CopyBotSpot.class,"----------------------------------------------------------------------------------------------");
                                             Log.info(CopyBotSpot.class,"Start Balance : " + startBalance + "               Curent  Balance : "+ printBalance());
                                             Log.info(CopyBotSpot.class,"----------------------------------------------------------------------------------------------");
@@ -224,7 +224,7 @@ public class CopyBotSpot {
                                                                                 + ", SHORT: " 
 										+ String.format("%.2f", totalProfitShort))
                                                                                 ;
-                                                Log.info(CopyBotSpot.class,"----------------------------------------------------------------------");
+						Log.info(CopyBotSpot.class,"----------------------------------------------------------------------------------------------");
                                                 
 					}
 					if ((openTradesLong.keySet().size()+openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
