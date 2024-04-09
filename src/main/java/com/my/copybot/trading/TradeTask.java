@@ -4,11 +4,6 @@
  */
 package com.my.copybot.trading;
 
-import com.my.copybot.Log;
-import com.my.copybot.exceptions.GeneralException;
-import com.my.copybot.util.BinanceUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.BinanceApiWebSocketClient;
 import com.binance.api.client.domain.market.CandlestickInterval;
@@ -20,30 +15,35 @@ import com.binance.client.model.enums.OrderType;
 import com.binance.client.model.enums.PositionSide;
 import com.binance.client.model.trade.Order;
 import com.my.copybot.CopyBot;
+import com.my.copybot.Log;
+import com.my.copybot.exceptions.GeneralException;
 import com.my.copybot.model.ExecutedOrder;
+import com.my.copybot.util.BinanceUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TradeTask implements Runnable {
 
-	private String symbol;
-	private Double alertPrice;
-	private Double btcAmount;
-        private Double usdtAmount;
-	private Double stopLossPercentage;
-	private boolean doTrailingStop;
+	private final String symbol;
+	private final Double alertPrice;
+	private final Double btcAmount;
+        private final Double usdtAmount;
+	private final Double stopLossPercentage;
+	private final boolean doTrailingStop;
 	
 	private ExecutedOrder order = null;
 	private boolean error = false;
 	private String errorMessage = "";
 
-	private BinanceApiRestClient client;
-	private BinanceApiWebSocketClient liveClient;
+	private final BinanceApiRestClient client;
+	private final BinanceApiWebSocketClient liveClient;
 	
 	private Long lastPriceLog = 0L;
         public Thread thisThread;
-        private Boolean makeAvg;
-		private Integer stopNoLoss;
+        private final Boolean makeAvg;
+		private final Integer stopNoLoss;
 
         public TradeTask(BinanceApiRestClient client, BinanceApiWebSocketClient liveClient, String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
 			Double stopLossPercentage, boolean doTrailingStop, boolean makeAvg,Integer stopNoLoss) {
@@ -237,8 +237,8 @@ public class TradeTask implements Runnable {
 
 		// This is a bit harcoded, but just trying to avoid too many logs..
 		if((now - lastPriceLog) > 60 * 1000L) {
-                                      String proffit = order.getCurrentProfit(price).replace(",", ".");;  
-                                      Double chkProffit =  Double.parseDouble(proffit); 
+                                      String proffit = order.getCurrentProfit(price).replace(",", ".");
+            Double chkProffit =  Double.parseDouble(proffit);
                                       if (chkProffit > stopNoLoss) {
                                         // Uppper StoppLoss level
                                                   order.setCurrentStopLoss(setStopLoss(chkProffit));
@@ -289,11 +289,8 @@ public class TradeTask implements Runnable {
 		if (error) {
 			return true;
 		}
-		if (order != null && order.getCloseTime() == null) {
-			return false;
-		}
-		return true;
-	}
+        return order == null || order.getCloseTime() != null;
+    }
 
 	public synchronized ExecutedOrder getOrder() {
 		return order;
@@ -341,12 +338,12 @@ public class TradeTask implements Runnable {
                                             return  proffitNew;                                        // Uppper StoppLoss level
                                     }
                                     else if (chkProffit > 40)   {
-                                            proffitNew = order.getPrice()*1.03;
+			   proffitNew = order.getPrice() * 1.15;
                                             System.out.println("!!!-------------Change StopLoss for "+ symbol + " to "+ showPrice(order.getCurrentStopLoss()));
                                             return  proffitNew;                                        
                                     }
                                     else {
-                                            proffitNew = order.getPrice()*1.015;
+			   proffitNew = order.getPrice() * 1.0075;
                                             System.out.println("!!!-------------Change StopLoss for "+ symbol + " to "+ showPrice(order.getCurrentStopLoss()));
                                             return  proffitNew;
                                     }

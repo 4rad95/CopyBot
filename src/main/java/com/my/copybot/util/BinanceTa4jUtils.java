@@ -1,33 +1,19 @@
 package com.my.copybot.util;
 
+import com.binance.api.client.domain.market.Candlestick;
+import org.ta4j.core.*;
+import org.ta4j.core.indicators.*;
+import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
+import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
+import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
+import org.ta4j.core.trading.rules.OverIndicatorRule;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.ta4j.core.BaseStrategy;
-import org.ta4j.core.BaseTick;
-import org.ta4j.core.BaseTimeSeries;
-import org.ta4j.core.Decimal;
-import org.ta4j.core.Rule;
-import org.ta4j.core.Strategy;
-import org.ta4j.core.Tick;
-import org.ta4j.core.TimeSeries;
-import org.ta4j.core.indicators.EMAIndicator;
-import org.ta4j.core.indicators.MACDIndicator;
-import org.ta4j.core.indicators.SMAIndicator;
-import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
-import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
-import org.ta4j.core.trading.rules.OverIndicatorRule;
-
-import com.binance.api.client.domain.market.Candlestick;
-import org.ta4j.core.indicators.RSIIndicator;
-import org.ta4j.core.indicators.StochasticOscillatorDIndicator;
-import org.ta4j.core.indicators.StochasticOscillatorKIndicator;
-import org.ta4j.core.indicators.StochasticRSIIndicator;
 
 public class BinanceTa4jUtils {
 
@@ -62,12 +48,9 @@ public class BinanceTa4jUtils {
 	}
 
 	public static boolean isSameTick(Candlestick candlestick, Tick tick) {
-		if (tick.getEndTime().equals(
-				getZonedDateTime(candlestick.getCloseTime()))) {
-			return true;
-		}
-		return false;
-	}
+        return tick.getEndTime().equals(
+                getZonedDateTime(candlestick.getCloseTime()));
+    }
 
 	public static Strategy buildStrategyLong(TimeSeries series, String strategyCode) {
 		if (MACD_STRATEGY.equals(strategyCode)) {
@@ -112,7 +95,7 @@ public class BinanceTa4jUtils {
 		return null;
 	}
 
-        	private static Strategy buildMacdStrategyShort(TimeSeries series) {
+	private static Strategy buildMacdStrategyShort(TimeSeries series) {
 		if (series == null) {
 			throw new IllegalArgumentException("Series cannot be null");
 		}
@@ -123,18 +106,24 @@ public class BinanceTa4jUtils {
 		EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 		SMAIndicator shortTermSMA = new SMAIndicator(closePrice, 50);
 		SMAIndicator longTermSMA = new SMAIndicator(closePrice, 100);
-                
-                StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
+
+		StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
 		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 
 		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
 				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
                                 .and (new OverIndicatorRule(stochD, stochK)); // Second signal
 
-		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
-                                   .or(new OverIndicatorRule(stochK,stochD));
+//		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
+//						.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
+//						.and (new UnderIndicatorRule(stochD, stochK)); // Second signal
+//		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
+//			  			.or(new OverIndicatorRule(stochD,stochK));
 
-           //     StochasticRSIIndicatorTest(series,14);
+
+		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
+				.or(new OverIndicatorRule(stochK, stochD));
+
 		return new BaseStrategy(entryRule, exitRule);
 	}
         
