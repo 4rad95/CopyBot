@@ -109,16 +109,16 @@ public class BinanceTa4jUtils {
 
 		StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
 		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
-//        Current
-		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
-				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
-                                .and (new OverIndicatorRule(stochD, stochK)); // Second signal
+////        Current
+//		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
+//				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
+//                                .and (new OverIndicatorRule(stochD, stochK)); // Second signal
 
 //		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
 //						.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
 //						.and (new UnderIndicatorRule(stochD, stochK)); // Second signal
-//		Rule entryRule = new OverIndicatorRule(longTermSMA, shortTermSMA)
-//			  			.and(new OverIndicatorRule(stochD,stochK));
+		Rule entryRule = new OverIndicatorRule(longTermSMA, shortTermSMA)
+				.and(new OverIndicatorRule(stochD, stochK));
 
 
 		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
