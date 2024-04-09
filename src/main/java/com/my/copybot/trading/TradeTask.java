@@ -242,7 +242,7 @@ public class TradeTask implements Runnable {
                                       if (chkProffit > stopNoLoss) {
                                         // Uppper StoppLoss level
                                                   order.setCurrentStopLoss(setStopLoss(chkProffit));
-//                                                  order.setInitialStopLoss(order.getPrice()*1.4);
+										  System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
                                       }
   
                                 Log.info(getClass(),
@@ -309,43 +309,35 @@ public class TradeTask implements Runnable {
            if (chkProffit > 350.00) {
                                         // Uppper StoppLoss level
                                             proffitNew = order.getPrice()*1.4;
-                                            System.out.println("!!!-------------Change StopLoss for "+ symbol + " to "+ showPrice(order.getCurrentStopLoss()));
                                             return  proffitNew;
                                     }
                                     else if (chkProffit > 250.00) {
                                             proffitNew = order.getPrice()*1.22;
-                                            System.out.println("!!!-------------Change StopLoss for "+ symbol + " to "+ showPrice(order.getCurrentStopLoss()));
                                             return  proffitNew;                                        
                                     }
                                     else if (chkProffit > 200.00) {
                                             proffitNew = order.getPrice()*1.17;
-                                            System.out.println("!!!-------------Change StopLoss for "+ symbol + " to "+ showPrice(order.getCurrentStopLoss()));
                                             return  proffitNew;                                        
                                     }
                                     else if (chkProffit > 150.00) {
                                             proffitNew = order.getPrice()*1.12;
-                                            System.out.println("!!!-------------Change StopLoss for "+ symbol + " to "+ showPrice(order.getCurrentStopLoss()));
-                                            return  proffitNew;                                        // Uppper StoppLoss level
+			   return proffitNew;
                                     }
                                     else if (chkProffit > 100.00) {
                                             proffitNew = order.getPrice()*1.08;
-                                            System.out.println("!!!-------------Change StopLoss for "+ symbol + " to "+ showPrice(order.getCurrentStopLoss()));
-                                            return  proffitNew;                                        // Uppper StoppLoss level
+			   return proffitNew;
                                     }
                                     else  if (chkProffit > 70.00) {
                                             proffitNew = order.getPrice()*1.06;
-                                            System.out.println("!!!-------------Change StopLoss for "+ symbol + " to "+ showPrice(order.getCurrentStopLoss()));
-                                            return  proffitNew;                                        // Uppper StoppLoss level
+			   return proffitNew;
                                     }
                                     else if (chkProffit > 40)   {
 			   proffitNew = order.getPrice() * 1.15;
-                                            System.out.println("!!!-------------Change StopLoss for "+ symbol + " to "+ showPrice(order.getCurrentStopLoss()));
-                                            return  proffitNew;                                        
+			   return proffitNew;
                                     }
                                     else {
 			   proffitNew = order.getPrice() * 1.0075;
-                                            System.out.println("!!!-------------Change StopLoss for "+ symbol + " to "+ showPrice(order.getCurrentStopLoss()));
-                                            return  proffitNew;
+			   return proffitNew;
                                     }
         
 }}
