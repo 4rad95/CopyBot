@@ -109,7 +109,7 @@ public class BinanceTa4jUtils {
 
 		StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
 		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
-
+//        Current
 		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
 				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
                                 .and (new OverIndicatorRule(stochD, stochK)); // Second signal
@@ -117,8 +117,8 @@ public class BinanceTa4jUtils {
 //		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
 //						.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
 //						.and (new UnderIndicatorRule(stochD, stochK)); // Second signal
-//		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
-//			  			.or(new OverIndicatorRule(stochD,stochK));
+//		Rule entryRule = new OverIndicatorRule(longTermSMA, shortTermSMA)
+//			  			.and(new OverIndicatorRule(stochD,stochK));
 
 
 		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
@@ -126,7 +126,7 @@ public class BinanceTa4jUtils {
 
 		return new BaseStrategy(entryRule, exitRule);
 	}
-        
+
         public static Decimal StochasticRSIIndicatorTest(TimeSeries series,int i) {
                 StochasticRSIIndicator STR = new  StochasticRSIIndicator(series,i);
                 ClosePriceIndicator closePrice = new ClosePriceIndicator(series);

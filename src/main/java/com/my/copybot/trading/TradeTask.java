@@ -334,11 +334,13 @@ public class TradeTask implements Runnable {
                                     else if (chkProffit > 40)   {
 			   proffitNew = order.getPrice() * 1.15;
 			   return proffitNew;
-                                    }
-                                    else {
+                                    } else if (chkProffit > 30) {
+			   proffitNew = order.getPrice() * 1.1;
+			   return proffitNew;
+		   } else {
 			   proffitNew = order.getPrice() * 1.0075;
 			   return proffitNew;
-                                    }
+		   }
         
 }}
 

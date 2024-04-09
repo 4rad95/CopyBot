@@ -344,7 +344,10 @@ public class TradeTaskShort implements Runnable {
                                     else  if (chkProffit >40 ) {
 			   proffitNew = order.getPrice() * 0.985;
                                             return  proffitNew;                                        
-                                    }
+                                    } else if (chkProffit > 30) {
+			   proffitNew = order.getPrice() * 0.99;
+			   return proffitNew;
+		   }
                                     else {
 			   proffitNew = order.getPrice() * 0.9925;
                                             return  proffitNew;
