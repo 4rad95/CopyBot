@@ -75,8 +75,8 @@ public class BinanceTa4jUtils {
 		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 
 		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd) // First signal
-				.and(new OverIndicatorRule(shortTermSMA, longTermSMA));
-		//                         .and(new OverIndicatorRule(stochK, stochD)); // Second signal
+				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
+				.and(new OverIndicatorRule(stochK, stochD)); // Second signal
 
 		Rule exitRule = new CrossedDownIndicatorRule(macd, emaMacd)
                                 .or(new OverIndicatorRule(stochD,stochK));
@@ -111,8 +111,8 @@ public class BinanceTa4jUtils {
 		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 ////        Current
 		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
-				.and(new OverIndicatorRule(longTermSMA, shortTermSMA));
-		//		   	.and(new OverIndicatorRule(stochD, stochK)); // Second signal
+				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
+				.and(new OverIndicatorRule(stochD, stochK)); // Second signal
 
 //		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
 //						.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
