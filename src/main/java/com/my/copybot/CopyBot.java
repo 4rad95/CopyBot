@@ -199,9 +199,12 @@ public class CopyBot {
                                 //Thread.getAllStackTraces().keySet(); 
 				if (DO_TRADES) {
 					Long t0 = currentTimeMillis();
+
 					int seconds = (int) ((t0 - timer) / 1000);
 					int minutes = seconds / 60;
 					int hours = minutes / 60;
+					minutes = minutes - hours * 60;
+					seconds = seconds - minutes * 60;
 					String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
 					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
 					Log.info(CopyBot.class, "\u001B[36m CopyBot 1.00 Rad creating. It is Work!!!  \u001B[0m");

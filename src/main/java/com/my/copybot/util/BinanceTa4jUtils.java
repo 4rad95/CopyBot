@@ -70,13 +70,13 @@ public class BinanceTa4jUtils {
 		EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 		SMAIndicator shortTermSMA = new SMAIndicator(closePrice, 50);
 		SMAIndicator longTermSMA = new SMAIndicator(closePrice, 100);
-                
-                StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
+
+		StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
 		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 
 		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd) // First signal
-				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
-                                .and(new OverIndicatorRule(stochK, stochD)); // Second signal
+				.and(new OverIndicatorRule(shortTermSMA, longTermSMA));
+		//                         .and(new OverIndicatorRule(stochK, stochD)); // Second signal
 
 		Rule exitRule = new CrossedDownIndicatorRule(macd, emaMacd)
                                 .or(new OverIndicatorRule(stochD,stochK));
@@ -110,19 +110,26 @@ public class BinanceTa4jUtils {
 		StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
 		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 ////        Current
-//		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
-//				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
-//                                .and (new OverIndicatorRule(stochD, stochK)); // Second signal
+		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
+				.and(new OverIndicatorRule(longTermSMA, shortTermSMA));
+		//		   	.and(new OverIndicatorRule(stochD, stochK)); // Second signal
 
 //		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
 //						.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
 //						.and (new UnderIndicatorRule(stochD, stochK)); // Second signal
-		Rule entryRule = new OverIndicatorRule(longTermSMA, shortTermSMA)
-				.and(new OverIndicatorRule(stochD, stochK));
+//				Rule entryRule = new OverIndicatorRule(longTermSMA, shortTermSMA)
+//				.and(new OverIndicatorRule(stochD, stochK));
+
+		//	from long
+	/*	Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd) // First signal
+				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
+				.and(new OverIndicatorRule(stochK, stochD)); // Second signal*/
 
 
 		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
-				.or(new OverIndicatorRule(stochK, stochD));
+				.or(new CrossedUpIndicatorRule(stochK, stochD));
+
+
 
 		return new BaseStrategy(entryRule, exitRule);
 	}
@@ -134,7 +141,7 @@ public class BinanceTa4jUtils {
                 Decimal rsiek = rsiIndicator1.getValue(13);
                 
                 StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
-		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
+			StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
                 //System.out.println(" RSI = " + rsiek);
                 //STR.getTimeSeries();
 //                if (STR.getValue(14).toDouble()<0.35){
