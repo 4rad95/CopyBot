@@ -116,7 +116,7 @@ public class BinanceTa4jUtils {
 				.and(new OverIndicatorRule(stochK, stochD))
 				.and(new OverIndicatorRule(adx, Decimal.valueOf(25)))
 				.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(30)));
-		//.and(new OverIndicatorRule(atr, closePrice.multipliedBy(Decimal.valueOf(2))));
+		// .and(new OverIndicatorRule(atr, closePrice.multipliedBy(Decimal.valueOf(2))));
 
 		Rule exitRule = new CrossedDownIndicatorRule(macd, emaMacd)
 				.or(new OverIndicatorRule(stochD, stochK))
