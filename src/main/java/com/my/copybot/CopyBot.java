@@ -290,7 +290,7 @@ public class CopyBot {
 
 			if (strategyLong.shouldEnter(endIndex)) {
 
-				Decimal checkRSIStr = BinanceTa4jUtils.StochasticRSIIndicatorTest(series, 14);
+				//		Decimal checkRSIStr = BinanceTa4jUtils.StochasticRSIIndicatorTest(series, 14);
 				// If we have an open trade for the symbol, we do not create a new one
 				if (DO_TRADES && openTradesLong.get(symbol) == null&& (MAKE_LONG)) {
 					Decimal currentPrice = series.getLastTick().getClosePrice();
@@ -479,13 +479,14 @@ public class CopyBot {
 		if (inputString.equals("END")) {
 			MAX_SIMULTANEOUS_TRADES = 0;
 			closeAllOrders();
-
-		}
-		if (inputString.equals("STOP")) {
+		} else if (inputString.equals("STOP")) {
 			closeAllOrders();
 		} else if (inputString.equals("RL")) {
 			init();
 			System.out.println("Settings file reload.");
+		} else if (inputString.charAt(0) == 'D') {
+			ordersToBeClosed.add(inputString.substring(1));
+			
 		}
 	}
 

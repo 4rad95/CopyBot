@@ -12,10 +12,15 @@
             <version>2.17.1</version>
         </dependency>
         <dependency>
-            <groupId>org.ta4j</groupId>
-            <artifactId>ta4j-core</artifactId>
-            <version>0.10</version>
+            <groupId>eu.verdelhan</groupId>
+            <artifactId>ta4j</artifactId>
+            <version>0.9</version>
         </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.ta4j</groupId>-->
+        <!--            <artifactId>ta4j-core</artifactId>-->
+        <!--            <version>0.10</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
