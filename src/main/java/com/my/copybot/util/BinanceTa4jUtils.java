@@ -3,7 +3,10 @@ package com.my.copybot.util;
 import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.*;
+import org.ta4j.core.indicators.adx.AverageDirectionalMovementIndicator;
+import org.ta4j.core.indicators.helpers.AverageTrueRangeIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
+import org.ta4j.core.indicators.volume.ChaikinMoneyFlowIndicator;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
@@ -76,7 +79,11 @@ public class BinanceTa4jUtils {
 		StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
 		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 		RSIIndicator rsiIndicator = new RSIIndicator(closePrice, 14);
-		//ATRIndicator atr = new ATRIndicator(series);
+
+
+		// Индикаторы из разных категорий
+		AverageDirectionalMovementIndicator adx = new AverageDirectionalMovementIndicator(series, 14);
+		AverageTrueRangeIndicator atr = new AverageTrueRangeIndicator(series, 14);
 
 /*		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd) // First signal
 				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
@@ -97,12 +104,25 @@ public class BinanceTa4jUtils {
 				.or(new OverIndicatorRule(stochD, stochK));
 */
 
-		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
+/*		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
 				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
 				.and(new OverIndicatorRule(stochK, stochD));
 
 		Rule exitRule = new CrossedDownIndicatorRule(macd, emaMacd)
-				.or(new OverIndicatorRule(stochD, stochK));
+				.or(new OverIndicatorRule(stochD, stochK));*/
+		// Правила входа и выхода
+		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
+				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
+				.and(new OverIndicatorRule(stochK, stochD))
+				.and(new OverIndicatorRule(adx, Decimal.valueOf(25)))
+				.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(30)));
+		//.and(new OverIndicatorRule(atr, closePrice.multipliedBy(Decimal.valueOf(2))));
+
+		Rule exitRule = new CrossedDownIndicatorRule(macd, emaMacd)
+				.or(new OverIndicatorRule(stochD, stochK))
+				.or(new UnderIndicatorRule(adx, Decimal.valueOf(20)))
+				.or(new UnderIndicatorRule(rsiIndicator, Decimal.valueOf(70)));
+		//.or(new UnderIndicatorRule(atr, closePrice.multipliedBy(Decimal.valueOf(0.5))));
 
 		return new BaseStrategy(entryRule, exitRule);
 	}
@@ -133,6 +153,10 @@ public class BinanceTa4jUtils {
 		RSIIndicator rsiIndicator = new RSIIndicator(closePrice, 14);
 
 
+		// Индикаторы из разных категорий
+		ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, 20);
+		//	MoneyFlowIndicator mfi = new MoneyFlowIndicator(series, 14);
+		WilliamsRIndicator williamsR = new WilliamsRIndicator(series, 14);
 //////        Current
 //		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
 //				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
@@ -154,14 +178,29 @@ public class BinanceTa4jUtils {
 		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
 				.or(new CrossedUpIndicatorRule(stochK, stochD));
 */
-
+/*
 		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
 				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
 				.and(new UnderIndicatorRule(stochD, stochK));
 
 		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
-				.or(new CrossedUpIndicatorRule(stochK, stochD));
+				.or(new CrossedUpIndicatorRule(stochK, stochD));*/
 
+		// Правила входа и выхода
+
+		// Правила входа и выхода
+		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
+				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
+				.and(new UnderIndicatorRule(stochD, stochK))
+				.and(new OverIndicatorRule(cmf, Decimal.ZERO))
+				//			.and(new OverIndicatorRule(mfi, Decimal.valueOf(20)))
+				.and(new OverIndicatorRule(williamsR, Decimal.valueOf(-80)));
+
+		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
+				.or(new CrossedUpIndicatorRule(stochK, stochD))
+				.or(new UnderIndicatorRule(cmf, Decimal.ZERO))
+				//			.or(new UnderIndicatorRule(mfi, Decimal.valueOf(80)))
+				.or(new UnderIndicatorRule(williamsR, Decimal.valueOf(-20)));
 		return new BaseStrategy(entryRule, exitRule);
 	}
 
