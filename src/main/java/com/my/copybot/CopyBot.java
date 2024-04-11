@@ -67,18 +67,15 @@ public class CopyBot {
 	private static Integer closedTrades = 0;
 	private static Double totalProfit = 0.0;
 
-        private static Integer closedTradesLong = 0;
+	private static final List<String> badSymbols = new LinkedList<String>();
 	private static Double totalProfitLong = 0.0;
-
-        private static Integer closedTradesShort = 0;
+	private static Integer closedTradesLong = 0;
 	private static Double totalProfitShort = 0.0;
-        
-        private static BigDecimal startBalance;
+	private static Integer closedTradesShort = 0;
 
         
 	private static CandlestickInterval interval = null;
-        
-        private static final List<String> badSymbols = new LinkedList<String> ();
+	private static BigDecimal startBalance;
         
         
 
@@ -175,10 +172,14 @@ public class CopyBot {
                 }
 		try {
 			BinanceUtils.init(ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_KEY),
-							ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_SECRET));
+					ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_SECRET));
 			client = BinanceUtils.getRestClient();
 			liveClient = BinanceUtils.getWebSocketClient();
-                        startBalance = printBalance();
+			startBalance = printBalance();
+			Runnable InputString = new InputString();
+			Thread thread = new Thread(InputString);
+			//InputString.thisThread = thread;
+			thread.start();
 		} catch (GeneralException e) {
 			Log.severe(CopyBot.class, "Unable to generate Binance clients!", e);
 		}
@@ -473,4 +474,28 @@ public class CopyBot {
         return  syncRequestClient.getBalance().get(6).getBalance();
                 
         }
+
+	public static void codeInput(String inputString) throws IOException {
+		if (inputString.equals("END")) {
+			MAX_SIMULTANEOUS_TRADES = 0;
+			closeAllOrders();
+		}
+		if (inputString.equals("STOP")) {
+			closeAllOrders();
+		} else if (inputString.equals("RL")) {
+			init();
+			System.out.println("Settings file reload.");
+		}
+	}
+
+	public static void closeAllOrders() {
+		for (String symbol : openTradesLong.keySet()) {
+			ordersToBeClosed.add(symbol);
+		}
+		for (String symbol : openTradesShort.keySet()) {
+			ordersToBeClosed.add(symbol);
+		}
+	}
+
+
 }

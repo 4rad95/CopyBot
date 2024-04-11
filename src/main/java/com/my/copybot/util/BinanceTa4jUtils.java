@@ -82,7 +82,6 @@ public class BinanceTa4jUtils {
                                 .or(new OverIndicatorRule(stochD,stochK));
 
 
-           //     StochasticRSIIndicatorTest(series,14);
 		return new BaseStrategy(entryRule, exitRule);
 	}
 
@@ -113,17 +112,6 @@ public class BinanceTa4jUtils {
 		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
 				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
 				.and(new OverIndicatorRule(stochD, stochK)); // Second signal
-
-//		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // First signal
-//						.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
-//						.and (new UnderIndicatorRule(stochD, stochK)); // Second signal
-//				Rule entryRule = new OverIndicatorRule(longTermSMA, shortTermSMA)
-//				.and(new OverIndicatorRule(stochD, stochK));
-
-		//	from long
-	/*	Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd) // First signal
-				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
-				.and(new OverIndicatorRule(stochK, stochD)); // Second signal*/
 
 
 		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
