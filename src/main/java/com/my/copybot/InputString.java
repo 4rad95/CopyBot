@@ -26,7 +26,7 @@ public class InputString implements Runnable {
                     System.out.println(" #D?????USDT  - close  position, for example: #DBTCUSDT - close position for pair BTCUSDT");
                     System.out.println(" #STOP        - close all positions and open new position");
                     System.out.println(" #RL          - reload settings file ");
-                    System.out.println(" #END         - close all position and wait \u001B[0m");
+                    System.out.println(" #END         - close all position and wait, after RL continue working. \u001B[0m");
                 }
             }
 

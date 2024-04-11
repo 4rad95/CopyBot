@@ -479,6 +479,7 @@ public class CopyBot {
 		if (inputString.equals("END")) {
 			MAX_SIMULTANEOUS_TRADES = 0;
 			closeAllOrders();
+
 		}
 		if (inputString.equals("STOP")) {
 			closeAllOrders();
