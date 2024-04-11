@@ -88,6 +88,14 @@ public class BinanceTa4jUtils {
 		Rule exitRule = new CrossedDownIndicatorRule(macd, emaMacd);
 		//                       .or(new OverIndicatorRule(stochD,stochK));*/
 
+/*  Вариант 1
+		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
+				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
+				.and(new OverIndicatorRule(stochK, stochD));
+
+		Rule exitRule = new CrossedDownIndicatorRule(macd, emaMacd)
+				.or(new OverIndicatorRule(stochD, stochK));
+*/
 
 		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
 				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
@@ -95,7 +103,6 @@ public class BinanceTa4jUtils {
 
 		Rule exitRule = new CrossedDownIndicatorRule(macd, emaMacd)
 				.or(new OverIndicatorRule(stochD, stochK));
-
 
 		return new BaseStrategy(entryRule, exitRule);
 	}
@@ -140,13 +147,20 @@ public class BinanceTa4jUtils {
 //						new UnderIndicatorRule(rsi, Decimal.valueOf(30));
 		//	.or(new CrossedUpIndicatorRule(stochK, stochD));
 
+/*	Вариант №2	Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
+				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
+				.and(new UnderIndicatorRule(stochD, stochK));
+
+		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
+				.or(new CrossedUpIndicatorRule(stochK, stochD));
+*/
+
 		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
 				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
 				.and(new UnderIndicatorRule(stochD, stochK));
 
 		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
 				.or(new CrossedUpIndicatorRule(stochK, stochD));
-
 
 		return new BaseStrategy(entryRule, exitRule);
 	}
