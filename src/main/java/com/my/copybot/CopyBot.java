@@ -470,7 +470,6 @@ public class CopyBot {
         		SyncRequestClient syncRequestClient = SyncRequestClient.create( BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
                 options);
 
-        
         return  syncRequestClient.getBalance().get(6).getBalance();
                 
         }
@@ -507,7 +506,7 @@ public class CopyBot {
 				addTradeLong(inputString.substring(2));
 			} else if (inputTemp.equals("AS")) {
 				System.out.println("Add new position SHORT  ..... ");
-				addTradeLong(inputString.substring(2));
+				addTradeShort(inputString.substring(2));
 			}
 		}
 	}
