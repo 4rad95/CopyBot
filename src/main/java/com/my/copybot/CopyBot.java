@@ -307,8 +307,8 @@ public class CopyBot {
 											TradeTask tradeTask = new TradeTask(client, liveClient, symbol, currentPrice.toDouble(),
 													TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP, MAKE_TRADE_AVG, STOP_NO_LOSS);
 											Thread thread = new Thread(tradeTask);
-                                                tradeTask.thisThread = thread;
-                                                thread.start();
+											tradeTask.thisThread = thread;
+											thread.start();
 
                                                  
 						openTradesLong.put(symbol, tradeTask);
@@ -502,6 +502,12 @@ public class CopyBot {
 			} else if (inputTemp.equals("SN")) {
 				STOP_NO_LOSS = Integer.parseInt(inputString.substring(2));
 				System.out.println("New value STOP_NO_LOSS = " + STOP_NO_LOSS);
+			} else if (inputTemp.equals("AL")) {
+				System.out.println("Add new position LONG ..... ");
+				addTradeLong(inputString.substring(2));
+			} else if (inputTemp.equals("AS")) {
+				System.out.println("Add new position SHORT  ..... ");
+				addTradeLong(inputString.substring(2));
 			}
 		}
 	}
@@ -515,5 +521,32 @@ public class CopyBot {
 		}
 	}
 
+	public static Decimal getCurrentPrice(String symbol) {
+
+		TimeSeries series = timeSeriesCache.get(symbol);
+		Decimal currentPrice = series.getLastTick().getClosePrice();
+		return currentPrice;
+	}
+
+	public static void addTradeLong(String symbol) {
+
+		TradeTask tradeTask = new TradeTask(client, liveClient, symbol, getCurrentPrice(symbol).toDouble(),
+				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP, MAKE_TRADE_AVG, STOP_NO_LOSS);
+		Thread thread = new Thread(tradeTask);
+		tradeTask.thisThread = thread;
+		thread.start();
+		openTradesLong.put(symbol, tradeTask);
+	}
+
+	public static void addTradeShort(String symbol) {
+
+
+		TradeTaskShort tradeTask = new TradeTaskShort(client, liveClient, symbol, getCurrentPrice(symbol).toDouble(),
+				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP, MAKE_TRADE_AVG, STOP_NO_LOSS);
+		Thread thread = new Thread(tradeTask);
+		tradeTask.thisThread = thread;
+		thread.start();
+		openTradesShort.put(symbol, tradeTask);
+	}
 
 }
