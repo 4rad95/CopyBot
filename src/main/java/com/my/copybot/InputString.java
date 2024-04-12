@@ -24,9 +24,12 @@ public class InputString implements Runnable {
                     System.out.println(" #AS?????USDT - add short position, for example: #ASBTCUSDT - add short for pair BTCUSDT");
                     System.out.println(" #AL?????USDT - add short position, for example: #ALBTCUSDT - add long for pair BTCUSDT");
                     System.out.println(" #D?????USDT  - close  position, for example: #DBTCUSDT - close position for pair BTCUSDT");
-                    System.out.println(" #STOP        - close all positions and open new position");
-                    System.out.println(" #RL          - reload settings file ");
-                    System.out.println(" #END         - close all position and wait, after RL continue working. \u001B[0m");
+                    System.out.println(" #STOP        - not open new positions and wait old position, after TC(1-...) continue working.");
+                    System.out.println(" #TC          - set max position , for example #TC5 set 5 open position maximum");
+                    System.out.println(" #OR          - set size open position, for example #OR30 -set position size equal 30 USDT");
+                    System.out.println(" #SL          - set procent STOP_LOSS, for example #SL2 - (2*20 Cross-level) - 40% exit price");
+                    System.out.println(" #SN          - set procent STOP_NO_LOSS, for example #SN22 - stop loss order change +22% proffit");
+                    System.out.println(" #END         - close all position and wait, after TC(1-...) continue working. \u001B[0m");
                 }
             }
 

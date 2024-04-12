@@ -477,16 +477,27 @@ public class CopyBot {
 
 	public static void codeInput(String inputString) throws IOException {
 		if (inputString.equals("END")) {
-			MAX_SIMULTANEOUS_TRADES = 0;
 			closeAllOrders();
 		} else if (inputString.equals("STOP")) {
-			closeAllOrders();
-		} else if (inputString.equals("RL")) {
-			init();
-			System.out.println("Settings file reload.");
+			MAX_SIMULTANEOUS_TRADES = 0;
 		} else if (inputString.charAt(0) == 'D') {
 			ordersToBeClosed.add(inputString.substring(1));
-			
+		} else {
+			String inputTemp = inputString.substring(0, 2);
+			inputString.substring(2);
+			if (inputTemp.equals("TC")) {
+				MAX_SIMULTANEOUS_TRADES = Integer.parseInt(inputString.substring(2));
+				System.out.println("New value MAX_SIMULTANEOUS_TRADES = " + MAX_SIMULTANEOUS_TRADES);
+			} else if (inputTemp.equals("OR")) {
+				TRADE_SIZE_USDT = Double.parseDouble(inputString.substring(2));
+				System.out.println("New value TRADE_SIZE_USDT = " + TRADE_SIZE_USDT);
+			} else if (inputTemp.equals("SL")) {
+				STOPLOSS_PERCENTAGE = Double.parseDouble(inputString.substring(2));
+				System.out.println("New value STOPLOSS_PERCENTAGE = " + STOPLOSS_PERCENTAGE);
+			} else if (inputTemp.equals("SN")) {
+				STOP_NO_LOSS = Integer.parseInt(inputString.substring(2));
+				System.out.println("New value STOP_NO_LOSS = " + STOP_NO_LOSS);
+			}
 		}
 	}
 
