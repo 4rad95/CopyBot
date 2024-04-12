@@ -27,9 +27,10 @@ public class InputString implements Runnable {
                     System.out.println(" #STOP        - not open new positions and wait old position, after TC(1-...) continue working.");
                     System.out.println(" #TC          - set max position , for example #TC5 set 5 open position maximum");
                     System.out.println(" #OR          - set size open position, for example #OR30 -set position size equal 30 USDT");
-                    System.out.println(" #SL          - set procent STOP_LOSS, for example #SL2 - (2*20 Cross-level) - 40% exit price");
-                    System.out.println(" #SN          - set procent STOP_NO_LOSS, for example #SN22 - stop loss order change +22% proffit");
-                    System.out.println(" #END         - close all position and wait, after TC(1-...) continue working. \u001B[0m");
+                    System.out.println(" #SL          - set percent STOP_LOSS, for example #SL2 - (2*20 Cross-level) - 40% exit price");
+                    System.out.println(" #SN          - set percent STOP_NO_LOSS, for example #SN22 - stop loss order change +22% proffit");
+                    System.out.println(" #END         - close all position and wait, after TC(1-...) continue working. ");
+                    System.out.println(" #CHK         - Output basic traid parametrs \u001B[0m");
                 }
             }
 
