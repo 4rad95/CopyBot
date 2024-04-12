@@ -15,7 +15,7 @@ public class InputString implements Runnable {
                 if (newString == null) {
                     System.out.println(" Re-Enter bitter ");
                 } else if (newString.length() == 0) {
-                    System.out.println(" Re-Enter bitter ");
+                    System.out.println(" Re-Enter bitter (? - for output help)");
                 } else if (newString.charAt(0) == '#') {
                     System.out.println("Вы ввели = " + newString);
                     CopyBot.codeInput(newString.substring(1));
