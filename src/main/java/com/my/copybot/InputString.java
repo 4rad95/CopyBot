@@ -6,7 +6,7 @@ public class InputString implements Runnable {
 
     @Override
     public void run() {
-
+        while (true) {
         Scanner inputString = null;
         try {
             inputString = new Scanner(System.in);
@@ -37,6 +37,7 @@ public class InputString implements Runnable {
         } catch (Exception e) {
             System.out.println(" Re-Enter bitter ");
 
+        }
         }
     }
 }
