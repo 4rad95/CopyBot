@@ -7,6 +7,7 @@ import org.ta4j.core.indicators.adx.AverageDirectionalMovementIndicator;
 import org.ta4j.core.indicators.helpers.AverageTrueRangeIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.indicators.volume.ChaikinMoneyFlowIndicator;
+import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
 import org.ta4j.core.trading.rules.UnderIndicatorRule;
@@ -126,19 +127,23 @@ public class BinanceTa4jUtils {
 				.or(new UnderIndicatorRule(rsiIndicator, Decimal.valueOf(70)));
 		//.or(new UnderIndicatorRule(atr, closePrice.multipliedBy(Decimal.valueOf(0.5))));*/
 
-		Rule entryRule = new OverIndicatorRule(macd, emaMacd)
+		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
 				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
 				.and(new OverIndicatorRule(stochK, stochD))
-				.and(new UnderIndicatorRule(cmf, Decimal.ZERO))
-				//			.and(new OverIndicatorRule(mfi, Decimal.valueOf(20)))
-				.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-20)));
+				.and(new OverIndicatorRule(adx, Decimal.valueOf(25)))
+				.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(30)));
+		//.and(new OverIndicatorRule(atr, closePrice.multipliedBy(Decimal.valueOf(2))));
 
-		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
-				//	.or(new OverIndicatorRule(stochD, stochK))
-				.or(new CrossedUpIndicatorRule(stochK, stochD))
-				.or(new OverIndicatorRule(cmf, Decimal.ZERO))
-				//			.or(new UnderIndicatorRule(mfi, Decimal.valueOf(80)))
-				.or(new OverIndicatorRule(williamsR, Decimal.valueOf(-80)));
+		/*		.and(new UnderIndicatorRule(cmf, Decimal.ZERO))
+				//			.and(new OverIndicatorRule(mfi, Decimal.valueOf(20)))
+				.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-20)));*/
+
+		Rule exitRule = new CrossedDownIndicatorRule(macd, emaMacd)
+				.or(new OverIndicatorRule(stochD, stochK))
+				.or(new UnderIndicatorRule(adx, Decimal.valueOf(20)))
+				.or(new UnderIndicatorRule(rsiIndicator, Decimal.valueOf(70)));
+		//.or(new UnderIndicatorRule(atr, closePrice.getValue(0) .multipliedBy(Decimal.valueOf(0.5))));
+
 
 		return new BaseStrategy(entryRule, exitRule);
 	}
@@ -205,7 +210,7 @@ public class BinanceTa4jUtils {
 		// Правила входа и выхода
 
 		// Правила входа и выхода
-		Rule entryRule = new UnderIndicatorRule(macd, emaMacd)
+		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
 				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
 				.and(new UnderIndicatorRule(stochD, stochK))
 				.and(new OverIndicatorRule(cmf, Decimal.ZERO))
@@ -217,6 +222,7 @@ public class BinanceTa4jUtils {
 				.or(new UnderIndicatorRule(cmf, Decimal.ZERO))
 				//			.or(new UnderIndicatorRule(mfi, Decimal.valueOf(80)))
 				.or(new UnderIndicatorRule(williamsR, Decimal.valueOf(-20)));
+
 		return new BaseStrategy(entryRule, exitRule);
 	}
 
