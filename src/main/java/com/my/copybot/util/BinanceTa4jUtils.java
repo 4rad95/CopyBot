@@ -135,7 +135,8 @@ public class BinanceTa4jUtils {
 				.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-20)));
 
 		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
-				.or(new CrossedUpIndicatorRule(stochK, stochD))
+				.or(new OverIndicatorRule(stochD, stochK))
+				//	.or(new CrossedUpIndicatorRule(stochK, stochD))
 				.or(new OverIndicatorRule(cmf, Decimal.ZERO))
 				//			.or(new UnderIndicatorRule(mfi, Decimal.valueOf(80)))
 				.or(new OverIndicatorRule(williamsR, Decimal.valueOf(-80)));
@@ -213,7 +214,8 @@ public class BinanceTa4jUtils {
 				.and(new OverIndicatorRule(williamsR, Decimal.valueOf(-80)));
 
 		Rule exitRule = new CrossedUpIndicatorRule(macd, emaMacd)
-				.or(new CrossedUpIndicatorRule(stochK, stochD))
+				//.or(new CrossedUpIndicatorRule(stochK, stochD))
+				.and(new OverIndicatorRule(stochD, stochK))
 				.or(new UnderIndicatorRule(cmf, Decimal.ZERO))
 				//			.or(new UnderIndicatorRule(mfi, Decimal.valueOf(80)))
 				.or(new UnderIndicatorRule(williamsR, Decimal.valueOf(-20)));
