@@ -502,11 +502,11 @@ public class CopyBot {
 				STOP_NO_LOSS = Integer.parseInt(inputString.substring(2));
 				System.out.println("New value STOP_NO_LOSS = " + STOP_NO_LOSS);
 			} else if (inputTemp.equals("AL")) {
-				System.out.println("Add new position LONG ..... ");
-				addTradeLong(inputString.substring(2));
+				System.out.println("Add new position LONG ..... " + inputString.substring(2) + "USDT");
+				addTradeLong(inputString.substring(2) + "USDT");
 			} else if (inputTemp.equals("AS")) {
-				System.out.println("Add new position SHORT  ..... ");
-				addTradeShort(inputString.substring(2));
+				System.out.println("Add new position SHORT  ..... " + inputString.substring(2) + "USDT");
+				addTradeShort(inputString.substring(2) + "USDT");
 			}
 		}
 	}
