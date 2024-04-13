@@ -477,6 +477,7 @@ public class CopyBot {
 	public static void codeInput(String inputString) throws IOException {
 		if (inputString.equals("END")) {
 			closeAllOrders();
+			MAX_SIMULTANEOUS_TRADES = 0;
 		} else if (inputString.equals("CHK")) {
 			System.out.println("Used value MAX_SIMULTANEOUS_TRADES = " + MAX_SIMULTANEOUS_TRADES);
 			System.out.println("Used value TRADE_SIZE_USDT = " + TRADE_SIZE_USDT);
@@ -485,7 +486,7 @@ public class CopyBot {
 		} else if (inputString.equals("STOP")) {
 			MAX_SIMULTANEOUS_TRADES = 0;
 		} else if (inputString.charAt(0) == 'D') {
-			ordersToBeClosed.add(inputString.substring(1));
+			ordersToBeClosed.add(inputString.substring(1) + "USDT");
 		} else {
 			String inputTemp = inputString.substring(0, 2);
 			inputString.substring(2);
