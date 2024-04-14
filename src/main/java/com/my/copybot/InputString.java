@@ -21,9 +21,9 @@ public class InputString implements Runnable {
                     CopyBot.codeInput(newString.substring(1));
                 } else if (newString.charAt(0) == '?') {
                     System.out.println("\u001B[33m Add functions for console input: ");
-                    System.out.println(" #AS?????     - add short position, for example: #ASBTC  - add short for pair BTCUSDT");
-                    System.out.println(" #AL?????     - add short position, for example: #ALBTC  - add long for pair BTCUSDT");
-                    System.out.println(" #D?????      - close  position, for example: #DBTCUSDT - close position for pair BTCUSDT");
+                    System.out.println(" #AS?????     - add short position, for example: #ASBTC or #asBtc  - add short for pair BTCUSDT");
+                    System.out.println(" #AL?????     - add short position, for example: #ALBTC or #aLbTc - add long for pair BTCUSDT");
+                    System.out.println(" #D?????      - close  position, for example: #DBTCUSDT or #dbTc- close position for pair BTCUSDT");
                     System.out.println(" #STOP        - not open new positions and wait old position, after TC(1-...) continue working.");
                     System.out.println(" #TC          - set max position , for example #TC5 set 5 open position maximum");
                     System.out.println(" #OR          - set size open position, for example #OR30 -set position size equal 30 USDT");
