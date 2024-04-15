@@ -8,38 +8,18 @@ package com.my.copybot;
 //import com.binance.api.client.domain.OrderType;
 //import com.binance.api.client.domain.TimeInForce;
 
-import com.binance.client.RequestOptions;
-import com.binance.client.SyncRequestClient;
-import com.binance.client.model.enums.NewOrderRespType;
-import com.binance.client.model.enums.OrderSide;
-import com.binance.client.model.enums.OrderType;
-import com.binance.client.model.enums.PositionSide;
-import com.binance.client.model.enums.TimeInForce;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-
-import com.my.copybot.util.BinanceUtils;
-import org.ta4j.core.Decimal;
-
-import java.util.ArrayList;
-
-
 /**
  *
  * @author radomir
  */
 public class Order {
-    
-    /**
-     *
-     */
+  /*
+
             private String symbol;
             private Decimal price;
             ArrayList<String> orderList;
 
-    public Order(String symbol, Decimal price) {
+    public Order(String symbol, DecimalNum price) {
         this.symbol = symbol;
         this.price = price;
     }
@@ -61,7 +41,7 @@ public class Order {
         System.out.println(syncRequestClient.getBalance().get(6));
     //            System.out.println();        
  //       System.out.println(syncRequestClient.getAllOrders("DOGEUSDT", null, null, null, 10));
-            Decimal count = Decimal.valueOf(20 / price.toDouble());
+            DecimalNum count = Decimal.valueOf(20 / price.toDouble());
             String str="";
             if (price.toDouble() > 200) {
                     str = String.format("%.6f",count.toDouble());}
@@ -126,6 +106,6 @@ public class Order {
         
         }
                 
-            
+            */
 
 }
