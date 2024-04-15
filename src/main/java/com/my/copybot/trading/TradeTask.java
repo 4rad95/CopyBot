@@ -202,6 +202,7 @@ public class TradeTask implements Runnable {
 
 	private String getAmount(Double price) {
 		// This method should be refactored... there is a method in Binance API to get symbol info
+
 		Double rawAmount = usdtAmount / price;
 		if (rawAmount > 1) {
 			Integer iAmount = Integer.valueOf(rawAmount.intValue());

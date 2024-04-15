@@ -237,7 +237,7 @@ public class TradeTaskShort implements Runnable {
 				});
 	}
 
-	private void checkPrice(Double price) throws GeneralException {
+	private synchronized void checkPrice(Double price) throws GeneralException {
 		Long now = System.currentTimeMillis();
                 // Change p
 //                if (Double.parseDouble(order.getCurrentProfit(price)) > 2) {
