@@ -89,7 +89,7 @@ public class BinanceTa4jUtils {
 		WilliamsRIndicator williamsR = new WilliamsRIndicator(series, 14);
 
 
-		Rule entryRule = new OverIndicatorRule(macd, emaMacd)                                                    // CrossedUpIndicatorRule(macd, emaMacd)
+		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
 				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
 				.and(new OverIndicatorRule(stochK, stochD))
 				.and(new OverIndicatorRule(adx, Decimal.valueOf(25)))
@@ -145,7 +145,7 @@ public class BinanceTa4jUtils {
 		WilliamsRIndicator williamsR = new WilliamsRIndicator(series, 14);
 
 		// Правила входа и выхода
-		Rule entryRule = new UnderIndicatorRule(macd, emaMacd)  //CrossedDownIndicatorRule(macd, emaMacd)
+		Rule entryRule = new CrossedDownIndicatorRule(emaMacd, macd)
 				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))   // 	.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
 				.and(new UnderIndicatorRule(stochD, stochK))
 				.and(new OverIndicatorRule(cmf, Decimal.ZERO))          // OverIndicatorRule(cmf, Decimal.ZERO)
