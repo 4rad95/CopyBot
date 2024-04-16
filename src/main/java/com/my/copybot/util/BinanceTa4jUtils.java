@@ -89,15 +89,14 @@ public class BinanceTa4jUtils {
 		WilliamsRIndicator williamsR = new WilliamsRIndicator(series, 14);
 
 
-
-		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
+		Rule entryRule = new OverIndicatorRule(macd, emaMacd)                                                    // CrossedUpIndicatorRule(macd, emaMacd)
 				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
 				.and(new OverIndicatorRule(stochK, stochD))
 				.and(new OverIndicatorRule(adx, Decimal.valueOf(25)))
 				.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(30)))
-				.and(new OverIndicatorRule(cmf, Decimal.ZERO))
-				.and(new OverIndicatorRule(atr, closePrice.getValue(2)))
-				.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-20)));  // Add ich
+				.and(new UnderIndicatorRule(cmf, Decimal.ZERO))
+				//			.and(new OverIndicatorRule(atr, closePrice.getValue(2)))
+				.and(new OverIndicatorRule(williamsR, Decimal.valueOf(-20)));  // Add ich
 
 		/*		.and(new UnderIndicatorRule(cmf, Decimal.ZERO))
 				//			.and(new OverIndicatorRule(mfi, Decimal.valueOf(20)))
@@ -146,10 +145,10 @@ public class BinanceTa4jUtils {
 		WilliamsRIndicator williamsR = new WilliamsRIndicator(series, 14);
 
 		// Правила входа и выхода
-		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
+		Rule entryRule = new UnderIndicatorRule(macd, emaMacd)  //CrossedDownIndicatorRule(macd, emaMacd)
 				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))   // 	.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
 				.and(new UnderIndicatorRule(stochD, stochK))
-				.and(new UnderIndicatorRule(cmf, Decimal.ZERO))          // OverIndicatorRule(cmf, Decimal.ZERO)
+				.and(new OverIndicatorRule(cmf, Decimal.ZERO))          // OverIndicatorRule(cmf, Decimal.ZERO)
 				//			.and(new OverIndicatorRule(mfi, Decimal.valueOf(20)))
 				.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-80)));
 
