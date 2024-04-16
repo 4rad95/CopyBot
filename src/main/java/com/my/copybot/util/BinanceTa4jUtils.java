@@ -132,8 +132,8 @@ public class BinanceTa4jUtils {
 
 		Rule entryRule = new CrossedUpIndicatorRule(sma1, sma2)
 				.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
-				.and(new OverIndicatorRule(stochK, stochD))
-				.or(new UnderIndicatorRule(williamsR, Decimal.valueOf(-80)))
+				.and(new UnderIndicatorRule(stochK, stochD))
+				.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-80)))
 				.and(new UnderIndicatorRule(stochD, Decimal.valueOf(60)));
 
 		Rule exitRule = new CrossedDownIndicatorRule(sma1, sma2)
