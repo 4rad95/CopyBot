@@ -14,11 +14,13 @@ import com.my.copybot.CopyBot;
 import com.my.copybot.Log;
 import com.my.copybot.exceptions.GeneralException;
 import com.my.copybot.model.ExecutedOrder;
+import com.my.copybot.model.Position;
 import com.my.copybot.util.BinanceUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 public class TradeTask implements Runnable {
 
@@ -34,7 +36,7 @@ public class TradeTask implements Runnable {
     private final Integer stopNoLoss;
     private final String type;   // (Short or Long)
     public Thread thisThread;
-    private ExecutedOrder order = null;
+    private static ExecutedOrder order = null;
     private boolean error = false;
     private String errorMessage = "";
     private Long lastPriceLog = 0L;
@@ -147,6 +149,44 @@ public class TradeTask implements Runnable {
         Log.info(getClass(), "Buy [" + type + "] ready : " + symbol + ", quantity: " + quantity + ",  " + priceReal);
     }
 
+    private static Position createStatisticPosition(String status) {
+        Position closePosition = new Position(order.getCreationTime(), order.getCloseTime(), order.getType(),
+                order.getSymbol(), order.getPriceAvg(), order.getClosePrice(), order.getQuantity(), order.getProfit(), status);
+        return closePosition;
+    }
+
+
+    private String getAmount(Double price) {
+        // This method should be refactored... there is a method in Binance API to get symbol info
+        Double rawAmount = usdtAmount / price;
+
+        if (rawAmount > 1) {
+            Integer iAmount = Integer.valueOf(rawAmount.intValue());
+            return "" + iAmount;
+        } else if (rawAmount < 1 && rawAmount >= 0.1) {
+            return StringUtils.replaceAll(String.format("%.2f", rawAmount), ",", ".");
+        } else {
+            return StringUtils.replaceAll(String.format("%.3f", rawAmount), ",", ".");
+        }
+    }
+
+    private Double getAmountDouble(Double price) {
+        // This method should be refactored... there is a method in Binance API to get symbol info
+        Double rawAmount = usdtAmount / price;
+        return rawAmount;
+    }
+
+    private void monitorPrice() {
+        liveClient.onCandlestickEvent(symbol.toLowerCase(),
+                CandlestickInterval.ONE_MINUTE, response -> {
+                    try {
+                        checkPrice(Double.valueOf(response.getClose()));
+                    } catch (GeneralException ex) {
+                        Logger.getLogger(TradeTask.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+    }
+
     /*private void buySecond() throws GeneralException {
         String quantity = getAmount(alertPrice);
         Log.info(getClass(), "Second to buy " + symbol + ", quantity: " + quantity);
@@ -221,103 +261,12 @@ public class TradeTask implements Runnable {
             order.setCloseTime(System.currentTimeMillis());
             // Добавить статистику!
             CopyBot.closeOrder(symbol, order.getProfit(), null, type);
-
+            CopyBot.addPositionClosed(createStatisticPosition("Ok"));
         } catch (Exception e) {
             System.out.println(" --------------------------- " + symbol + "   closed");
             Log.severe(getClass(), "Unable to sell!", e);
+            CopyBot.addPositionClosed(createStatisticPosition("Error"));
             // CopyBotSpot.closeOrder(symbol, order.getProfit(), null);
-        }
-    }
-
-
-    private String getAmount(Double price) {
-        // This method should be refactored... there is a method in Binance API to get symbol info
-        Double rawAmount = usdtAmount / price;
-
-        if (rawAmount > 1) {
-            Integer iAmount = Integer.valueOf(rawAmount.intValue());
-            return "" + iAmount;
-        } else if (rawAmount < 1 && rawAmount >= 0.1) {
-            return StringUtils.replaceAll(String.format("%.2f", rawAmount), ",", ".");
-        } else {
-            return StringUtils.replaceAll(String.format("%.3f", rawAmount), ",", ".");
-        }
-    }
-
-    private Double getAmountDouble(Double price) {
-        // This method should be refactored... there is a method in Binance API to get symbol info
-        Double rawAmount = usdtAmount / price;
-        return rawAmount;
-    }
-
-    private void monitorPrice() {
-        liveClient.onCandlestickEvent(symbol.toLowerCase(),
-                CandlestickInterval.ONE_MINUTE, response -> {
-                    try {
-                        checkPrice(Double.valueOf(response.getClose()));
-                    } catch (GeneralException ex) {
-                        Logger.getLogger(TradeTask.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                });
-    }
-
-    private synchronized void checkPrice(Double price) throws GeneralException {
-        Long now = System.currentTimeMillis();
-        // Change p
-//                if (Double.parseDouble(order.getCurrentProfit(price)) > 2) {
-//                                  order.setCurrentStopLoss(order.getPrice()*1.1);
-//                        }
-        // This is a bit harcoded, but just trying to avoid too many logs..
-        if ((now - lastPriceLog) > 60 * 1000L) {
-            String proffit = order.getCurrentProfit(price).replace(",", ".");
-            Double chkProffit =  Double.parseDouble(proffit);
-            if (chkProffit > stopNoLoss) {
-                // Uppper StoppLoss level
-                double temp = order.getCurrentStopLoss();
-                order.setCurrentStopLoss(setStopLoss(chkProffit));
-                if (temp != order.getCurrentStopLoss()) {
-                System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
-                }
-            }
-
-            Log.info(getClass(),
-                    type + " : " + symbol + ". Current price: " + showPrice(price)
-                            + ", buy price: " + showPrice(order.getPrice())
-                            + ", stoploss: "
-                            + showPrice(order.getCurrentStopLoss())
-                            + ", current profit: " + order.getCurrentProfit(price) + "%");
-            lastPriceLog = now;
-        }
-        // Implement avg buy
-//                if (makeAvg &&(price > order.getPriceAvg()))
-//                {
-//                    makeAvg = false;
-//                    buySecond();
-//                }
-
-        //if (trailingStopShouldCloseOrder(price) || CopyBotSpot.shouldCloseOrder(symbol)) //{
-        switch (type) {
-            case "SHORT": {
-                if (price >= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol))      // Close stopLoss
-                {
-                    sell(price);
-                    Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
-                            + ". Current price: " + showPrice(price) + ", profit: " + order.getProfit());
-                    thisThread.stop();
-                }
-                break;
-            }
-            case "LONG": {
-                if (price <= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol))      // Close stopLoss
-                {
-                    sell(price);
-                    Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
-                            + ". Current price: " + showPrice(price) + ", profit: " + order.getProfit());
-                    thisThread.stop();
-                }
-                break;
-            }
-
         }
     }
 
@@ -413,6 +362,66 @@ public class TradeTask implements Runnable {
             }
         }
         return proffitNew;
+    }
+
+    private synchronized void checkPrice(Double price) throws GeneralException {
+        Long now = System.currentTimeMillis();
+        // Change p
+//                if (Double.parseDouble(order.getCurrentProfit(price)) > 2) {
+//                                  order.setCurrentStopLoss(order.getPrice()*1.1);
+//                        }
+        // This is a bit harcoded, but just trying to avoid too many logs..
+        if ((now - lastPriceLog) > 60 * 1000L) {
+            String proffit = order.getCurrentProfit(price).replace(",", ".");
+            Double chkProffit = Double.parseDouble(proffit);
+            if (chkProffit > stopNoLoss) {
+                // Uppper StoppLoss level
+                double temp = order.getCurrentStopLoss();
+                order.setCurrentStopLoss(setStopLoss(chkProffit));
+                if (temp != order.getCurrentStopLoss()) {
+                    System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
+                }
+            }
+
+            Log.info(getClass(),
+                    type + " : " + symbol + ". Current price: " + showPrice(price)
+                            + ", buy price: " + showPrice(order.getPrice())
+                            + ", stoploss: "
+                            + showPrice(order.getCurrentStopLoss())
+                            + ", current profit: " + order.getCurrentProfit(price) + "%");
+            lastPriceLog = now;
+        }
+        // Implement avg buy
+//                if (makeAvg &&(price > order.getPriceAvg()))
+//                {
+//                    makeAvg = false;
+//                    buySecond();
+//                }
+
+        //if (trailingStopShouldCloseOrder(price) || CopyBotSpot.shouldCloseOrder(symbol)) //{
+        switch (type) {
+            case "SHORT": {
+                if (price >= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol))      // Close stopLoss
+                {
+                    sell(price);
+                    Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
+                            + ". Current price: " + showPrice(price) + ", profit: " + order.getProfit());
+                    thisThread.stop();
+                }
+                break;
+            }
+            case "LONG": {
+                if (price <= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol))      // Close stopLoss
+                {
+                    sell(price);
+                    Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
+                            + ". Current price: " + showPrice(price) + ", profit: " + order.getProfit());
+                    thisThread.stop();
+                }
+                break;
+            }
+
+        }
     }
 }
 

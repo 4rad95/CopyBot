@@ -16,6 +16,7 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
 import com.my.copybot.exceptions.GeneralException;
+import com.my.copybot.model.Position;
 import com.my.copybot.trading.TradeTask;
 import com.my.copybot.util.BinanceTa4jUtils;
 import com.my.copybot.util.BinanceUtils;
@@ -58,7 +59,7 @@ public class CopyBot {
 	private static final Map<String, TradeTask> openTradesShort = new HashMap<String, TradeTask>();
         
 	private static final List<String> ordersToBeClosed = new LinkedList<String>();
-        
+	private static final List<Position> closedPositions = new LinkedList<Position>();
 
 	private static BinanceApiRestClient client;
 	private static BinanceApiWebSocketClient liveClient;
@@ -289,40 +290,26 @@ public class CopyBot {
 
 			if (strategyLong.shouldEnter(endIndex)) {
 
-				//		Decimal checkRSIStr = BinanceTa4jUtils.StochasticRSIIndicatorTest(series, 14);
+
 				// If we have an open trade for the symbol, we do not create a new one
 				if (DO_TRADES && openTradesLong.get(symbol) == null&& (MAKE_LONG)) {
 					Decimal currentPrice = series.getLastTick().getClosePrice();
-					//        MainForm.addStringTextEdit("Bullish signal for symbol: \" + symbol + \", price: \" + currentPrice)");
-					//Log.info(CopyBotSpot.class, "LONG signal for symbol: " + symbol + ", price: " + currentPrice);
-                                        //Order newOrder = new Order(symbol,currentPrice);
-                                        // newOrder.addNewOrder(symbol,currentPrice);
-					//if (false) {
+
                                         if (((openTradesLong.keySet().size()+openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES))                                       
                                         {
 
 											// We create a new position to trade with the symbol
 											addTrade(symbol, "LONG");
-											/*TradeTask tradeTask = new TradeTask(client, liveClient, symbol, currentPrice.toDouble(),
-													TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP, MAKE_TRADE_AVG, STOP_NO_LOSS);
-											Thread thread = new Thread(tradeTask);
-											tradeTask.thisThread = thread;
-											thread.start();
 
-                                                 
-						openTradesLong.put(symbol, tradeTask);
-								*/
+
 					} else {
 					//	Log.info(CopyBotSpot.class, "-------------Skipping LONG signal for symbol  " + symbol + " Wait!" );
 					}
 				}
 			} else if (strategyShort.shouldEnter(endIndex)) //&& openTrades.get(symbol) != null && !DO_TRAILING_STOP)
                                 {
-				// If we use trailing stop, the order will be closed when the moving stoploss is hit
-									//	Log.info(CopyBotSpot.class, "SHORT signal for symbol: " + symbol + ", price: " + series.getLastTick().getClosePrice()
-					//	);
 				// This object is scanned by the symbol trading thread
-				// ordersToBeClosed.add(symbol);
+
 
 									if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
 										Decimal currentPrice = series.getLastTick().getClosePrice();
@@ -334,12 +321,7 @@ public class CopyBot {
 											// We create a new position to short trade with the symbol
 
 											addTrade(symbol, "SHORT");
-											/*TradeTaskShort tradeTask = new TradeTaskShort(client, liveClient, symbol, currentPrice.toDouble(),
-                                     			TRADE_SIZE_BTC,TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP,MAKE_TRADE_AVG,STOP_NO_LOSS);
-											Thread thread = new Thread(tradeTask);
-											tradeTask.thisThread = thread;
-											thread.start();
-											openTradesShort.put(symbol, tradeTask);*/
+
 										}
 									}
                                 }
@@ -483,6 +465,8 @@ public class CopyBot {
 			System.out.println("Used value STOP_NO_LOSS = " + STOP_NO_LOSS);
 		} else if (inputString.equals("STOP")) {
 			MAX_SIMULTANEOUS_TRADES = 0;
+		} else if (inputString.equals("STAT")) {
+			outputPositionClosed(closedPositions);
 		} else if (inputString.charAt(0) == 'D') {
 			ordersToBeClosed.add(inputString.substring(1) + "USDT");
 		} else {
@@ -536,22 +520,23 @@ public class CopyBot {
 		switch (type) {
 			case "LONG": {
 				openTradesLong.put(symbol, tradeTask);
+				break;
 			}
 			case "SHORT": {
 				openTradesShort.put(symbol, tradeTask);
+				break;
 			}
 		}
 	}
-/*
-	public static void addTradeShort(String symbol) {
 
-
-		TradeTaskShort tradeTask = new TradeTaskShort(client, liveClient, symbol, getCurrentPrice(symbol).toDouble(),
-				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP, MAKE_TRADE_AVG, STOP_NO_LOSS);
-		Thread thread = new Thread(tradeTask);
-		tradeTask.thisThread = thread;
-		thread.start();
-		openTradesShort.put(symbol, tradeTask);
+	public static void addPositionClosed(Position closedPosition) {
+		closedPositions.add(closedPosition);
 	}
-*/
+
+	public static void outputPositionClosed(List<Position> closedPosition) {
+		for (Position position : closedPosition) {
+			System.out.println(position.toString());
+		}
+    }
+
 }
