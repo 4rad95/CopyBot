@@ -373,7 +373,7 @@ public class TradeTask implements Runnable {
                     proffitNew = order.getPrice() * 0.982;
                     return proffitNew;
                 } else {
-                    proffitNew = order.getPrice() * 0.99;
+                    proffitNew = order.getPrice() * 0.995;
                     return proffitNew;
                 }
             }
@@ -404,7 +404,7 @@ public class TradeTask implements Runnable {
                     proffitNew = order.getPrice() * 1.18;
                     return proffitNew;
                 } else {
-                    proffitNew = order.getPrice() * 1.01;
+                    proffitNew = order.getPrice() * 1.005;
                     return proffitNew;
                 }
             }
