@@ -3,10 +3,7 @@ package com.my.copybot.util;
 import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.*;
-import org.ta4j.core.indicators.adx.AverageDirectionalMovementIndicator;
-import org.ta4j.core.indicators.helpers.AverageTrueRangeIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.indicators.volume.ChaikinMoneyFlowIndicator;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
@@ -104,10 +101,10 @@ public class BinanceTa4jUtils {
 		StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
 		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 		RSIIndicator rsiIndicator = new RSIIndicator(closePrice, rsiPeriod);
-		AverageDirectionalMovementIndicator adx = new AverageDirectionalMovementIndicator(series, adxPeriod);
-		AverageTrueRangeIndicator atr = new AverageTrueRangeIndicator(series, adxPeriod);
-		ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);
-		WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
+        //	AverageDirectionalMovementIndicator adx = new AverageDirectionalMovementIndicator(series, adxPeriod);
+        //	AverageTrueRangeIndicator atr = new AverageTrueRangeIndicator(series, adxPeriod);
+        //	ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);
+        //	WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
 		EMAIndicator sma1 = new EMAIndicator(closePrice, 5);
 		EMAIndicator sma2 = new EMAIndicator(closePrice, 10);
 /*		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
@@ -133,10 +130,12 @@ public class BinanceTa4jUtils {
 		Rule entryRule = new CrossedUpIndicatorRule(sma1, sma2)
 				.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
 				.and(new UnderIndicatorRule(stochK, stochD))
-				//.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-75)))
+                .and(new OverIndicatorRule(shortTermSMA, longTermSMA))
+                //	.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-50)))
 				.and(new UnderIndicatorRule(stochD, Decimal.valueOf(60)));
 
-		Rule exitRule = new CrossedDownIndicatorRule(sma1, sma2)
+        Rule exitRule = //new CrossedDownIndicatorRule(sma1, sma2)
+                new UnderIndicatorRule(sma1, sma2)
 				.or(new CrossedDownIndicatorRule(rsiIndicator, Decimal.valueOf(50)));
 
 		return new BaseStrategy(entryRule, exitRule);
@@ -174,16 +173,18 @@ public class BinanceTa4jUtils {
 		StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
 		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 		RSIIndicator rsiIndicator = new RSIIndicator(closePrice, rsiPeriod);
-		ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);
+        /*	ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);*/
 		WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
 
 		Rule entryRule = new CrossedDownIndicatorRule(sma1, sma2)
 				.and(new UnderIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
 				.and(new UnderIndicatorRule(stochK, stochD))
-				//	.and(new OverIndicatorRule(williamsR, Decimal.valueOf(-25)))
+                .and(new OverIndicatorRule(longTermSMA, shortTermSMA))
+                //.and(new OverIndicatorRule(williamsR, Decimal.valueOf(-50)))
 				.and(new OverIndicatorRule(stochD, Decimal.valueOf(40)));
 
-		Rule exitRule = new CrossedDownIndicatorRule(sma1, sma2)
+        Rule exitRule = //new CrossedDownIndicatorRule(sma1, sma2)
+                new OverIndicatorRule(sma1, sma2)    // ?
 				.or(new CrossedUpIndicatorRule(rsiIndicator, Decimal.valueOf(50)));
 
 		/*	MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);

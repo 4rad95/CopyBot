@@ -17,7 +17,6 @@ import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
 import com.my.copybot.exceptions.GeneralException;
 import com.my.copybot.trading.TradeTask;
-import com.my.copybot.trading.TradeTaskShort;
 import com.my.copybot.util.BinanceTa4jUtils;
 import com.my.copybot.util.BinanceUtils;
 import com.my.copybot.util.ConfigUtils;
@@ -56,7 +55,7 @@ public class CopyBot {
 	private static final Map<String, TimeSeries> timeSeriesCache = new HashMap<String, TimeSeries>();
 
 	private static final Map<String, TradeTask> openTradesLong = new HashMap<String, TradeTask>();
-        private static final Map<String, TradeTaskShort> openTradesShort = new HashMap<String, TradeTaskShort>();
+	private static final Map<String, TradeTask> openTradesShort = new HashMap<String, TradeTask>();
         
 	private static final List<String> ordersToBeClosed = new LinkedList<String>();
         
@@ -301,10 +300,10 @@ public class CopyBot {
 					//if (false) {
                                         if (((openTradesLong.keySet().size()+openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES))                                       
                                         {
-                                            
-                                         // We create a new thread to trade with the symbol
 
-											TradeTask tradeTask = new TradeTask(client, liveClient, symbol, currentPrice.toDouble(),
+											// We create a new position to trade with the symbol
+											addTrade(symbol, "LONG");
+											/*TradeTask tradeTask = new TradeTask(client, liveClient, symbol, currentPrice.toDouble(),
 													TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP, MAKE_TRADE_AVG, STOP_NO_LOSS);
 											Thread thread = new Thread(tradeTask);
 											tradeTask.thisThread = thread;
@@ -312,7 +311,7 @@ public class CopyBot {
 
                                                  
 						openTradesLong.put(symbol, tradeTask);
-
+								*/
 					} else {
 					//	Log.info(CopyBotSpot.class, "-------------Skipping LONG signal for symbol  " + symbol + " Wait!" );
 					}
@@ -332,19 +331,19 @@ public class CopyBot {
 
 										if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
 
-											// We create a new thread to short trade with the symbol
+											// We create a new position to short trade with the symbol
 
-											TradeTaskShort tradeTask = new TradeTaskShort(client, liveClient, symbol, currentPrice.toDouble(),
+											addTrade(symbol, "SHORT");
+											/*TradeTaskShort tradeTask = new TradeTaskShort(client, liveClient, symbol, currentPrice.toDouble(),
                                      			TRADE_SIZE_BTC,TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP,MAKE_TRADE_AVG,STOP_NO_LOSS);
 											Thread thread = new Thread(tradeTask);
 											tradeTask.thisThread = thread;
 											thread.start();
-											openTradesShort.put(symbol, tradeTask);
+											openTradesShort.put(symbol, tradeTask);*/
 										}
 									}
                                 }
 
-		//	Log.debug(CopyBotSpot.class, "Symbol " + symbol + " checked in " + ((System.currentTimeMillis() - t0) / 1000.0) + " seconds");
 		} catch (GeneralException e) {
 			Log.severe(CopyBot.class, "Unable to check symbol " + symbol + "Error: " + e);
 		}
@@ -366,9 +365,8 @@ public class CopyBot {
 				TimeSeries series = BinanceTa4jUtils.convertToTimeSeries(candlesticks, symbol, interval.getIntervalId());
 				timeSeriesCache.put(symbol, series);
 			} catch (Exception e) {
-				// Log.severe(CopyBotSpot.class, "Unable to generate time series / strategy for " + symbol, e);
-                                System.out.println("\u001B[32m"  +symbol + "  -  Not used symbol !!! \u001B[0m");
-                                 badSymbols.add(symbol);
+				Log.severe(CopyBot.class, "\u001B[32m" + symbol + "  -  Not used symbol !!! \u001B[0m");
+				badSymbols.add(symbol);
 			}}
 		}
 	}
@@ -504,10 +502,10 @@ public class CopyBot {
 				System.out.println("New value STOP_NO_LOSS = " + STOP_NO_LOSS);
 			} else if (inputTemp.equals("AL")) {
 				System.out.println("Add new position LONG ..... " + inputString.substring(2) + "USDT");
-				addTradeLong(inputString.substring(2) + "USDT");
+				addTrade(inputString.substring(2) + "USDT", "LONG");
 			} else if (inputTemp.equals("AS")) {
 				System.out.println("Add new position SHORT  ..... " + inputString.substring(2) + "USDT");
-				addTradeShort(inputString.substring(2) + "USDT");
+				addTrade(inputString.substring(2) + "USDT", "SHORT");
 			}
 		}
 	}
@@ -528,16 +526,23 @@ public class CopyBot {
 		return currentPrice;
 	}
 
-	public static void addTradeLong(String symbol) {
+	public static void addTrade(String symbol, String type) {
 
 		TradeTask tradeTask = new TradeTask(client, liveClient, symbol, getCurrentPrice(symbol).toDouble(),
-				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP, MAKE_TRADE_AVG, STOP_NO_LOSS);
+				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP, MAKE_TRADE_AVG, STOP_NO_LOSS, type);
 		Thread thread = new Thread(tradeTask);
 		tradeTask.thisThread = thread;
 		thread.start();
-		openTradesLong.put(symbol, tradeTask);
+		switch (type) {
+			case "LONG": {
+				openTradesLong.put(symbol, tradeTask);
+			}
+			case "SHORT": {
+				openTradesShort.put(symbol, tradeTask);
+			}
+		}
 	}
-
+/*
 	public static void addTradeShort(String symbol) {
 
 
@@ -548,5 +553,5 @@ public class CopyBot {
 		thread.start();
 		openTradesShort.put(symbol, tradeTask);
 	}
-
+*/
 }

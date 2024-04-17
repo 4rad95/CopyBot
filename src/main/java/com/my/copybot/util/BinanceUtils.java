@@ -1,17 +1,15 @@
 
 package com.my.copybot.util;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import com.my.copybot.exceptions.GeneralException;
-import org.apache.commons.lang3.StringUtils;
-
 import com.binance.api.client.BinanceApiClientFactory;
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.BinanceApiWebSocketClient;
 import com.binance.api.client.domain.market.Candlestick;
 import com.binance.api.client.domain.market.CandlestickInterval;
+import com.my.copybot.exceptions.GeneralException;
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -19,8 +17,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import java.util.LinkedList;
+import java.util.List;
 
 public class BinanceUtils {
 
@@ -46,15 +44,13 @@ public class BinanceUtils {
 		API_SECRET = apiSecret;
 	}
 
-	public static List<String> getBitcoinSymbols() throws GeneralException, MalformedURLException, Exception {
-            
-              URL url = new URL ("https://www.binance.com/fapi/v1/premiumIndex");
-           
-           URLConnection urc = url.openConnection();
-           System.out.println(" connected true ");
-           
+	public static List<String> getBitcoinSymbols() throws Exception {
+
+		URL url = new URL("https://www.binance.com/fapi/v1/premiumIndex");
+		URLConnection urc = url.openConnection();
+
            BufferedReader in = new BufferedReader(
-                new InputStreamReader (urc.getInputStream()));
+				   new InputStreamReader(urc.getInputStream()));
            
            String inputLine;
            inputLine = in.readLine();
@@ -63,17 +59,6 @@ public class BinanceUtils {
                 List<String> symbols = new LinkedList<String>();
                 symbols = parserJsonMy(inputLine);
                 
-               // BinanceApiRestClient client = getRestClient();
-	//	List<TickerPrice> prices = client.getAllPrices();
-            
-//		List<String> symbols = new LinkedList<String>();
-//		BinanceApiRestClient client = getRestClient();
-//		List<TickerPrice> prices = client.getAllPrices();
-//		for (TickerPrice tickerPrice : prices) {
-//			if (StringUtils.endsWith(tickerPrice.getSymbol(), "USDT")) {
-//				symbols.add(tickerPrice.getSymbol());
-//			}
-//		}
 		return symbols;
 	}
 

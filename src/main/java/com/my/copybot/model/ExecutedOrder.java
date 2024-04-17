@@ -7,19 +7,28 @@ public class ExecutedOrder {
 	private String symbol;
 	private Double price;
 	private String quantity;
-        private Double quantityDouble;
+	private Double quantityDouble;
 	private Long closeTime;
 	private Double closePrice;
 	private Double initialStopLoss;
 	private Double currentStopLoss;
-        private String orderId;
-        private Double priceAvg;
+	private String orderId;
+	private Double priceAvg;
+	private String type; // short or long
 
     public String getOrderId() {
         return orderId;
     }
 
-    public Double getQuantityDouble() {
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Double getQuantityDouble() {
         return quantityDouble;
     }
 
@@ -38,8 +47,6 @@ public class ExecutedOrder {
     public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
-	
-        
 	public Long getCreationTime() {
 		return creationTime;
 	}
@@ -92,14 +99,18 @@ public class ExecutedOrder {
 		this.initialStopLoss = initialStopLoss;
 	}
 	public Boolean trailingStopShouldCloseOrder(Double currentPrice) {
-		if(currentPrice < currentStopLoss) {
-			return true;
-		}
-		return false;
-	}
+        return currentPrice < currentStopLoss;
+    }
 	public String getCurrentProfit(Double currentPrice) {
-		Double profitPercentage = ((currentPrice - price)/price)*100*20;
-		return String.format("%.2f", profitPercentage);
+
+		if (type.equals("LONG")) {
+			Double profitPercentage = ((currentPrice - price) / price) * 100 * 20;
+			return String.format("%.2f", profitPercentage);
+		} else {
+			Double profitPercentage = ((price - currentPrice) / price) * 100 * 20;
+			return String.format("%.2f", profitPercentage);
+		}
+
 	}
 	
 	@Override
