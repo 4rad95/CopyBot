@@ -40,7 +40,6 @@ public class InputString implements Runnable {
             }
         } catch (Exception e) {
             System.out.println(" Re-Enter bitter ");
-
         }
         }
     }
