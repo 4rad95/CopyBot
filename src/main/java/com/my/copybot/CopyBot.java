@@ -377,7 +377,7 @@ public class CopyBot {
 	 * @param profit
 	 * @param errorMessage
 	 */
-	public static void closeOrder(String symbol, Double profit, String errorMessage,int flag) // 0-short, 1-long
+	public static void closeOrder(String symbol, Double profit, String errorMessage, String type) // 0-short, 1-long
                
                 {
                 int delta=0;
@@ -393,7 +393,7 @@ public class CopyBot {
                 }
                // if (openTradesLong.containsKey(symbol)){
              if (profit == null ){profit = 0.00;}
-             if (flag==0) {
+					if (type.equals("SHORT")) {
                         closedTradesShort+=delta;
                         totalProfitShort +=profit;
              }

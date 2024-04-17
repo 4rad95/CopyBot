@@ -72,7 +72,7 @@ public class TradeTask implements Runnable {
             Log.severe(getClass(), "Unable to create buy operation", e);
             error = true;
             errorMessage = e.getMessage();
-            CopyBot.closeOrder(symbol, null, e.getMessage(), 0);
+            CopyBot.closeOrder(symbol, null, e.getMessage(), type);
         }
 
     }
@@ -138,7 +138,7 @@ public class TradeTask implements Runnable {
 
         } catch (Exception e) {
             sell(alertPrice);
-            CopyBot.closeOrder(symbol, 0.00, null, 0);
+            CopyBot.closeOrder(symbol, 0.00, null, type);
             throw new GeneralException(e);
 
         }
@@ -220,7 +220,7 @@ public class TradeTask implements Runnable {
             order.setClosePrice(price);
             order.setCloseTime(System.currentTimeMillis());
             // Добавить статистику!
-            CopyBot.closeOrder(symbol, order.getProfit(), null, 0);
+            CopyBot.closeOrder(symbol, order.getProfit(), null, type);
 
         } catch (Exception e) {
             System.out.println(" --------------------------- " + symbol + "   closed");
