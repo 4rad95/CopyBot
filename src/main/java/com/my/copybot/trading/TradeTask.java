@@ -273,8 +273,11 @@ public class TradeTask implements Runnable {
             Double chkProffit =  Double.parseDouble(proffit);
             if (chkProffit > stopNoLoss) {
                 // Uppper StoppLoss level
+                double temp = order.getCurrentStopLoss();
                 order.setCurrentStopLoss(setStopLoss(chkProffit));
+                if (temp != order.getCurrentStopLoss()) {
                 System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
+                }
             }
 
             Log.info(getClass(),
