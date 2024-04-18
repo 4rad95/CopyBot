@@ -150,8 +150,12 @@ public class TradeTask implements Runnable {
     }
 
     private Position createStatisticPosition(String status) {
-        Position closePosition = new Position(order.getCreationTime(), order.getCloseTime(), order.getType(),
-                order.getSymbol(), order.getPriceAvg(), order.getClosePrice(), order.getQuantity(), order.getProfit(), status);
+        String orderType = order.getType();
+        if (orderType.equals("LONG")) {
+            orderType = orderType + " ";
+        }
+        Position closePosition = new Position(order.getCreationTime(), order.getCloseTime(), orderType,
+                order.getSymbol(), order.getPrice(), order.getClosePrice(), order.getQuantity(), order.getProfit(), status);
         return closePosition;
     }
 

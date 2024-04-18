@@ -16,6 +16,7 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
 import com.my.copybot.exceptions.GeneralException;
+import com.my.copybot.model.Position;
 import com.my.copybot.trading.TradeTask;
 import com.my.copybot.util.BinanceTa4jUtils;
 import com.my.copybot.util.BinanceUtils;
@@ -58,7 +59,7 @@ public class CopyBot {
 	private static final Map<String, TradeTask> openTradesShort = new HashMap<String, TradeTask>();
         
 	private static final List<String> ordersToBeClosed = new LinkedList<String>();
-
+	private static final List<Position> closedPositions = new LinkedList<Position>();
 
 	private static BinanceApiRestClient client;
 	private static BinanceApiWebSocketClient liveClient;
@@ -478,7 +479,7 @@ public class CopyBot {
 		} else if (inputString.equals("STOP")) {
 			MAX_SIMULTANEOUS_TRADES = 0;
 		} else if (inputString.equals("STAT")) {
-			//outputPositionClosed(closedPositions);
+			outputPositionClosed(closedPositions);
 		} else if (inputString.charAt(0) == 'D') {
 			ordersToBeClosed.add(inputString.substring(1) + "USDT");
 		} else {
@@ -539,6 +540,19 @@ public class CopyBot {
 		TimeSeries series = timeSeriesCache.get(symbol);
 		Decimal currentPrice = series.getLastTick().getClosePrice();
 		return currentPrice;
+	}
+
+
+	public static void addPositionClosed(Position closedPosition) {
+		closedPositions.add(closedPosition);
+	}
+
+	public static void outputPositionClosed(List<Position> closedPosition) {
+		System.out.println("| StartTime                     | EndTime                       | TYPE  | Symbol  |  Open  |  Close |  Profit   ");
+		//			        | Wed Apr 17 23:31:28 CEST 2024 | Wed Apr 17 23:31:47 CEST 2024 | LONG | FTMUSDT | 0.6964 | 0.6964 |  0.01960000000000095
+		for (Position position : closedPosition) {
+			System.out.println(position.toString());
+		}
 	}
 
 }
