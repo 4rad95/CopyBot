@@ -23,24 +23,24 @@ public class InputString implements Runnable {
     @Override
     public void run() {
         while (true) {
-        Scanner inputString = null;
-        try {
-            inputString = new Scanner(System.in);
-            while (true) {
-                String newString = inputString.nextLine().toUpperCase();
-                if ((newString == null) || (newString.length() == 0) || (newString.charAt(0) == '?')) {
-                    System.out.println("(? or (Enter) - for output help)");
-                    printHelp();
-                } else if (newString.charAt(0) == '#') {
-                    System.out.println("Вы ввели = " + newString);
-                    CopyBot.codeInput(newString.substring(1));
-                } else {
-                    System.out.println("(? or (Enter) - for output help)");
+            Scanner inputString = null;
+            try {
+                inputString = new Scanner(System.in);
+                while (true) {
+                    String newString = inputString.nextLine().toUpperCase();
+                    if ((newString == null) || (newString.length() == 0) || (newString.charAt(0) == '?')) {
+                        System.out.println("(? or (Enter) - for output help)");
+                        printHelp();
+                    } else if (newString.charAt(0) == '#') {
+                        System.out.println("Вы ввели = " + newString);
+                        CopyBot.codeInput(newString.substring(1));
+                    } else {
+                        System.out.println("(? or (Enter) - for output help)");
+                    }
                 }
+            } catch (Exception e) {
+                System.out.println(" Re-Enter bitter ");
             }
-        } catch (Exception e) {
-            System.out.println(" Re-Enter bitter ");
-        }
         }
     }
 }
