@@ -127,9 +127,12 @@ public class BinanceTa4jUtils {
 				.or(new UnderIndicatorRule(williamsR, Decimal.valueOf(-80)));
         //.or(new UnderIndicatorRule(atr, closePrice.getValue(0) .multipliedBy(Decimal.valueOf(0.5)))); */
 
-
-		//	System.out.println(series.getName() + "  Will [0] = " + williamsR.getValue(0) + "  Will [12] = "+williamsR.getValue(12) +
-		//			"Will [13] = " + williamsR.getValue(0) + "  Will [14] = "+williamsR.getValue(14) 	);
+/*		if (williamsR.getValue(14).toDouble() > -10 ) {
+			System.out.println(series.getName() + "  SHORT  Will [12] = "+williamsR.getValue(12) +
+					" Will [13] = " + williamsR.getValue(0) + "  Will [14] = "+williamsR.getValue(14) 	);}
+		if (williamsR.getValue(14).toDouble() < -80 ) {
+			System.out.println(series.getName() + "  LONG  Will [12] = "+williamsR.getValue(12) +
+					" Will [13] = " + williamsR.getValue(0) + "  Will [14] = "+williamsR.getValue(14) 	);}*/
 
 
 		Rule entryRule = null;
@@ -144,7 +147,7 @@ public class BinanceTa4jUtils {
 					.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
 					.and(new UnderIndicatorRule(stochK, stochD))
 					.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
-					.and(new OverIndicatorRule(williamsR, Decimal.valueOf(-5)))
+					.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-80)))
 					.and(new UnderIndicatorRule(stochD, Decimal.valueOf(60)));
 		}
 		Rule exitRule = //new CrossedDownIndicatorRule(sma1, sma2)
@@ -203,7 +206,7 @@ public class BinanceTa4jUtils {
 					.and(new UnderIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
 					.and(new UnderIndicatorRule(stochK, stochD))
 					.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
-					.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-90)))
+					.and(new OverIndicatorRule(williamsR, Decimal.valueOf(-20)))
 					.and(new OverIndicatorRule(stochD, Decimal.valueOf(40)));
 		}
 
