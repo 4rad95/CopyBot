@@ -104,7 +104,7 @@ public class BinanceTa4jUtils {
 		//	AverageDirectionalMovementIndicator adx = new AverageDirectionalMovementIndicator(series, adxPeriod);
 		//	AverageTrueRangeIndicator atr = new AverageTrueRangeIndicator(series, adxPeriod);
 		//	ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);
-		//	WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
+		WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
 		EMAIndicator sma1 = new EMAIndicator(closePrice, 5);
 		EMAIndicator sma2 = new EMAIndicator(closePrice, 10);
 /*		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
@@ -127,13 +127,26 @@ public class BinanceTa4jUtils {
 				.or(new UnderIndicatorRule(williamsR, Decimal.valueOf(-80)));
         //.or(new UnderIndicatorRule(atr, closePrice.getValue(0) .multipliedBy(Decimal.valueOf(0.5)))); */
 
-		Rule entryRule = new CrossedUpIndicatorRule(sma1, sma2)
-				.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
-				.and(new UnderIndicatorRule(stochK, stochD))
-				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
-				//	.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-50)))
-				.and(new UnderIndicatorRule(stochD, Decimal.valueOf(60)));
 
+		//	System.out.println(series.getName() + "  Will [0] = " + williamsR.getValue(0) + "  Will [12] = "+williamsR.getValue(12) +
+		//			"Will [13] = " + williamsR.getValue(0) + "  Will [14] = "+williamsR.getValue(14) 	);
+
+
+		Rule entryRule = null;
+		if (williamsR.getValue(14).toDouble() < -80) {
+			entryRule = new CrossedUpIndicatorRule(sma1, sma2)
+					.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
+					.and(new UnderIndicatorRule(stochK, stochD))
+					.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
+					.and(new UnderIndicatorRule(stochD, Decimal.valueOf(60)));
+		} else {
+			entryRule = new CrossedUpIndicatorRule(sma1, sma2)
+					.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
+					.and(new UnderIndicatorRule(stochK, stochD))
+					.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
+					.and(new OverIndicatorRule(williamsR, Decimal.valueOf(-5)))
+					.and(new UnderIndicatorRule(stochD, Decimal.valueOf(60)));
+		}
 		Rule exitRule = //new CrossedDownIndicatorRule(sma1, sma2)
 				new UnderIndicatorRule(sma1, sma2)
 						.or(new CrossedDownIndicatorRule(rsiIndicator, Decimal.valueOf(50)));
@@ -176,12 +189,23 @@ public class BinanceTa4jUtils {
 		/*	ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);*/
 		WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
 
-		Rule entryRule = new CrossedDownIndicatorRule(sma1, sma2)
-				.and(new UnderIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
-				.and(new UnderIndicatorRule(stochK, stochD))
-				.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
-				//.and(new OverIndicatorRule(williamsR, Decimal.valueOf(-50)))
-				.and(new OverIndicatorRule(stochD, Decimal.valueOf(40)));
+
+		Rule entryRule = null;
+		if (williamsR.getValue(14).toDouble() > -20) {
+			entryRule = new CrossedDownIndicatorRule(sma1, sma2)
+					.and(new UnderIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
+					.and(new UnderIndicatorRule(stochK, stochD))
+					.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
+					//.and(new OverIndicatorRule(williamsR, Decimal.valueOf(-50)))
+					.and(new OverIndicatorRule(stochD, Decimal.valueOf(40)));
+		} else {
+			entryRule = new CrossedDownIndicatorRule(sma1, sma2)
+					.and(new UnderIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
+					.and(new UnderIndicatorRule(stochK, stochD))
+					.and(new OverIndicatorRule(longTermSMA, shortTermSMA))
+					.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-90)))
+					.and(new OverIndicatorRule(stochD, Decimal.valueOf(40)));
+		}
 
 		Rule exitRule = //new CrossedDownIndicatorRule(sma1, sma2)
 				new OverIndicatorRule(sma1, sma2)    // ?

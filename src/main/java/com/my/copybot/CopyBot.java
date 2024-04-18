@@ -387,11 +387,10 @@ public class CopyBot {
                 }
                // if (openTradesLong.containsKey(symbol)){
              if (profit == null ){profit = 0.00;}
-					if (type == "SHORT") {
+					if (type.equals("SHORT")) {
                         closedTradesShort+=delta;
                         totalProfitShort +=profit;
-             }
-             else {
+					} else {
                         closedTradesLong+=delta;
                         totalProfitLong +=profit;
              

@@ -27,14 +27,13 @@ public class Position {
 
     @Override
     public String toString() {
-        return "| " +
+        return
                 " | " + new Date(creationTime) +
                 " |  " + new Date(closeTime) +
                 " | " + type +
                 " | " + symbol +
                 " | " + openPrice +
                 " | " + closePrice +
-                //       " | QTY " + quantity + '\'' +
                 " | " + proffit +
                 "  | ";
     }
