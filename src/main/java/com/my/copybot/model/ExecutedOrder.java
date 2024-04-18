@@ -90,11 +90,7 @@ public class ExecutedOrder {
 		this.currentStopLoss = currentStopLoss;
 	}
 	public Double getProfit() {
-		if (type.equals("LONG")) {
-			return Double.valueOf(quantity) * (closePrice - price);
-		} else {
-			return Double.valueOf(quantity) * (price - closePrice);
-		}
+		return Double.valueOf(quantity) * (closePrice - price);
 	}
 	public Double getInitialStopLoss() {
 		return initialStopLoss;

@@ -36,7 +36,7 @@ public class TradeTask implements Runnable {
     private final Integer stopNoLoss;
     private final String type;   // (Short or Long)
     public Thread thisThread;
-    private static ExecutedOrder order = null;
+    private ExecutedOrder order = null;
     private boolean error = false;
     private String errorMessage = "";
     private Long lastPriceLog = 0L;
@@ -149,7 +149,7 @@ public class TradeTask implements Runnable {
         Log.info(getClass(), "Buy [" + type + "] ready : " + symbol + ", quantity: " + quantity + ",  " + priceReal);
     }
 
-    private static Position createStatisticPosition(String status) {
+    private Position createStatisticPosition(String status) {
         Position closePosition = new Position(order.getCreationTime(), order.getCloseTime(), order.getType(),
                 order.getSymbol(), order.getPriceAvg(), order.getClosePrice(), order.getQuantity(), order.getProfit(), status);
         return closePosition;
