@@ -15,6 +15,9 @@ public class InputString implements Runnable {
         System.out.println(" #OR          - set size open position, for example #OR30 -set position size equal 30 USDT");
         System.out.println(" #SL          - set percent STOP_LOSS, for example #SL2 - (2*20 Cross-level) - 40% exit price");
         System.out.println(" #SN          - set percent STOP_NO_LOSS, for example #SN22 - stop loss order change +22% proffit");
+        System.out.println(" #RP          - remove position in list, and not closed in TRADE, Example: #RPBTC");
+        System.out.println(" #STAT        - view statistic for all closed position");
+        System.out.println(" #STOP        - not open new positions and wait old position, after TC(1-...) continue working.");
         System.out.println(" #END         - close all position and wait, after TC(1-...) continue working. ");
         System.out.println(" #CHK         - Output basic traid parametrs \u001B[0m");
 

@@ -502,7 +502,11 @@ public class CopyBot {
 			} else if (inputTemp.equals("AS")) {
 				System.out.println("Add new position SHORT  ..... " + inputString.substring(2) + "USDT");
 				addTrade(inputString.substring(2) + "USDT", "SHORT");
+			} else if (inputTemp.equals("RP")) {
+				System.out.println("Remove position in list (WARNING!!! Position not closed !!)  ..... " + inputString.substring(2) + "USDT");
+				clearPosition(inputString.substring(2) + "USDT");
 			}
+
 		}
 	}
 
@@ -547,11 +551,18 @@ public class CopyBot {
 	}
 
 	public static void outputPositionClosed(List<Position> closedPosition) {
-		System.out.println("| StartTime                     | EndTime                       | TYPE  | Symbol  |  Open  |  Close |  Profit   ");
-		//			        | Wed Apr 17 23:31:28 CEST 2024 | Wed Apr 17 23:31:47 CEST 2024 | LONG | FTMUSDT | 0.6964 | 0.6964 |  0.01960000000000095
+		System.out.println("| StartTime          | Work Time | TYPE  | Symbol        |  Open          |  Close         |  Profit   ");
+		//                  |19/04/2024 15:08:03 | 0:01:43   | SHORT | PHBUSDT       | 1.7599         | 1.7616         | -0.018700000000000383
 		for (Position position : closedPosition) {
-			System.out.println(position.toString());
+			position.printPosition();
 		}
 	}
+
+	private static void clearPosition(String symbol) {
+		ordersToBeClosed.remove(symbol);
+		openTradesLong.remove(symbol);
+		openTradesShort.remove(symbol);
+	}
+
 
 }
