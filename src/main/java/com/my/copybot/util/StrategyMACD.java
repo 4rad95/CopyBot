@@ -73,7 +73,7 @@ public class StrategyMACD {
         EMAIndicator sma2 = new EMAIndicator(closePrice, 100);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
-        EMAIndicator emaMacdEnter = new EMAIndicator(macd, 18);
+        EMAIndicator emaMacdEnter = new EMAIndicator(macd, 13);
         SMAIndicator shortTermSMA = new SMAIndicator(closePrice, 5);
         SMAIndicator longTermSMA = new SMAIndicator(closePrice, 9);
 //        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
@@ -109,7 +109,7 @@ public class StrategyMACD {
         EMAIndicator sma1 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma2 = new EMAIndicator(closePrice, 100);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
-        EMAIndicator emaMacdEnter = new EMAIndicator(macd, 18);
+        EMAIndicator emaMacdEnter = new EMAIndicator(macd, 13);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
         SMAIndicator shortTermSMA = new SMAIndicator(closePrice, 5);
