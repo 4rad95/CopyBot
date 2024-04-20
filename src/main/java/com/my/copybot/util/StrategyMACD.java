@@ -82,7 +82,7 @@ public class StrategyMACD {
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         MACDIndicator macdHigh = new MACDIndicator(closePrice, 48, 104);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
-        EMAIndicator emaMacdHigh = new EMAIndicator(macd, 36);
+        EMAIndicator emaMacdHigh = new EMAIndicator(macdHigh, 9);
         SMAIndicator shortTermSMA = new SMAIndicator(closePrice, shortTermPeriod);
         SMAIndicator longTermSMA = new SMAIndicator(closePrice, longTermPeriod);
         StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
@@ -97,7 +97,6 @@ public class StrategyMACD {
 
         EMAIndicator sma1 = new EMAIndicator(closePrice, 5);
         EMAIndicator sma2 = new EMAIndicator(closePrice, 10);
-
 
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
                 .and(new OverIndicatorRule(macdHigh, emaMacdHigh))

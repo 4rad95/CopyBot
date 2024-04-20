@@ -69,22 +69,21 @@ public class StrategySMA {
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
 
 
-        SMAIndicator shortTermSMA = new SMAIndicator(closePrice, 50);
-        SMAIndicator longTermSMA = new SMAIndicator(closePrice, 100);   // 100
+        SMAIndicator shortTermSMA = new SMAIndicator(closePrice, 100);
+        SMAIndicator longTermSMA = new SMAIndicator(closePrice, 200);   // 100
         StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
         StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
         RSIIndicator rsiIndicator = new RSIIndicator(closePrice, 14);
-        EMAIndicator sma1 = new EMAIndicator(closePrice, 7);
-        EMAIndicator sma2 = new EMAIndicator(closePrice, 25);
-
+        EMAIndicator sma1 = new EMAIndicator(closePrice, 20);
+        EMAIndicator sma2 = new EMAIndicator(closePrice, 50);
         // Индикаторы из разных категорий
 
         Rule entryRule = new CrossedUpIndicatorRule(sma1, sma2)
-                .and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
-                .and(new UnderIndicatorRule(stochK, stochD))
-                .and(new OverIndicatorRule(shortTermSMA, longTermSMA))
+                //      .and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
+                //      .and(new UnderIndicatorRule(stochK, stochD))
+                .and(new UnderIndicatorRule(shortTermSMA, longTermSMA));
                 //	.and(new UnderIndicatorRule(williamsR, Decimal.valueOf(-50)))
-                .and(new UnderIndicatorRule(stochD, Decimal.valueOf(60)));
+        //         .and(new UnderIndicatorRule(stochD, Decimal.valueOf(60)));
 
         Rule exitRule = //new CrossedDownIndicatorRule(sma1, sma2)
                 new UnderIndicatorRule(sma1, sma2)
@@ -114,16 +113,16 @@ public class StrategySMA {
         StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
         StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
         RSIIndicator rsiIndicator = new RSIIndicator(closePrice, 14);
-        EMAIndicator sma1 = new EMAIndicator(closePrice, 7);
-        EMAIndicator sma2 = new EMAIndicator(closePrice, 25);
+        EMAIndicator sma1 = new EMAIndicator(closePrice, 20);
+        EMAIndicator sma2 = new EMAIndicator(closePrice, 50);
 
         // Индикаторы из разных категорий
 
         Rule entryRule = new CrossedDownIndicatorRule(sma1, sma2)
-                .and(new UnderIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
-                .and(new UnderIndicatorRule(stochK, stochD))
-                .and(new OverIndicatorRule(longTermSMA, shortTermSMA))
-                .and(new OverIndicatorRule(stochD, Decimal.valueOf(40)));
+                //  .and(new UnderIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
+                //  .and(new UnderIndicatorRule(stochK, stochD))
+                .and(new OverIndicatorRule(longTermSMA, shortTermSMA));
+        //  .and(new OverIndicatorRule(stochD, Decimal.valueOf(40)));
 
         Rule exitRule = //new CrossedDownIndicatorRule(sma1, sma2)
                 new OverIndicatorRule(sma1, sma2)    // ?
