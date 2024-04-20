@@ -41,7 +41,7 @@ public class Position {
         int minutes = seconds / 60;
         int hours = minutes / 60;
         minutes = minutes - hours * 60;
-        seconds = seconds - minutes * 60;
+        seconds = seconds - minutes * 60 - hours * 3600;
         String formattedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         item = item + formattedTime + "  | " +
                 formatStr(type, 5) + " | " +

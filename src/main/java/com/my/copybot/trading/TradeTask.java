@@ -40,6 +40,8 @@ public class TradeTask implements Runnable {
     private boolean error = false;
     private String errorMessage = "";
     private Long lastPriceLog = 0L;
+    private String startColorStr = " ";
+    private final String endColorStr = "\u001B[0m";
 
 
     public TradeTask(BinanceApiRestClient client, BinanceApiWebSocketClient liveClient, String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
@@ -298,74 +300,35 @@ public class TradeTask implements Runnable {
         return symbol;
     }
 
-    private synchronized Double setStopLoss(Double chkProffit) {
+    private Double setStopLoss(Double chkProffit, Double price) {
         Double proffitNew = 0.00;
         switch (type) {
 
             case "SHORT": {
-                if (chkProffit > 350.00) {
-                    // Uppper StoppLoss level
-                    proffitNew = order.getPrice() * 0.6;
-                    return proffitNew;
-                } else if (chkProffit > 250.00) {
-                    proffitNew = order.getPrice() * 0.78;
-                    return proffitNew;
-                } else if (chkProffit > 200.00) {
-                    proffitNew = order.getPrice() * 0.83;
-                    return proffitNew;
-                } else if (chkProffit > 150.00) {
-                    proffitNew = order.getPrice() * 0.88;
-                    return proffitNew;                                        // Uppper StoppLoss level
-                } else if (chkProffit > 100.00) {
-                    proffitNew = order.getPrice() * 0.92;
-                    return proffitNew;                                        // Uppper StoppLoss level
-                } else if (chkProffit > 70.00) {
-                    proffitNew = order.getPrice() * 0.94;
-                    return proffitNew;                                        // Uppper StoppLoss level
-                } else if (chkProffit > 50) {
-                    proffitNew = order.getPrice() * 0.978;
-                    return proffitNew;
-                } else if (chkProffit > 30) {
-                    proffitNew = order.getPrice() * 0.982;
+                if (chkProffit > 24.00) {
+                    startColorStr = "\u001B[36m";
+                    proffitNew = order.getPrice() - (order.getPrice() - price) * 2 / 3;
                     return proffitNew;
                 } else {
-                    proffitNew = order.getPrice() * 0.995;
+                    startColorStr = "\u001B[33m";
+                    proffitNew = (order.getPrice() + price) / 2;
                     return proffitNew;
                 }
             }
             case "LONG": {
-                if (chkProffit > 350.00) {
-                    // Uppper StoppLoss level
-                    proffitNew = order.getPrice() * 1.4;
-                    return proffitNew;
-                } else if (chkProffit > 250.00) {
-                    proffitNew = order.getPrice() * 1.22;
-                    return proffitNew;
-                } else if (chkProffit > 200.00) {
-                    proffitNew = order.getPrice() * 1.17;
-                    return proffitNew;
-                } else if (chkProffit > 150.00) {
-                    proffitNew = order.getPrice() * 1.12;
-                    return proffitNew;
-                } else if (chkProffit > 100.00) {
-                    proffitNew = order.getPrice() * 1.08;
-                    return proffitNew;
-                } else if (chkProffit > 70.00) {
-                    proffitNew = order.getPrice() * 1.06;
-                    return proffitNew;
-                } else if (chkProffit > 50) {
-                    proffitNew = order.getPrice() * 1.22;
-                    return proffitNew;
-                } else if (chkProffit > 30) {
-                    proffitNew = order.getPrice() * 1.18;
+                if (chkProffit > 24.00) {
+                    startColorStr = "\u001B[36m";
+                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 2 / 3);
                     return proffitNew;
                 } else {
-                    proffitNew = order.getPrice() * 1.005;
+                    startColorStr = "\u001B[33m";
+                    proffitNew = (order.getPrice() + price) / 2;
                     return proffitNew;
                 }
             }
+            default:
+                return null;
         }
-        return proffitNew;
     }
 
     private synchronized void checkPrice(Double price) throws GeneralException {
@@ -380,19 +343,22 @@ public class TradeTask implements Runnable {
             Double chkProffit = Double.parseDouble(proffit);
             if (chkProffit > stopNoLoss) {
                 // Uppper StoppLoss level
-                double temp = order.getCurrentStopLoss();
-                order.setCurrentStopLoss(setStopLoss(chkProffit));
-                if (temp != order.getCurrentStopLoss()) {
-                    System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
+
+                double temp = setStopLoss(chkProffit, price);
+                // order.setCurrentStopLoss(setStopLoss(chkProffit));
+                if (temp > order.getCurrentStopLoss() && (order.getType().equals("LONG"))) {
+                    order.setCurrentStopLoss(temp);
+                } else if ((temp < order.getCurrentStopLoss() && (order.getType().equals("SHORT")))) {
+                    order.setCurrentStopLoss(temp);
                 }
             }
 
             Log.info(getClass(),
-                    type + " : " + symbol + ". Current price: " + showPrice(price)
+                    startColorStr + type + " : " + symbol + ". Current price: " + showPrice(price)
                             + ", buy price: " + showPrice(order.getPrice())
                             + ", stoploss: "
                             + showPrice(order.getCurrentStopLoss())
-                            + ", current profit: " + order.getCurrentProfit(price) + "%");
+                            + ", current profit: " + order.getCurrentProfit(price) + "%" + endColorStr);
             lastPriceLog = now;
         }
         // Implement avg buy
