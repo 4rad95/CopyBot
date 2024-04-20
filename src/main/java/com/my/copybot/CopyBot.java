@@ -215,7 +215,7 @@ public class CopyBot {
 					Log.info(CopyBot.class, "\u001B[32m Start time       : " + new Date(timer) + " \u001B[0m ");
 					Log.info(CopyBot.class, "\u001B[32m Execute time     : " + formattedTime + " \u001B[0m ");
 					Log.info(CopyBot.class, "\u001B[32m Start Balance    : " + startBalance + "               Current  Balance : " + printBalance() + " \u001B[0m ");
-					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
+					//	Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
 					Log.info(CopyBot.class, "\u001B[32m Max. Position:   : " + MAX_SIMULTANEOUS_TRADES + "                         USDT Size : " + TRADE_SIZE_USDT + " \u001B[0m ");
 					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
 					if (DO_TRADES && closedTrades > 0) {
