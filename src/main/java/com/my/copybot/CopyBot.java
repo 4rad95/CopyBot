@@ -18,9 +18,7 @@ import com.binance.client.SyncRequestClient;
 import com.my.copybot.exceptions.GeneralException;
 import com.my.copybot.model.Position;
 import com.my.copybot.trading.TradeTask;
-import com.my.copybot.util.BinanceTa4jUtils;
-import com.my.copybot.util.BinanceUtils;
-import com.my.copybot.util.ConfigUtils;
+import com.my.copybot.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.ta4j.core.Decimal;
 import org.ta4j.core.Strategy;
@@ -282,8 +280,9 @@ public class CopyBot {
 			}
 			// Now check the TA strategy with the refreshed time series
 			int endIndex = series.getEndIndex();
-			Strategy strategyLong = BinanceTa4jUtils.buildStrategyLong(series, TRADING_STRATEGY);
-			Strategy strategyShort = BinanceTa4jUtils.buildStrategyShort(series, TRADING_STRATEGY);
+
+			Strategy strategyLong = buildStrategyLong(series, TRADING_STRATEGY);
+			Strategy strategyShort = buildStrategyShort(series, TRADING_STRATEGY);
 
 			checkStrategy(strategyLong, strategyShort, endIndex, symbol);
                         
@@ -455,6 +454,7 @@ public class CopyBot {
 						Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
                     }}
         }
+
         private static BigDecimal printBalance()
         {
                 RequestOptions options = new RequestOptions();
@@ -564,5 +564,30 @@ public class CopyBot {
 		openTradesShort.remove(symbol);
 	}
 
+	public static Strategy buildStrategyLong(TimeSeries series, String strategyCode) {
+		switch (strategyCode) {
+			case "MACD": {
+				return StrategyMACD.buildMacdStrategyLong(series);
+			}
+			case "SMA": {
+				return StrategySMA.buildSmaStrategyLong(series);
+			}
+			default:
+				return null;
+		}
 
+	}
+
+	public static Strategy buildStrategyShort(TimeSeries series, String strategyCode) {
+		switch (strategyCode) {
+			case "MACD": {
+				return StrategyMACD.buildMacdStrategyShort(series);
+			}
+			case "SMA": {
+				return StrategySMA.buildSmaStrategyShort(series);
+			}
+			default:
+				return null;
+		}
+	}
 }

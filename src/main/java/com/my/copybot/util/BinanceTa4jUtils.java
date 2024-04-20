@@ -19,7 +19,7 @@ import java.util.List;
 
 public class BinanceTa4jUtils {
 
-	public static String MACD_STRATEGY = "MACD";
+	public static String STRATEGY = "MACD";
 
 	public static TimeSeries convertToTimeSeries(
 			List<Candlestick> candlesticks, String symbol, String period) {
@@ -54,12 +54,12 @@ public class BinanceTa4jUtils {
 				getZonedDateTime(candlestick.getCloseTime()));
 	}
 
-	public static Strategy buildStrategyLong(TimeSeries series, String strategyCode) {
-		if (MACD_STRATEGY.equals(strategyCode)) {
-			return buildMacdStrategyLong(series);
-		}
-		return null;
-	}
+//	public static Strategy buildStrategyLong(TimeSeries series, String strategyCode) {
+//		if (STRATEGY.equals(strategyCode)) {
+//			return buildMacdStrategyLong(series);
+//		}
+//		return null;
+//	}
 
 	private static Strategy buildMacdStrategyLong(TimeSeries series) {
 		if (series == null) {
@@ -117,13 +117,12 @@ public class BinanceTa4jUtils {
 	}
 
 
-
-	public static Strategy buildStrategyShort(TimeSeries series, String strategyCode) {
-		if (MACD_STRATEGY.equals(strategyCode)) {
-			return buildMacdStrategyShort(series);
-		}
-		return null;
-	}
+//	public static Strategy buildStrategyShort(TimeSeries series, String strategyCode) {
+//		if (STRATEGY.equals(strategyCode)) {
+//			return buildMacdStrategyShort(series);
+//		}
+//		return null;
+//	}
 
 	private static Strategy buildMacdStrategyShort(TimeSeries series) {
 		if (series == null) {
@@ -165,21 +164,14 @@ public class BinanceTa4jUtils {
 //					.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
 //					.and(new UnderIndicatorRule(stochD, Decimal.valueOf(60)));
 
-
-
 		Rule exitRule = new OverIndicatorRule(macd, emaMacd)
 				.or(new OverIndicatorRule(stochK, stochD))
 				.or(new OverIndicatorRule(shortTermSMA, longTermSMA));
 		//	.or(new CrossedUpIndicatorRule(rsiIndicator, Decimal.valueOf(70)));
 
-
-
 		return new BaseStrategy(entryRule, exitRule);
 	}
 
 
-	private static void StochasticRSIIndicator(TimeSeries series, int i) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
 
 }
