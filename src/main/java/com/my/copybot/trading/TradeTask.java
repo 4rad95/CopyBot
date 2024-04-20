@@ -305,7 +305,11 @@ public class TradeTask implements Runnable {
         switch (type) {
 
             case "SHORT": {
-                if (chkProffit > 24.00) {
+                if (chkProffit > 100) {
+                    startColorStr = "\u001B[35m";
+                    proffitNew = order.getPrice() - (order.getPrice() - price) * 8 / 10;
+                    return proffitNew;
+                } else if (chkProffit > 24.00) {
                     startColorStr = "\u001B[36m";
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 2 / 3;
                     return proffitNew;
@@ -316,7 +320,11 @@ public class TradeTask implements Runnable {
                 }
             }
             case "LONG": {
-                if (chkProffit > 24.00) {
+                if (chkProffit > 100) {
+                    startColorStr = "\u001B[35m";
+                    proffitNew = order.getPrice() - (price - order.getPrice()) * 8 / 10;
+                    return proffitNew;
+                } else if (chkProffit > 24.00) {
                     startColorStr = "\u001B[36m";
                     proffitNew = order.getPrice() + ((price - order.getPrice()) * 2 / 3);
                     return proffitNew;
