@@ -2,7 +2,9 @@ package com.my.copybot.util;
 
 import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
-import org.ta4j.core.indicators.*;
+import org.ta4j.core.indicators.EMAIndicator;
+import org.ta4j.core.indicators.MACDIndicator;
+import org.ta4j.core.indicators.SMAIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
@@ -85,9 +87,9 @@ public class StrategyMACD {
         EMAIndicator emaMacdHigh = new EMAIndicator(macdHigh, 9);
         SMAIndicator shortTermSMA = new SMAIndicator(closePrice, shortTermPeriod);
         SMAIndicator longTermSMA = new SMAIndicator(closePrice, longTermPeriod);
-        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
-        StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
-        RSIIndicator rsiIndicator = new RSIIndicator(closePrice, rsiPeriod);
+//        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
+//        StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
+//        RSIIndicator rsiIndicator = new RSIIndicator(closePrice, rsiPeriod);
 
 
         //	AverageDirectionalMovementIndicator adx = new AverageDirectionalMovementIndicator(series, adxPeriod);
@@ -95,21 +97,23 @@ public class StrategyMACD {
         //	ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);
         //#stat	WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
 
-        EMAIndicator sma1 = new EMAIndicator(closePrice, 5);
-        EMAIndicator sma2 = new EMAIndicator(closePrice, 10);
+        EMAIndicator sma1 = new EMAIndicator(closePrice, 50);
+        EMAIndicator sma2 = new EMAIndicator(closePrice, 100);
 
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
-                .and(new OverIndicatorRule(macdHigh, emaMacdHigh))
-                .and(new OverIndicatorRule(shortTermSMA, longTermSMA))
-                .and(new OverIndicatorRule(stochK, stochD))
-                //		.and(new OverIndicatorRule(adx, Decimal.valueOf(25)))
-                .and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(30)))
-                .and(new UnderIndicatorRule(stochD, Decimal.valueOf(40)));
+                //               .and(new OverIndicatorRule(macdHigh, emaMacdHigh))
+                .and(new OverIndicatorRule(sma1, sma2));
+//                .and(new OverIndicatorRule(shortTermSMA, longTermSMA));
+//                .and(new OverIndicatorRule(stochK, stochD))
+//                //		.and(new OverIndicatorRule(adx, Decimal.valueOf(25)))
+//                .and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(30)))
+//                .and(new UnderIndicatorRule(stochD, Decimal.valueOf(40)));
 
 
         Rule exitRule = new UnderIndicatorRule(macd, emaMacd)
-                .or(new UnderIndicatorRule(stochK, stochD))
-                .or(new UnderIndicatorRule(shortTermSMA, longTermSMA));
+                .or(new CrossedUpIndicatorRule(sma1, sma2));
+        //       .or(new UnderIndicatorRule(stochK, stochD))
+        //       .or(new UnderIndicatorRule(shortTermSMA, longTermSMA));
 
 
         return new BaseStrategy(entryRule, exitRule);
@@ -129,8 +133,8 @@ public class StrategyMACD {
         }
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-        //	EMAIndicator sma1 = new EMAIndicator(closePrice, 5);
-        //	EMAIndicator sma2 = new EMAIndicator(closePrice, 10);
+        EMAIndicator sma1 = new EMAIndicator(closePrice, 50);
+        EMAIndicator sma2 = new EMAIndicator(closePrice, 100);
         // Параметризация периодов для индикаторов
         int shortTermPeriod = 50;
         int longTermPeriod = 200;
@@ -140,20 +144,21 @@ public class StrategyMACD {
         int williamsRPeriod = 14;
 
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
-        MACDIndicator macdHigh = new MACDIndicator(closePrice, 48, 104);
+        //    MACDIndicator macdHigh = new MACDIndicator(closePrice, 48, 104);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
-        EMAIndicator emaMacdHigh = new EMAIndicator(macd, 36);
+        //  EMAIndicator emaMacdHigh = new EMAIndicator(macd, 36);
         SMAIndicator shortTermSMA = new SMAIndicator(closePrice, shortTermPeriod);
         SMAIndicator longTermSMA = new SMAIndicator(closePrice, longTermPeriod);
-        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
-        StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
-        RSIIndicator rsiIndicator = new RSIIndicator(closePrice, rsiPeriod);
+        //StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
+        //StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
+        //RSIIndicator rsiIndicator = new RSIIndicator(closePrice, rsiPeriod);
         /*	ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);*/
-        WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
+        //WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
 
 
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
-                .and(new UnderIndicatorRule(macdHigh, emaMacdHigh))
+                .and(new UnderIndicatorRule(sma1, sma2));
+          /*      .and(new UnderIndicatorRule(macdHigh, emaMacdHigh))
                 .and(new UnderIndicatorRule(shortTermSMA, longTermSMA))
                 .and(new UnderIndicatorRule(stochK, stochD))
                 .and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(60)))
@@ -162,10 +167,11 @@ public class StrategyMACD {
 //				.and(new UnderIndicatorRule(stochK, stochD))
 //					.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
 //					.and(new UnderIndicatorRule(stochD, Decimal.valueOf(60)));
-
+*/
         Rule exitRule = new OverIndicatorRule(macd, emaMacd)
-                .or(new OverIndicatorRule(stochK, stochD))
-                .or(new OverIndicatorRule(shortTermSMA, longTermSMA));
+                .or(new CrossedDownIndicatorRule(sma1, sma2));
+        //             .or(new OverIndicatorRule(stochK, stochD))
+        //            .or(new OverIndicatorRule(shortTermSMA, longTermSMA));
         //	.or(new CrossedUpIndicatorRule(rsiIndicator, Decimal.valueOf(70)));
 
         return new BaseStrategy(entryRule, exitRule);
