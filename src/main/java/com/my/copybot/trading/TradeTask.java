@@ -1,14 +1,12 @@
 package com.my.copybot.trading;
 
-import com.binance.api.client.BinanceApiRestClient;
-import com.binance.api.client.BinanceApiWebSocketClient;
-import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
 import com.binance.client.model.enums.NewOrderRespType;
 import com.binance.client.model.enums.OrderSide;
 import com.binance.client.model.enums.OrderType;
 import com.binance.client.model.enums.PositionSide;
+import com.binance.client.model.market.MarkPrice;
 import com.binance.client.model.trade.Order;
 import com.my.copybot.CopyBot;
 import com.my.copybot.Log;
@@ -18,8 +16,10 @@ import com.my.copybot.model.Position;
 import com.my.copybot.util.BinanceUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.math.BigDecimal;
+import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 
 public class TradeTask implements Runnable {
@@ -30,8 +30,7 @@ public class TradeTask implements Runnable {
     private final Double usdtAmount;
     private final Double stopLossPercentage;
     private final boolean doTrailingStop;
-    private final BinanceApiRestClient client;
-    private final BinanceApiWebSocketClient liveClient;
+
     private final boolean makeAvg;
     private final Integer stopNoLoss;
     private final String type;   // (Short or Long)
@@ -39,12 +38,13 @@ public class TradeTask implements Runnable {
     private ExecutedOrder order = null;
     private boolean error = false;
     private String errorMessage = "";
-    private Long lastPriceLog = 0L;
+    private final Long lastPriceLog = 0L;
     private String startColorStr = " ";
     private final String endColorStr = "\u001B[0m";
+    private int counter = 10;
 
 
-    public TradeTask(BinanceApiRestClient client, BinanceApiWebSocketClient liveClient, String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
+    public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
                      Double stopLossPercentage, boolean doTrailingStop, boolean makeAvg, Integer stopNoLoss, String type) {
 //
 //	public TradeTask( String symbol, Double alertPrice, Double btcAmount,
@@ -55,8 +55,6 @@ public class TradeTask implements Runnable {
         this.stopLossPercentage = stopLossPercentage;
         this.doTrailingStop = doTrailingStop;
         this.usdtAmount = usdtAmount;
-        this.client = client;
-        this.liveClient = liveClient;
         this.makeAvg = makeAvg;
         this.stopNoLoss = stopNoLoss;
         this.type = type;
@@ -69,7 +67,20 @@ public class TradeTask implements Runnable {
             buy();
 
             // 2.- Suscribe to price ticks for the symbol, evaluate current price and update stoploss (if trailing stop)
-            monitorPrice();
+            while (true) {
+                RequestOptions options = new RequestOptions();
+                SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
+                        options);
+                List<MarkPrice> markPriceList = syncRequestClient.getMarkPrice(symbol);
+                BigDecimal price = markPriceList.get(0).getMarkPrice();
+                checkPrice(Double.parseDouble(price.toString()));
+                try {
+                    sleep(6000);   // 6c Cна
+
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 
 
         } catch (GeneralException e) {
@@ -182,15 +193,21 @@ public class TradeTask implements Runnable {
         return rawAmount;
     }
 
-    private void monitorPrice() {
-        liveClient.onCandlestickEvent(symbol.toLowerCase(),
-                CandlestickInterval.ONE_MINUTE, response -> {
+    private void monitorPrice() throws GeneralException {
+        while (true) {
+            RequestOptions options = new RequestOptions();
+            SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
+                    options);
+            List<MarkPrice> markPriceList = syncRequestClient.getMarkPrice(symbol);
+            BigDecimal price = markPriceList.get(0).getMarkPrice();
+            checkPrice(Double.parseDouble(price.toString()));
                     try {
-                        checkPrice(Double.valueOf(response.getClose()));
-                    } catch (GeneralException ex) {
-                        Logger.getLogger(TradeTask.class.getName()).log(Level.SEVERE, null, ex);
+                        wait(5000);
+
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
-                });
+        }
     }
 
     /*private void buySecond() throws GeneralException {
@@ -341,12 +358,10 @@ public class TradeTask implements Runnable {
 
     private synchronized void checkPrice(Double price) throws GeneralException {
         Long now = System.currentTimeMillis();
-        // Change p
-//                if (Double.parseDouble(order.getCurrentProfit(price)) > 2) {
-//                                  order.setCurrentStopLoss(order.getPrice()*1.1);
-//                        }
+
         // This is a bit harcoded, but just trying to avoid too many logs..
-        if ((now - lastPriceLog) > 60 * 1000L) {
+        //   if ((now - lastPriceLog) > 60 * 1000L)
+        //      {
             String proffit = order.getCurrentProfit(price).replace(",", ".");
             Double chkProffit = Double.parseDouble(proffit);
             if (chkProffit > stopNoLoss) {
@@ -360,23 +375,16 @@ public class TradeTask implements Runnable {
                     order.setCurrentStopLoss(temp);
                 }
             }
-
+        if (counter == 10) {
             Log.info(getClass(),
                     startColorStr + type + " : " + symbol + ". Current price: " + showPrice(price)
                             + ", buy price: " + showPrice(order.getPrice())
                             + ", stoploss: "
                             + showPrice(order.getCurrentStopLoss())
                             + ", current profit: " + order.getCurrentProfit(price) + "%" + endColorStr);
-            lastPriceLog = now;
+            counter = 0;
         }
-        // Implement avg buy
-//                if (makeAvg &&(price > order.getPriceAvg()))
-//                {
-//                    makeAvg = false;
-//                    buySecond();
-//                }
-
-        //if (trailingStopShouldCloseOrder(price) || CopyBotSpot.shouldCloseOrder(symbol)) //{
+        counter++;
         switch (type) {
             case "SHORT": {
                 if (price >= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol))      // Close stopLoss
@@ -400,6 +408,7 @@ public class TradeTask implements Runnable {
             }
 
         }
+
     }
 }
 

@@ -187,7 +187,7 @@ public class CopyBot {
 		try {
                         
 			List<String> symbols = BinanceUtils.getBitcoinSymbols();
-                        symbols = blackListCheck(symbols);
+			symbols = blackListCheck(symbols);
 			// 1.- Get ticks for every symbol and generate TimeSeries -> cache
 			generateTimeSeriesCache(symbols);
 			Long timeToWait = PAUSE_TIME_MINUTES * 60 * 1000L;
@@ -292,15 +292,11 @@ public class CopyBot {
 
 			if (strategyLong.shouldEnter(endIndex)) {
 
-				//		Decimal checkRSIStr = BinanceTa4jUtils.StochasticRSIIndicatorTest(series, 14);
+
 				// If we have an open trade for the symbol, we do not create a new one
 				if (DO_TRADES && openTradesLong.get(symbol) == null&& (MAKE_LONG)) {
 					Decimal currentPrice = series.getLastTick().getClosePrice();
-					//        MainForm.addStringTextEdit("Bullish signal for symbol: \" + symbol + \", price: \" + currentPrice)");
-					//Log.info(CopyBotSpot.class, "LONG signal for symbol: " + symbol + ", price: " + currentPrice);
-					//Order newOrder = new Order(symbol,currentPrice);
-					// newOrder.addNewOrder(symbol,currentPrice);
-					//if (false) {
+
                                         if (((openTradesLong.keySet().size()+openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES))                                       
                                         {
 
@@ -311,16 +307,12 @@ public class CopyBot {
 											//	openTradesLong.put(symbol, "LONG";
 
 					} else {
-					//	Log.info(CopyBotSpot.class, "-------------Skipping LONG signal for symbol  " + symbol + " Wait!" );
+
 					}
 				}
-			} else if (strategyShort.shouldEnter(endIndex)) //&& openTrades.get(symbol) != null && !DO_TRAILING_STOP)
+			} else if (strategyShort.shouldEnter(endIndex))
                                 {
-									// If we use trailing stop, the order will be closed when the moving stoploss is hit
-									//	Log.info(CopyBotSpot.class, "SHORT signal for symbol: " + symbol + ", price: " + series.getLastTick().getClosePrice()
-									//	);
-				// This object is scanned by the symbol trading thread
-									// ordersToBeClosed.add(symbol);
+
 
 									if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
 										Decimal currentPrice = series.getLastTick().getClosePrice();
@@ -333,7 +325,7 @@ public class CopyBot {
 
 											// We create a new position to trade with the symbol
 											addTrade(symbol, "SHORT");
-											//		openTradesShort.put(symbol, tradeTask);
+
 										}
 									}
                                 }
@@ -373,7 +365,7 @@ public class CopyBot {
 	 * @param profit
 	 * @param errorMessage
 	 */
-	public static void closeOrder(String symbol, Double profit, String errorMessage, String type) // 0-short, 1-long
+	public synchronized static void closeOrder(String symbol, Double profit, String errorMessage, String type) // 0-short, 1-long
                
                 {
                 int delta=0;
@@ -524,7 +516,7 @@ public class CopyBot {
 
 	public static void addTrade(String symbol, String type) {
 
-		TradeTask tradeTask = new TradeTask(client, liveClient, symbol, getCurrentPrice(symbol).toDouble(),
+		TradeTask tradeTask = new TradeTask(symbol, getCurrentPrice(symbol).toDouble(),
 				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP, MAKE_TRADE_AVG, STOP_NO_LOSS, type);
 		Thread thread = new Thread(tradeTask);
 		tradeTask.thisThread = thread;
