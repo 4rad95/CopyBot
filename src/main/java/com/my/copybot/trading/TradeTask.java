@@ -42,6 +42,7 @@ public class TradeTask implements Runnable {
     private String startColorStr = " ";
     private final String endColorStr = "\u001B[0m";
     private int counter = 10;
+    private boolean stopThread = true;
 
 
     public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
@@ -67,7 +68,7 @@ public class TradeTask implements Runnable {
             buy();
 
             // 2.- Suscribe to price ticks for the symbol, evaluate current price and update stoploss (if trailing stop)
-            while (true) {
+            while (stopThread) {
                 RequestOptions options = new RequestOptions();
                 SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
                         options);
@@ -392,7 +393,7 @@ public class TradeTask implements Runnable {
                     sell(price);
                     Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
                             + ". Current price: " + showPrice(price) + ", profit: " + order.getProfit());
-                    thisThread.stop();
+                    stopThread = false;
                 }
                 break;
             }
@@ -402,7 +403,8 @@ public class TradeTask implements Runnable {
                     sell(price);
                     Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
                             + ". Current price: " + showPrice(price) + ", profit: " + order.getProfit());
-                    thisThread.stop();
+                    stopThread = false;
+
                 }
                 break;
             }
