@@ -190,7 +190,7 @@ public class CopyBot {
 			symbols = blackListCheck(symbols);
 			// 1.- Get ticks for every symbol and generate TimeSeries -> cache
 			generateTimeSeriesCache(symbols);
-			Long timeToWait = PAUSE_TIME_MINUTES * 60 * 100L;
+			Long timeToWait = PAUSE_TIME_MINUTES * 60 * 1000L;
 			if (timeToWait < 0) {
 				timeToWait = 5 * 60 * 1000L;
 			}
@@ -218,7 +218,7 @@ public class CopyBot {
 					//	Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
 					Log.info(CopyBot.class, "\u001B[32m Max. Position:   : " + MAX_SIMULTANEOUS_TRADES + "                         USDT Size : " + TRADE_SIZE_USDT + " \u001B[0m ");
 					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-					Log.info(CopyBot.class, "|Start time          | Work time | Symbol        | Open price       | Current price    | Stop loss        |  Profit");
+					//	Log.info(CopyBot.class, "|Start time          | Work time | Symbol        | Open price       | Current price    | Stop loss        |  Profit");
 					//	outputPosition();
 					if (DO_TRADES && closedTrades > 0) {
                                                 
@@ -233,13 +233,13 @@ public class CopyBot {
 					}
 					if ((openTradesLong.keySet().size()+openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
 						// We will not continue trading... avoid checking
-						
-						try {
-							Thread.sleep(timeToWait);
-						} catch (InterruptedException e) {
-							Log.severe(CopyBot.class, "Error sleeping", e);
-						}
-						continue;
+//
+//						try {
+//							Thread.sleep(timeToWait);
+//						} catch (InterruptedException e) {
+//							Log.severe(CopyBot.class, "Error sleeping", e);
+//						}
+//						continue;
 					}
 				}
 				Long t0 = currentTimeMillis();
