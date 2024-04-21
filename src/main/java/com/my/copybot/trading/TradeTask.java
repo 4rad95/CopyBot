@@ -325,13 +325,13 @@ public class TradeTask implements Runnable {
             case "SHORT": {
                 if (chkProffit > 100) {
                     startColorStr = "\u001B[35m";
-                    proffitNew = order.getPrice() - (order.getPrice() - price) * 8 / 10;
+                    proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
                     return proffitNew;
                 } else if (chkProffit > 24.00) {
                     if (startColorStr.length() == 1) {
                         startColorStr = "\u001B[36m";
                     }
-                    proffitNew = order.getPrice() - (order.getPrice() - price) * 2 / 3;
+                    proffitNew = order.getPrice() - (order.getPrice() - price) * 4 / 5;
                     return proffitNew;
                 } else {
                     startColorStr = "\u001B[33m";
