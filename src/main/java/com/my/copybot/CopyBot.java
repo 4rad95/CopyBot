@@ -53,8 +53,8 @@ public class CopyBot {
 	// We will store time series for every symbol
 	private static final Map<String, TimeSeries> timeSeriesCache = new HashMap<String, TimeSeries>();
 
-	private static final Map<String, Position> openTradesLong = new HashMap<String, Position>();
-	private static final Map<String, Position> openTradesShort = new HashMap<String, Position>();
+	private static final Map<String, String> openTradesLong = new HashMap<String, String>();
+	private static final Map<String, String> openTradesShort = new HashMap<String, String>();
         
 	private static final List<String> ordersToBeClosed = new LinkedList<String>();
 	private static final List<Position> closedPositions = new LinkedList<Position>();
@@ -306,7 +306,7 @@ public class CopyBot {
 
 											// We create a new position to trade with the symbol
 											addTrade(symbol, "LONG");
-											//	openTradesLong.put(symbol, "LONG";
+											//	openTradesLong.put(symbol, "LONG" );
 
 					} else {
 
@@ -525,11 +525,11 @@ public class CopyBot {
 		thread.start();
 		switch (type) {
 			case "LONG": {
-				openTradesLong.put(symbol, null);
+				openTradesLong.put(symbol, "LONG");
 				break;
 			}
 			case "SHORT": {
-				openTradesShort.put(symbol, null);
+				openTradesShort.put(symbol, "SHORT");
 				break;
 			}
 		}
@@ -599,28 +599,28 @@ public class CopyBot {
 			case "SHORT": {
 
 
-				openTradesShort.put(position.getSymbol(), position);
+				openTradesShort.put(position.getSymbol(), "position");
 				break;
 			}
 			case "LONG": {
-				openTradesLong.put(position.getSymbol(), position);
+				openTradesLong.put(position.getSymbol(), "position");
 				break;
 			}
 		}
 	}
 
-	private synchronized static void outputPosition() {
-
-
-		Log.info(CopyBot.class, " LONG position : ");
-		for (Map.Entry<String, Position> entry : openTradesLong.entrySet()) {
-			entry.getValue().printStat();
-		}
-		Log.info(CopyBot.class, " SHORT position : ");
-		for (Map.Entry<String, Position> entry : openTradesShort.entrySet()) {
-			entry.getValue().printStat();
-		}
-
-
-	}
+//	private synchronized static void outputPosition() {
+//
+//
+//		Log.info(CopyBot.class, " LONG position : ");
+//		for (Map.Entry<String, Position> entry : openTradesLong.entrySet()) {
+//			entry.getValue().printStat();
+//		}
+//		Log.info(CopyBot.class, " SHORT position : ");
+//		for (Map.Entry<String, Position> entry : openTradesShort.entrySet()) {
+//			entry.getValue().printStat();
+//		}
+//
+//
+//	}
 }
