@@ -285,9 +285,11 @@ public class TradeTask implements Runnable {
             CopyBot.closeOrder(symbol, order.getProfit(), null, type);
             CopyBot.addPositionClosed(createStatisticPosition("Ok"));
         } catch (Exception e) {
+            CopyBot.closeOrder(symbol, 0.00, null, "Error");
             System.out.println(" --------------------------- " + symbol + "   closed");
             Log.severe(getClass(), "Unable to sell!", e);
             CopyBot.addPositionClosed(createStatisticPosition("Error"));
+            stopThread = false;
             // CopyBotSpot.closeOrder(symbol, order.getProfit(), null);
         }
     }

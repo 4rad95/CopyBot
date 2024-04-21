@@ -384,7 +384,7 @@ public class CopyBot {
 					if (type.equals("SHORT")) {
                         closedTradesShort+=delta;
                         totalProfitShort +=profit;
-					} else {
+					} else if (type.equals("LONG")) {
                         closedTradesLong+=delta;
                         totalProfitLong +=profit;
              
