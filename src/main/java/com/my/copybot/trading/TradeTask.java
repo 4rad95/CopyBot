@@ -169,7 +169,7 @@ public class TradeTask implements Runnable {
             orderType = orderType + " ";
         }
         Position closePosition = new Position(order.getCreationTime(), order.getCloseTime(), orderType,
-                order.getSymbol(), order.getPrice(), order.getClosePrice(), order.getQuantity(), order.getProfit(), status);
+                order.getSymbol(), order.getPrice(), order.getClosePrice(), order.getPrice(), order.getQuantity(), order.getProfit(), order.getCurrentProfit(order.getPrice()) + " % ", status, startColorStr);
         return closePosition;
     }
 
@@ -324,14 +324,18 @@ public class TradeTask implements Runnable {
 
             case "SHORT": {
                 if (chkProffit > 100) {
-                    startColorStr = "\u001B[35m";
+
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
+                    if (proffitNew > chkProffit) {
+                        startColorStr = "\u001B[35m";
+                    }
                     return proffitNew;
                 } else if (chkProffit > 24.00) {
-                    if (startColorStr.length() == 1) {
+
+                    proffitNew = order.getPrice() - (order.getPrice() - price) * 4 / 5;
+                    if (proffitNew > chkProffit) {
                         startColorStr = "\u001B[36m";
                     }
-                    proffitNew = order.getPrice() - (order.getPrice() - price) * 4 / 5;
                     return proffitNew;
                 } else {
                     startColorStr = "\u001B[33m";
@@ -341,14 +345,16 @@ public class TradeTask implements Runnable {
             }
             case "LONG": {
                 if (chkProffit > 100) {
-                    startColorStr = "\u001B[35m";
-                    proffitNew = order.getPrice() - (price - order.getPrice()) * 8 / 10;
+                    proffitNew = order.getPrice() - (price - order.getPrice()) * 9 / 10;
+                    if (proffitNew > chkProffit) {
+                        startColorStr = "\u001B[35m";
+                    }
                     return proffitNew;
                 } else if (chkProffit > 24.00) {
-                    if (startColorStr.length() == 1) {
+                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 4 / 5);
+                    if (proffitNew > chkProffit) {
                         startColorStr = "\u001B[36m";
                     }
-                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 2 / 3);
                     return proffitNew;
                 } else {
                     startColorStr = "\u001B[33m";
@@ -379,6 +385,7 @@ public class TradeTask implements Runnable {
                     order.setCurrentStopLoss(temp);
                 }
             }
+        //      CopyBot.updateMapPosition(createStatisticPosition(type));
         if (counter == 10) {
             Log.info(getClass(),
                     startColorStr + type + " : " + symbol + ". Current price: " + showPrice(price)
@@ -387,6 +394,7 @@ public class TradeTask implements Runnable {
                             + showPrice(order.getCurrentStopLoss())
                             + ", current profit: " + order.getCurrentProfit(price) + "%" + endColorStr);
             counter = 0;
+            //  CopyBot.updateMapPosition(createStatisticPosition("Work"));
         }
         counter++;
         switch (type) {

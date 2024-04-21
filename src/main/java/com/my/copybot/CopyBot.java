@@ -53,8 +53,8 @@ public class CopyBot {
 	// We will store time series for every symbol
 	private static final Map<String, TimeSeries> timeSeriesCache = new HashMap<String, TimeSeries>();
 
-	private static final Map<String, TradeTask> openTradesLong = new HashMap<String, TradeTask>();
-	private static final Map<String, TradeTask> openTradesShort = new HashMap<String, TradeTask>();
+	private static final Map<String, Position> openTradesLong = new HashMap<String, Position>();
+	private static final Map<String, Position> openTradesShort = new HashMap<String, Position>();
         
 	private static final List<String> ordersToBeClosed = new LinkedList<String>();
 	private static final List<Position> closedPositions = new LinkedList<Position>();
@@ -190,7 +190,7 @@ public class CopyBot {
 			symbols = blackListCheck(symbols);
 			// 1.- Get ticks for every symbol and generate TimeSeries -> cache
 			generateTimeSeriesCache(symbols);
-			Long timeToWait = PAUSE_TIME_MINUTES * 60 * 1000L;
+			Long timeToWait = PAUSE_TIME_MINUTES * 60 * 100L;
 			if (timeToWait < 0) {
 				timeToWait = 5 * 60 * 1000L;
 			}
@@ -218,6 +218,8 @@ public class CopyBot {
 					//	Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
 					Log.info(CopyBot.class, "\u001B[32m Max. Position:   : " + MAX_SIMULTANEOUS_TRADES + "                         USDT Size : " + TRADE_SIZE_USDT + " \u001B[0m ");
 					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
+					Log.info(CopyBot.class, "|Start time          | Work time | Symbol        | Open price       | Current price    | Stop loss        |  Profit");
+					//	outputPosition();
 					if (DO_TRADES && closedTrades > 0) {
                                                 
 						Log.info(
@@ -523,14 +525,19 @@ public class CopyBot {
 		thread.start();
 		switch (type) {
 			case "LONG": {
-				openTradesLong.put(symbol, tradeTask);
+				openTradesLong.put(symbol, null);
 				break;
 			}
 			case "SHORT": {
-				openTradesShort.put(symbol, tradeTask);
+				openTradesShort.put(symbol, null);
 				break;
 			}
 		}
+//		try {
+//			Thread.sleep(500);
+//		} catch (InterruptedException e) {
+//			Log.severe(CopyBot.class, "Error sleeping", e);
+//		}
 	}
 
 	public static Decimal getCurrentPrice(String symbol) {
@@ -584,5 +591,36 @@ public class CopyBot {
 			default:
 				return null;
 		}
+	}
+
+	public synchronized static void updateMapPosition(Position position) {
+		String switchString = position.getType();
+		switch (switchString) {
+			case "SHORT": {
+
+
+				openTradesShort.put(position.getSymbol(), position);
+				break;
+			}
+			case "LONG": {
+				openTradesLong.put(position.getSymbol(), position);
+				break;
+			}
+		}
+	}
+
+	private synchronized static void outputPosition() {
+
+
+		Log.info(CopyBot.class, " LONG position : ");
+		for (Map.Entry<String, Position> entry : openTradesLong.entrySet()) {
+			entry.getValue().printStat();
+		}
+		Log.info(CopyBot.class, " SHORT position : ");
+		for (Map.Entry<String, Position> entry : openTradesShort.entrySet()) {
+			entry.getValue().printStat();
+		}
+
+
 	}
 }

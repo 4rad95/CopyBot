@@ -9,12 +9,12 @@ public class ExecutedOrder {
 	private String quantity;
 	private Double quantityDouble;
 	private Long closeTime;
-	private Double closePrice;
+    private Double closePrice = 0.00;
 	private Double initialStopLoss;
 	private Double currentStopLoss;
 	private String orderId;
 	private Double priceAvg;
-	private String type; // short or long
+    private String type = " "; // short or long
 
     public String getOrderId() {
         return orderId;

@@ -96,6 +96,7 @@ public class StrategyMACD {
 
 
         Rule exitRule = new UnderIndicatorRule(macd, emaMacd)
+                .or(new UnderIndicatorRule(shortTermSMA, longTermSMA))
                 .or(new CrossedUpIndicatorRule(sma1, sma2));
 
 
@@ -134,6 +135,7 @@ public class StrategyMACD {
 
 
         Rule exitRule = new OverIndicatorRule(macd, emaMacd)
+                .or(new OverIndicatorRule(shortTermSMA, longTermSMA))
                 .or(new CrossedDownIndicatorRule(sma1, sma2));
 
         return new BaseStrategy(entryRule, exitRule);
