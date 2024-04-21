@@ -92,7 +92,7 @@ public class StrategyMACD {
                 //               .and(new OverIndicatorRule(macdHigh, emaMacdHigh))
                 .and(new OverIndicatorRule(sma14, sma24))
                 .and(new OverIndicatorRule(sma1, sma2))
-                .and(new OverIndicatorRule(shortTermSMA, longTermSMA));
+                .and(new UnderIndicatorRule(shortTermSMA, longTermSMA));
 
 
         Rule exitRule = new UnderIndicatorRule(macd, emaMacd)
@@ -130,7 +130,7 @@ public class StrategyMACD {
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacdEnter)
                 .and(new UnderIndicatorRule(sma14, sma24))
                 .and(new UnderIndicatorRule(sma1, sma2))
-                .and(new UnderIndicatorRule(shortTermSMA, longTermSMA));
+                .and(new OverIndicatorRule(shortTermSMA, longTermSMA));
 
 
         Rule exitRule = new OverIndicatorRule(macd, emaMacd)
