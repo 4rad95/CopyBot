@@ -43,6 +43,7 @@ public class TradeTask implements Runnable {
     private final String endColorStr = "\u001B[0m";
     private int counter = 10;
     private boolean stopThread = false;
+    private Double maxPercent = 0.00;
 
 
     public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
@@ -324,47 +325,32 @@ public class TradeTask implements Runnable {
 
             case "SHORT": {
                 if (chkProffit > 100) {
-
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
-                    if (proffitNew > chkProffit) {
-                        startColorStr = "\u001B[35m";
-                    }
-                    return proffitNew;
+
                 } else if (chkProffit > 24.00) {
 
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 4 / 5;
-                    if (proffitNew > chkProffit) {
-                        startColorStr = "\u001B[36m";
-                    }
                     return proffitNew;
                 } else {
-                    startColorStr = "\u001B[33m";
-                    proffitNew = (order.getPrice() + price) / 2;
+                    proffitNew = (order.getPrice() + price) * 2 / 3;
                     return proffitNew;
                 }
             }
             case "LONG": {
                 if (chkProffit > 100) {
-                    proffitNew = order.getPrice() - (price - order.getPrice()) * 9 / 10;
-                    if (proffitNew > chkProffit) {
-                        startColorStr = "\u001B[35m";
-                    }
+                    proffitNew = order.getPrice() + (price - order.getPrice()) * 9 / 10;
                     return proffitNew;
                 } else if (chkProffit > 24.00) {
                     proffitNew = order.getPrice() + ((price - order.getPrice()) * 4 / 5);
-                    if (proffitNew > chkProffit) {
-                        startColorStr = "\u001B[36m";
-                    }
                     return proffitNew;
                 } else {
-                    startColorStr = "\u001B[33m";
-                    proffitNew = (order.getPrice() + price) / 2;
+                    proffitNew = (order.getPrice() + price) * 2 / 3;
                     return proffitNew;
                 }
             }
-            default:
-                return null;
         }
+                return null;
+
     }
 
     private synchronized void checkPrice(Double price) throws GeneralException {
@@ -374,6 +360,7 @@ public class TradeTask implements Runnable {
 
             String proffit = order.getCurrentProfit(price).replace(",", ".");
             Double chkProffit = Double.parseDouble(proffit);
+        setMaxPercent(chkProffit);
             if (chkProffit > stopNoLoss) {
                 // Uppper StoppLoss level
 
@@ -388,11 +375,12 @@ public class TradeTask implements Runnable {
         //      CopyBot.updateMapPosition(createStatisticPosition(type));
         if (counter == 10) {
             Log.info(getClass(),
-                    startColorStr + type + " : " + symbol + ". Current price: " + showPrice(price)
-                            + ", buy price: " + showPrice(order.getPrice())
-                            + ", stoploss: "
+                    startColorStr + type + " : " + symbol + ". Curr : " + showPrice(price)
+                            + ", buy : " + showPrice(order.getPrice())
+                            + ", stop : "
                             + showPrice(order.getCurrentStopLoss())
-                            + ", current profit: " + order.getCurrentProfit(price) + "%" + endColorStr);
+                            + ", profit: " + order.getCurrentProfit(price) + " % , "
+                            + " Max. profit : " + String.format("%.2f", maxPercent) + " % " + endColorStr);
             counter = 0;
             //  CopyBot.updateMapPosition(createStatisticPosition("Work"));
         }
@@ -422,6 +410,20 @@ public class TradeTask implements Runnable {
 
         }
 
+    }
+
+    public Double setMaxPercent(Double percentProfit) {
+        if (percentProfit > maxPercent) {
+            maxPercent = percentProfit;
+        }
+        if (maxPercent > 100) {
+            startColorStr = "\u001B[35m";
+        } else if (maxPercent > 24) {
+            startColorStr = "\u001B[36m";
+        } else if (maxPercent > 10) {
+            startColorStr = "\u001B[33m";
+        }
+        return maxPercent;
     }
 }
 

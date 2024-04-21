@@ -221,7 +221,7 @@ public class CopyBot {
 					//	Log.info(CopyBot.class, "|Start time          | Work time | Symbol        | Open price       | Current price    | Stop loss        |  Profit");
 					//	outputPosition();
 					if (DO_TRADES && closedTrades > 0) {
-                                                
+
 						Log.info(
 								CopyBot.class,
 								"\u001B[32mClosed trades: " + closedTrades + " Long: " + closedTradesLong + " Short: " + closedTradesShort
@@ -233,13 +233,13 @@ public class CopyBot {
 					}
 					if ((openTradesLong.keySet().size()+openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
 						// We will not continue trading... avoid checking
-//
-//						try {
-//							Thread.sleep(timeToWait);
-//						} catch (InterruptedException e) {
-//							Log.severe(CopyBot.class, "Error sleeping", e);
-//						}
-//						continue;
+
+						try {
+							Thread.sleep(timeToWait);
+						} catch (InterruptedException e) {
+							Log.severe(CopyBot.class, "Error sleeping", e);
+						}
+						continue;
 					}
 				}
 				Long t0 = currentTimeMillis();
