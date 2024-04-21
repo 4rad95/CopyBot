@@ -46,8 +46,8 @@ public class Position {
         item = item + formattedTime + "  | " +
                 formatStr(type, 5) + " | " +
                 formatStr(symbol, 10) + "    | " +
-                formatStr(openPrice.toString(), 10) + "     | " +
-                formatStr(closePrice.toString(), 10) + "     | ";
+                formatStr(openPrice.toString(), 12) + "     | " +
+                formatStr(closePrice.toString(), 12) + "     | ";
         String proffitStr = proffit.toString();
         if (proffit > 0) {
             proffitStr = " " + proffitStr;

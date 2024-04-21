@@ -42,7 +42,7 @@ public class TradeTask implements Runnable {
     private String startColorStr = " ";
     private final String endColorStr = "\u001B[0m";
     private int counter = 10;
-    private boolean stopThread = true;
+    private boolean stopThread = false;
 
 
     public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
@@ -68,7 +68,7 @@ public class TradeTask implements Runnable {
             buy();
 
             // 2.- Suscribe to price ticks for the symbol, evaluate current price and update stoploss (if trailing stop)
-            while (stopThread) {
+            while (!stopThread) {
                 RequestOptions options = new RequestOptions();
                 SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
                         options);
@@ -257,8 +257,6 @@ public class TradeTask implements Runnable {
 */
     private void sell(Double price) {
         try {
-//			NewOrder newOrder = marketSell(symbol, String.valueOf(order.getQuantity()));
-//			client.newOrder(newOrder);
 
             RequestOptions options = new RequestOptions();
             SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
@@ -328,7 +326,9 @@ public class TradeTask implements Runnable {
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 8 / 10;
                     return proffitNew;
                 } else if (chkProffit > 24.00) {
-                    startColorStr = "\u001B[36m";
+                    if (startColorStr.length() == 1) {
+                        startColorStr = "\u001B[36m";
+                    }
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 2 / 3;
                     return proffitNew;
                 } else {
@@ -343,7 +343,9 @@ public class TradeTask implements Runnable {
                     proffitNew = order.getPrice() - (price - order.getPrice()) * 8 / 10;
                     return proffitNew;
                 } else if (chkProffit > 24.00) {
-                    startColorStr = "\u001B[36m";
+                    if (startColorStr.length() == 1) {
+                        startColorStr = "\u001B[36m";
+                    }
                     proffitNew = order.getPrice() + ((price - order.getPrice()) * 2 / 3);
                     return proffitNew;
                 } else {
@@ -361,8 +363,7 @@ public class TradeTask implements Runnable {
         Long now = System.currentTimeMillis();
 
         // This is a bit harcoded, but just trying to avoid too many logs..
-        //   if ((now - lastPriceLog) > 60 * 1000L)
-        //      {
+
             String proffit = order.getCurrentProfit(price).replace(",", ".");
             Double chkProffit = Double.parseDouble(proffit);
             if (chkProffit > stopNoLoss) {
@@ -393,7 +394,7 @@ public class TradeTask implements Runnable {
                     sell(price);
                     Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
                             + ". Current price: " + showPrice(price) + ", profit: " + order.getProfit());
-                    stopThread = false;
+                    stopThread = true;
                 }
                 break;
             }
@@ -403,7 +404,7 @@ public class TradeTask implements Runnable {
                     sell(price);
                     Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
                             + ". Current price: " + showPrice(price) + ", profit: " + order.getProfit());
-                    stopThread = false;
+                    stopThread = true;
 
                 }
                 break;
