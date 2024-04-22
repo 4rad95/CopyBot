@@ -13,7 +13,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -108,9 +107,12 @@ public class BinanceUtils {
 	public static BinanceApiWebSocketClient getWebSocketClient() throws GeneralException {
 		if(liveClient == null) {
 			try {
+				String futuresBaseUrl = "https://fapi.binance.com";
+
 				BinanceApiClientFactory factory = BinanceApiClientFactory
 						.newInstance(API_KEY, API_SECRET);
 				liveClient = factory.newWebSocketClient();
+
 			} catch (Exception e) {
 				throw new GeneralException(e);
 			}
