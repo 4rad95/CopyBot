@@ -111,6 +111,8 @@ public class BinanceUtils {
 
 				BinanceApiClientFactory factory = BinanceApiClientFactory
 						.newInstance(API_KEY, API_SECRET);
+
+
 				liveClient = factory.newWebSocketClient();
 
 			} catch (Exception e) {

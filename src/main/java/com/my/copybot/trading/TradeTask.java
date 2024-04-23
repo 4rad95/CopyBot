@@ -2,10 +2,7 @@ package com.my.copybot.trading;
 
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
-import com.binance.client.model.enums.NewOrderRespType;
-import com.binance.client.model.enums.OrderSide;
-import com.binance.client.model.enums.OrderType;
-import com.binance.client.model.enums.PositionSide;
+import com.binance.client.model.enums.*;
 import com.binance.client.model.market.MarkPrice;
 import com.binance.client.model.trade.Order;
 import com.my.copybot.CopyBot;
@@ -16,10 +13,13 @@ import com.my.copybot.model.Position;
 import com.my.copybot.util.BinanceUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static java.lang.Thread.sleep;
+import static org.apache.commons.lang3.StringUtils.repeat;
 
 
 public class TradeTask implements Runnable {
@@ -62,36 +62,28 @@ public class TradeTask implements Runnable {
         this.type = type;
     }
 
-    public void run() {
-
-        try {
-            // 1.- BUY, get order data - price and create ExecutedOrder with stoploss
-            buy();
-
-            // 2.- Suscribe to price ticks for the symbol, evaluate current price and update stoploss (if trailing stop)
-            while (!stopThread) {
-                RequestOptions options = new RequestOptions();
-                SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
-                        options);
-                List<MarkPrice> markPriceList = syncRequestClient.getMarkPrice(symbol);
-                BigDecimal price = markPriceList.get(0).getMarkPrice();
-                checkPrice(Double.parseDouble(price.toString()));
-                try {
-                    sleep(6000);   // 6c Cна
-
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-
-        } catch (GeneralException e) {
-            Log.severe(getClass(), "Unable to create buy operation", e);
-            error = true;
-            errorMessage = e.getMessage();
-            CopyBot.closeOrder(symbol, null, e.getMessage(), type);
+    public static String multiplyAndRound(Double number, double multiplier) {
+        // Если число null, вернуть пустую строку
+        if (number == null) {
+            return "";
         }
 
+        // Умножение числа на множитель
+        double result = number * multiplier;
+        int resultInt = (int) result;
+
+        // Получение количества знаков после запятой в исходном числе
+        int decimalPlaces = getDecimalPlaces(number);
+
+        // Создание форматтера для округления до исходного количества знаков после запятой
+        DecimalFormat df = new DecimalFormat("#." + repeat('0', decimalPlaces));
+
+        // Округление результата до исходного количества знаков после запятой и преобразование в строку
+        String string = df.format(result);
+        if (resultInt == 0) {
+            string = "0" + string;
+        }
+        return string.replace(',', '.');
     }
 
     private synchronized void buy() throws GeneralException {
@@ -212,6 +204,71 @@ public class TradeTask implements Runnable {
         }
     }
 
+    private static int getDecimalPlaces(double number) {
+        String[] parts = Double.toString(number).split("\\.");
+        return parts.length > 1 ? parts[1].length() : 0;
+    }
+
+    public synchronized String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public synchronized boolean isClosed() {
+
+        if (error) {
+            return true;
+        }
+        return order == null || order.getCloseTime() != null;
+    }
+
+    public synchronized ExecutedOrder getOrder() {
+        return order;
+    }
+
+    private String showPrice(Double price) {
+        return String.format("%.8f", price);
+    }
+
+    public synchronized String getSymbol() {
+        return symbol;
+    }
+
+    public void run() {
+
+        try {
+            // 1.- BUY, get order data - price and create ExecutedOrder with stoploss
+            buy_limit();
+
+
+
+            // 2.- Suscribe to price ticks for the symbol, evaluate current price and update stoploss (if trailing stop)
+            while (!stopThread) {
+                RequestOptions options = new RequestOptions();
+                SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
+                        options);
+                List<MarkPrice> markPriceList = syncRequestClient.getMarkPrice(symbol);
+                BigDecimal price = markPriceList.get(0).getMarkPrice();
+                if (!checkPrice(Double.parseDouble(price.toString()))) {
+                    break;
+                }
+                try {
+                    sleep(6000);   // 6c Cна
+
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+
+        } catch (GeneralException e) {
+            Log.severe(getClass(), "Unable to create buy operation", e);
+            error = true;
+            errorMessage = e.getMessage();
+            CopyBot.closeOrder(symbol, null, e.getMessage(), type);
+        }
+
+    }
+
     /*private void buySecond() throws GeneralException {
         String quantity = getAmount(alertPrice);
         Log.info(getClass(), "Second to buy " + symbol + ", quantity: " + quantity);
@@ -288,38 +345,28 @@ public class TradeTask implements Runnable {
         } catch (Exception e) {
             CopyBot.closeOrder(symbol, 0.00, null, "Error");
             System.out.println(" --------------------------- " + symbol + "   closed");
-            Log.severe(getClass(), "Unable to sell!", e);
-            CopyBot.addPositionClosed(createStatisticPosition("Error"));
-            stopThread = false;
-            // CopyBotSpot.closeOrder(symbol, order.getProfit(), null);
+            //           Log.severe(getClass(), "Unable to sell!", e);
+            stopThread = true;
+
         }
     }
 
-    public synchronized String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public synchronized boolean isClosed() {
-
-        if (error) {
-            return true;
+    public Double setMaxPercent(Double percentProfit) {
+        if (percentProfit > maxPercent) {
+            maxPercent = percentProfit;
         }
-        return order == null || order.getCloseTime() != null;
-    }
-
-    public synchronized ExecutedOrder getOrder() {
-        return order;
-    }
-
-    private String showPrice(Double price) {
-        return String.format("%.8f", price);
-    }
-
-    public synchronized String getSymbol() {
-        return symbol;
+        if (maxPercent > 100) {
+            startColorStr = "\u001B[35m";
+        } else if (maxPercent > 24) {
+            startColorStr = "\u001B[36m";
+        } else if (maxPercent > 10) {
+            startColorStr = "\u001B[33m";
+        }
+        return maxPercent;
     }
 
     private Double setStopLoss(Double chkProffit, Double price) {
+
         Double proffitNew = 0.00;
         switch (type) {
 
@@ -328,7 +375,6 @@ public class TradeTask implements Runnable {
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
 
                 } else if (chkProffit > 24.00) {
-
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 4 / 5;
                     return proffitNew;
                 } else {
@@ -353,19 +399,18 @@ public class TradeTask implements Runnable {
 
     }
 
-    private synchronized void checkPrice(Double price) throws GeneralException {
+    private synchronized boolean checkPrice(Double price) throws GeneralException {
         Long now = System.currentTimeMillis();
-
         // This is a bit harcoded, but just trying to avoid too many logs..
-
+        try {
             String proffit = order.getCurrentProfit(price).replace(",", ".");
-            Double chkProffit = Double.parseDouble(proffit);
-        setMaxPercent(chkProffit);
-            if (chkProffit > stopNoLoss) {
-                // Uppper StoppLoss level
 
-                double temp = setStopLoss(chkProffit, price);
-                // order.setCurrentStopLoss(setStopLoss(chkProffit));
+            Double chkProffit = Double.parseDouble(proffit);
+            setMaxPercent(chkProffit);
+            if (chkProffit > stopNoLoss) {
+
+                Double temp = setStopLoss(chkProffit, price);
+                //  order.setCurrentStopLoss(setStopLoss(chkProffit));
                 if (temp > order.getCurrentStopLoss() && (order.getType().equals("LONG"))) {
                     order.setCurrentStopLoss(temp);
                 } else if ((temp < order.getCurrentStopLoss() && (order.getType().equals("SHORT")))) {
@@ -409,21 +454,112 @@ public class TradeTask implements Runnable {
             }
 
         }
-
+        } catch (NullPointerException e) {
+            stopThread = true;
+            CopyBot.closeOrder(symbol, 0.00, null, "Error");
+        }
+        return true;
     }
 
-    public Double setMaxPercent(Double percentProfit) {
-        if (percentProfit > maxPercent) {
-            maxPercent = percentProfit;
+    private synchronized void buy_limit() throws GeneralException {
+        String quantity = getAmount(alertPrice);
+        Log.info(getClass(), "Trying to buy " + symbol + ", quantity: " + quantity + " using limit order");
+        String priceReal = "";
+        try {
+
+
+            RequestOptions options = new RequestOptions();
+            SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
+                    options);
+            // By now we will not be creating real orders
+            Order orderNew;
+
+            switch (type) {
+
+                case "SHORT": {
+
+                    String priceTmp = multiplyAndRound(alertPrice, 1.002);
+                    orderNew = (syncRequestClient.postOrder(symbol, OrderSide.SELL, PositionSide.SHORT, OrderType.LIMIT, TimeInForce.GTC,
+                            quantity, priceTmp, null, null, null, null, null, null, null, null, NewOrderRespType.RESULT));
+                    Long orderId = orderNew.getOrderId();
+                    int count = 0;
+                    while (true) {
+                        sleep(20000);
+                        orderNew = syncRequestClient.getOrder(symbol, orderId, null);
+                        Log.info(getClass(), "Waiting to buy " + symbol);
+                        if (!orderNew.getStatus().equals("NEW")) {
+                            break;
+                        }
+                        if (count > 3) {
+                            orderNew = syncRequestClient.cancelOrder(symbol, orderId, null);
+                            throw new IOException();
+                        }
+                        count++;
+                    }
+
+                    order = new ExecutedOrder();
+                    order.setType(type);
+                    order.setPrice(orderNew.getAvgPrice().doubleValue());
+                    priceReal = orderNew.getAvgPrice().toString();
+                    order.setCurrentStopLoss((100 + stopLossPercentage) * order.getPrice() / (100.0));
+                    order.setSymbol(symbol);
+                    order.setQuantity(quantity);
+                    order.setInitialStopLoss(order.getCurrentStopLoss());
+                    order.setOrderId(orderNew.getClientOrderId());
+                    priceReal = orderNew.getAvgPrice().toString();
+                    break;
+                }
+                case "LONG": {
+                    String priceTmp = multiplyAndRound(alertPrice, 0.998);
+                    orderNew = (syncRequestClient.postOrder(symbol, OrderSide.BUY, PositionSide.LONG, OrderType.LIMIT, TimeInForce.GTC,
+                            quantity, priceTmp, null, null, null, null, null, null, null, null, NewOrderRespType.RESULT));
+                    Long orderId = orderNew.getOrderId();
+                    int count = 0;
+                    while (true) {
+                        sleep(20000);
+                        orderNew = syncRequestClient.getOrder(symbol, orderId, null);
+                        Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
+                        if (!orderNew.getStatus().equals("NEW")) {
+                            break;
+                        }
+                        if (count > 3) {
+                            orderNew = syncRequestClient.cancelOrder(symbol, orderId, null);
+                            throw new IOException();
+                        }
+                        count++;
+
+                    }
+
+                    order = new ExecutedOrder();
+                    order.setType(type);
+                    order.setPrice(orderNew.getAvgPrice().doubleValue());
+                    priceReal = orderNew.getAvgPrice().toString();
+                    order.setCurrentStopLoss((100.0 - (stopLossPercentage)) * alertPrice / (100.0));
+                    order.setSymbol(symbol);
+                    order.setQuantity(quantity);
+                    order.setInitialStopLoss(order.getCurrentStopLoss());
+                    order.setOrderId(orderNew.getClientOrderId());
+                    priceReal = orderNew.getAvgPrice().toString();
+                    break;
+                }
+                default:
+                    throw new IllegalStateException("Unexpected value: " + type);
+            }
+
+
+            order.setCreationTime(System.currentTimeMillis());
+        } catch (Exception e) {
+            //   sell(alertPrice);
+            Log.info(getClass(), "Time out to buy " + symbol + ". Search next position ");
+            CopyBot.closeOrder(symbol, 0.00, null, type);
+
         }
-        if (maxPercent > 100) {
-            startColorStr = "\u001B[35m";
-        } else if (maxPercent > 24) {
-            startColorStr = "\u001B[36m";
-        } else if (maxPercent > 10) {
-            startColorStr = "\u001B[33m";
-        }
-        return maxPercent;
+        //  order.setInitialStopLoss(order.getCurrentStopLoss());
+
+        Log.info(getClass(), "Buy [" + type + "] ready : " + symbol + ", quantity: " + quantity + ",  " + priceReal);
     }
+
+
+
 }
 
