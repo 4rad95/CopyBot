@@ -555,7 +555,7 @@ public class TradeTask implements Runnable {
         } catch (Exception e) {
             //   sell(alertPrice);
             Log.info(getClass(), "Time out to buy " + symbol + ". Search next position ");
-            //CopyBot.closeOrder(symbol, 0.00, null, type);
+            CopyBot.closeOrder(symbol, 0.00, null, type);
             stopThread = true;
         }
         //  order.setInitialStopLoss(order.getCurrentStopLoss());
