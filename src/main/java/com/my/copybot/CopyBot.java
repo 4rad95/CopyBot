@@ -48,6 +48,7 @@ public class CopyBot {
 	public static Boolean MAKE_TRADE_AVG = true;
 	public static String BLACK_LIST = "";
 	public static Integer STOP_NO_LOSS = 100;
+	public static Integer WAIT_LIMIT_ORDER = 15;
 	public static Long timer = currentTimeMillis();
 
 	// We will store time series for every symbol
@@ -167,6 +168,10 @@ public class CopyBot {
 						String strStopNoLoss = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_STOPNOLOSS);
 						STOP_NO_LOSS = Integer.valueOf(strStopNoLoss);
+			String waitLimitOrder = ConfigUtils
+					.readPropertyValue(ConfigUtils.CONFIG_TRADING_WAIT_LIMIT);
+			WAIT_LIMIT_ORDER = Integer.valueOf(strStopNoLoss);
+
                 }
 		try {
 			BinanceUtils.init(ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_KEY),
@@ -522,7 +527,7 @@ public class CopyBot {
 	public static void addTrade(String symbol, String type) {
 
 		TradeTask tradeTask = new TradeTask(symbol, getCurrentPrice(symbol).toDouble(),
-				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, DO_TRAILING_STOP, MAKE_TRADE_AVG, STOP_NO_LOSS, type);
+				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type);
 		Thread thread = new Thread(tradeTask);
 		tradeTask.thisThread = thread;
 		thread.start();

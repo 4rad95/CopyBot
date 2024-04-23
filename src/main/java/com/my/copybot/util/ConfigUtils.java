@@ -4,14 +4,14 @@
  */
 package com.my.copybot.util;
 
+import com.my.copybot.Log;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
-
-import com.my.copybot.Log;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
 public class ConfigUtils {
 	
@@ -31,6 +31,7 @@ public class ConfigUtils {
     public static final String CONFIG_TRADING_AVRG = "trading.makeAveraging";
     public static final String CONFIG_TRADING_BLACKLIST = "trading.blackList";
     public static final String CONFIG_TRADING_STOPNOLOSS = "trading.stopNoLoss";
+    public static final String CONFIG_TRADING_WAIT_LIMIT = "trading.waitOrderMinute";
         
 	private static String systemConfigFilePath = "";
 	

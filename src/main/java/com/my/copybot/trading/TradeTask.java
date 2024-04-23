@@ -29,7 +29,8 @@ public class TradeTask implements Runnable {
     private final Double btcAmount;
     private final Double usdtAmount;
     private final Double stopLossPercentage;
-    private final boolean doTrailingStop;
+    //  private final boolean doTrailingStop;
+    private final Integer waitOrderLimit;
 
     private final boolean makeAvg;
     private final Integer stopNoLoss;
@@ -47,7 +48,7 @@ public class TradeTask implements Runnable {
 
 
     public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
-                     Double stopLossPercentage, boolean doTrailingStop, boolean makeAvg, Integer stopNoLoss, String type) {
+                     Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type) {
 //
 //	public TradeTask( String symbol, Double alertPrice, Double btcAmount,
 //			Double stopLossPercentage, boolean doTrailingStop) {
@@ -55,8 +56,9 @@ public class TradeTask implements Runnable {
         this.alertPrice = alertPrice;
         this.btcAmount = btcAmount;
         this.stopLossPercentage = stopLossPercentage;
-        this.doTrailingStop = doTrailingStop;
+        //      this.doTrailingStop = doTrailingStop;
         this.usdtAmount = usdtAmount;
+        this.waitOrderLimit = waitOrderLimit;
         this.makeAvg = makeAvg;
         this.stopNoLoss = stopNoLoss;
         this.type = type;
@@ -359,7 +361,7 @@ public class TradeTask implements Runnable {
             startColorStr = "\u001B[35m";
         } else if (maxPercent > 24) {
             startColorStr = "\u001B[36m";
-        } else if (maxPercent > 10) {
+        } else if (maxPercent > stopNoLoss) {
             startColorStr = "\u001B[33m";
         }
         return maxPercent;
@@ -492,7 +494,7 @@ public class TradeTask implements Runnable {
                         if (!orderNew.getStatus().equals("NEW")) {
                             break;
                         }
-                        if (count > 3 * 45) {
+                        if (count > 3 * waitOrderLimit) {
                             orderNew = syncRequestClient.cancelOrder(symbol, orderId, null);
                             throw new IOException();
                         }
@@ -524,7 +526,7 @@ public class TradeTask implements Runnable {
                         if (!orderNew.getStatus().equals("NEW")) {
                             break;
                         }
-                        if (count > 3 * 45) {
+                        if (count > 3 * waitOrderLimit) {
                             orderNew = syncRequestClient.cancelOrder(symbol, orderId, null);
                             throw new IOException();
                         }
