@@ -378,7 +378,7 @@ public class TradeTask implements Runnable {
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 4 / 5;
                     return proffitNew;
                 } else {
-                    proffitNew = (order.getPrice() + price) * 2 / 3;
+                    proffitNew = order.getPrice() - ((order.getPrice() - price)) * 2 / 3;
                     return proffitNew;
                 }
             }
@@ -390,7 +390,7 @@ public class TradeTask implements Runnable {
                     proffitNew = order.getPrice() + ((price - order.getPrice()) * 4 / 5);
                     return proffitNew;
                 } else {
-                    proffitNew = (order.getPrice() + price) * 2 / 3;
+                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 2 / 3);
                     return proffitNew;
                 }
             }
@@ -411,10 +411,12 @@ public class TradeTask implements Runnable {
 
                 Double temp = setStopLoss(chkProffit, price);
                 //  order.setCurrentStopLoss(setStopLoss(chkProffit));
-                if (temp > order.getCurrentStopLoss() && (order.getType().equals("LONG"))) {
+                if (temp > order.getCurrentStopLoss() && order.getType().equals("LONG")) {
                     order.setCurrentStopLoss(temp);
-                } else if ((temp < order.getCurrentStopLoss() && (order.getType().equals("SHORT")))) {
+                    System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
+                } else if (temp < order.getCurrentStopLoss() && order.getType().equals("SHORT")) {
                     order.setCurrentStopLoss(temp);
+                    System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
                 }
             }
         //      CopyBot.updateMapPosition(createStatisticPosition(type));
