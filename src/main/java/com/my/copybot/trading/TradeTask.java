@@ -486,7 +486,7 @@ public class TradeTask implements Runnable {
                     while (true) {
                         sleep(20000);
                         orderNew = syncRequestClient.getOrder(symbol, orderId, null);
-                        Log.info(getClass(), "Waiting to buy " + symbol);
+                        Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
                         if (!orderNew.getStatus().equals("NEW")) {
                             break;
                         }
