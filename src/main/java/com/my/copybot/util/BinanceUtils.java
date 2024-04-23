@@ -88,11 +88,11 @@ public class BinanceUtils {
 	public static BinanceApiRestClient getRestClient() throws GeneralException {
 		if (client == null) {
 			try {
-
+                System.setProperty("wss://stream.binance.com:9443/ws", "wss://ws-fapi.binance.com/ws-fapi/v1");
 				BinanceApiClientFactory factory = BinanceApiClientFactory
 						.newInstance(API_KEY, API_SECRET);
                                                 
-                                
+
                                 client = factory.newRestClient();
                                                           
                        
@@ -108,6 +108,7 @@ public class BinanceUtils {
 		if(liveClient == null) {
 			try {
 				String futuresBaseUrl = "https://fapi.binance.com";
+                //	System.setProperty("wss://stream.binance.com:9443/ws", "wss://ws-fapi.binance.com/ws-fapi/v1");
 
 				BinanceApiClientFactory factory = BinanceApiClientFactory
 						.newInstance(API_KEY, API_SECRET);

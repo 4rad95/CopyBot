@@ -494,7 +494,7 @@ public class TradeTask implements Runnable {
                         if (!orderNew.getStatus().equals("NEW")) {
                             break;
                         }
-                        if (count > 3 * waitOrderLimit) {
+                        if ((count > 3 * waitOrderLimit) || (CopyBot.shouldCloseOrder(symbol))) {
                             orderNew = syncRequestClient.cancelOrder(symbol, orderId, null);
                             throw new IOException();
                         }
@@ -526,7 +526,7 @@ public class TradeTask implements Runnable {
                         if (!orderNew.getStatus().equals("NEW")) {
                             break;
                         }
-                        if (count > 3 * waitOrderLimit) {
+                        if ((count > 3 * waitOrderLimit) || (CopyBot.shouldCloseOrder(symbol))) {
                             orderNew = syncRequestClient.cancelOrder(symbol, orderId, null);
                             throw new IOException();
                         }
