@@ -490,7 +490,7 @@ public class TradeTask implements Runnable {
                         if (!orderNew.getStatus().equals("NEW")) {
                             break;
                         }
-                        if (count > 3) {
+                        if (count > 3 * 45) {
                             orderNew = syncRequestClient.cancelOrder(symbol, orderId, null);
                             throw new IOException();
                         }
@@ -522,7 +522,7 @@ public class TradeTask implements Runnable {
                         if (!orderNew.getStatus().equals("NEW")) {
                             break;
                         }
-                        if (count > 3) {
+                        if (count > 3 * 45) {
                             orderNew = syncRequestClient.cancelOrder(symbol, orderId, null);
                             throw new IOException();
                         }
@@ -551,8 +551,8 @@ public class TradeTask implements Runnable {
         } catch (Exception e) {
             //   sell(alertPrice);
             Log.info(getClass(), "Time out to buy " + symbol + ". Search next position ");
-            CopyBot.closeOrder(symbol, 0.00, null, type);
-
+            //CopyBot.closeOrder(symbol, 0.00, null, type);
+            stopThread = true;
         }
         //  order.setInitialStopLoss(order.getCurrentStopLoss());
 
