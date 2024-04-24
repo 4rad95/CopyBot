@@ -6,6 +6,7 @@ import org.ta4j.core.indicators.EMAIndicator;
 import org.ta4j.core.indicators.MACDIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
+import org.ta4j.core.indicators.helpers.DifferenceIndicator;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
@@ -80,6 +81,11 @@ public class StrategyMACD {
         SMAIndicator longTermSMA = new SMAIndicator(closePrice, 9);
         EMAIndicator sma3 = new EMAIndicator(closePrice, 3);
         EMAIndicator sma5 = new EMAIndicator(closePrice, 5);
+
+
+        Indicator<Decimal> macdDiff = new DifferenceIndicator(macd, macd);
+        //Rule exitRule = new CrossedDownIndicatorRule(macdDiff, Decimal.ZERO);
+
 //        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
 //        StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 //        RSIIndicator rsiIndicator = new RSIIndicator(closePrice, rsiPeriod);
@@ -96,30 +102,8 @@ public class StrategyMACD {
 
         Rule exitRule = ((new UnderIndicatorRule(macd, emaMacd))
                 .and(new UnderIndicatorRule(macd, emaMacdEnter)))
+                .or(new CrossedDownIndicatorRule(macdDiff, Decimal.ZERO))
                 .or(new CrossedUpIndicatorRule(sma1, sma2));
-
-
-//        Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacdEnter)
-//                .and(new UnderIndicatorRule(macd, emaMacd))
-//                .and(new UnderIndicatorRule(sma14, sma24))
-//                .and(new UnderIndicatorRule(sma1, sma2));
-//
-//        Rule exitRule = ((new OverIndicatorRule(macd, emaMacd))
-//                .and(new OverIndicatorRule(macd, emaMacdEnter)))
-//                .or(new OverIndicatorRule(shortTermSMA, longTermSMA));
-
-
-//        Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacdEnter)
-//                //               .and(new OverIndicatorRule(macdHigh, emaMacdHigh))
-//                .and(new OverIndicatorRule(sma14, sma24))
-//                .and(new OverIndicatorRule(sma1, sma2));
-//        //         .and(new OverIndicatorRule(sma3, sma5));
-//
-//
-//        Rule exitRule = new UnderIndicatorRule(macd, emaMacd)
-//                //    .or(new UnderIndicatorRule(sma3, sma5))
-//                .or(new CrossedUpIndicatorRule(sma1, sma2));
-
 
 
         return new BaseStrategy(entryRule, exitRule);
@@ -144,11 +128,8 @@ public class StrategyMACD {
         SMAIndicator longTermSMA = new SMAIndicator(closePrice, 9);
         EMAIndicator sma3 = new EMAIndicator(closePrice, 3);
         EMAIndicator sma5 = new EMAIndicator(closePrice, 5);
-        //StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
-        //StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
-        //RSIIndicator rsiIndicator = new RSIIndicator(closePrice, rsiPeriod);
-        /*	ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);*/
-        //WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
+        Indicator<Decimal> macdDiff = new DifferenceIndicator(macd, macd);
+
 
 
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacdEnter)
@@ -158,22 +139,12 @@ public class StrategyMACD {
 
         Rule exitRule = ((new OverIndicatorRule(macd, emaMacd))
                 .and(new OverIndicatorRule(macd, emaMacdEnter)))
+                .or(new CrossedUpIndicatorRule(macdDiff, Decimal.ZERO))
                 .or(new OverIndicatorRule(shortTermSMA, longTermSMA));
 
 
-//        Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacdEnter)
-//                .and(new UnderIndicatorRule(sma14, sma24))
-//                .and(new UnderIndicatorRule(sma1, sma2));
-//        //        .and(new UnderIndicatorRule(sma3, sma5));
-//
-//
-//        Rule exitRule = new OverIndicatorRule(macd, emaMacd)
-//                .or(new OverIndicatorRule(shortTermSMA, longTermSMA));
-//        //      .or(new CrossedDownIndicatorRule(sma3, sma5));
-
         return new BaseStrategy(entryRule, exitRule);
     }
-
 
 }
 
