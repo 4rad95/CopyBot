@@ -95,7 +95,7 @@ public class StrategyMACD {
         //	AverageTrueRangeIndicator atr = new AverageTrueRangeIndicator(series, adxPeriod);
         //	ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);
         //#stat	WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
-        System.out.println(series.getName() + "    " + macdDiff.getValue(macdDiff.getTimeSeries().getEndIndex()));
+        //   System.out.println(series.getName() + "    " + macdDiff.getValue(macdDiff.getTimeSeries().getEndIndex()));
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacdEnter)
 
                 .and(new OverIndicatorRule(macd, emaMacd))
@@ -131,7 +131,7 @@ public class StrategyMACD {
         SMAIndicator longTermSMA = new SMAIndicator(closePrice, 9);
         EMAIndicator sma3 = new EMAIndicator(closePrice, 3);
         EMAIndicator sma5 = new EMAIndicator(closePrice, 5);
-        Indicator<Decimal> macdDiff = new DifferenceIndicator(macdExit, macdExit);
+        Indicator<Decimal> macdDiff = new DifferenceIndicator(macdExit, macdExit.);
 
 
 
