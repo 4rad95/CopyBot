@@ -90,11 +90,24 @@ public class StrategyMACD {
         //#stat	WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
 
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacdEnter)
+                .and(new OverIndicatorRule(macd, emaMacd))
                 .and(new OverIndicatorRule(sma14, sma24))
                 .and(new OverIndicatorRule(sma1, sma2));
 
-        Rule exitRule = new UnderIndicatorRule(macd, emaMacd)
+        Rule exitRule = ((new UnderIndicatorRule(macd, emaMacd))
+                .and(new UnderIndicatorRule(macd, emaMacdEnter)))
                 .or(new CrossedUpIndicatorRule(sma1, sma2));
+
+
+//        Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacdEnter)
+//                .and(new UnderIndicatorRule(macd, emaMacd))
+//                .and(new UnderIndicatorRule(sma14, sma24))
+//                .and(new UnderIndicatorRule(sma1, sma2));
+//
+//        Rule exitRule = ((new OverIndicatorRule(macd, emaMacd))
+//                .and(new OverIndicatorRule(macd, emaMacdEnter)))
+//                .or(new OverIndicatorRule(shortTermSMA, longTermSMA));
+
 
 //        Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacdEnter)
 //                //               .and(new OverIndicatorRule(macdHigh, emaMacdHigh))
@@ -139,10 +152,12 @@ public class StrategyMACD {
 
 
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacdEnter)
+                .and(new UnderIndicatorRule(macd, emaMacd))
                 .and(new UnderIndicatorRule(sma14, sma24))
                 .and(new UnderIndicatorRule(sma1, sma2));
 
-        Rule exitRule = new OverIndicatorRule(macd, emaMacd)
+        Rule exitRule = ((new OverIndicatorRule(macd, emaMacd))
+                .and(new OverIndicatorRule(macd, emaMacdEnter)))
                 .or(new OverIndicatorRule(shortTermSMA, longTermSMA));
 
 
