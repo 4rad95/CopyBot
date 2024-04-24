@@ -75,6 +75,7 @@ public class StrategyMACD {
         EMAIndicator sma14 = new EMAIndicator(closePrice, 200);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 400);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
+        MACDIndicator macdExit = new MACDIndicator(closePrice, 5, 15);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
         EMAIndicator emaMacdEnter = new EMAIndicator(macd, 13);
         SMAIndicator shortTermSMA = new SMAIndicator(closePrice, 5);
@@ -83,7 +84,7 @@ public class StrategyMACD {
         EMAIndicator sma5 = new EMAIndicator(closePrice, 5);
 
 
-        Indicator<Decimal> macdDiff = new DifferenceIndicator(macd, macd);
+        Indicator<Decimal> macdDiff = new DifferenceIndicator(macdExit, macdExit);
         //Rule exitRule = new CrossedDownIndicatorRule(macdDiff, Decimal.ZERO);
 
 //        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
@@ -121,6 +122,7 @@ public class StrategyMACD {
         EMAIndicator sma14 = new EMAIndicator(closePrice, 200);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 400);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
+        MACDIndicator macdExit = new MACDIndicator(closePrice, 5, 15);
         EMAIndicator emaMacdEnter = new EMAIndicator(macd, 13);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
@@ -128,7 +130,7 @@ public class StrategyMACD {
         SMAIndicator longTermSMA = new SMAIndicator(closePrice, 9);
         EMAIndicator sma3 = new EMAIndicator(closePrice, 3);
         EMAIndicator sma5 = new EMAIndicator(closePrice, 5);
-        Indicator<Decimal> macdDiff = new DifferenceIndicator(macd, macd);
+        Indicator<Decimal> macdDiff = new DifferenceIndicator(macdExit, macdExit);
 
 
 
