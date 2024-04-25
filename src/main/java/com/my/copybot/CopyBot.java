@@ -211,7 +211,7 @@ public class CopyBot {
 					seconds = seconds - minutes * 60;
 					String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
 					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-					Log.info(CopyBot.class, "\u001B[36m CopyBot 1.00002 Bis (Using new re-Made Trade Strategy) Rad creating. Made to make money!!!!  \u001B[0m");
+					Log.info(CopyBot.class, "\u001B[36m CopyBot 1.00003 (Using new re-Made Trade Strategy) Rad creating. Made to make money!!!!  \u001B[0m");
 					//		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
 					Log.info(CopyBot.class," Open trades LONG: " + openTradesLong.keySet().size() +" SHORT:" + openTradesShort.keySet().size());
 					Log.info(CopyBot.class," LONG:  " + openTradesLong.keySet());
@@ -226,7 +226,6 @@ public class CopyBot {
 					//	Log.info(CopyBot.class, "|Start time          | Work time | Symbol        | Open price       | Current price    | Stop loss        |  Profit");
 					//	outputPosition();
 					if (DO_TRADES && closedTrades > 0) {
-
 						Log.info(
 								CopyBot.class,
 								"\u001B[32mClosed trades: " + closedTrades + " Long: " + closedTradesLong + " Short: " + closedTradesShort
@@ -236,16 +235,19 @@ public class CopyBot {
 						Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
                                                 
 					}
-//					if ((openTradesLong.keySet().size()+openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
-//						// We will not continue trading... avoid checking
-//
-//						try {
-//							Thread.sleep(timeToWait);
-//						} catch (InterruptedException e) {
-//							Log.severe(CopyBot.class, "Error sleeping", e);
-//						}
-//						continue;
-//					}
+					if ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
+						// We will not continue trading... avoid checking
+
+						try {
+							Thread.sleep(timeToWait);
+							checkStrategyOpenPosition(openTradesLong);
+							checkStrategyOpenPosition(openTradesShort);
+
+						} catch (InterruptedException e) {
+							Log.severe(CopyBot.class, "Error sleeping", e);
+						}
+						continue;
+					}
 				}
 				Long t0 = currentTimeMillis();
 				// 2.- Get two last ticks for symbol and update cache.
@@ -632,4 +634,9 @@ public class CopyBot {
 //
 //
 //	}
+public static synchronized void checkStrategyOpenPosition(Map<String, String> mapPosition) {
+	for (Map.Entry position : mapPosition.entrySet()) {
+		checkSymbol(position.getKey().toString());
+	}
+}
 }
