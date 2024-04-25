@@ -288,7 +288,7 @@ public class CopyBot {
 	
 	private static void checkSymbol(String symbol) {
 
-		if (check(symbol) || frozenTrade.get(symbol) == null) {
+		if (check(symbol) && frozenTrade.get(symbol) == null) {
                 // Log.debug(CopyBotSpot.class, "Checking symbol: " + symbol);
 			Long t0 = currentTimeMillis();
 		try {
