@@ -357,9 +357,9 @@ public class TradeTask implements Runnable {
         if (percentProfit > maxPercent) {
             maxPercent = percentProfit;
         }
-        if (maxPercent > 100) {
+        if (maxPercent > stopNoLoss + 100) {
             startColorStr = "\u001B[35m";
-        } else if (maxPercent > 24) {
+        } else if (maxPercent > stopNoLoss + 50) {
             startColorStr = "\u001B[36m";
         } else if (maxPercent > stopNoLoss) {
             startColorStr = "\u001B[33m";
@@ -490,7 +490,9 @@ public class TradeTask implements Runnable {
                     while (true) {
                         sleep(20000);
                         orderNew = syncRequestClient.getOrder(symbol, orderId, null);
-                        Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
+                        if (count % 15 == 0) {
+                            Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
+                        }
                         if (!orderNew.getStatus().equals("NEW")) {
                             break;
                         }
@@ -522,6 +524,9 @@ public class TradeTask implements Runnable {
                     while (true) {
                         sleep(20000);
                         orderNew = syncRequestClient.getOrder(symbol, orderId, null);
+                        if (count % 3 == 15) {
+                            Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
+                        }
                         Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
                         if (!orderNew.getStatus().equals("NEW")) {
                             break;

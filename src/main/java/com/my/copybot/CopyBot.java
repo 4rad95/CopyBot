@@ -17,6 +17,7 @@ import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
 import com.my.copybot.exceptions.GeneralException;
 import com.my.copybot.model.Position;
+import com.my.copybot.trading.Frozen;
 import com.my.copybot.trading.TradeTask;
 import com.my.copybot.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -49,6 +50,7 @@ public class CopyBot {
 	public static String BLACK_LIST = "";
 	public static Integer STOP_NO_LOSS = 100;
 	public static Integer WAIT_LIMIT_ORDER = 15;
+	public static final Map<String, Integer> frozenTrade = new HashMap<String, Integer>();
 	public static Long timer = currentTimeMillis();
 
 	// We will store time series for every symbol
@@ -56,6 +58,7 @@ public class CopyBot {
 
 	private static final Map<String, String> openTradesLong = new HashMap<String, String>();
 	private static final Map<String, String> openTradesShort = new HashMap<String, String>();
+	public static Integer WAIT_FROZEN = 20;
         
 	private static final List<String> ordersToBeClosed = new LinkedList<String>();
 	private static final List<Position> closedPositions = new LinkedList<Position>();
@@ -171,6 +174,9 @@ public class CopyBot {
 			String waitLimitOrder = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_WAIT_LIMIT);
 			WAIT_LIMIT_ORDER = Integer.valueOf(strStopNoLoss);
+			String waiFrozen = ConfigUtils
+					.readPropertyValue(ConfigUtils.CONFIG_TRADING_WAIT_FROZEN);
+			WAIT_FROZEN = Integer.valueOf(strStopNoLoss);
 
                 }
 		try {
@@ -198,6 +204,12 @@ public class CopyBot {
 			Long timeToWait = PAUSE_TIME_MINUTES * 60 * 1000L;
 			if (timeToWait < 0) {
 				timeToWait = 5 * 60 * 1000L;
+			}
+			{
+				Frozen frozen = new Frozen(20);
+				Thread thread = new Thread(frozen);
+				frozen.thisThread = thread;
+				thread.start();
 			}
 			while (true) {
                                 //Thread.getAllStackTraces().keySet(); 
@@ -275,8 +287,8 @@ public class CopyBot {
 	}
 	
 	private static void checkSymbol(String symbol) {
-                
-		if (check(symbol)){
+
+		if (check(symbol) || frozenTrade.get(symbol) == null) {
                 // Log.debug(CopyBotSpot.class, "Checking symbol: " + symbol);
 			Long t0 = currentTimeMillis();
 		try {
@@ -405,7 +417,7 @@ public class CopyBot {
                         closedTrades+=delta;
                         totalProfit += profit;
                         ordersToBeClosed.remove(symbol);
-                         
+					frozenTrade.put(symbol, 0);
                         openTradesLong.remove(symbol);
                         openTradesShort.remove(symbol);
         }
@@ -638,5 +650,17 @@ public static synchronized void checkStrategyOpenPosition(Map<String, String> ma
 	for (Map.Entry position : mapPosition.entrySet()) {
 		checkSymbol(position.getKey().toString());
 	}
+
+
 }
+
+	public static synchronized void modifyFrozenList() {
+		for (Map.Entry<String, Integer> entry : frozenTrade.entrySet()) {
+			entry.setValue(entry.getValue() + 1);
+			if (entry.getValue() > WAIT_FROZEN)
+				frozenTrade.remove(entry);
+		}
+
+	}
 }
+
