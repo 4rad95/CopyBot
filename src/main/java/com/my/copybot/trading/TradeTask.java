@@ -415,10 +415,10 @@ public class TradeTask implements Runnable {
                 //  order.setCurrentStopLoss(setStopLoss(chkProffit));
                 if (temp > order.getCurrentStopLoss() && order.getType().equals("LONG")) {
                     order.setCurrentStopLoss(temp);
-                    System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
+                    //  System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
                 } else if (temp < order.getCurrentStopLoss() && order.getType().equals("SHORT")) {
                     order.setCurrentStopLoss(temp);
-                    System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
+                    // System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
                 }
             }
         //      CopyBot.updateMapPosition(createStatisticPosition(type));
