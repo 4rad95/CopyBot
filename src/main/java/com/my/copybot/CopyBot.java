@@ -338,13 +338,12 @@ public class CopyBot {
 									if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
 										Decimal currentPrice = series.getLastTick().getClosePrice();
 
-										Log.info(CopyBot.class, "SHORT signal for symbol: " + symbol + ", price: " + currentPrice);
+										//	Log.info(CopyBot.class, "SHORT signal for symbol: " + symbol + ", price: " + currentPrice);
 
 										if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
 
 											// We create a new thread to short trade with the symbol
 
-											// We create a new position to trade with the symbol
 											addTrade(symbol, "SHORT");
 
 										}
