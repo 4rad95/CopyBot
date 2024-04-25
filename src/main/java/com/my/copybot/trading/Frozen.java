@@ -18,9 +18,7 @@ public class Frozen implements Runnable {
         while (true) {
             try {
                 sleep(60000);
-                System.out.println("Check frozzen position -  complete");
                 CopyBot.modifyFrozenList();
-
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
