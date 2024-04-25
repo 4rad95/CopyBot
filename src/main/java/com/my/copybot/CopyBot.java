@@ -236,16 +236,16 @@ public class CopyBot {
 						Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
                                                 
 					}
-					if ((openTradesLong.keySet().size()+openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
-						// We will not continue trading... avoid checking
-
-						try {
-							Thread.sleep(timeToWait);
-						} catch (InterruptedException e) {
-							Log.severe(CopyBot.class, "Error sleeping", e);
-						}
-						continue;
-					}
+//					if ((openTradesLong.keySet().size()+openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
+//						// We will not continue trading... avoid checking
+//
+//						try {
+//							Thread.sleep(timeToWait);
+//						} catch (InterruptedException e) {
+//							Log.severe(CopyBot.class, "Error sleeping", e);
+//						}
+//						continue;
+//					}
 				}
 				Long t0 = currentTimeMillis();
 				// 2.- Get two last ticks for symbol and update cache.
