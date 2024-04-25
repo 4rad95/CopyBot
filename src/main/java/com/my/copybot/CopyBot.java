@@ -656,10 +656,9 @@ public static synchronized void checkStrategyOpenPosition(Map<String, String> ma
 	public static synchronized void modifyFrozenList() {
 		for (Map.Entry<String, Integer> entry : frozenTrade.entrySet()) {
 			entry.setValue(entry.getValue() + 1);
-			if (entry.getValue() > WAIT_FROZEN)
-				frozenTrade.remove(entry);
-		}
 
+		}
+		frozenTrade.entrySet().removeIf(entry -> entry.getValue() > WAIT_FROZEN);
 	}
 }
 
