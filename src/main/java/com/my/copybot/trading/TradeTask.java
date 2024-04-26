@@ -45,10 +45,13 @@ public class TradeTask implements Runnable {
     private int counter = 10;
     private boolean stopThread = false;
     private Double maxPercent = 0.00;
+    private Double minPercent = 0.00;
+    private Integer identLimitOredr = 20;
+    private Double multik;
 
 
     public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
-                     Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type) {
+                     Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type, Integer identLimitOredr) {
 //
 //	public TradeTask( String symbol, Double alertPrice, Double btcAmount,
 //			Double stopLossPercentage, boolean doTrailingStop) {
@@ -62,6 +65,7 @@ public class TradeTask implements Runnable {
         this.makeAvg = makeAvg;
         this.stopNoLoss = stopNoLoss;
         this.type = type;
+        this.identLimitOredr = identLimitOredr;
     }
 
     public static String multiplyAndRound(Double number, double multiplier) {
@@ -356,6 +360,8 @@ public class TradeTask implements Runnable {
     public Double setMaxPercent(Double percentProfit) {
         if (percentProfit > maxPercent) {
             maxPercent = percentProfit;
+        } else if (percentProfit < minPercent) {
+            minPercent = percentProfit;
         }
         if (maxPercent > stopNoLoss + 100) {
             startColorStr = "\u001B[35m";
@@ -429,7 +435,8 @@ public class TradeTask implements Runnable {
                             + ", stop : "
                             + showPrice(order.getCurrentStopLoss())
                             + ", profit: " + order.getCurrentProfit(price) + " % , "
-                            + " Max. profit : " + String.format("%.2f", maxPercent) + " % " + endColorStr);
+                            + " Max. : " + String.format("%.2f", maxPercent) + " % "
+                            + " Min. : " + String.format("%.2f", minPercent) + " % " + endColorStr);
             counter = 0;
             //  CopyBot.updateMapPosition(createStatisticPosition("Work"));
         }
@@ -482,7 +489,7 @@ public class TradeTask implements Runnable {
 
                 case "SHORT": {
 
-                    String priceTmp = multiplyAndRound(alertPrice, 1.002);
+                    String priceTmp = multiplyAndRound(alertPrice, multikChange(identLimitOredr));
                     orderNew = (syncRequestClient.postOrder(symbol, OrderSide.SELL, PositionSide.SHORT, OrderType.LIMIT, TimeInForce.GTC,
                             quantity, priceTmp, null, null, null, null, null, null, null, null, NewOrderRespType.RESULT));
                     Long orderId = orderNew.getOrderId();
@@ -516,7 +523,7 @@ public class TradeTask implements Runnable {
                     break;
                 }
                 case "LONG": {
-                    String priceTmp = multiplyAndRound(alertPrice, 0.998);
+                    String priceTmp = multiplyAndRound(alertPrice, multikChange(identLimitOredr));
                     orderNew = (syncRequestClient.postOrder(symbol, OrderSide.BUY, PositionSide.LONG, OrderType.LIMIT, TimeInForce.GTC,
                             quantity, priceTmp, null, null, null, null, null, null, null, null, NewOrderRespType.RESULT));
                     Long orderId = orderNew.getOrderId();
@@ -568,6 +575,14 @@ public class TradeTask implements Runnable {
         Log.info(getClass(), "Buy [" + type + "] ready : " + symbol + ", quantity: " + quantity + ",  " + priceReal);
     }
 
+    private Double multikChange(Integer identLimitOredr) {
+        if (type.equals("SHORT")) {
+            return 1 + (double) identLimitOredr / (20 * 100);
+        } else if (type.equals("LONG")) {
+            return 1 - (double) identLimitOredr / (20 * 100);
+        }
+        return 1.00;
+    }
 
 
 }

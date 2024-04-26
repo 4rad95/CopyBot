@@ -91,7 +91,6 @@ public class BinanceUtils {
                 System.setProperty("wss://stream.binance.com:9443/ws", "wss://ws-fapi.binance.com/ws-fapi/v1");
 				BinanceApiClientFactory factory = BinanceApiClientFactory
 						.newInstance(API_KEY, API_SECRET);
-                                                
 
                                 client = factory.newRestClient();
                                                           

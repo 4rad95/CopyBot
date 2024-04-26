@@ -50,6 +50,7 @@ public class CopyBot {
 	public static String BLACK_LIST = "";
 	public static Integer STOP_NO_LOSS = 100;
 	public static Integer WAIT_LIMIT_ORDER = 15;
+	private static Integer IDENT_LIMIT_ORDER = 20;
 	public static final Map<String, Integer> frozenTrade = new HashMap<String, Integer>();
 	public static Long timer = currentTimeMillis();
 
@@ -176,12 +177,20 @@ public class CopyBot {
 			WAIT_LIMIT_ORDER = Integer.valueOf(strStopNoLoss);
 			String waiFrozen = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_WAIT_FROZEN);
-			WAIT_FROZEN = Integer.valueOf(strStopNoLoss);
+			WAIT_FROZEN = Integer.valueOf(waiFrozen);
+			String identLimit = ConfigUtils
+					.readPropertyValue(ConfigUtils.CONFIG_TRADING_IDENT_LIMIT);
+			IDENT_LIMIT_ORDER = Integer.valueOf(identLimit);
 
                 }
 		try {
+			String futuresBaseUrl = "wss://fstream.binance.com/ws";
+
+
 			BinanceUtils.init(ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_KEY),
 					ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_SECRET));
+
+
 			client = BinanceUtils.getRestClient();
 			liveClient = BinanceUtils.getWebSocketClient();
 			startBalance = printBalance();
@@ -541,7 +550,7 @@ public class CopyBot {
 	public static void addTrade(String symbol, String type) {
 
 		TradeTask tradeTask = new TradeTask(symbol, getCurrentPrice(symbol).toDouble(),
-				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type);
+				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER);
 		Thread thread = new Thread(tradeTask);
 		tradeTask.thisThread = thread;
 		thread.start();
@@ -649,14 +658,11 @@ public static synchronized void checkStrategyOpenPosition(Map<String, String> ma
 	for (Map.Entry position : mapPosition.entrySet()) {
 		checkSymbol(position.getKey().toString());
 	}
-
-
 }
 
 	public static synchronized void modifyFrozenList() {
 		for (Map.Entry<String, Integer> entry : frozenTrade.entrySet()) {
 			entry.setValue(entry.getValue() + 1);
-
 		}
 		frozenTrade.entrySet().removeIf(entry -> entry.getValue() > WAIT_FROZEN);
 	}

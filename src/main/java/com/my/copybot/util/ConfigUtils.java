@@ -33,7 +33,7 @@ public class ConfigUtils {
     public static final String CONFIG_TRADING_STOPNOLOSS = "trading.stopNoLoss";
     public static final String CONFIG_TRADING_WAIT_LIMIT = "trading.waitOrderMinute";
     public static final String CONFIG_TRADING_WAIT_FROZEN = "trading.frozen";
-        
+    public static final String CONFIG_TRADING_IDENT_LIMIT = "trading.indentationLimitOrderPercent";
 	private static String systemConfigFilePath = "";
 	
     public static void setSystemConfigFilePath(String path) {
