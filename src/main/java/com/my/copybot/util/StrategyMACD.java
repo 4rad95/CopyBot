@@ -4,6 +4,8 @@ import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
+import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
+import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
 import org.ta4j.core.trading.rules.UnderIndicatorRule;
 
@@ -108,8 +110,8 @@ public class StrategyMACD {
         } else {
             levelRsiMacd = Decimal.valueOf(101);
         }
-
-        Rule entryRule = new UnderIndicatorRule(rsi, levelRsi) //new CrossedUpIndicatorRule(macd, emaMacdEnter)
+//  new UnderIndicatorRule(rsi, levelRsi)
+        Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacdEnter)
                 .and(new OverIndicatorRule(rsi, levelRsi))
                 .and(new OverIndicatorRule(macd, emaMacd))
                 .and(new OverIndicatorRule(sma14, sma24))
@@ -180,13 +182,13 @@ public class StrategyMACD {
         }
 
 
-        if (diffMacdM.toDouble() > 0 && diffMacd.toDouble() < 0) {
+        if (diffMacdM.toDouble() < 0 && diffMacd.toDouble() < 0) {
             levelRsiMacd = Decimal.valueOf(-2);
         } else {
             levelRsiMacd = Decimal.valueOf(101);
         }
-
-        Rule entryRule = new OverIndicatorRule(rsi, levelRsi) // new CrossedDownIndicatorRule(macd, emaMacdEnter)
+        // new OverIndicatorRule(rsi, levelRsi)
+        Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacdEnter)
                 .and(new UnderIndicatorRule(rsi, levelRsi))
                 .and(new UnderIndicatorRule(macd, emaMacd))
                 .and(new UnderIndicatorRule(sma14, sma24))
