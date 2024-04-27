@@ -4,8 +4,6 @@ import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
-import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
 import org.ta4j.core.trading.rules.UnderIndicatorRule;
 
@@ -72,7 +70,7 @@ public class StrategyMACD {
         EMAIndicator sma14 = new EMAIndicator(closePrice, 200);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 400);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
-        MACDIndicator macdExit = new MACDIndicator(closePrice, 12, 26);
+        MACDIndicator macdExit = new MACDIndicator(closePrice, 8, 17);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
         EMAIndicator emaMacdEnter = new EMAIndicator(macd, 13);
         SMAIndicator shortTermSMA = new SMAIndicator(closePrice, 5);
@@ -86,18 +84,32 @@ public class StrategyMACD {
         Decimal diff = Decimal.valueOf(stochK.getValue(stochK.getTimeSeries().getEndIndex()).toDouble()
                 - stochK.getValue(stochK.getTimeSeries().getEndIndex() - 1).toDouble());
 
+        Decimal diffMacd = Decimal.valueOf(macdExit.getValue(macdExit.getTimeSeries().getEndIndex()).toDouble()
+                - macdExit.getValue(macdExit.getTimeSeries().getEndIndex() - 1).toDouble());
+
+        Decimal diffMacdM = Decimal.valueOf(macdExit.getValue(macdExit.getTimeSeries().getEndIndex() - 1).toDouble()
+                - macdExit.getValue(macdExit.getTimeSeries().getEndIndex() - 2).toDouble());
+
         // System.out.println(series.getName()+"  diff = " + diff);
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+        RSIIndicator rsiMacd = new RSIIndicator(closePrice, 14);
+
         Decimal levelRsi;
-        if (diff.toDouble() > 0) {
+        Decimal levelRsiMacd;
+
+        if (diffMacdM.toDouble() < 0 && diff.toDouble() > 0) {
             levelRsi = Decimal.valueOf(-2);
         } else {
             levelRsi = Decimal.valueOf(101);
         }
 
+        if (diffMacd.toDouble() > 0) {
+            levelRsiMacd = Decimal.valueOf(-2);
+        } else {
+            levelRsiMacd = Decimal.valueOf(101);
+        }
 
-
-        Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacdEnter)
+        Rule entryRule = new UnderIndicatorRule(rsi, levelRsi) //new CrossedUpIndicatorRule(macd, emaMacdEnter)
                 .and(new OverIndicatorRule(rsi, levelRsi))
                 .and(new OverIndicatorRule(macd, emaMacd))
                 .and(new OverIndicatorRule(sma14, sma24))
@@ -136,7 +148,7 @@ public class StrategyMACD {
 
         EMAIndicator emaMacdEnter = new EMAIndicator(macd, 13);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
-        MACDIndicator macdExit = new MACDIndicator(closePrice, 12, 26);
+        MACDIndicator macdExit = new MACDIndicator(closePrice, 8, 17);
         SMAIndicator shortTermSMA = new SMAIndicator(closePrice, 5);
         SMAIndicator longTermSMA = new SMAIndicator(closePrice, 9);
         EMAIndicator sma3 = new EMAIndicator(closePrice, 3);
@@ -148,10 +160,19 @@ public class StrategyMACD {
         Decimal diff = Decimal.valueOf(stochK.getValue(stochK.getTimeSeries().getEndIndex()).toDouble()
                 - stochK.getValue(stochK.getTimeSeries().getEndIndex() - 1).toDouble());
 
+        Decimal diffMacd = Decimal.valueOf(macdExit.getValue(macdExit.getTimeSeries().getEndIndex()).toDouble()
+                - macdExit.getValue(macdExit.getTimeSeries().getEndIndex() - 1).toDouble());
+
+
+        Decimal diffMacdM = Decimal.valueOf(macdExit.getValue(macdExit.getTimeSeries().getEndIndex() - 1).toDouble()
+                - macdExit.getValue(macdExit.getTimeSeries().getEndIndex() - 2).toDouble());
 
         // System.out.println(series.getName()+"  diff = " + diff);
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+        RSIIndicator rsiMacd = new RSIIndicator(closePrice, 14);
+
         Decimal levelRsi;
+        Decimal levelRsiMacd;
         if (diff.toDouble() < 0) {
             levelRsi = Decimal.valueOf(-2);
         } else {
@@ -159,7 +180,13 @@ public class StrategyMACD {
         }
 
 
-        Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacdEnter)
+        if (diffMacdM.toDouble() > 0 && diffMacd.toDouble() < 0) {
+            levelRsiMacd = Decimal.valueOf(-2);
+        } else {
+            levelRsiMacd = Decimal.valueOf(101);
+        }
+
+        Rule entryRule = new OverIndicatorRule(rsi, levelRsi) // new CrossedDownIndicatorRule(macd, emaMacdEnter)
                 .and(new UnderIndicatorRule(rsi, levelRsi))
                 .and(new UnderIndicatorRule(macd, emaMacd))
                 .and(new UnderIndicatorRule(sma14, sma24))
@@ -171,16 +198,16 @@ public class StrategyMACD {
         // System.out.println(series.getName()+"  diff = " + diff);
 
 
-        if (diff.toDouble() > 0) {
-            levelRsi = Decimal.valueOf(-2);
+        if (diffMacd.toDouble() > 0) {
+            levelRsiMacd = Decimal.valueOf(-2);
         } else {
-            levelRsi = Decimal.valueOf(101);
+            levelRsiMacd = Decimal.valueOf(101);
         }
 
 
         Rule exitRule = ((new OverIndicatorRule(macd, emaMacd))
                 .and(new OverIndicatorRule(macd, emaMacdEnter)))
-                .or(new OverIndicatorRule(rsi, levelRsi));
+                .or(new OverIndicatorRule(rsiMacd, levelRsi));
         //    .or(new OverIndicatorRule(shortTermSMA, longTermSMA));
 
 
