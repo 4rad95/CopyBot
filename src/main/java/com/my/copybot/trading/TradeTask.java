@@ -533,7 +533,7 @@ public class TradeTask implements Runnable {
                     while (true) {
                         sleep(20000);
                         orderNew = syncRequestClient.getOrder(symbol, orderId, null);
-                        if (count % 15 == 15) {
+                        if (count % 15 == 0) {
                             Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
                         }
                         Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
