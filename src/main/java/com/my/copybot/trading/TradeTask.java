@@ -439,9 +439,11 @@ public class TradeTask implements Runnable {
                             + ", Min. : " + String.format("%.2f", minPercent) + " % "
                             + ", profit: " + order.getCurrentProfit(price) + " %  "
                             + endColorStr;
-            if (order.getProfit() < 0) {
+            if (order.getProfit() < 0.00) {
                 msg = "\u001B[31m" + msg;
-            } else msg = startColorStr + msg;
+            } else {
+                msg = startColorStr + msg;
+            }
             Log.info(getClass(), msg);
             counter = 0;
             //  CopyBot.updateMapPosition(createStatisticPosition("Work"));

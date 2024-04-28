@@ -70,7 +70,7 @@ public class StrategyMACD {
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
-        MACDIndicator macd = new MACDIndicator(closePrice, 5, 15);
+        MACDIndicator macd = new MACDIndicator(closePrice, 8, 17);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
         MACDIndicator macdDirection = new MACDIndicator(closePrice, 50, 100);
@@ -109,7 +109,7 @@ public class StrategyMACD {
 //  new UnderIndicatorRule(rsi, levelRsi)
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
                 //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
-                .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
+                //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
                 .and(new OverIndicatorRule(sma14, sma24));
 
 
@@ -139,7 +139,7 @@ public class StrategyMACD {
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
-        MACDIndicator macd = new MACDIndicator(closePrice, 5, 15);
+        MACDIndicator macd = new MACDIndicator(closePrice, 8, 17);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
         MACDIndicator macdDirection = new MACDIndicator(closePrice, 50, 100);
@@ -169,7 +169,7 @@ public class StrategyMACD {
 //  new UnderIndicatorRule(rsi, levelRsi)
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
                 //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
-                .and(new OverIndicatorRule(macdDirection, emaMacdDirection))
+                //        .and(new OverIndicatorRule(macdDirection, emaMacdDirection))
                 .and(new UnderIndicatorRule(sma14, sma24));
 
 
