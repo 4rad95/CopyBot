@@ -70,8 +70,12 @@ public class StrategyMACD {
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
-        MACDIndicator macd = new MACDIndicator(closePrice, 50, 100);
-        EMAIndicator emaMacd = new EMAIndicator(macd, 49);
+        MACDIndicator macd = new MACDIndicator(closePrice, 5, 15);
+        EMAIndicator emaMacd = new EMAIndicator(macd, 9);
+
+        MACDIndicator macdDirection = new MACDIndicator(closePrice, 5, 15);
+        EMAIndicator emaMacdDirection = new EMAIndicator(macd, 40);
+
 
         StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 15);
         StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
@@ -107,7 +111,7 @@ public class StrategyMACD {
 //  new UnderIndicatorRule(rsi, levelRsi)
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
                 //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
-                //       .and(new OverIndicatorRule(rsi, levelRsiMacd))
+                .and(new OverIndicatorRule(macdDirection, emaMacdDirection))
                 .and(new OverIndicatorRule(sma14, sma24));
 
 
@@ -118,7 +122,7 @@ public class StrategyMACD {
         }
 
         Rule exitRule = (new CrossedDownIndicatorRule(macd, emaMacd))
-                .or(new UnderIndicatorRule(stochK, Decimal.valueOf(70)));
+                .or(new CrossedDownIndicatorRule(macdDirection, emaMacdDirection));
 //                .or(new UnderIndicatorRule(rsi, levelRsiStoch));
         //   .or(new OverIndicatorRule(rsi, levelRsiMacd));
 
@@ -137,15 +141,13 @@ public class StrategyMACD {
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
-        MACDIndicator macd = new MACDIndicator(closePrice, 50, 100);
-        EMAIndicator emaMacd = new EMAIndicator(macd, 49);
+        MACDIndicator macd = new MACDIndicator(closePrice, 5, 15);
+        EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
-        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 15);
-        StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
+        MACDIndicator macdDirection = new MACDIndicator(closePrice, 5, 15);
+        EMAIndicator emaMacdDirection = new EMAIndicator(macd, 40);
 
 
-        Decimal diffStoch = Decimal.valueOf(stochK.getValue(stochK.getTimeSeries().getEndIndex()).toDouble()
-                - stochK.getValue(stochK.getTimeSeries().getEndIndex() - 1).toDouble());
 
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
                 - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
@@ -158,7 +160,7 @@ public class StrategyMACD {
         RSIIndicator rsiMacd = new RSIIndicator(closePrice, 14);
 
         Decimal levelRsiMacd;
-        Decimal levelRsiStoch;
+
 
         if (diffMacdPrev.toDouble() > 0 && diffMacd.toDouble() < 0) {
             levelRsiMacd = Decimal.valueOf(-2);
@@ -166,15 +168,10 @@ public class StrategyMACD {
             levelRsiMacd = Decimal.valueOf(101);
         }
 
-        if (diffStoch.toDouble() < 0) {
-            levelRsiStoch = Decimal.valueOf(-2);
-        } else {
-            levelRsiStoch = Decimal.valueOf(101);
-        }
 //  new UnderIndicatorRule(rsi, levelRsi)
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
                 //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
-                //       .and(new OverIndicatorRule(rsi, levelRsiMacd))
+                .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
                 .and(new UnderIndicatorRule(sma14, sma24));
 
 
@@ -187,7 +184,7 @@ public class StrategyMACD {
 
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
                 //.or(new UnderIndicatorRule(rsi, levelRsiStoch));
-                .or(new OverIndicatorRule(stochK, Decimal.valueOf(30)));
+                .or(new CrossedUpIndicatorRule(macdDirection, emaMacdDirection));
         //   .or(new OverIndicatorRule(rsi, levelRsiMacd));
 
 

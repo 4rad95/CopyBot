@@ -429,8 +429,8 @@ public class TradeTask implements Runnable {
             }
         //      CopyBot.updateMapPosition(createStatisticPosition(type));
         if (counter == 10) {
-            Log.info(getClass(),
-                    startColorStr + type + " : " + symbol + ". Curr : " + showPrice(price)
+            String msg =
+                    type + " : " + symbol + ". Curr : " + showPrice(price)
                             + ", buy : " + showPrice(order.getPrice())
                             + ", stop : "
                             + showPrice(order.getCurrentStopLoss())
@@ -438,7 +438,11 @@ public class TradeTask implements Runnable {
                             + ", Max. : " + String.format("%.2f", maxPercent) + " % "
                             + ", Min. : " + String.format("%.2f", minPercent) + " % "
                             + ", profit: " + order.getCurrentProfit(price) + " %  "
-                            + endColorStr);
+                            + endColorStr;
+            if (order.getProfit() < 0) {
+                msg = "\u001B[31m" + msg;
+            } else msg = startColorStr + msg;
+            Log.info(getClass(), msg);
             counter = 0;
             //  CopyBot.updateMapPosition(createStatisticPosition("Work"));
         }
