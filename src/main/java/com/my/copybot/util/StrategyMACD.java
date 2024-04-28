@@ -73,7 +73,7 @@ public class StrategyMACD {
         MACDIndicator macd = new MACDIndicator(closePrice, 5, 15);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
-        MACDIndicator macdDirection = new MACDIndicator(closePrice, 5, 15);
+        MACDIndicator macdDirection = new MACDIndicator(closePrice, 50, 100);
         EMAIndicator emaMacdDirection = new EMAIndicator(macd, 40);
 
 
@@ -90,9 +90,7 @@ public class StrategyMACD {
         Decimal diffMacdPrev = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble()
                 - macd.getValue(macd.getTimeSeries().getEndIndex() - 2).toDouble());
 
-        // System.out.println(series.getName()+"  diff = " + diff);
-        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-        RSIIndicator rsiMacd = new RSIIndicator(closePrice, 14);
+
 
         Decimal levelRsiMacd;
         Decimal levelRsiStoch;
@@ -144,7 +142,7 @@ public class StrategyMACD {
         MACDIndicator macd = new MACDIndicator(closePrice, 5, 15);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
-        MACDIndicator macdDirection = new MACDIndicator(closePrice, 5, 15);
+        MACDIndicator macdDirection = new MACDIndicator(closePrice, 50, 100);
         EMAIndicator emaMacdDirection = new EMAIndicator(macd, 40);
 
 
