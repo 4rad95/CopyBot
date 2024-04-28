@@ -439,7 +439,7 @@ public class TradeTask implements Runnable {
                             + ", Min. : " + String.format("%.2f", minPercent) + " % "
                             + ", profit: " + order.getCurrentProfit(price) + " %  "
                             + endColorStr;
-            if (order.getProfit() < 0.00) {
+            if (order.getCurrentProfit(price).charAt(0) == '-') {
                 msg = "\u001B[31m" + msg;
             } else {
                 msg = startColorStr + msg;
