@@ -434,9 +434,11 @@ public class TradeTask implements Runnable {
                             + ", buy : " + showPrice(order.getPrice())
                             + ", stop : "
                             + showPrice(order.getCurrentStopLoss())
-                            + ", profit: " + order.getCurrentProfit(price) + " % , "
-                            + " Max. : " + String.format("%.2f", maxPercent) + " % "
-                            + " Min. : " + String.format("%.2f", minPercent) + " % " + endColorStr);
+
+                            + ", Max. : " + String.format("%.2f", maxPercent) + " % "
+                            + ", Min. : " + String.format("%.2f", minPercent) + " % "
+                            + ", profit: " + order.getCurrentProfit(price) + " %  "
+                            + endColorStr);
             counter = 0;
             //  CopyBot.updateMapPosition(createStatisticPosition("Work"));
         }
