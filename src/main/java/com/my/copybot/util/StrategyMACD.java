@@ -120,8 +120,8 @@ public class StrategyMACD {
         }
 
         Rule exitRule = (new CrossedDownIndicatorRule(macd, emaMacd))
-                .or(new CrossedDownIndicatorRule(macdDirection, emaMacdDirection));
-//                .or(new UnderIndicatorRule(rsi, levelRsiStoch));
+//                .or(new CrossedDownIndicatorRule(macdDirection, emaMacdDirection));
+                .or(new UnderIndicatorRule(macd, emaMacd));
         //   .or(new OverIndicatorRule(rsi, levelRsiMacd));
 
 
@@ -181,8 +181,8 @@ public class StrategyMACD {
         }
 
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
-                //.or(new UnderIndicatorRule(rsi, levelRsiStoch));
-                .or(new CrossedUpIndicatorRule(macdDirection, emaMacdDirection));
+                .or(new OverIndicatorRule(macd, emaMacd));
+        //.or(new CrossedUpIndicatorRule(macdDirection, emaMacdDirection));
         //   .or(new OverIndicatorRule(rsi, levelRsiMacd));
 
 
