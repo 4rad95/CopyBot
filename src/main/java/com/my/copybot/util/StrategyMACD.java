@@ -106,7 +106,7 @@ public class StrategyMACD {
         }
 //  new UnderIndicatorRule(rsi, levelRsi)
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
-                .and(new OverIndicatorRule(rsi, levelRsiStoch))
+                //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
                 //       .and(new OverIndicatorRule(rsi, levelRsiMacd))
                 .and(new OverIndicatorRule(sma14, sma24));
 
@@ -118,7 +118,8 @@ public class StrategyMACD {
         }
 
         Rule exitRule = (new CrossedDownIndicatorRule(macd, emaMacd))
-                .or(new UnderIndicatorRule(rsi, levelRsiStoch));
+                .or(new UnderIndicatorRule(stochK, Decimal.valueOf(70)));
+//                .or(new UnderIndicatorRule(rsi, levelRsiStoch));
         //   .or(new OverIndicatorRule(rsi, levelRsiMacd));
 
 
@@ -172,7 +173,7 @@ public class StrategyMACD {
         }
 //  new UnderIndicatorRule(rsi, levelRsi)
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
-                .and(new OverIndicatorRule(rsi, levelRsiStoch))
+                //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
                 //       .and(new OverIndicatorRule(rsi, levelRsiMacd))
                 .and(new UnderIndicatorRule(sma14, sma24));
 
@@ -185,7 +186,8 @@ public class StrategyMACD {
         }
 
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
-                .or(new UnderIndicatorRule(rsi, levelRsiStoch));
+                //.or(new UnderIndicatorRule(rsi, levelRsiStoch));
+                .or(new OverIndicatorRule(stochK, Decimal.valueOf(30)));
         //   .or(new OverIndicatorRule(rsi, levelRsiMacd));
 
 
