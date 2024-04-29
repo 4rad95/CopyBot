@@ -86,11 +86,13 @@ public class StrategyMACD {
         Decimal levelRsiMacd;
 
 
-        BullishHaramiIndicator candleEntryRule = new BullishHaramiIndicator(series);
+        BullishHaramiIndicator bullishHarami = new BullishHaramiIndicator(series);
 
 //  new UnderIndicatorRule(rsi, levelRsi)
+        Decimal bullLevel = Decimal.valueOf(1);
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
                 .and(new OverIndicatorRule(sma14, sma24));
+        //     .and( new OverIndicatorRule(bullishHarami,null);
                 //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
                 //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 
