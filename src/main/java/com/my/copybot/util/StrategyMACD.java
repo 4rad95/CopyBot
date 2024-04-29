@@ -2,11 +2,11 @@ package com.my.copybot.util;
 
 import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
-import org.ta4j.core.indicators.EMAIndicator;
-import org.ta4j.core.indicators.MACDIndicator;
-import org.ta4j.core.indicators.RSIIndicator;
+import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.candles.BullishHaramiIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
+import org.ta4j.core.indicators.helpers.MaxPriceIndicator;
+import org.ta4j.core.indicators.helpers.MinPriceIndicator;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
@@ -78,6 +78,8 @@ public class StrategyMACD {
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
+        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(rsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
+        StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
                 - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
@@ -86,13 +88,11 @@ public class StrategyMACD {
         Decimal levelRsiMacd;
 
 
-        BullishHaramiIndicator bullishHarami = new BullishHaramiIndicator(series);
-
-//  new UnderIndicatorRule(rsi, levelRsi)
-        Decimal bullLevel = Decimal.valueOf(1);
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
-                .and(new OverIndicatorRule(sma14, sma24));
-        //     .and( new OverIndicatorRule(bullishHarami,null);
+                .and(new OverIndicatorRule(sma14, sma24))
+                .and(new OverIndicatorRule(stochK, stochD));
+
+        //     .and(new Is(bullishHarami, Decimal.valueOf(1)));
                 //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
                 //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 
@@ -104,6 +104,7 @@ public class StrategyMACD {
 
         Rule exitRule = (new CrossedDownIndicatorRule(macd, emaMacd))
                 .or(new UnderIndicatorRule(macd, emaMacd))
+                .or(new UnderIndicatorRule(stochK, stochD))
                 .or(new OverIndicatorRule(rsi, levelRsiMacd));
 
         return new BaseStrategy(entryRule, exitRule);
@@ -126,7 +127,10 @@ public class StrategyMACD {
         EMAIndicator emaMacdDirection = new EMAIndicator(macd, 40);
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
-
+        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(rsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
+        StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
+        BullishHaramiIndicator bullishHarami = new BullishHaramiIndicator(series);
+        boolean ss = bullishHarami.getValue(2);
 
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
                 - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
@@ -134,7 +138,9 @@ public class StrategyMACD {
         Decimal levelRsiMacd;
 
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
-                .and(new UnderIndicatorRule(sma14, sma24));
+                .and(new UnderIndicatorRule(sma14, sma24))
+                .and(new UnderIndicatorRule(stochK, stochD));
+
 
 
         if (diffMacd.toDouble() > 0) {
@@ -143,10 +149,12 @@ public class StrategyMACD {
             levelRsiMacd = Decimal.valueOf(101);
         }
 
+
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
                 .or(new OverIndicatorRule(macd, emaMacd))
+                .or(new OverIndicatorRule(stochK, stochD));
         //.or(new CrossedUpIndicatorRule(macdDirection, emaMacdDirection));
-                .or(new OverIndicatorRule(rsi, levelRsiMacd));
+        //        .or( new OverIndicatorRule(closePrice, bullishHarami.));
 
 
 
@@ -162,4 +170,5 @@ public class StrategyMACD {
     }
 
 }
+
 

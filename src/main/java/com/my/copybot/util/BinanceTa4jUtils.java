@@ -151,7 +151,7 @@ public class BinanceTa4jUtils {
 		RSIIndicator rsiIndicator = new RSIIndicator(closePrice, rsiPeriod);
 		/*	ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);*/
 		WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
-
+        StochasticRSIIndicator dd = new StochasticRSIIndicator(series, 19);
 
 		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
 				.and(new UnderIndicatorRule(macdHigh, emaMacdHigh))
