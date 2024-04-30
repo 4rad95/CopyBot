@@ -21,9 +21,9 @@ import com.my.copybot.trading.Frozen;
 import com.my.copybot.trading.TradeTask;
 import com.my.copybot.util.*;
 import org.apache.commons.lang3.StringUtils;
+import org.ta4j.core.Bar;
 import org.ta4j.core.Decimal;
 import org.ta4j.core.Strategy;
-import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 
 import java.io.IOException;
@@ -51,18 +51,18 @@ public class CopyBot {
 	public static Integer STOP_NO_LOSS = 100;
 	public static Integer WAIT_LIMIT_ORDER = 15;
 	private static Integer IDENT_LIMIT_ORDER = 20;
-	public static final Map<String, Integer> frozenTrade = new HashMap<String, Integer>();
+	public static final Map<String, Integer> frozenTrade = Collections.synchronizedMap(new HashMap<String, Integer>());
 	public static Long timer = currentTimeMillis();
 
 	// We will store time series for every symbol
-	private static final Map<String, TimeSeries> timeSeriesCache = new HashMap<String, TimeSeries>();
+	private static final Map<String, TimeSeries> timeSeriesCache = Collections.synchronizedMap(new HashMap<String, TimeSeries>());
 
-	private static final Map<String, String> openTradesLong = new HashMap<String, String>();
-	private static final Map<String, String> openTradesShort = new HashMap<String, String>();
+	private static final Map<String, String> openTradesLong = Collections.synchronizedMap(new HashMap<String, String>());
+	private static final Map<String, String> openTradesShort = Collections.synchronizedMap(new HashMap<String, String>());
 	public static Integer WAIT_FROZEN = 20;
-        
-	private static final List<String> ordersToBeClosed = new LinkedList<String>();
-	private static final List<Position> closedPositions = new LinkedList<Position>();
+
+	private static final List<String> ordersToBeClosed = Collections.synchronizedList(new LinkedList<String>());
+	private static final List<Position> closedPositions = Collections.synchronizedList(new LinkedList<Position>());
 
 	private static BinanceApiRestClient client;
 	private static BinanceApiWebSocketClient liveClient;
@@ -303,13 +303,13 @@ public class CopyBot {
 		try {
 			List<Candlestick> latestCandlesticks = BinanceUtils.getLatestCandlestickBars(symbol, interval);
 			TimeSeries series = timeSeriesCache.get(symbol);
-			if (BinanceTa4jUtils.isSameTick(latestCandlesticks.get(1), series.getLastTick())) {
+			if (BinanceTa4jUtils.isSameTick(latestCandlesticks.get(1), series.getLastBar())) {
 				// We are still in the same tick - just update the last tick with the fresh data
 				updateLastTick(symbol, latestCandlesticks.get(1));
 			} else {
 				// We have just got a new tick - update the previous one and include the new tick
 				updateLastTick(symbol, latestCandlesticks.get(0));
-				series.addTick(BinanceTa4jUtils.convertToTa4jTick(latestCandlesticks.get(1)));
+				series.addBar(BinanceTa4jUtils.convertToTa4jTick(latestCandlesticks.get(1)));
 			}
 			// Now check the TA strategy with the refreshed time series
 			int endIndex = series.getEndIndex();
@@ -325,7 +325,7 @@ public class CopyBot {
 
 				// If we have an open trade for the symbol, we do not create a new one
 				if (DO_TRADES && openTradesLong.get(symbol) == null&& (MAKE_LONG)) {
-					Decimal currentPrice = series.getLastTick().getClosePrice();
+					Decimal currentPrice = series.getLastBar().getClosePrice();
 
                                         if (((openTradesLong.keySet().size()+openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES))                                       
                                         {
@@ -345,7 +345,7 @@ public class CopyBot {
 
 
 									if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
-										Decimal currentPrice = series.getLastTick().getClosePrice();
+										Decimal currentPrice = series.getLastBar().getClosePrice();
 
 										//	Log.info(CopyBot.class, "SHORT signal for symbol: " + symbol + ", price: " + currentPrice);
 
@@ -367,7 +367,7 @@ public class CopyBot {
 	
 	private static void updateLastTick(String symbol, Candlestick candlestick) {
 		TimeSeries series = timeSeriesCache.get(symbol);
-		List<Tick> seriesTick = series.getTickData();
+		List<Bar> seriesTick = series.getBarData();
 		seriesTick.remove(series.getEndIndex());
 		seriesTick.add(BinanceTa4jUtils.convertToTa4jTick(candlestick));
 	}
@@ -574,7 +574,7 @@ public class CopyBot {
 	public static Decimal getCurrentPrice(String symbol) {
 
 		TimeSeries series = timeSeriesCache.get(symbol);
-		Decimal currentPrice = series.getLastTick().getClosePrice();
+		Decimal currentPrice = series.getLastBar().getClosePrice();
 		return currentPrice;
 	}
 

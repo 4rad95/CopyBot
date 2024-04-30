@@ -4,9 +4,7 @@ import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.candles.BullishHaramiIndicator;
-import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.indicators.helpers.MaxPriceIndicator;
-import org.ta4j.core.indicators.helpers.MinPriceIndicator;
+import org.ta4j.core.indicators.helpers.*;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
@@ -26,14 +24,14 @@ public class StrategyMACD {
 
     public static TimeSeries convertToTimeSeries(
             List<Candlestick> candlesticks, String symbol, String period) {
-        List<Tick> ticks = new LinkedList<Tick>();
+        List<Bar> ticks = new LinkedList<Bar>();
         for (Candlestick candlestick : candlesticks) {
             ticks.add(convertToTa4jTick(candlestick));
         }
         return new BaseTimeSeries(symbol + "_" + period, ticks);
     }
 
-    public static Tick convertToTa4jTick(Candlestick candlestick) {
+    public static Bar convertToTa4jTick(Candlestick candlestick) {
         ZonedDateTime closeTime = getZonedDateTime(candlestick.getCloseTime());
         Duration candleDuration = Duration.ofMillis(candlestick.getCloseTime()
                 - candlestick.getOpenTime());
@@ -43,7 +41,7 @@ public class StrategyMACD {
         Decimal lowPrice = Decimal.valueOf(candlestick.getLow());
         Decimal volume = Decimal.valueOf(candlestick.getVolume());
 
-        return new BaseTick(candleDuration, closeTime, openPrice, highPrice,
+        return new BaseBar(candleDuration, closeTime, openPrice, highPrice,
                 lowPrice, closePrice, volume);
     }
 
@@ -52,7 +50,7 @@ public class StrategyMACD {
                 ZoneId.systemDefault());
     }
 
-    public static boolean isSameTick(Candlestick candlestick, Tick tick) {
+    public static boolean isSameTick(Candlestick candlestick, Bar tick) {
         return tick.getEndTime().equals(
                 getZonedDateTime(candlestick.getCloseTime()));
     }
@@ -128,8 +126,13 @@ public class StrategyMACD {
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stoRsi = new StochasticRSIIndicator(closePrice, 14);
+        MaxPriceIndicator maxPrice = new MaxPriceIndicator(series);
+        MinPriceIndicator minPrice = new MinPriceIndicator(series);
 
-        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(stoRsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
+        HighestValueIndicator highestValue = new HighestValueIndicator(stoRsi, 14);
+        LowestValueIndicator lowestValue = new LowestValueIndicator(stoRsi, 14);
+
+        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(stoRsi, 3, maxPrice, minPrice);
         StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
         BullishHaramiIndicator bullishHarami = new BullishHaramiIndicator(series);
         boolean ss = bullishHarami.getValue(2);
@@ -151,7 +154,13 @@ public class StrategyMACD {
             levelRsiMacd = Decimal.valueOf(101);
         }
 
-        //    System.out.println(series.getName() + "  K = " + stochK.getValue(series.getEndIndex()) + "   D= " + stochD.getValue(series.getEndIndex()));
+//        RSIIndicator1 rsiMy = new RSIIndicator1(closePrice, 14);
+//        Decimal rsiValue = rsiMy.getValue(closePrice.getTimeSeries().getEndIndex());
+//        System.out.println("RSI = " + rsiValue);
+//        Decimal stochRsiK = calculateStochRSI(rsi, 3, series.getEndIndex()); // %K стохастического RSI
+//
+//
+//            System.out.println(series.getName() + "  K = " + stochK.getValue(series.getEndIndex()) + "   D= " + stochD.getValue(series.getEndIndex()) + "  RSI = "+rsi.getValue(series.getEndIndex()) + "   StochRSI="+stoRsi.getValue(series.getEndIndex())+ "   K(my) = "+stochRsiK);
 
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
                 .or(new OverIndicatorRule(macd, emaMacd))
@@ -172,6 +181,29 @@ public class StrategyMACD {
         return diff;
     }
 
+
+    private static Decimal calculateStochRSI(RSIIndicator rsi, int period, int endIndex) {
+        int startIndex = Math.max(0, endIndex - period + 1);
+        int lookBackPeriod = endIndex - startIndex + 1;
+
+        // Находим максимальное и минимальное значение RSI за период
+        Decimal maxRSI = rsi.getValue(startIndex);
+        Decimal minRSI = rsi.getValue(startIndex);
+        for (int i = startIndex + 1; i <= endIndex; i++) {
+            Decimal currentRSI = rsi.getValue(i);
+            if (currentRSI.isGreaterThan(maxRSI)) {
+                maxRSI = currentRSI;
+            }
+            if (currentRSI.isLessThan(minRSI)) {
+                minRSI = currentRSI;
+            }
+        }
+
+        // Вычисляем %K
+        Decimal range = maxRSI.minus(minRSI);
+        Decimal currentRSI = rsi.getValue(endIndex);
+        return currentRSI.minus(minRSI).dividedBy(range);
+    }
 }
 
 

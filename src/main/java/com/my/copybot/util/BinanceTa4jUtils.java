@@ -23,14 +23,14 @@ public class BinanceTa4jUtils {
 
 	public static TimeSeries convertToTimeSeries(
 			List<Candlestick> candlesticks, String symbol, String period) {
-		List<Tick> ticks = new LinkedList<Tick>();
+		List<Bar> ticks = new LinkedList<Bar>();
 		for (Candlestick candlestick : candlesticks) {
 			ticks.add(convertToTa4jTick(candlestick));
 		}
 		return new BaseTimeSeries(symbol + "_" + period, ticks);
 	}
 
-	public static Tick convertToTa4jTick(Candlestick candlestick) {
+	public static Bar convertToTa4jTick(Candlestick candlestick) {
 		ZonedDateTime closeTime = getZonedDateTime(candlestick.getCloseTime());
 		Duration candleDuration = Duration.ofMillis(candlestick.getCloseTime()
 				- candlestick.getOpenTime());
@@ -40,7 +40,7 @@ public class BinanceTa4jUtils {
 		Decimal lowPrice = Decimal.valueOf(candlestick.getLow());
 		Decimal volume = Decimal.valueOf(candlestick.getVolume());
 
-		return new BaseTick(candleDuration, closeTime, openPrice, highPrice,
+		return new BaseBar(candleDuration, closeTime, openPrice, highPrice,
 				lowPrice, closePrice, volume);
 	}
 
@@ -49,7 +49,7 @@ public class BinanceTa4jUtils {
 				ZoneId.systemDefault());
 	}
 
-	public static boolean isSameTick(Candlestick candlestick, Tick tick) {
+	public static boolean isSameTick(Candlestick candlestick, Bar tick) {
 		return tick.getEndTime().equals(
 				getZonedDateTime(candlestick.getCloseTime()));
 	}
