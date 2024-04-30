@@ -77,8 +77,8 @@ public class StrategyMACD {
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-
-        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(rsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
+        StochasticRSIIndicator stoRsi = new StochasticRSIIndicator(closePrice, 14);
+        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(stoRsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
         StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
@@ -125,9 +125,11 @@ public class StrategyMACD {
 
         MACDIndicator macdDirection = new MACDIndicator(closePrice, 50, 100);
         EMAIndicator emaMacdDirection = new EMAIndicator(macd, 40);
-        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
-        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(rsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
+        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+        StochasticRSIIndicator stoRsi = new StochasticRSIIndicator(closePrice, 14);
+
+        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(stoRsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
         StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
         BullishHaramiIndicator bullishHarami = new BullishHaramiIndicator(series);
         boolean ss = bullishHarami.getValue(2);
@@ -149,12 +151,13 @@ public class StrategyMACD {
             levelRsiMacd = Decimal.valueOf(101);
         }
 
+        System.out.println(series.getName() + "  K = " + stochK.getValue(series.getEndIndex()) + "   D= " + stochD.getValue(series.getEndIndex()));
 
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
                 .or(new OverIndicatorRule(macd, emaMacd))
-                .or(new OverIndicatorRule(stochK, stochD));
-        //.or(new CrossedUpIndicatorRule(macdDirection, emaMacdDirection));
-        //        .or( new OverIndicatorRule(closePrice, bullishHarami.));
+                .or(new OverIndicatorRule(stochK, stochD))
+                .or(new OverIndicatorRule(rsi, levelRsiMacd));
+
 
 
 
