@@ -151,7 +151,7 @@ public class StrategyMACD {
             levelRsiMacd = Decimal.valueOf(101);
         }
 
-        System.out.println(series.getName() + "  K = " + stochK.getValue(series.getEndIndex()) + "   D= " + stochD.getValue(series.getEndIndex()));
+        //    System.out.println(series.getName() + "  K = " + stochK.getValue(series.getEndIndex()) + "   D= " + stochD.getValue(series.getEndIndex()));
 
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
                 .or(new OverIndicatorRule(macd, emaMacd))
