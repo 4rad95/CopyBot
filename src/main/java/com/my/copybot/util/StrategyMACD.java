@@ -1,6 +1,7 @@
 package com.my.copybot.util;
 
 import com.binance.api.client.domain.market.Candlestick;
+import com.my.copybot.indicators.RSIIndicator1;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.candles.BullishHaramiIndicator;
@@ -154,13 +155,13 @@ public class StrategyMACD {
             levelRsiMacd = Decimal.valueOf(101);
         }
 
-//        RSIIndicator1 rsiMy = new RSIIndicator1(closePrice, 14);
-//        Decimal rsiValue = rsiMy.getValue(closePrice.getTimeSeries().getEndIndex());
-//        System.out.println("RSI = " + rsiValue);
-//        Decimal stochRsiK = calculateStochRSI(rsi, 3, series.getEndIndex()); // %K стохастического RSI
-//
-//
-//            System.out.println(series.getName() + "  K = " + stochK.getValue(series.getEndIndex()) + "   D= " + stochD.getValue(series.getEndIndex()) + "  RSI = "+rsi.getValue(series.getEndIndex()) + "   StochRSI="+stoRsi.getValue(series.getEndIndex())+ "   K(my) = "+stochRsiK);
+        RSIIndicator1 rsiMy = new RSIIndicator1(closePrice, 14);
+        Decimal rsiValue = rsiMy.getValue(closePrice.getTimeSeries().getEndIndex());
+        System.out.println("RSI = " + rsiValue);
+        Decimal stochRsiK = calculateStochRSI(rsi, 3, series.getEndIndex()); // %K стохастического RSI
+
+
+        System.out.println(series.getName() + "  K = " + stochK.getValue(series.getEndIndex()) + "   D= " + stochD.getValue(series.getEndIndex()) + "  RSI = " + rsi.getValue(series.getEndIndex()) + "   StochRSI=" + stoRsi.getValue(series.getEndIndex()) + "   K(my) = " + stochRsiK);
 
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
                 .or(new OverIndicatorRule(macd, emaMacd))
