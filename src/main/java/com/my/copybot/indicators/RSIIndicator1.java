@@ -4,6 +4,7 @@ import org.ta4j.core.Decimal;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 
 
+
 public class RSIIndicator1 {
 
     private final ClosePriceIndicator closePrice;
