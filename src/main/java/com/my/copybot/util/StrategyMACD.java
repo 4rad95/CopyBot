@@ -87,7 +87,7 @@ public class StrategyMACD {
 
 
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
-                //      .and(new OverIndicatorRule(sma14, sma24))
+                .and(new OverIndicatorRule(sma14, sma24))
                 .and(new OverIndicatorRule(stochK, stochD));
 
         //     .and(new Is(bullishHarami, Decimal.valueOf(1)));
@@ -147,7 +147,7 @@ public class StrategyMACD {
         Decimal levelRsiMacd;
 
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
-                //     .and(new UnderIndicatorRule(sma14, sma24))
+                .and(new UnderIndicatorRule(sma14, sma24))
                 .and(new UnderIndicatorRule(stochK, stochD));
 
 
