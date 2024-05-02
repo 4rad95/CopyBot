@@ -88,11 +88,11 @@ public class StrategyMACD {
 
 
         Decimal levelRsiMacd;
-        Rule entryRule = new CrossedUpIndicatorRule(ssD, ssK)
-                .and(new OverIndicatorRule(sma14, sma24))
-                .and(new OverIndicatorRule(macd, emaMacd))
-                .and(new OverIndicatorRule(emaShort, emaLong))
-                .and(new OverIndicatorRule(stochK, stochD));
+        Rule entryRule = new CrossedDownIndicatorRule(ssD, ssK)
+                //      .and(new OverIndicatorRule(sma14, sma24))
+                .and(new UnderIndicatorRule(macd, emaMacd));
+        //   .and(new OverIndicatorRule(emaShort, emaLong))
+        //     .and(new OverIndicatorRule(stochK, stochD));
 
 
 //        Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
@@ -164,11 +164,11 @@ public class StrategyMACD {
 //                .and(new UnderIndicatorRule(emaShort, emaLong))
 //                .and(new UnderIndicatorRule(stochK, stochD));
 
-        Rule entryRule = new CrossedDownIndicatorRule(ssK, ssD)
-                .and(new UnderIndicatorRule(sma14, sma24))
-                .and(new UnderIndicatorRule(macd, emaMacd))
-                .and(new UnderIndicatorRule(emaShort, emaLong))
-                .and(new UnderIndicatorRule(stochK, stochD));
+        Rule entryRule = new CrossedUpIndicatorRule(ssK, ssD)
+                //.and(new UnderIndicatorRule(sma14, sma24))
+                .and(new OverIndicatorRule(macd, emaMacd));
+        //.and(new UnderIndicatorRule(emaShort, emaLong))
+        //.and(new UnderIndicatorRule(stochK, stochD));
 
 
         if (diffMacd.toDouble() > 0) {
