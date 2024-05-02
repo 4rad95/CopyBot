@@ -542,7 +542,6 @@ public class TradeTask implements Runnable {
                         if (count % 15 == 0) {
                             Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
                         }
-                        Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
                         if (!orderNew.getStatus().equals("NEW")) {
                             break;
                         }

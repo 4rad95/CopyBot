@@ -70,6 +70,8 @@ public class StrategyMACD {
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
+        SMAIndicator smaShort = new SMAIndicator(closePrice, 5);
+        SMAIndicator smaLong = new SMAIndicator(closePrice, 9);
         MACDIndicator macd = new MACDIndicator(closePrice, 8, 17);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
@@ -88,6 +90,7 @@ public class StrategyMACD {
 
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
                 .and(new OverIndicatorRule(sma14, sma24))
+                .and(new OverIndicatorRule(smaShort, smaLong))
                 .and(new OverIndicatorRule(stochK, stochD));
 
         //     .and(new Is(bullishHarami, Decimal.valueOf(1)));
@@ -119,6 +122,8 @@ public class StrategyMACD {
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
+        SMAIndicator smaShort = new SMAIndicator(closePrice, 5);
+        SMAIndicator smaLong = new SMAIndicator(closePrice, 9);
         MACDIndicator macd = new MACDIndicator(closePrice, 8, 17);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
@@ -148,6 +153,7 @@ public class StrategyMACD {
 
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
                 .and(new UnderIndicatorRule(sma14, sma24))
+                .and(new UnderIndicatorRule(smaShort, smaLong))
                 .and(new UnderIndicatorRule(stochK, stochD));
 
 
@@ -161,13 +167,16 @@ public class StrategyMACD {
 //        RSIIndicator1 rsiMy = new RSIIndicator1(closePrice, 14);
 //        Decimal rsiValue = rsiMy.getValue(closePrice.getTimeSeries().getEndIndex());
 //
-//        Decimal stochRsiK = calculateStochRSI(rsi, 3, series.getEndIndex()); // %K стохастического RSI
+        Decimal stochRsiK = calculateStochRSI(rsi, 3, series.getEndIndex()); // %K стохастического RSI
+        Decimal stochRsiD = calculateStochRSI(rsi, 3, series.getEndIndex()); // %K стохастического RSI
+
 //
 //
-//        System.out.println(series.getName() + "  K = " + stochK.getValue(series.getEndIndex()) + "   D= "
-//                                            + stochD.getValue(series.getEndIndex())
-//                                            + "   K(my) = " + ssK.getValue(series.getEndIndex())
-//                                            + "   D(my) = " + ssD.getValue(series.getEndIndex()));
+        System.out.println(series.getName() + "  Long = " + (stochK.getValue(series.getEndIndex() - 1)) + "   D= "
+                + stochD.getValue(series.getEndIndex() - 1)
+                + "   K(my) = " + ssK.getValue(series.getEndIndex())
+                + "   D(my) = " + ssD.getValue(series.getEndIndex())
+                + "   K%(my) = " + stochRsiK);
 ////        System.out.println("RSI = " + rsiValue);
 
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
@@ -211,7 +220,9 @@ public class StrategyMACD {
         // Вычисляем %K
         Decimal range = maxRSI.minus(minRSI);
         Decimal currentRSI = rsi.getValue(endIndex);
-        return currentRSI.minus(minRSI).dividedBy(range);
+        Decimal diff = currentRSI.minus(minRSI);
+        Decimal normalizedRSI = diff.dividedBy(range);
+        return normalizedRSI;
     }
 
 
