@@ -3,7 +3,9 @@ package com.my.copybot.util;
 import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.*;
-import org.ta4j.core.indicators.helpers.*;
+import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
+import org.ta4j.core.indicators.helpers.MaxPriceIndicator;
+import org.ta4j.core.indicators.helpers.MinPriceIndicator;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
@@ -89,8 +91,8 @@ public class StrategyMACD {
 
 
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
-                //           .and(new OverIndicatorRule(sma14, sma24))
-                .or(new OverIndicatorRule(ssK, ssD))
+                .and(new OverIndicatorRule(sma14, sma24))
+                .and(new OverIndicatorRule(ssK, ssD))
                 .and(new OverIndicatorRule(smaShort, smaLong))
                 .and(new OverIndicatorRule(stochK, stochD));
 
@@ -138,8 +140,8 @@ public class StrategyMACD {
         MaxPriceIndicator maxPrice = new MaxPriceIndicator(series);
         MinPriceIndicator minPrice = new MinPriceIndicator(series);
 
-        HighestValueIndicator highestValue = new HighestValueIndicator(stoRsi, 14);
-        LowestValueIndicator lowestValue = new LowestValueIndicator(stoRsi, 14);
+        //   HighestValueIndicator highestValue = new HighestValueIndicator(stoRsi, 14);
+        //     LowestValueIndicator lowestValue = new LowestValueIndicator(stoRsi, 14);
         StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 14);
         StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
@@ -153,7 +155,7 @@ public class StrategyMACD {
         Decimal levelRsiMacd;
 
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
-                //    .and(new UnderIndicatorRule(sma14, sma24))
+                .and(new UnderIndicatorRule(sma14, sma24))
                 .and(new UnderIndicatorRule(ssK, ssD))
                 .and(new UnderIndicatorRule(smaShort, smaLong))
                 .and(new UnderIndicatorRule(stochK, stochD));
@@ -174,11 +176,11 @@ public class StrategyMACD {
 
 //
 //
-        System.out.println(series.getName() + "  Long = " + (stochK.getValue(series.getEndIndex() - 1)) + "   D= "
-                + stochD.getValue(series.getEndIndex() - 1)
-                + "   K(my) = " + ssK.getValue(series.getEndIndex())
-                + "   D(my) = " + ssD.getValue(series.getEndIndex())
-                + "   K%(my) = " + stochRsiK);
+//        System.out.println(series.getName() + "  Long = " + (stochK.getValue(series.getEndIndex() - 1)) + "   D= "
+//                + stochD.getValue(series.getEndIndex() - 1)
+//                + "   K(my) = " + ssK.getValue(series.getEndIndex())
+//                + "   D(my) = " + ssD.getValue(series.getEndIndex())
+//                + "   K%(my) = " + stochRsiK);
 ////        System.out.println("RSI = " + rsiValue);
 
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
