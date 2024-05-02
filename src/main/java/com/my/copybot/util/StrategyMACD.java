@@ -148,7 +148,6 @@ public class StrategyMACD {
         StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(stoRsi, 14, maxPrice, minPrice);
         StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 
-
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
                 - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
 
