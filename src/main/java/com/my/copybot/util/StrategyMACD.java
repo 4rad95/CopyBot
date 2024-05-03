@@ -79,7 +79,7 @@ public class StrategyMACD {
         StochasticRSIIndicator stoRsi = new StochasticRSIIndicator(closePrice, 14);
         //       StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(stoRsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
         //       StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
-        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 14);
+        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 20);
         StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
         Decimal diffK = Decimal.valueOf(ssK.getValue(ssK.getTimeSeries().getEndIndex()).toDouble()
@@ -140,7 +140,7 @@ public class StrategyMACD {
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
-        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 14);
+        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 20);
         StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
 
