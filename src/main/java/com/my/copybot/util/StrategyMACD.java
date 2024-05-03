@@ -114,6 +114,8 @@ public class StrategyMACD {
 
         if ((diffMacd.toDouble() < 0) || (diffK.doubleValue() < 0)) {
             deltaK = Decimal.valueOf(-2);
+        } else {
+            deltaK = Decimal.valueOf(102);
         }
 
 
@@ -180,6 +182,8 @@ public class StrategyMACD {
 
         if ((diffMacd.toDouble() > 0) || (diffK.doubleValue() > 0)) {
             deltaK = Decimal.valueOf(-2);
+        } else {
+            deltaK = Decimal.valueOf(102);
         }
 
 //        RSIIndicator1 rsiMy = new RSIIndicator1(closePrice, 14);
