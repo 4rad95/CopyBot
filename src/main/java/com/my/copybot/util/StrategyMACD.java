@@ -81,16 +81,22 @@ public class StrategyMACD {
         //       StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
         StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 14);
         StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
-        Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
-                - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
+
+        Decimal diffK = Decimal.valueOf(ssK.getValue(ssK.getTimeSeries().getEndIndex()).toDouble()
+                - ssK.getValue(ssK.getTimeSeries().getEndIndex() - 1).toDouble());
 
 
-        Decimal levelRsiMacd;
+        Decimal deltaK = Decimal.valueOf(102);
+        if (diffK.doubleValue() > 0.6) {
+            deltaK = Decimal.valueOf(-2);
+        }
+
         Rule entryRule = new CrossedDownIndicatorRule(ssD, ssK)
                 .and(new OverIndicatorRule(sma14, sma24))
-                .and(new UnderIndicatorRule(macd, emaMacd));
+                .and(new UnderIndicatorRule(macd, emaMacd))
+                .and(new OverIndicatorRule(rsi, deltaK));
         //   .and(new OverIndicatorRule(emaShort, emaLong))
-        //     .and(new OverIndicatorRule(stochK, stochD));
+        //       .and(new OverIndicatorRule(ssK, ssD));
 
 
 //        Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
@@ -103,18 +109,13 @@ public class StrategyMACD {
         //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
         //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 
-        if (diffMacd.toDouble() < 0) {
-            levelRsiMacd = Decimal.valueOf(-2);
-        } else {
-            levelRsiMacd = Decimal.valueOf(101);
-        }
+
 
         Rule exitRule = (new CrossedDownIndicatorRule(macd, emaMacd))
-                .or(new CrossedDownIndicatorRule(emaShort, emaLong))
+                //       .or(new CrossedDownIndicatorRule(emaShort, emaLong))
                 .or(new UnderIndicatorRule(macd, emaMacd))
-                //    .or(new UnderIndicatorRule(stochK, stochD))
-                .or(new UnderIndicatorRule(ssK, ssD))
-                .or(new OverIndicatorRule(rsi, levelRsiMacd));
+                .or(new UnderIndicatorRule(ssK, ssD));
+
 
         return new BaseStrategy(entryRule, exitRule);
     }
@@ -143,10 +144,14 @@ public class StrategyMACD {
         StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
 
-        Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
-                - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
+        Decimal diffK = Decimal.valueOf(ssK.getValue(ssK.getTimeSeries().getEndIndex()).toDouble()
+                - ssK.getValue(ssK.getTimeSeries().getEndIndex() - 1).toDouble());
 
-        Decimal levelRsiMacd;
+
+        Decimal deltaK = Decimal.valueOf(-2);
+        if (diffK.doubleValue() > -0.6) {
+            deltaK = Decimal.valueOf(102);
+        }
 
 //        Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
 //                .and(new UnderIndicatorRule(sma14, sma24))
@@ -156,16 +161,17 @@ public class StrategyMACD {
 
         Rule entryRule = new CrossedUpIndicatorRule(ssK, ssD)
                 .and(new UnderIndicatorRule(sma14, sma24))
-                .and(new OverIndicatorRule(macd, emaMacd));
+                .and(new OverIndicatorRule(macd, emaMacd))
+                .and(new OverIndicatorRule(rsi, deltaK));
         //.and(new UnderIndicatorRule(emaShort, emaLong))
         //.and(new UnderIndicatorRule(stochK, stochD));
 
 
-        if (diffMacd.toDouble() > 0) {
-            levelRsiMacd = Decimal.valueOf(-2);
-        } else {
-            levelRsiMacd = Decimal.valueOf(101);
-        }
+//        if (diffMacd.toDouble() > 0) {
+//            levelRsiMacd = Decimal.valueOf(-2);
+//        } else {
+//            levelRsiMacd = Decimal.valueOf(101);
+//        }
 
 //        RSIIndicator1 rsiMy = new RSIIndicator1(closePrice, 14);
 //        Decimal rsiValue = rsiMy.getValue(closePrice.getTimeSeries().getEndIndex());
@@ -181,11 +187,11 @@ public class StrategyMACD {
 
 
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
-                .or(new CrossedUpIndicatorRule(emaShort, emaLong))
+                //    .or(new CrossedUpIndicatorRule(emaShort, emaLong))
                 .or(new OverIndicatorRule(macd, emaMacd))
                 //      .or(new OverIndicatorRule(stochK, stochD))
-                .or(new OverIndicatorRule(ssK, ssD))
-                .or(new OverIndicatorRule(rsi, levelRsiMacd));
+                .or(new OverIndicatorRule(ssK, ssD));
+        // .or(new OverIndicatorRule(rsi, levelRsiMacd));
 
 
         return new BaseStrategy(entryRule, exitRule);
