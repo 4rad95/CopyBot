@@ -89,7 +89,7 @@ public class StrategyMACD {
 
         Decimal levelRsiMacd;
         Rule entryRule = new CrossedDownIndicatorRule(ssD, ssK)
-                //      .and(new OverIndicatorRule(sma14, sma24))
+                .and(new OverIndicatorRule(sma14, sma24))
                 .and(new UnderIndicatorRule(macd, emaMacd));
         //   .and(new OverIndicatorRule(emaShort, emaLong))
         //     .and(new OverIndicatorRule(stochK, stochD));
@@ -114,7 +114,7 @@ public class StrategyMACD {
         Rule exitRule = (new CrossedDownIndicatorRule(macd, emaMacd))
                 .or(new CrossedDownIndicatorRule(emaShort, emaLong))
                 .or(new UnderIndicatorRule(macd, emaMacd))
-                .or(new UnderIndicatorRule(stochK, stochD))
+                //    .or(new UnderIndicatorRule(stochK, stochD))
                 .or(new UnderIndicatorRule(ssK, ssD))
                 .or(new OverIndicatorRule(rsi, levelRsiMacd));
 
@@ -140,18 +140,10 @@ public class StrategyMACD {
         EMAIndicator emaMacdDirection = new EMAIndicator(macd, 40);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-        StochasticRSIIndicator stoRsi = new StochasticRSIIndicator(rsi, 3);
-        //StochasticRSIIndicator stoRsi = new StochasticRSIIndicator(rsi, 14);
-
-        MaxPriceIndicator maxPrice = new MaxPriceIndicator(series);
-        MinPriceIndicator minPrice = new MinPriceIndicator(series);
-
 
         StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 14);
         StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
-        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(stoRsi, 14, maxPrice, minPrice);
-        StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
 
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
                 - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
@@ -165,7 +157,7 @@ public class StrategyMACD {
 //                .and(new UnderIndicatorRule(stochK, stochD));
 
         Rule entryRule = new CrossedUpIndicatorRule(ssK, ssD)
-                //.and(new UnderIndicatorRule(sma14, sma24))
+                .and(new UnderIndicatorRule(sma14, sma24))
                 .and(new OverIndicatorRule(macd, emaMacd));
         //.and(new UnderIndicatorRule(emaShort, emaLong))
         //.and(new UnderIndicatorRule(stochK, stochD));
@@ -193,7 +185,7 @@ public class StrategyMACD {
         Rule exitRule = (new CrossedUpIndicatorRule(macd, emaMacd))
                 .or(new CrossedUpIndicatorRule(emaShort, emaLong))
                 .or(new OverIndicatorRule(macd, emaMacd))
-                .or(new OverIndicatorRule(stochK, stochD))
+                //      .or(new OverIndicatorRule(stochK, stochD))
                 .or(new OverIndicatorRule(ssK, ssD))
                 .or(new OverIndicatorRule(rsi, levelRsiMacd));
 
