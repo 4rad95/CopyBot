@@ -4,8 +4,6 @@ import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.indicators.helpers.MaxPriceIndicator;
-import org.ta4j.core.indicators.helpers.MinPriceIndicator;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
@@ -79,8 +77,8 @@ public class StrategyMACD {
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stoRsi = new StochasticRSIIndicator(closePrice, 14);
-        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(stoRsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
-        StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
+        //       StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(stoRsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
+        //       StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
         StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 14);
         StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
