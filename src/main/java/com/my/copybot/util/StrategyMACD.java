@@ -90,7 +90,7 @@ public class StrategyMACD {
                 - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
 
         Decimal deltaK = Decimal.valueOf(102);
-        if ((diffK.doubleValue() > 0.8) && (diffMacd.doubleValue() >= 0)) {
+        if ((diffK.doubleValue() > 0.8) && (diffMacd.doubleValue() > 0)) {
             deltaK = Decimal.valueOf(-2);
         }
 
