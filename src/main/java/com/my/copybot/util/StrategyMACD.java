@@ -7,7 +7,6 @@ import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
-import org.ta4j.core.trading.rules.UnderIndicatorRule;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -98,9 +97,9 @@ public class StrategyMACD {
                 //    .and(new OverIndicatorRule(sma14, sma24))
                 //    .and(new UnderIndicatorRule(ssK, Decimal.valueOf(40)))
                 //.and(new UnderIndicatorRule(macd, emaMacd))
-                .and(new OverIndicatorRule(rsi, deltaK))
-                .and(new OverIndicatorRule(ssK, ssD))
-                .and(new OverIndicatorRule(emaShort, emaLong));
+                .and(new OverIndicatorRule(rsi, deltaK));
+//                .and(new OverIndicatorRule(ssK, ssD))
+//                .and(new OverIndicatorRule(emaShort, emaLong));
         //       .and(new OverIndicatorRule(ssK, ssD));
 
 
@@ -115,6 +114,7 @@ public class StrategyMACD {
         //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 
         if ((diffMacd.toDouble() < 0) || (diffK.doubleValue() < 0)) {
+
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -123,10 +123,10 @@ public class StrategyMACD {
 
         Rule exitRule = // (new UnderIndicatorRule(ssK, ssD))
         //(new CrossedDownIndicatorRule(macd, emaMacd))
-                (new UnderIndicatorRule(emaShort, emaLong))
-                .or(new OverIndicatorRule(rsi, deltaK));
+                // (new UnderIndicatorRule(emaShort, emaLong))
+                (new OverIndicatorRule(rsi, deltaK));
         //.or(new UnderIndicatorRule(macd, emaMacd))
-        // .or(new UnderIndicatorRule(ssK, ssD));
+        //     .or(new UnderIndicatorRule(ssK, ssD));
 
 
         return new BaseStrategy(entryRule, exitRule);
@@ -175,12 +175,11 @@ public class StrategyMACD {
 //                .and(new UnderIndicatorRule(stochK, stochD));
 
         Rule entryRule = new CrossedUpIndicatorRule(emaShort, emaLong)
-                //       .and(new OverIndicatorRule(ssK, Decimal.valueOf(70))) //?
-                .and(new UnderIndicatorRule(sma14, sma24))
+                //.and(new UnderIndicatorRule(sma14, sma24))
                 //        .and(new OverIndicatorRule(macd, emaMacd))
-                .and(new OverIndicatorRule(rsi, deltaK))
-                .and(new UnderIndicatorRule(ssK, ssD))
-                .and(new UnderIndicatorRule(emaShort, emaLong));
+                .and(new OverIndicatorRule(rsi, deltaK));
+        // .and(new UnderIndicatorRule(ssK, ssD));
+        //  .and(new UnderIndicatorRule(emaShort, emaLong));
         //.and(new UnderIndicatorRule(stochK, stochD));
 
 
@@ -205,8 +204,8 @@ public class StrategyMACD {
 
         Rule exitRule = // (new OverIndicatorRule(ssK, ssD))
         //(new CrossedUpIndicatorRule(macd, emaMacd))
-                (new OverIndicatorRule(emaShort, emaLong))
-                .or(new OverIndicatorRule(rsi, deltaK));
+                //(new OverIndicatorRule(emaShort, emaLong))
+                (new OverIndicatorRule(rsi, deltaK));
         //     .or(new OverIndicatorRule(macd, emaMacd))
                 //      .or(new OverIndicatorRule(stochK, stochD))
         //    .or(new OverIndicatorRule(ssK, ssD));
