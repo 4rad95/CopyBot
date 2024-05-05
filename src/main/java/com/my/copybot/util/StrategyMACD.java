@@ -121,9 +121,9 @@ public class StrategyMACD {
         }
 
 
-        Rule exitRule = (new UnderIndicatorRule(ssK, ssD))
+        Rule exitRule = // (new UnderIndicatorRule(ssK, ssD))
         //(new CrossedDownIndicatorRule(macd, emaMacd))
-                //        .or(new UnderIndicatorRule(emaShort, emaLong))
+                (new UnderIndicatorRule(emaShort, emaLong))
                 .or(new OverIndicatorRule(rsi, deltaK));
         //.or(new UnderIndicatorRule(macd, emaMacd))
         // .or(new UnderIndicatorRule(ssK, ssD));
@@ -203,9 +203,9 @@ public class StrategyMACD {
 ////        System.out.println("RSI = " + rsiValue);
 
 
-        Rule exitRule = (new OverIndicatorRule(ssK, ssD))
+        Rule exitRule = // (new OverIndicatorRule(ssK, ssD))
         //(new CrossedUpIndicatorRule(macd, emaMacd))
-                .or(new OverIndicatorRule(emaShort, emaLong))
+                (new OverIndicatorRule(emaShort, emaLong))
                 .or(new OverIndicatorRule(rsi, deltaK));
         //     .or(new OverIndicatorRule(macd, emaMacd))
                 //      .or(new OverIndicatorRule(stochK, stochD))
