@@ -81,15 +81,15 @@ public class StrategyMACD {
         StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 20);
         StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
-        Decimal diffK = Decimal.valueOf(ssK.getValue(ssK.getTimeSeries().getEndIndex()).toDouble()
-                - ssK.getValue(ssK.getTimeSeries().getEndIndex() - 1).toDouble());
+        Decimal diffEma = Decimal.valueOf(emaShort.getValue(emaShort.getTimeSeries().getEndIndex()).toDouble()
+                - emaShort.getValue(emaShort.getTimeSeries().getEndIndex() - 1).toDouble());
 
 
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
                 - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
 
         Decimal deltaK = Decimal.valueOf(102);
-        if ((diffK.doubleValue() > 0.8) && (diffMacd.doubleValue() > 0)) {
+        if ((diffEma.doubleValue() > 0) && (diffMacd.doubleValue() > 0)) {
             deltaK = Decimal.valueOf(-2);
         }
 
@@ -113,7 +113,7 @@ public class StrategyMACD {
         //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
         //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 
-        if ((diffMacd.toDouble() < 0) || (diffK.doubleValue() < 0)) {
+        if ((diffMacd.toDouble() < 0) || (diffEma.doubleValue() < 0)) {
 
             deltaK = Decimal.valueOf(-2);
         } else {
@@ -156,15 +156,15 @@ public class StrategyMACD {
         StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
 
-        Decimal diffK = Decimal.valueOf(ssK.getValue(ssK.getTimeSeries().getEndIndex()).toDouble()
-                - ssK.getValue(ssK.getTimeSeries().getEndIndex() - 1).toDouble());
+        Decimal diffEma = Decimal.valueOf(emaShort.getValue(emaShort.getTimeSeries().getEndIndex()).toDouble()
+                - emaShort.getValue(emaShort.getTimeSeries().getEndIndex() - 1).toDouble());
 
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
                 - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
 
 
         Decimal deltaK = Decimal.valueOf(-2);
-        if ((diffK.doubleValue() > -0.8) && (diffMacd.doubleValue() < 0)) {
+        if ((diffEma.doubleValue() < 0) && (diffMacd.doubleValue() < 0)) {
             deltaK = Decimal.valueOf(102);
         }
 
@@ -183,7 +183,7 @@ public class StrategyMACD {
         //.and(new UnderIndicatorRule(stochK, stochD));
 
 
-        if ((diffMacd.toDouble() > 0) || (diffK.doubleValue() > 0)) {
+        if ((diffMacd.toDouble() > 0) || (diffEma.doubleValue() > 0)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
