@@ -93,7 +93,7 @@ public class StrategyMACD {
             deltaK = Decimal.valueOf(-2);
         }
 
-        Rule entryRule = new CrossedDownIndicatorRule(emaShort, emaLong)
+        Rule entryRule = new CrossedUpIndicatorRule(emaShort, emaLong)
                 //    .and(new OverIndicatorRule(sma14, sma24))
                 //    .and(new UnderIndicatorRule(ssK, Decimal.valueOf(40)))
                 //.and(new UnderIndicatorRule(macd, emaMacd))
@@ -174,7 +174,7 @@ public class StrategyMACD {
 //                .and(new UnderIndicatorRule(emaShort, emaLong))
 //                .and(new UnderIndicatorRule(stochK, stochD));
 
-        Rule entryRule = new CrossedUpIndicatorRule(emaShort, emaLong)
+        Rule entryRule = new CrossedDownIndicatorRule(emaShort, emaLong)
                 //.and(new UnderIndicatorRule(sma14, sma24))
                 //        .and(new OverIndicatorRule(macd, emaMacd))
                 .and(new OverIndicatorRule(rsi, deltaK));
