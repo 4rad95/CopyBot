@@ -99,6 +99,7 @@ public class StrategyMACD {
                 //    .and(new UnderIndicatorRule(ssK, Decimal.valueOf(40)))
                 //.and(new UnderIndicatorRule(macd, emaMacd))
                 .and(new OverIndicatorRule(rsi, deltaK))
+                .and(new OverIndicatorRule(ssK, ssD))
                 .and(new OverIndicatorRule(emaShort, emaLong));
         //       .and(new OverIndicatorRule(ssK, ssD));
 
@@ -178,6 +179,7 @@ public class StrategyMACD {
                 .and(new UnderIndicatorRule(sma14, sma24))
                 //        .and(new OverIndicatorRule(macd, emaMacd))
                 .and(new OverIndicatorRule(rsi, deltaK))
+                .and(new UnderIndicatorRule(ssK, ssD))
                 .and(new UnderIndicatorRule(emaShort, emaLong));
         //.and(new UnderIndicatorRule(stochK, stochD));
 
