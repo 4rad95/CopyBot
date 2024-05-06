@@ -71,11 +71,12 @@ public class StrategyMACD {
         //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
         //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 // && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)
-//        if ((diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)) {
-//            deltaK = Decimal.valueOf(-2);
-//        } else {
+
+        if ((diffMacd.doubleValue() < 0) && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)) {
+            deltaK = Decimal.valueOf(-2);
+        } else {
             deltaK = Decimal.valueOf(102);
-//        }
+        }
 
 
         Rule exitRule = // (new UnderIndicatorRule(ssK, ssD))
@@ -140,11 +141,11 @@ public class StrategyMACD {
                         .and(new OverIndicatorRule(rsi, deltaK))));
 
 // && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)
-//        if ((diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
-//            deltaK = Decimal.valueOf(-2);
-//        } else {
+        if ((diffMacd.doubleValue() > 0) && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
+            deltaK = Decimal.valueOf(-2);
+        } else {
             deltaK = Decimal.valueOf(102);
-//        }
+        }
 
 //
 //        System.out.println(series.getName() + "  Long = " + (closePrice.getValue(maxIndex)) + "   D= " +(openPrice.getValue(maxIndex))
@@ -156,9 +157,9 @@ public class StrategyMACD {
 
 
         Rule exitRule = // (new OverIndicatorRule(ssK, ssD))
-        //(new CrossedUpIndicatorRule(macd, emaMacd))
-                //new OverIndicatorRule(sma14, sma24)
-                (new OverIndicatorRule(rsi, deltaK));
+                //   new CrossedUpIndicatorRule(macd, emaMacd)
+                (new OverIndicatorRule(sma14, sma24))
+                        .or(new OverIndicatorRule(rsi, deltaK));
         //     .or(new OverIndicatorRule(macd, emaMacd))
         //      .or(new OverIndicatorRule(stochK, stochD));
 
