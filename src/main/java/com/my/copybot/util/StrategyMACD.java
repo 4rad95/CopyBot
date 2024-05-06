@@ -71,7 +71,7 @@ public class StrategyMACD {
         //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
         //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 // && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)
-        if ((diffMacd.toDouble() < 0)) {
+        if ((diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -140,7 +140,7 @@ public class StrategyMACD {
                         .and(new OverIndicatorRule(rsi, deltaK))));
 
 // && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)
-        if ((diffMacd.toDouble() > 0)) {
+        if ((diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
