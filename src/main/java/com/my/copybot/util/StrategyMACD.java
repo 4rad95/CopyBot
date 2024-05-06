@@ -70,8 +70,8 @@ public class StrategyMACD {
         //     .and(new Is(bullishHarami, Decimal.valueOf(1)));
         //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
         //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
-
-        if ((diffMacd.toDouble() < 0) && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)) {
+// && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)
+        if ((diffMacd.toDouble() < 0)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -139,8 +139,8 @@ public class StrategyMACD {
                         .and(new UnderIndicatorRule(emaShort, emaLong))
                         .and(new OverIndicatorRule(rsi, deltaK))));
 
-
-        if ((diffMacd.toDouble() > 0) && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
+// && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)
+        if ((diffMacd.toDouble() > 0)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
