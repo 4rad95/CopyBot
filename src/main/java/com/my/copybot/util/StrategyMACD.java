@@ -6,9 +6,11 @@ import org.ta4j.core.indicators.EMAIndicator;
 import org.ta4j.core.indicators.MACDIndicator;
 import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
+import org.ta4j.core.indicators.helpers.OpenPriceIndicator;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
+import org.ta4j.core.trading.rules.UnderIndicatorRule;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -96,7 +98,7 @@ public class StrategyMACD {
         }
 
         Rule entryRule = new CrossedUpIndicatorRule(emaShort, emaLong)
-                //    .and(new OverIndicatorRule(sma14, sma24))
+                .and(new OverIndicatorRule(sma14, sma24))
                 //    .and(new UnderIndicatorRule(ssK, Decimal.valueOf(40)))
                 //.and(new UnderIndicatorRule(macd, emaMacd))
                 .and(new OverIndicatorRule(rsi, deltaK));
@@ -115,8 +117,7 @@ public class StrategyMACD {
         //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
         //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 
-        if ((diffMacd.toDouble() < 0) || (diffEma.doubleValue() < 0)) {
-
+        if ((diffMacd.toDouble() < 0) && (diffEma.doubleValue() < 0)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -141,6 +142,7 @@ public class StrategyMACD {
         }
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
+        OpenPriceIndicator openPrice = new OpenPriceIndicator(series);
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
@@ -157,12 +159,18 @@ public class StrategyMACD {
 //        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 20);
 //        StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
+        int maxIndex = series.getEndIndex();
 
         Decimal diffEma = Decimal.valueOf(emaShort.getValue(emaShort.getTimeSeries().getEndIndex()).toDouble()
                 - emaShort.getValue(emaShort.getTimeSeries().getEndIndex() - 1).toDouble());
 
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
                 - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
+
+
+        // Decimal diffPrice = Decimal.valueOf((closePrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue()));
+        //                closePrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue()+
+        //                closePrice.getValue(maxIndex-2).doubleValue()-openPrice.getValue(maxIndex-2).doubleValue())/3);
 
 
         Decimal deltaK = Decimal.valueOf(-2);
@@ -177,7 +185,7 @@ public class StrategyMACD {
 //                .and(new UnderIndicatorRule(stochK, stochD));
 
         Rule entryRule = new CrossedDownIndicatorRule(emaShort, emaLong)
-                //.and(new UnderIndicatorRule(sma14, sma24))
+                .and(new UnderIndicatorRule(sma14, sma24))
                 //        .and(new OverIndicatorRule(macd, emaMacd))
                 .and(new OverIndicatorRule(rsi, deltaK));
         // .and(new UnderIndicatorRule(ssK, ssD));
@@ -185,7 +193,7 @@ public class StrategyMACD {
         //.and(new UnderIndicatorRule(stochK, stochD));
 
 
-        if ((diffMacd.toDouble() > 0) || (diffEma.doubleValue() > 0)) {
+        if ((diffMacd.toDouble() > 0) && (diffEma.doubleValue() > 0)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -196,8 +204,8 @@ public class StrategyMACD {
 //
 
 //
-//        System.out.println(series.getName() + "  Long = " + (stochK.getValue(series.getEndIndex() - 1)) + "   D= "
-//                + stochD.getValue(series.getEndIndex() - 1)
+//        System.out.println(series.getName() + "  Long = " + (closePrice.getValue(maxIndex)) + "   D= " +(openPrice.getValue(maxIndex))
+//                + " Diff = " + diffPrice);
 //                + "   K(my) = " + ssK.getValue(series.getEndIndex())
 //                + "   D(my) = " + ssD.getValue(series.getEndIndex())
 //                + "   K%(my) = " + stochRsiK);
