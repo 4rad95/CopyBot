@@ -34,15 +34,21 @@ public class StrategyMACD {
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
 
-        Decimal diffEma = Decimal.valueOf(emaLong.getValue(emaLong.getTimeSeries().getEndIndex()).toDouble()
-                - emaLong.getValue(emaLong.getTimeSeries().getEndIndex() - 1).toDouble());
+        int maxIndex = series.getEndIndex();
 
+        Decimal diffEmaLong = Decimal.valueOf(emaLong.getValue(maxIndex).toDouble()
+                - emaLong.getValue(maxIndex - 1).toDouble());
 
-        Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
-                - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
+        Decimal diffEmaShort = Decimal.valueOf(emaShort.getValue(maxIndex).toDouble()
+                - emaShort.getValue(maxIndex - 1).toDouble());
+
+        Decimal diffMacd = Decimal.valueOf(macd.getValue(maxIndex).toDouble()
+                - macd.getValue(maxIndex - 1).toDouble());
+
 
         Decimal deltaK = Decimal.valueOf(102);
-        if ((diffEma.doubleValue() > 0) && (diffMacd.doubleValue() > 0)) {
+
+        if ((diffEmaShort.doubleValue() > 0) && (diffMacd.doubleValue() > 0)) {
             deltaK = Decimal.valueOf(-2);
         }
 
@@ -65,7 +71,7 @@ public class StrategyMACD {
         //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
         //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 
-        if ((diffMacd.toDouble() < 0) && (diffEma.doubleValue() < 0)) {
+        if ((diffMacd.toDouble() < 0) && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -104,20 +110,19 @@ public class StrategyMACD {
 
         int maxIndex = series.getEndIndex();
 
-        Decimal diffEma = Decimal.valueOf(emaLong.getValue(emaLong.getTimeSeries().getEndIndex()).toDouble()
-                - emaLong.getValue(emaLong.getTimeSeries().getEndIndex() - 1).toDouble());
+        Decimal diffEmaLong = Decimal.valueOf(emaLong.getValue(maxIndex).toDouble()
+                - emaLong.getValue(maxIndex - 1).toDouble());
 
-        Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
-                - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
+        Decimal diffEmaShort = Decimal.valueOf(emaShort.getValue(maxIndex).toDouble()
+                - emaShort.getValue(maxIndex - 1).toDouble());
 
-
-        // Decimal diffPrice = Decimal.valueOf((closePrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue()));
-        //                closePrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue()+
-        //                closePrice.getValue(maxIndex-2).doubleValue()-openPrice.getValue(maxIndex-2).doubleValue())/3);
+        Decimal diffMacd = Decimal.valueOf(macd.getValue(maxIndex).toDouble()
+                - macd.getValue(maxIndex - 1).toDouble());
 
 
         Decimal deltaK = Decimal.valueOf(-2);
-        if ((diffEma.doubleValue() < 0) && (diffMacd.doubleValue() < 0)) {
+
+        if ((diffEmaShort.doubleValue() < 0) && (diffMacd.doubleValue() < 0)) {
             deltaK = Decimal.valueOf(102);
         }
 
@@ -135,8 +140,7 @@ public class StrategyMACD {
                         .and(new OverIndicatorRule(rsi, deltaK))));
 
 
-
-        if ((diffMacd.toDouble() > 0) && (diffEma.doubleValue() > 0)) {
+        if ((diffMacd.toDouble() > 0) && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
