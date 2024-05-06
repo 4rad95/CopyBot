@@ -1,6 +1,5 @@
 package com.my.copybot.util;
 
-import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.EMAIndicator;
 import org.ta4j.core.indicators.MACDIndicator;
@@ -12,57 +11,11 @@ import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
 import org.ta4j.core.trading.rules.UnderIndicatorRule;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.LinkedList;
-import java.util.List;
-
 public class StrategyMACD {
 
 
     public static String STRATEGY = "MACD";
 
-    public static TimeSeries convertToTimeSeries(
-            List<Candlestick> candlesticks, String symbol, String period) {
-        List<Bar> ticks = new LinkedList<Bar>();
-        for (Candlestick candlestick : candlesticks) {
-            ticks.add(convertToTa4jTick(candlestick));
-        }
-        return new BaseTimeSeries(symbol + "_" + period, ticks);
-    }
-
-    public static Bar convertToTa4jTick(Candlestick candlestick) {
-        ZonedDateTime closeTime = getZonedDateTime(candlestick.getCloseTime());
-        Duration candleDuration = Duration.ofMillis(candlestick.getCloseTime()
-                - candlestick.getOpenTime());
-        Decimal openPrice = Decimal.valueOf(candlestick.getOpen());
-        Decimal closePrice = Decimal.valueOf(candlestick.getClose());
-        Decimal highPrice = Decimal.valueOf(candlestick.getHigh());
-        Decimal lowPrice = Decimal.valueOf(candlestick.getLow());
-        Decimal volume = Decimal.valueOf(candlestick.getVolume());
-
-        return new BaseBar(candleDuration, closeTime, openPrice, highPrice,
-                lowPrice, closePrice, volume);
-    }
-
-    public static ZonedDateTime getZonedDateTime(Long timestamp) {
-        return ZonedDateTime.ofInstant(Instant.ofEpochMilli(timestamp),
-                ZoneId.systemDefault());
-    }
-
-    public static boolean isSameTick(Candlestick candlestick, Bar tick) {
-        return tick.getEndTime().equals(
-                getZonedDateTime(candlestick.getCloseTime()));
-    }
-
-//	public static Strategy buildStrategyLong(TimeSeries series, String strategyCode) {
-//		if (STRATEGY.equals(strategyCode)) {
-//			return buildMacdStrategyLong(series);
-//		}
-//		return null;
-//	}
 
     public static Strategy buildMacdStrategyLong(TimeSeries series) {
         if (series == null) {
@@ -79,14 +32,10 @@ public class StrategyMACD {
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-        //      StochasticRSIIndicator stoRsi = new StochasticRSIIndicator(closePrice, 14);
-        //       StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(stoRsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
-        //       StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
-//        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 20);
-//        StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
-        Decimal diffEma = Decimal.valueOf(emaShort.getValue(emaShort.getTimeSeries().getEndIndex()).toDouble()
-                - emaShort.getValue(emaShort.getTimeSeries().getEndIndex() - 1).toDouble());
+
+        Decimal diffEma = Decimal.valueOf(emaLong.getValue(emaLong.getTimeSeries().getEndIndex()).toDouble()
+                - emaLong.getValue(emaLong.getTimeSeries().getEndIndex() - 1).toDouble());
 
 
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
@@ -155,8 +104,8 @@ public class StrategyMACD {
 
         int maxIndex = series.getEndIndex();
 
-        Decimal diffEma = Decimal.valueOf(emaShort.getValue(emaShort.getTimeSeries().getEndIndex()).toDouble()
-                - emaShort.getValue(emaShort.getTimeSeries().getEndIndex() - 1).toDouble());
+        Decimal diffEma = Decimal.valueOf(emaLong.getValue(emaLong.getTimeSeries().getEndIndex()).toDouble()
+                - emaLong.getValue(emaLong.getTimeSeries().getEndIndex() - 1).toDouble());
 
         Decimal diffMacd = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble()
                 - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());

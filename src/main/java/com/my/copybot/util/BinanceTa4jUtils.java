@@ -19,7 +19,6 @@ import java.util.List;
 
 public class BinanceTa4jUtils {
 
-	public static String STRATEGY = "MACD";
 
 	public static TimeSeries convertToTimeSeries(
 			List<Candlestick> candlesticks, String symbol, String period) {
