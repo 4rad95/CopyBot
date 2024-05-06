@@ -2,7 +2,9 @@ package com.my.copybot.util;
 
 import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
-import org.ta4j.core.indicators.*;
+import org.ta4j.core.indicators.EMAIndicator;
+import org.ta4j.core.indicators.MACDIndicator;
+import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
@@ -75,11 +77,11 @@ public class StrategyMACD {
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-        StochasticRSIIndicator stoRsi = new StochasticRSIIndicator(closePrice, 14);
+        //      StochasticRSIIndicator stoRsi = new StochasticRSIIndicator(closePrice, 14);
         //       StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(stoRsi, 3, new MaxPriceIndicator(series), new MinPriceIndicator(series));
         //       StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
-        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 20);
-        StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
+//        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 20);
+//        StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
         Decimal diffEma = Decimal.valueOf(emaShort.getValue(emaShort.getTimeSeries().getEndIndex()).toDouble()
                 - emaShort.getValue(emaShort.getTimeSeries().getEndIndex() - 1).toDouble());
@@ -152,8 +154,8 @@ public class StrategyMACD {
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
-        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 20);
-        StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
+//        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 20);
+//        StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
 
         Decimal diffEma = Decimal.valueOf(emaShort.getValue(emaShort.getTimeSeries().getEndIndex()).toDouble()
