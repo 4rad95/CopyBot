@@ -128,7 +128,7 @@ public class StrategyMACD {
         //(new CrossedDownIndicatorRule(macd, emaMacd))
                 // (new UnderIndicatorRule(emaShort, emaLong))
                 (new OverIndicatorRule(sma14, sma24))
-                        .or(new UnderIndicatorRule(macd, emaMacd));
+                        .or(new OverIndicatorRule(rsi, deltaK));
 
 
         return new BaseStrategy(entryRule, exitRule);
