@@ -97,14 +97,13 @@ public class StrategyMACD {
             deltaK = Decimal.valueOf(-2);
         }
 
-        Rule entryRule = new CrossedUpIndicatorRule(emaShort, emaLong)
+        Rule entryRule = (new CrossedUpIndicatorRule(emaShort, emaLong)
                 .and(new OverIndicatorRule(sma14, sma24))
-                //    .and(new UnderIndicatorRule(ssK, Decimal.valueOf(40)))
-                //.and(new UnderIndicatorRule(macd, emaMacd))
-                .and(new OverIndicatorRule(rsi, deltaK));
-//                .and(new OverIndicatorRule(ssK, ssD))
-//                .and(new OverIndicatorRule(emaShort, emaLong));
-        //       .and(new OverIndicatorRule(ssK, ssD));
+                .and(new OverIndicatorRule(rsi, deltaK)))
+                .or((new CrossedUpIndicatorRule(sma14, sma24)
+                        .and(new OverIndicatorRule(emaShort, emaLong))
+                        .and(new OverIndicatorRule(rsi, deltaK))));
+
 
 
 //        Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
@@ -150,13 +149,9 @@ public class StrategyMACD {
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
-//        MACDIndicator macdDirection = new MACDIndicator(closePrice, 50, 100);
-//        EMAIndicator emaMacdDirection = new EMAIndicator(macd, 40);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
-//        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(series, 20);
-//        StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
         int maxIndex = series.getEndIndex();
 
@@ -183,13 +178,13 @@ public class StrategyMACD {
 //                .and(new UnderIndicatorRule(emaShort, emaLong))
 //                .and(new UnderIndicatorRule(stochK, stochD));
 
-        Rule entryRule = new CrossedDownIndicatorRule(emaShort, emaLong)
+        Rule entryRule = (new CrossedDownIndicatorRule(emaShort, emaLong)
                 .and(new UnderIndicatorRule(sma14, sma24))
-                //        .and(new OverIndicatorRule(macd, emaMacd))
-                .and(new OverIndicatorRule(rsi, deltaK));
-        // .and(new UnderIndicatorRule(ssK, ssD));
-        //  .and(new UnderIndicatorRule(emaShort, emaLong));
-        //.and(new UnderIndicatorRule(stochK, stochD));
+                .and(new OverIndicatorRule(rsi, deltaK)))
+                .or((new CrossedDownIndicatorRule(sma14, sma24)
+                        .and(new UnderIndicatorRule(emaShort, emaLong))
+                        .and(new OverIndicatorRule(rsi, deltaK))));
+
 
 
         if ((diffMacd.toDouble() > 0) && (diffEma.doubleValue() > 0)) {
@@ -197,10 +192,6 @@ public class StrategyMACD {
         } else {
             deltaK = Decimal.valueOf(102);
         }
-
-//        RSIIndicator1 rsiMy = new RSIIndicator1(closePrice, 14);
-//        Decimal rsiValue = rsiMy.getValue(closePrice.getTimeSeries().getEndIndex());
-//
 
 //
 //        System.out.println(series.getName() + "  Long = " + (closePrice.getValue(maxIndex)) + "   D= " +(openPrice.getValue(maxIndex))
@@ -216,25 +207,11 @@ public class StrategyMACD {
                 new OverIndicatorRule(sma14, sma24)
                         .or(new OverIndicatorRule(rsi, deltaK));
         //     .or(new OverIndicatorRule(macd, emaMacd))
-                //      .or(new OverIndicatorRule(stochK, stochD))
-        //    .or(new OverIndicatorRule(ssK, ssD));
-        // .or(new OverIndicatorRule(rsi, levelRsiMacd));
+        //      .or(new OverIndicatorRule(stochK, stochD));
 
 
         return new BaseStrategy(entryRule, exitRule);
     }
-
-    public Decimal checkMacdTrend(TimeSeries series) {
-        ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-        MACDIndicator macd = new MACDIndicator(closePrice, 5, 15);
-        // Indicator<Decimal> macdDiff = new DifferenceIndicator(macdExit, macdExit);
-        Decimal diff = Decimal.valueOf(macd.getValue(macd.getTimeSeries().getEndIndex()).toDouble() - macd.getValue(macd.getTimeSeries().getEndIndex() - 1).toDouble());
-        return diff;
-    }
-
-
-
-
 }
 
 
