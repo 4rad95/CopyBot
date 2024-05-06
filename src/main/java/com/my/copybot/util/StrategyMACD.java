@@ -71,11 +71,11 @@ public class StrategyMACD {
         //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
         //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 // && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)
-        if ((diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)) {
-            deltaK = Decimal.valueOf(-2);
-        } else {
+//        if ((diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)) {
+//            deltaK = Decimal.valueOf(-2);
+//        } else {
             deltaK = Decimal.valueOf(102);
-        }
+//        }
 
 
         Rule exitRule = // (new UnderIndicatorRule(ssK, ssD))
@@ -140,11 +140,11 @@ public class StrategyMACD {
                         .and(new OverIndicatorRule(rsi, deltaK))));
 
 // && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)
-        if ((diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
-            deltaK = Decimal.valueOf(-2);
-        } else {
+//        if ((diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
+//            deltaK = Decimal.valueOf(-2);
+//        } else {
             deltaK = Decimal.valueOf(102);
-        }
+//        }
 
 //
 //        System.out.println(series.getName() + "  Long = " + (closePrice.getValue(maxIndex)) + "   D= " +(openPrice.getValue(maxIndex))
