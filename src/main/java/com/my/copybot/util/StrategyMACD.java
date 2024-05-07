@@ -14,7 +14,7 @@ import org.ta4j.core.trading.rules.UnderIndicatorRule;
 public class StrategyMACD {
 
 
-    public static String STRATEGY = "MACD";
+    public static final String STRATEGY = "MACD";
 
 
     public static Strategy buildMacdStrategyLong(TimeSeries series) {
@@ -52,9 +52,9 @@ public class StrategyMACD {
             deltaK = Decimal.valueOf(-2);
         }
 
-        Rule entryRule = (new CrossedUpIndicatorRule(emaShort, emaLong)
+        Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd) // (new CrossedUpIndicatorRule(emaShort, emaLong)
                 .and(new OverIndicatorRule(sma14, sma24))
-                .and(new OverIndicatorRule(rsi, deltaK)));
+                .and(new OverIndicatorRule(rsi, deltaK));
 //                .or((new CrossedUpIndicatorRule(sma14, sma24)
 //                        .and(new OverIndicatorRule(emaShort, emaLong))
 //                        .and(new OverIndicatorRule(rsi, deltaK))));
@@ -133,14 +133,13 @@ public class StrategyMACD {
 //                .and(new UnderIndicatorRule(emaShort, emaLong))
 //                .and(new UnderIndicatorRule(stochK, stochD));
 
-        Rule entryRule = (new CrossedDownIndicatorRule(emaShort, emaLong)
+        Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // (new CrossedDownIndicatorRule(emaShort, emaLong)
                 .and(new UnderIndicatorRule(sma14, sma24))
-                .and(new OverIndicatorRule(rsi, deltaK)));
+                .and(new OverIndicatorRule(rsi, deltaK));
 //                .or((new CrossedDownIndicatorRule(sma14, sma24)
 //                        .and(new UnderIndicatorRule(emaShort, emaLong))
 //                        .and(new OverIndicatorRule(rsi, deltaK))));
 
-// && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)
         if ((diffMacd.doubleValue() > 0) && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
             deltaK = Decimal.valueOf(-2);
         } else {
