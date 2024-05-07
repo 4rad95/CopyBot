@@ -54,10 +54,10 @@ public class StrategyMACD {
 
         Rule entryRule = (new CrossedUpIndicatorRule(emaShort, emaLong)
                 .and(new OverIndicatorRule(sma14, sma24))
-                .and(new OverIndicatorRule(rsi, deltaK)))
-                .or((new CrossedUpIndicatorRule(sma14, sma24)
-                        .and(new OverIndicatorRule(emaShort, emaLong))
-                        .and(new OverIndicatorRule(rsi, deltaK))));
+                .and(new OverIndicatorRule(rsi, deltaK)));
+//                .or((new CrossedUpIndicatorRule(sma14, sma24)
+//                        .and(new OverIndicatorRule(emaShort, emaLong))
+//                        .and(new OverIndicatorRule(rsi, deltaK))));
 
 
 
@@ -135,10 +135,10 @@ public class StrategyMACD {
 
         Rule entryRule = (new CrossedDownIndicatorRule(emaShort, emaLong)
                 .and(new UnderIndicatorRule(sma14, sma24))
-                .and(new OverIndicatorRule(rsi, deltaK)))
-                .or((new CrossedDownIndicatorRule(sma14, sma24)
-                        .and(new UnderIndicatorRule(emaShort, emaLong))
-                        .and(new OverIndicatorRule(rsi, deltaK))));
+                .and(new OverIndicatorRule(rsi, deltaK)));
+//                .or((new CrossedDownIndicatorRule(sma14, sma24)
+//                        .and(new UnderIndicatorRule(emaShort, emaLong))
+//                        .and(new OverIndicatorRule(rsi, deltaK))));
 
 // && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)
         if ((diffMacd.doubleValue() > 0) && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
