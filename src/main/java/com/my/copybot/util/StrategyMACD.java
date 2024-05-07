@@ -26,7 +26,7 @@ public class StrategyMACD {
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
-        EMAIndicator emaShort = new EMAIndicator(closePrice, 5);
+        EMAIndicator emaShort = new EMAIndicator(closePrice, 10);
         EMAIndicator emaLong = new EMAIndicator(closePrice, 15);
         MACDIndicator macd = new MACDIndicator(closePrice, 10, 30);
         EMAIndicator emaMacd = new EMAIndicator(macd, 20);
@@ -45,16 +45,22 @@ public class StrategyMACD {
         Decimal diffMacd = Decimal.valueOf(macd.getValue(maxIndex).toDouble()
                 - macd.getValue(maxIndex - 1).toDouble());
 
+        Decimal diffSma = Decimal.valueOf(sma24.getValue(maxIndex).toDouble()
+                - sma14.getValue(maxIndex).toDouble());
+        Decimal diffSmaP = Decimal.valueOf(sma24.getValue(maxIndex - 1).toDouble()
+                - sma14.getValue(maxIndex - 1).toDouble());
 
         Decimal deltaK = Decimal.valueOf(102);
 
-        if ((diffEmaShort.doubleValue() > 0) && (diffMacd.doubleValue() > 0)) {
+        if ((diffMacd.doubleValue() > 0) && (diffEmaShort.doubleValue() > 0)
+                && (diffMacd.doubleValue() > 0) && (diffSma.doubleValue() > diffSmaP.doubleValue())) {
             deltaK = Decimal.valueOf(-2);
         }
 
         Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd) // (new CrossedUpIndicatorRule(emaShort, emaLong)
                 .and(new OverIndicatorRule(sma14, sma24))
                 .and(new OverIndicatorRule(rsi, deltaK));
+
 //                .or((new CrossedUpIndicatorRule(sma14, sma24)
 //                        .and(new OverIndicatorRule(emaShort, emaLong))
 //                        .and(new OverIndicatorRule(rsi, deltaK))));
@@ -72,7 +78,8 @@ public class StrategyMACD {
         //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 // && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)
 
-        if ((diffMacd.doubleValue() < 0) && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)) {
+        if ((diffMacd.doubleValue() < 0) && (diffEmaShort.doubleValue() < 0)
+                && (diffEmaLong.doubleValue() < 0) && (diffSma.doubleValue() > diffSmaP.doubleValue())) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -100,7 +107,7 @@ public class StrategyMACD {
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
-        EMAIndicator emaShort = new EMAIndicator(closePrice, 5);
+        EMAIndicator emaShort = new EMAIndicator(closePrice, 10);
         EMAIndicator emaLong = new EMAIndicator(closePrice, 15);
         MACDIndicator macd = new MACDIndicator(closePrice, 10, 30);
         EMAIndicator emaMacd = new EMAIndicator(macd, 20);
@@ -120,10 +127,16 @@ public class StrategyMACD {
         Decimal diffMacd = Decimal.valueOf(macd.getValue(maxIndex).toDouble()
                 - macd.getValue(maxIndex - 1).toDouble());
 
+        Decimal diffSma = Decimal.valueOf(sma24.getValue(maxIndex).toDouble()
+                - sma14.getValue(maxIndex).toDouble());
+        Decimal diffSmaP = Decimal.valueOf(sma24.getValue(maxIndex - 1).toDouble()
+                - sma14.getValue(maxIndex - 1).toDouble());
+
 
         Decimal deltaK = Decimal.valueOf(-2);
 
-        if ((diffEmaShort.doubleValue() < 0) && (diffMacd.doubleValue() < 0)) {
+        if ((diffMacd.doubleValue() < 0) && (diffEmaShort.doubleValue() < 0)
+                && (diffMacd.doubleValue() < 0) && (diffSma.doubleValue() > diffSmaP.doubleValue())) {
             deltaK = Decimal.valueOf(102);
         }
 
@@ -136,6 +149,7 @@ public class StrategyMACD {
         Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd) // (new CrossedDownIndicatorRule(emaShort, emaLong)
                 .and(new UnderIndicatorRule(sma14, sma24))
                 .and(new OverIndicatorRule(rsi, deltaK));
+
 //                .or((new CrossedDownIndicatorRule(sma14, sma24)
 //                        .and(new UnderIndicatorRule(emaShort, emaLong))
 //                        .and(new OverIndicatorRule(rsi, deltaK))));
@@ -146,13 +160,6 @@ public class StrategyMACD {
             deltaK = Decimal.valueOf(102);
         }
 
-//
-//        System.out.println(series.getName() + "  Long = " + (closePrice.getValue(maxIndex)) + "   D= " +(openPrice.getValue(maxIndex))
-//                + " Diff = " + diffPrice);
-//                + "   K(my) = " + ssK.getValue(series.getEndIndex())
-//                + "   D(my) = " + ssD.getValue(series.getEndIndex())
-//                + "   K%(my) = " + stochRsiK);
-////        System.out.println("RSI = " + rsiValue);
 
 
         Rule exitRule = // (new OverIndicatorRule(ssK, ssD))
