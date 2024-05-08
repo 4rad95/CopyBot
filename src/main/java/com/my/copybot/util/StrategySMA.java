@@ -1,22 +1,19 @@
 package com.my.copybot.util;
 
 import org.ta4j.core.*;
-import org.ta4j.core.indicators.SMAIndicator;
+import org.ta4j.core.indicators.EMAIndicator;
+import org.ta4j.core.indicators.MACDIndicator;
+import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
-import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
-
+import org.ta4j.core.indicators.helpers.OpenPriceIndicator;
+import org.ta4j.core.trading.rules.OverIndicatorRule;
+import org.ta4j.core.trading.rules.UnderIndicatorRule;
 
 public class StrategySMA {
 
-    public static String STRATEGY = "SMA";
 
-    public static Strategy buildSmaStrategyLong(TimeSeries series, String strategyCode) {
-        if (STRATEGY.equals(strategyCode)) {
-            return buildSmaStrategyLong(series);
-        }
-        return null;
-    }
+    public static final String STRATEGY = "SMA";
+
 
     public static Strategy buildSmaStrategyLong(TimeSeries series) {
         if (series == null) {
@@ -24,25 +21,79 @@ public class StrategySMA {
         }
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-        SMAIndicator sma = new SMAIndicator(closePrice, 10);
 
-        Decimal entryLevel = Decimal.valueOf("1.10").multipliedBy(sma.getValue(series.getEndIndex())); // Уровень входа: 110% от средней цены закрытия
-        Decimal exitLevel = Decimal.valueOf("1.05").multipliedBy(sma.getValue(series.getEndIndex()));  // Уровень выхода: 105% от средней цены закрытия
+        EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
+        EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
+        EMAIndicator emaShort = new EMAIndicator(closePrice, 10);
+        EMAIndicator emaLong = new EMAIndicator(closePrice, 15);
+        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
+        EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
-        Rule entryRule = new CrossedDownIndicatorRule(closePrice, entryLevel);
-        Rule exitRule = new CrossedUpIndicatorRule(closePrice, exitLevel);
+        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+
+
+        int maxIndex = series.getEndIndex();
+
+        Decimal diffEmaLong = Decimal.valueOf(emaLong.getValue(maxIndex).toDouble()
+                - emaLong.getValue(maxIndex - 1).toDouble());
+
+        Decimal diffEmaShort = Decimal.valueOf(emaShort.getValue(maxIndex).toDouble()
+                - emaShort.getValue(maxIndex - 1).toDouble());
+
+        Decimal diffMacd = Decimal.valueOf(macd.getValue(maxIndex).toDouble()
+                - macd.getValue(maxIndex - 1).toDouble());
+
+        Decimal diffSma = Decimal.valueOf(sma24.getValue(maxIndex).toDouble()
+                - sma14.getValue(maxIndex).toDouble());
+        Decimal diffSmaP = Decimal.valueOf(sma24.getValue(maxIndex - 1).toDouble()
+                - sma14.getValue(maxIndex - 1).toDouble());
+
+        Decimal deltaK = Decimal.valueOf(102);
+
+        if ((diffMacd.doubleValue() > 0) && (diffEmaShort.doubleValue() > 0)
+                && (diffMacd.doubleValue() > 0) && (diffSma.doubleValue() > diffSmaP.doubleValue())) {
+            deltaK = Decimal.valueOf(-2);
+        }
+
+        Rule entryRule = new UnderIndicatorRule(macd, emaMacd) // (new CrossedUpIndicatorRule(emaShort, emaLong)
+                .and(new OverIndicatorRule(sma14, sma24))
+                .and(new OverIndicatorRule(emaShort, emaLong))
+                .and(new OverIndicatorRule(rsi, deltaK));
+
+//                .or((new CrossedUpIndicatorRule(sma14, sma24)
+//                        .and(new OverIndicatorRule(emaShort, emaLong))
+//                        .and(new OverIndicatorRule(rsi, deltaK))));
+
+
+//        Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
+//                .and(new OverIndicatorRule(sma14, sma24))
+//                .and(new OverIndicatorRule(ssK, ssD))
+//                .and(new OverIndicatorRule(emaShort, emaLong))
+//                .and(new OverIndicatorRule(stochK, stochD));
+
+        //     .and(new Is(bullishHarami, Decimal.valueOf(1)));
+        //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
+        //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
+// && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)
+
+        if ((diffMacd.doubleValue() < 0) && (diffEmaShort.doubleValue() < 0)
+                && (diffEmaLong.doubleValue() < 0) && (diffSma.doubleValue() > diffSmaP.doubleValue())) {
+            deltaK = Decimal.valueOf(-2);
+        } else {
+            deltaK = Decimal.valueOf(102);
+        }
+
+
+        Rule exitRule = // (new UnderIndicatorRule(ssK, ssD))
+                //(new CrossedDownIndicatorRule(macd, emaMacd))
+                // (new UnderIndicatorRule(emaShort, emaLong))
+                //(new OverIndicatorRule(sma14, sma24));
+                (new OverIndicatorRule(rsi, deltaK));
+
 
         return new BaseStrategy(entryRule, exitRule);
-
     }
 
-
-    public static Strategy buildStrategyShort(TimeSeries series, String strategyCode) {
-        if (STRATEGY.equals(strategyCode)) {
-            return buildSmaStrategyShort(series);
-        }
-        return null;
-    }
 
     public static Strategy buildSmaStrategyShort(TimeSeries series) {
         if (series == null) {
@@ -50,17 +101,78 @@ public class StrategySMA {
         }
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-        SMAIndicator sma = new SMAIndicator(closePrice, 10);
+        OpenPriceIndicator openPrice = new OpenPriceIndicator(series);
 
-        Decimal entryLevel = Decimal.valueOf("0.90").multipliedBy(sma.getValue(series.getEndIndex())); // Уровень входа: 90% от средней цены закрытия
-        Decimal exitLevel = Decimal.valueOf("0.95").multipliedBy(sma.getValue(series.getEndIndex()));  // Уровень выхода: 95% от средней цены закрытия
+        EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
+        EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
+        EMAIndicator emaShort = new EMAIndicator(closePrice, 10);
+        EMAIndicator emaLong = new EMAIndicator(closePrice, 15);
+        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
+        EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
-        Rule entryRule = new CrossedUpIndicatorRule(closePrice, entryLevel);
-        Rule exitRule = new CrossedDownIndicatorRule(closePrice, exitLevel);
+
+        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+
+
+        int maxIndex = series.getEndIndex();
+
+        Decimal diffEmaLong = Decimal.valueOf(emaLong.getValue(maxIndex).toDouble()
+                - emaLong.getValue(maxIndex - 1).toDouble());
+
+        Decimal diffEmaShort = Decimal.valueOf(emaShort.getValue(maxIndex).toDouble()
+                - emaShort.getValue(maxIndex - 1).toDouble());
+
+        Decimal diffMacd = Decimal.valueOf(macd.getValue(maxIndex).toDouble()
+                - macd.getValue(maxIndex - 1).toDouble());
+
+        Decimal diffSma = Decimal.valueOf(sma24.getValue(maxIndex).toDouble()
+                - sma14.getValue(maxIndex).toDouble());
+        Decimal diffSmaP = Decimal.valueOf(sma24.getValue(maxIndex - 1).toDouble()
+                - sma14.getValue(maxIndex - 1).toDouble());
+
+
+        Decimal deltaK = Decimal.valueOf(-2);
+
+        if ((diffMacd.doubleValue() < 0) && (diffEmaShort.doubleValue() < 0)
+                && (diffMacd.doubleValue() < 0) && (diffSma.doubleValue() > diffSmaP.doubleValue())) {
+            deltaK = Decimal.valueOf(102);
+        }
+
+//        Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
+//                .and(new UnderIndicatorRule(sma14, sma24))
+//                .and(new UnderIndicatorRule(ssK, ssD))
+//                .and(new UnderIndicatorRule(emaShort, emaLong))
+//                .and(new UnderIndicatorRule(stochK, stochD));
+
+        Rule entryRule = new OverIndicatorRule(macd, emaMacd) // (new CrossedDownIndicatorRule(emaShort, emaLong)
+                .and(new UnderIndicatorRule(sma14, sma24))
+                .and(new UnderIndicatorRule(emaShort, emaLong))
+                .and(new OverIndicatorRule(rsi, deltaK));
+
+//                .or((new CrossedDownIndicatorRule(sma14, sma24)
+//                        .and(new UnderIndicatorRule(emaShort, emaLong))
+//                        .and(new OverIndicatorRule(rsi, deltaK))));
+
+        if ((diffMacd.doubleValue() > 0) && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
+            deltaK = Decimal.valueOf(-2);
+        } else {
+            deltaK = Decimal.valueOf(102);
+        }
+
+
+        Rule exitRule = // (new OverIndicatorRule(ssK, ssD))
+                //   new CrossedUpIndicatorRule(macd, emaMacd)
+                (new OverIndicatorRule(sma14, sma24))
+                        .or(new OverIndicatorRule(rsi, deltaK));
+        //     .or(new OverIndicatorRule(macd, emaMacd))
+        //      .or(new OverIndicatorRule(stochK, stochD));
+
 
         return new BaseStrategy(entryRule, exitRule);
-
     }
-
-
 }
+
+
+
+
+
