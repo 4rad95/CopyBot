@@ -1,10 +1,10 @@
 package com.my.copybot.util;
 
 import org.ta4j.core.*;
-import org.ta4j.core.indicators.EMAIndicator;
-import org.ta4j.core.indicators.MACDIndicator;
-import org.ta4j.core.indicators.RSIIndicator;
+import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
+import org.ta4j.core.indicators.helpers.MaxPriceIndicator;
+import org.ta4j.core.indicators.helpers.MinPriceIndicator;
 import org.ta4j.core.indicators.helpers.OpenPriceIndicator;
 import org.ta4j.core.trading.rules.OverIndicatorRule;
 import org.ta4j.core.trading.rules.UnderIndicatorRule;
@@ -30,7 +30,8 @@ public class StrategySMA {
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-
+        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(rsi, 14, new MaxPriceIndicator(series), new MinPriceIndicator(series));
+        StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
         int maxIndex = series.getEndIndex();
 
@@ -58,6 +59,7 @@ public class StrategySMA {
         Rule entryRule = new UnderIndicatorRule(macd, emaMacd) // (new CrossedUpIndicatorRule(emaShort, emaLong)
                 .and(new OverIndicatorRule(sma14, sma24))
                 .and(new OverIndicatorRule(emaShort, emaLong))
+                .and(new OverIndicatorRule(ssK, ssD))
                 .and(new OverIndicatorRule(rsi, deltaK));
 
 //                .or((new CrossedUpIndicatorRule(sma14, sma24)
@@ -109,9 +111,10 @@ public class StrategySMA {
         EMAIndicator emaLong = new EMAIndicator(closePrice, 15);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
-
-
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(rsi, 14, new MaxPriceIndicator(series), new MinPriceIndicator(series));
+        StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
+
 
 
         int maxIndex = series.getEndIndex();
@@ -147,6 +150,7 @@ public class StrategySMA {
         Rule entryRule = new OverIndicatorRule(macd, emaMacd) // (new CrossedDownIndicatorRule(emaShort, emaLong)
                 .and(new UnderIndicatorRule(sma14, sma24))
                 .and(new UnderIndicatorRule(emaShort, emaLong))
+                .and(new UnderIndicatorRule(ssK, ssD))
                 .and(new OverIndicatorRule(rsi, deltaK));
 
 //                .or((new CrossedDownIndicatorRule(sma14, sma24)
