@@ -34,64 +34,44 @@ public class StrategySMA {
         StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
 
         int maxIndex = series.getEndIndex();
-
-        Decimal diffEmaLong = Decimal.valueOf(emaLong.getValue(maxIndex).toDouble()
-                - emaLong.getValue(maxIndex - 1).toDouble());
-
-        Decimal diffEmaShort = Decimal.valueOf(emaShort.getValue(maxIndex).toDouble()
-                - emaShort.getValue(maxIndex - 1).toDouble());
-
         Decimal diffMacd = Decimal.valueOf(macd.getValue(maxIndex).toDouble()
                 - macd.getValue(maxIndex - 1).toDouble());
+        Decimal diffMacd1 = Decimal.valueOf(macd.getValue(maxIndex - 1).toDouble()
+                - macd.getValue(maxIndex - 2).toDouble());
+        Decimal diffMacd2 = Decimal.valueOf(macd.getValue(maxIndex - 2).toDouble()
+                - macd.getValue(maxIndex - 3).toDouble());
+
+        boolean macdChange = (diffMacd1.doubleValue() < 0) && (diffMacd2.doubleValue() < 0) && (diffMacd.doubleValue() > 0);
+
+        // Проверка MACD на слом направления движенмия
 
         Decimal diffSma = Decimal.valueOf(sma24.getValue(maxIndex).toDouble()
                 - sma14.getValue(maxIndex).toDouble());
         Decimal diffSmaP = Decimal.valueOf(sma24.getValue(maxIndex - 1).toDouble()
                 - sma14.getValue(maxIndex - 1).toDouble());
 
-        Decimal deltaK = Decimal.valueOf(102);
+        boolean emaTrend = diffSma.doubleValue() > diffSmaP.doubleValue();
 
-        if ((diffMacd.doubleValue() > 0) && (diffEmaShort.doubleValue() > 0)
-                && (diffMacd.doubleValue() > 0) && (diffSma.doubleValue() > diffSmaP.doubleValue())) {
-            deltaK = Decimal.valueOf(-2);
+        // Проверка старших EMA на расширение
+
+        Decimal deltaK = Decimal.valueOf(-2);
+
+        if (macdChange && emaTrend) {
+            deltaK = Decimal.valueOf(102);
         }
 
-        Rule entryRule = new UnderIndicatorRule(macd, emaMacd) // (new CrossedUpIndicatorRule(emaShort, emaLong)
+        Rule entryRule = new UnderIndicatorRule(macd, emaMacd)
                 .and(new OverIndicatorRule(sma14, sma24))
-                .and(new OverIndicatorRule(emaShort, emaLong))
-                .and(new OverIndicatorRule(ssK, ssD))
                 .and(new OverIndicatorRule(rsi, deltaK));
 
-//                .or((new CrossedUpIndicatorRule(sma14, sma24)
-//                        .and(new OverIndicatorRule(emaShort, emaLong))
-//                        .and(new OverIndicatorRule(rsi, deltaK))));
 
-
-//        Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
-//                .and(new OverIndicatorRule(sma14, sma24))
-//                .and(new OverIndicatorRule(ssK, ssD))
-//                .and(new OverIndicatorRule(emaShort, emaLong))
-//                .and(new OverIndicatorRule(stochK, stochD));
-
-        //     .and(new Is(bullishHarami, Decimal.valueOf(1)));
-        //  .and(new OverIndicatorRule(rsi, levelRsiStoch))
-        //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
-// && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)
-
-        if ((diffMacd.doubleValue() < 0) && (diffEmaShort.doubleValue() < 0)
-                && (diffEmaLong.doubleValue() < 0) && (diffSma.doubleValue() > diffSmaP.doubleValue())) {
+        if ((macdChange) && (!emaTrend)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
         }
 
-
-        Rule exitRule = (new UnderIndicatorRule(ssK, ssD))
-                //(new CrossedDownIndicatorRule(macd, emaMacd))
-                // (new UnderIndicatorRule(emaShort, emaLong))
-                //(new OverIndicatorRule(sma14, sma24));
-                .or(new OverIndicatorRule(rsi, deltaK));
-
+        Rule exitRule = new OverIndicatorRule(rsi, deltaK);
 
         return new BaseStrategy(entryRule, exitRule);
     }
@@ -107,71 +87,48 @@ public class StrategySMA {
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
-        EMAIndicator emaShort = new EMAIndicator(closePrice, 10);
-        EMAIndicator emaLong = new EMAIndicator(closePrice, 15);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-        StochasticOscillatorKIndicator ssK = new StochasticOscillatorKIndicator(rsi, 14, new MaxPriceIndicator(series), new MinPriceIndicator(series));
-        StochasticOscillatorDIndicator ssD = new StochasticOscillatorDIndicator(ssK);
-
-
 
         int maxIndex = series.getEndIndex();
-
-        Decimal diffEmaLong = Decimal.valueOf(emaLong.getValue(maxIndex).toDouble()
-                - emaLong.getValue(maxIndex - 1).toDouble());
-
-        Decimal diffEmaShort = Decimal.valueOf(emaShort.getValue(maxIndex).toDouble()
-                - emaShort.getValue(maxIndex - 1).toDouble());
-
         Decimal diffMacd = Decimal.valueOf(macd.getValue(maxIndex).toDouble()
                 - macd.getValue(maxIndex - 1).toDouble());
+        Decimal diffMacd1 = Decimal.valueOf(macd.getValue(maxIndex - 1).toDouble()
+                - macd.getValue(maxIndex - 2).toDouble());
+        Decimal diffMacd2 = Decimal.valueOf(macd.getValue(maxIndex - 2).toDouble()
+                - macd.getValue(maxIndex - 3).toDouble());
+
+        boolean macdChange = (diffMacd1.doubleValue() > 0) && (diffMacd2.doubleValue() > 0) && (diffMacd.doubleValue() < 0);
+
+        // Проверка MACD на слом направления движенмия
 
         Decimal diffSma = Decimal.valueOf(sma24.getValue(maxIndex).toDouble()
                 - sma14.getValue(maxIndex).toDouble());
         Decimal diffSmaP = Decimal.valueOf(sma24.getValue(maxIndex - 1).toDouble()
                 - sma14.getValue(maxIndex - 1).toDouble());
 
+        boolean emaTrend = diffSma.doubleValue() > diffSmaP.doubleValue();
+        // Проверка старших EMA на расширение
 
         Decimal deltaK = Decimal.valueOf(-2);
 
-        if ((diffMacd.doubleValue() < 0) && (diffEmaShort.doubleValue() < 0)
-                && (diffMacd.doubleValue() < 0) && (diffSma.doubleValue() > diffSmaP.doubleValue())) {
+        if (macdChange && emaTrend) {
             deltaK = Decimal.valueOf(102);
         }
 
-//        Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
-//                .and(new UnderIndicatorRule(sma14, sma24))
-//                .and(new UnderIndicatorRule(ssK, ssD))
-//                .and(new UnderIndicatorRule(emaShort, emaLong))
-//                .and(new UnderIndicatorRule(stochK, stochD));
-
-        Rule entryRule = new OverIndicatorRule(macd, emaMacd) // (new CrossedDownIndicatorRule(emaShort, emaLong)
+        Rule entryRule = new OverIndicatorRule(macd, emaMacd)
                 .and(new UnderIndicatorRule(sma14, sma24))
-                .and(new UnderIndicatorRule(emaShort, emaLong))
-                .and(new UnderIndicatorRule(ssK, ssD))
                 .and(new OverIndicatorRule(rsi, deltaK));
 
-//                .or((new CrossedDownIndicatorRule(sma14, sma24)
-//                        .and(new UnderIndicatorRule(emaShort, emaLong))
-//                        .and(new OverIndicatorRule(rsi, deltaK))));
 
-        if ((diffMacd.doubleValue() > 0) && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
+        if ((macdChange) && (!emaTrend)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
         }
 
-
-        Rule exitRule = // (new OverIndicatorRule(ssK, ssD))
-                //   new CrossedUpIndicatorRule(macd, emaMacd)
-                //     (new OverIndicatorRule(sma14, sma24))
-                (new OverIndicatorRule(ssK, ssD))
-                        .or(new OverIndicatorRule(rsi, deltaK));
-        //     .or(new OverIndicatorRule(macd, emaMacd))
-        //      .or(new OverIndicatorRule(stochK, stochD));
-
+        Rule exitRule = new OverIndicatorRule(rsi, deltaK);
 
         return new BaseStrategy(entryRule, exitRule);
     }
