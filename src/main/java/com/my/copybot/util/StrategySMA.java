@@ -70,7 +70,7 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
 
-        if ((macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue())) {
+        if ((macd.getValue(maxIndex - 1).doubleValue() > macd.getValue(maxIndex).doubleValue())) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
