@@ -40,11 +40,11 @@ public class StrategySMA {
                 && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
                 && (macd.getValue(maxIndex - 1).doubleValue() > macd.getValue(maxIndex).doubleValue());
 
-        if (macdChange) {
-            System.out.println(series.getName());
-            System.out.println("macd[0-1] = " + (macd.getValue(maxIndex - 1).doubleValue() + " macd[0] =" + macd.getValue(maxIndex).doubleValue()));
-            System.out.println("macd[0-3] = " + (macd.getValue(maxIndex - 3).doubleValue() + " macd[0-2] =" + macd.getValue(maxIndex - 2).doubleValue()));
-        }
+//        if (macdChange) {
+//            System.out.println(series.getName());
+//            System.out.println("macd[0-1] = " + (macd.getValue(maxIndex - 1).doubleValue() + " macd[0] =" + macd.getValue(maxIndex).doubleValue()));
+//            System.out.println("macd[0-3] = " + (macd.getValue(maxIndex - 3).doubleValue() + " macd[0-2] =" + macd.getValue(maxIndex - 2).doubleValue()));
+//        }
         // Проверка MACD на слом направления движенмия
 
         Double diffSma = Math.abs(sma24.getValue(maxIndex).toDouble()
@@ -53,12 +53,9 @@ public class StrategySMA {
                 - sma14.getValue(maxIndex - 1).toDouble());
 
 
-        boolean emaTrend = false;
-        if (diffSma.doubleValue() > diffSmaP.doubleValue()) {
-            emaTrend = true;
-            System.out.println(series.getName() + "    LONG ");
-            System.out.println("diffEma [0] = " + diffSma.doubleValue() + "  diffEma[-1] = " + diffSmaP.doubleValue());
-        }
+        boolean emaTrend = diffSma.doubleValue() > diffSmaP.doubleValue();
+        //            System.out.println(series.getName() + "    LONG ");
+        //            System.out.println("diffEma [0] = " + diffSma.doubleValue() + "  diffEma[-1] = " + diffSmaP.doubleValue());
 
         // Проверка старших EMA на расширение
 
@@ -106,11 +103,11 @@ public class StrategySMA {
                 && ((macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue()))
                 && ((macd.getValue(maxIndex - 1).doubleValue() > macd.getValue(maxIndex).doubleValue()));
 
-        if (macdChange) {
-            System.out.println(series.getName());
-            System.out.println("macd[0-1] = " + (macd.getValue(maxIndex - 1).doubleValue() + " macd[0] =" + macd.getValue(maxIndex).doubleValue()));
-            System.out.println("macd[0-3] = " + (macd.getValue(maxIndex - 3).doubleValue() + " macd[0-2] =" + macd.getValue(maxIndex - 2).doubleValue()));
-        }
+//        if (macdChange) {
+//            System.out.println(series.getName());
+//            System.out.println("macd[0-1] = " + (macd.getValue(maxIndex - 1).doubleValue() + " macd[0] =" + macd.getValue(maxIndex).doubleValue()));
+//            System.out.println("macd[0-3] = " + (macd.getValue(maxIndex - 3).doubleValue() + " macd[0-2] =" + macd.getValue(maxIndex - 2).doubleValue()));
+//        }
 
         // Проверка MACD на слом направления движенмия
 
@@ -119,12 +116,9 @@ public class StrategySMA {
         Double diffSmaP = (sma24.getValue(maxIndex - 1).toDouble()
                 - sma14.getValue(maxIndex - 1).toDouble());
 
-        boolean emaTrend = false;
-        if (Math.abs(diffSma) > Math.abs(diffSmaP)) {
-            emaTrend = true;
-            System.out.println(series.getName() + "    SHORT ");
-            System.out.println("diffEma [0] = " + diffSma.doubleValue() + "  diffEma[-1] = " + diffSmaP.doubleValue());
-        }
+        boolean emaTrend = Math.abs(diffSma) > Math.abs(diffSmaP);
+        //            System.out.println(series.getName() + "    SHORT ");
+        //            System.out.println("diffEma [0] = " + diffSma.doubleValue() + "  diffEma[-1] = " + diffSmaP.doubleValue());
         // Проверка старших EMA на расширение
 
         Decimal deltaK = Decimal.valueOf(-2);
