@@ -70,7 +70,7 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
 
-        if ((macd.getValue(maxIndex - 1).doubleValue() > macd.getValue(maxIndex).doubleValue())) {
+        if (Math.abs(diffSma) < Math.abs(diffSmaP)) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -99,7 +99,7 @@ public class StrategySMA {
         int maxIndex = series.getEndIndex();
 
 
-        boolean macdChange = (macd.getValue(maxIndex - 3).doubleValue() < macd.getValue(maxIndex - 2).doubleValue())
+        boolean macdChange = macd.getValue(maxIndex - 3).doubleValue() < macd.getValue(maxIndex - 2).doubleValue()
                 && ((macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue()))
                 && ((macd.getValue(maxIndex - 1).doubleValue() > macd.getValue(maxIndex).doubleValue()));
 
@@ -116,7 +116,10 @@ public class StrategySMA {
         Double diffSmaP = (sma24.getValue(maxIndex - 1).toDouble()
                 - sma14.getValue(maxIndex - 1).toDouble());
 
-        boolean emaTrend = Math.abs(diffSma) > Math.abs(diffSmaP);
+        boolean emaTrend = false;
+        if (Math.abs(diffSma) > Math.abs(diffSmaP)) {
+            macdChange = true;
+        }
         //            System.out.println(series.getName() + "    SHORT ");
         //            System.out.println("diffEma [0] = " + diffSma.doubleValue() + "  diffEma[-1] = " + diffSmaP.doubleValue());
         // Проверка старших EMA на расширение
@@ -132,7 +135,8 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
 
-        if (((macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue()))) {
+        if (Math.abs(diffSma) < Math.abs(diffSmaP)) {
+
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
