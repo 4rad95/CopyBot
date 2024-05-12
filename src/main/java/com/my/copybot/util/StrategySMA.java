@@ -24,8 +24,10 @@ public class StrategySMA {
         EMAIndicator sma14 = new EMAIndicator(closePrice, 50);
         EMAIndicator sma24 = new EMAIndicator(closePrice, 100);
         EMAIndicator emaShort = new EMAIndicator(closePrice, 10);
-        EMAIndicator emaLong = new EMAIndicator(closePrice, 15);
+        //  EMAIndicator emaLong = new EMAIndicator(closePrice, 15);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
+        MACDIndicator macdLong = new MACDIndicator(closePrice, 50, 100);
+
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
@@ -38,6 +40,7 @@ public class StrategySMA {
                 && (macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue());
 
 
+        boolean macdTrend = (macdLong.getValue(maxIndex - 1).doubleValue() < macdLong.getValue(maxIndex).doubleValue());
         // Проверка MACD на слом направления движенмия
 
         Double diffSma = Math.abs(sma24.getValue(maxIndex).toDouble()
@@ -52,12 +55,11 @@ public class StrategySMA {
 
         Decimal deltaK = Decimal.valueOf(-2);
 
-        if (macdChange && emaTrend) {
+        if (macdChange && macdTrend) {
             deltaK = Decimal.valueOf(102);
         }
 
         Rule entryRule = new UnderIndicatorRule(macd, emaMacd)
-                .and(new OverIndicatorRule(sma14, sma24))
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
 
@@ -85,16 +87,19 @@ public class StrategySMA {
         EMAIndicator emaShort = new EMAIndicator(closePrice, 10);
         EMAIndicator emaLong = new EMAIndicator(closePrice, 15);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
+        MACDIndicator macdLong = new MACDIndicator(closePrice, 50, 100);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
         int maxIndex = series.getEndIndex();
 
 
-        boolean macdChange = macd.getValue(maxIndex - 3).doubleValue() < macd.getValue(maxIndex - 2).doubleValue()
-                && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
-                && (macd.getValue(maxIndex - 1).doubleValue() > macd.getValue(maxIndex).doubleValue());
+        boolean macdChange = macd.getValue(maxIndex - 3).doubleValue() > macd.getValue(maxIndex - 2).doubleValue()
+                && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
+                && (macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue());
 
+
+        boolean macdTrend = (macdLong.getValue(maxIndex - 1).doubleValue() > macdLong.getValue(maxIndex).doubleValue());
 
         // Проверка MACD на слом направления движенмия
 
@@ -103,22 +108,19 @@ public class StrategySMA {
         Double diffSmaP = (sma24.getValue(maxIndex - 1).toDouble()
                 - sma14.getValue(maxIndex - 1).toDouble());
 
-        boolean emaTrend = false;
 
-        if (Math.abs(diffSma) > Math.abs(diffSmaP)) {
-            macdChange = true;
-        }
+        boolean emaTrend = Math.abs(diffSma) > Math.abs(diffSmaP);
 
         // Проверка старших EMA на расширение
 
         Decimal deltaK = Decimal.valueOf(-2);
 
-        if (macdChange && emaTrend) {
+        if (macdChange && macdTrend) {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule entryRule = new OverIndicatorRule(macd, emaMacd)
-                .and(new UnderIndicatorRule(sma14, sma24))
+        Rule entryRule = new UnderIndicatorRule(macd, emaMacd)
+                .and(new OverIndicatorRule(sma14, sma24))
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
 
