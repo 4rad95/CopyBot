@@ -63,13 +63,13 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
 
-//        if (Math.abs(diffSma) < Math.abs(diffSmaP)) {
-//            deltaK = Decimal.valueOf(-2);
-//        } else {
-//            deltaK = Decimal.valueOf(102);
-//        }
+        if (Math.abs(diffSma) < Math.abs(diffSmaP)) {
+            deltaK = Decimal.valueOf(-2);
+        } else {
+            deltaK = Decimal.valueOf(102);
+        }
 
-        Rule exitRule = new OverIndicatorRule(sma14, emaShort);
+        Rule exitRule = new UnderIndicatorRule(rsi, deltaK);
 
         return new BaseStrategy(entryRule, exitRule);
     }
@@ -124,14 +124,14 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
 
-//        if (Math.abs(diffSma) < Math.abs(diffSmaP)) {
-//
-//            deltaK = Decimal.valueOf(-2);
-//        } else {
-//            deltaK = Decimal.valueOf(102);
-//        }
+        if (Math.abs(diffSma) < Math.abs(diffSmaP)) {
 
-        Rule exitRule = new UnderIndicatorRule(sma14, emaShort);
+            deltaK = Decimal.valueOf(-2);
+        } else {
+            deltaK = Decimal.valueOf(102);
+        }
+
+        Rule exitRule = new UnderIndicatorRule(rsi, deltaK);
 
 
         return new BaseStrategy(entryRule, exitRule);
