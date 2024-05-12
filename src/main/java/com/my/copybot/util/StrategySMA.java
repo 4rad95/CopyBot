@@ -35,9 +35,9 @@ public class StrategySMA {
         int maxIndex = series.getEndIndex();
 
 
-        boolean macdChange = (macd.getValue(maxIndex - 3).doubleValue() > macd.getValue(maxIndex - 2).doubleValue())
-                && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
-                && (macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue());
+        boolean macdChange = (macd.getValue(maxIndex - 3).doubleValue() < macd.getValue(maxIndex - 2).doubleValue())
+                && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
+                && (macd.getValue(maxIndex - 1).doubleValue() > macd.getValue(maxIndex).doubleValue());
 
 
         boolean macdTrend = (macdLong.getValue(maxIndex - 2).doubleValue() < macdLong.getValue(maxIndex).doubleValue());
@@ -94,9 +94,9 @@ public class StrategySMA {
         int maxIndex = series.getEndIndex();
 
 
-        boolean macdChange = macd.getValue(maxIndex - 3).doubleValue() > macd.getValue(maxIndex - 2).doubleValue()
-                && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
-                && (macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue());
+        boolean macdChange = macd.getValue(maxIndex - 3).doubleValue() < macd.getValue(maxIndex - 2).doubleValue()
+                && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
+                && (macd.getValue(maxIndex - 1).doubleValue() > macd.getValue(maxIndex).doubleValue());
 
 
         boolean macdTrend = (macdLong.getValue(maxIndex - 2).doubleValue() > macdLong.getValue(maxIndex).doubleValue());
