@@ -63,7 +63,7 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
 
-        if (Math.abs(diffSma) < Math.abs(diffSmaP)) {
+        if (!macdTrend) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -124,7 +124,7 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
 
-        if (Math.abs(diffSma) < Math.abs(diffSmaP)) {
+        if (!macdTrend) {
 
             deltaK = Decimal.valueOf(-2);
         } else {
