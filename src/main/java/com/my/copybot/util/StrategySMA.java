@@ -55,7 +55,7 @@ public class StrategySMA {
 
         Decimal deltaK = Decimal.valueOf(-2);
 
-        if (macdChange && macdTrend) {
+        if (macdChange && macdTrend && emaTrend) {
             deltaK = Decimal.valueOf(102);
         }
 
@@ -63,7 +63,7 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
 
-        if (!macdTrend) {
+        if (!macdTrend && !emaTrend) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -115,7 +115,7 @@ public class StrategySMA {
 
         Decimal deltaK = Decimal.valueOf(-2);
 
-        if (macdChange && macdTrend) {
+        if (macdChange && macdTrend && emaTrend) {
             deltaK = Decimal.valueOf(102);
         }
 
@@ -124,7 +124,7 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
 
-        if (!macdTrend) {
+        if (!macdTrend && !emaTrend) {
 
             deltaK = Decimal.valueOf(-2);
         } else {
