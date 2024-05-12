@@ -40,7 +40,7 @@ public class StrategySMA {
                 && (macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue());
 
 
-        boolean macdTrend = (macdLong.getValue(maxIndex - 1).doubleValue() < macdLong.getValue(maxIndex).doubleValue());
+        boolean macdTrend = (macdLong.getValue(maxIndex - 2).doubleValue() < macdLong.getValue(maxIndex).doubleValue());
         // Проверка MACD на слом направления движенмия
 
         Double diffSma = Math.abs(sma24.getValue(maxIndex).toDouble()
@@ -99,7 +99,7 @@ public class StrategySMA {
                 && (macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue());
 
 
-        boolean macdTrend = (macdLong.getValue(maxIndex - 1).doubleValue() > macdLong.getValue(maxIndex).doubleValue());
+        boolean macdTrend = (macdLong.getValue(maxIndex - 2).doubleValue() > macdLong.getValue(maxIndex).doubleValue());
 
         // Проверка MACD на слом направления движенмия
 
