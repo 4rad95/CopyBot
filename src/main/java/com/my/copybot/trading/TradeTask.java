@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
+import static java.lang.Thread.sleep;
 import static org.apache.commons.lang3.StringUtils.repeat;
 
 
@@ -241,15 +242,13 @@ public class TradeTask implements Runnable {
                     break;
                 }
                 try {
-                    wait(6000);   // 6c Cна
+                    sleep(6000);   // 6c Cна
 
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
-
-
         } catch (GeneralException e) {
             Log.severe(getClass(), "Unable to create buy operation", e);
             error = true;
@@ -486,7 +485,7 @@ public class TradeTask implements Runnable {
                     Long orderId = orderNew.getOrderId();
                     int count = 0;
                     while (true) {
-                        wait(20000);
+                        sleep(20000);
                         orderNew = syncRequestClient.getOrder(symbol, orderId, null);
                         if (count % 15 == 0) {
                             Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
@@ -520,7 +519,7 @@ public class TradeTask implements Runnable {
                     Long orderId = orderNew.getOrderId();
                     int count = 0;
                     while (true) {
-                        wait(20000);
+                        sleep(20000);
                         orderNew = syncRequestClient.getOrder(symbol, orderId, null);
                         if (count % 15 == 0) {
                             Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
