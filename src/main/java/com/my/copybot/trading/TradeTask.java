@@ -29,7 +29,6 @@ public class TradeTask implements Runnable {
     private final Double btcAmount;
     private final Double usdtAmount;
     private final Double stopLossPercentage;
-    //  private final boolean doTrailingStop;
     private final Integer waitOrderLimit;
 
     private final boolean makeAvg;
@@ -52,14 +51,11 @@ public class TradeTask implements Runnable {
 
     public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
                      Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type, Integer identLimitOredr) {
-//
-//	public TradeTask( String symbol, Double alertPrice, Double btcAmount,
-//			Double stopLossPercentage, boolean doTrailingStop) {
+
         this.symbol = symbol;
         this.alertPrice = alertPrice;
         this.btcAmount = btcAmount;
         this.stopLossPercentage = stopLossPercentage;
-        //      this.doTrailingStop = doTrailingStop;
         this.usdtAmount = usdtAmount;
         this.waitOrderLimit = waitOrderLimit;
         this.makeAvg = makeAvg;
@@ -144,12 +140,6 @@ public class TradeTask implements Runnable {
                     throw new IllegalStateException("Unexpected value: " + type);
             }
 
-            /*order.setSymbol(symbol);
-            order.setQuantity(quantity);
-           //  order.setPrice(orderNew.getAvgPrice().doubleValue());
-                    //priceReal = orderNew.getAvgPrice().toString();
-            order.setInitialStopLoss(order.getCurrentStopLoss());
-            order.setOrderId(orderNew.getClientOrderId()); */
 
         } catch (Exception e) {
             sell(alertPrice);
@@ -157,7 +147,6 @@ public class TradeTask implements Runnable {
             throw new GeneralException(e);
 
         }
-        //  order.setInitialStopLoss(order.getCurrentStopLoss());
         order.setCreationTime(System.currentTimeMillis());
         Log.info(getClass(), "Buy [" + type + "] ready : " + symbol + ", quantity: " + quantity + ",  " + priceReal);
     }
@@ -167,9 +156,8 @@ public class TradeTask implements Runnable {
         if (orderType.equals("LONG")) {
             orderType = orderType + " ";
         }
-        Position closePosition = new Position(order.getCreationTime(), order.getCloseTime(), orderType,
+        return new Position(order.getCreationTime(), order.getCloseTime(), orderType,
                 order.getSymbol(), order.getPrice(), order.getClosePrice(), order.getPrice(), order.getQuantity(), order.getProfit(), order.getCurrentProfit(order.getPrice()) + " % ", status, startColorStr);
-        return closePosition;
     }
 
 
@@ -189,8 +177,7 @@ public class TradeTask implements Runnable {
 
     private Double getAmountDouble(Double price) {
         // This method should be refactored... there is a method in Binance API to get symbol info
-        Double rawAmount = usdtAmount / price;
-        return rawAmount;
+        return usdtAmount / price;
     }
 
     private void monitorPrice() throws GeneralException {
@@ -418,16 +405,14 @@ public class TradeTask implements Runnable {
             if (chkProffit > stopNoLoss) {
 
                 Double temp = setStopLoss(chkProffit, price);
-                //  order.setCurrentStopLoss(setStopLoss(chkProffit));
                 if (temp > order.getCurrentStopLoss() && order.getType().equals("LONG")) {
                     order.setCurrentStopLoss(temp);
-                    //  System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
+
                 } else if (temp < order.getCurrentStopLoss() && order.getType().equals("SHORT")) {
                     order.setCurrentStopLoss(temp);
-                    // System.out.println("\u001B[33m !!!-------------Change StopLoss for " + symbol + " to " + showPrice(order.getCurrentStopLoss()) + "\u001B[0m");
                 }
             }
-        //      CopyBot.updateMapPosition(createStatisticPosition(type));
+            //
             if (counter == 30) {
             String msg =
                     type + " : " + symbol + ". Curr : " + showPrice(price)
@@ -572,12 +557,10 @@ public class TradeTask implements Runnable {
 
             order.setCreationTime(System.currentTimeMillis());
         } catch (Exception e) {
-            //   sell(alertPrice);
             Log.info(getClass(), "Time out to buy " + symbol + ". Search next position ");
             CopyBot.closeOrder(symbol, 0.00, null, type);
             stopThread = true;
         }
-        //  order.setInitialStopLoss(order.getCurrentStopLoss());
 
         Log.info(getClass(), "Buy [" + type + "] ready : " + symbol + ", quantity: " + quantity + ",  " + priceReal);
     }
