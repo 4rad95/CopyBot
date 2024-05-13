@@ -48,9 +48,10 @@ public class StrategySMA {
 
         Rule entryRule = new UnderIndicatorRule(macd, emaMacd)
                 .and(new UnderIndicatorRule(rsi, deltaK));
+
         macdTrend = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue();
 
-        if (macdTrend && !emaTrend) {
+        if (macdTrend || !emaTrend) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);

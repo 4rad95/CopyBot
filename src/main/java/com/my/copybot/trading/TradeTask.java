@@ -3,7 +3,6 @@ package com.my.copybot.trading;
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
 import com.binance.client.model.enums.*;
-import com.binance.client.model.market.MarkPrice;
 import com.binance.client.model.trade.Order;
 import com.my.copybot.CopyBot;
 import com.my.copybot.Log;
@@ -16,9 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.List;
 
-import static java.lang.Thread.sleep;
 import static org.apache.commons.lang3.StringUtils.repeat;
 
 
@@ -88,76 +85,32 @@ public class TradeTask implements Runnable {
         return string.replace(',', '.');
     }
 
-    private synchronized void buy() throws GeneralException {
-        String quantity = getAmount(alertPrice);
-        Log.info(getClass(), "Trying to buy " + symbol + ", quantity: " + quantity);
-        String priceReal = "";
-        try {
+    /*
+        private Double getAmountDouble(Double price) {
+            // This method should be refactored... there is a method in Binance API to get symbol info
+            return usdtAmount / price;
+        }
 
+        private void monitorPrice() throws GeneralException {
+            while (true) {
+                RequestOptions options = new RequestOptions();
+                SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
+                        options);
+                List<MarkPrice> markPriceList = syncRequestClient.getMarkPrice(symbol);
+                BigDecimal price = markPriceList.get(0).getMarkPrice();
+                checkPrice(Double.parseDouble(price.toString()));
+                        try {
+                            wait(2000);
 
-            RequestOptions options = new RequestOptions();
-            SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
-                    options);
-            // By now we will not be creating real orders
-            Order orderNew;
-            switch (type) {
-                case "SHORT": {
-                    orderNew = syncRequestClient.postOrder(symbol,
-                            OrderSide.SELL, PositionSide.SHORT, OrderType.MARKET, null, quantity,
-                            null, null, null, null, null, null, null, null, null,
-                            NewOrderRespType.RESULT);
-                    order = new ExecutedOrder();
-                    order.setType(type);
-                    order.setPrice(orderNew.getAvgPrice().doubleValue());
-                    priceReal = orderNew.getAvgPrice().toString();
-                    order.setCurrentStopLoss((100 + stopLossPercentage) * order.getPrice() / (100.0));
-                    order.setSymbol(symbol);
-                    order.setQuantity(quantity);
-                    order.setInitialStopLoss(order.getCurrentStopLoss());
-                    order.setOrderId(orderNew.getClientOrderId());
-                    priceReal = orderNew.getAvgPrice().toString();
-                    break;
-                }
-                case "LONG": {
-
-                    orderNew = syncRequestClient.postOrder(symbol,
-                            OrderSide.BUY, PositionSide.LONG, OrderType.MARKET, null, quantity,
-                            null, null, null, null, null, null, null, null, null,
-                            NewOrderRespType.RESULT);
-                    order = new ExecutedOrder();
-                    order.setType(type);
-                    order.setPrice(orderNew.getAvgPrice().doubleValue());
-                    priceReal = orderNew.getAvgPrice().toString();
-                    order.setCurrentStopLoss((100.0 - (stopLossPercentage)) * alertPrice / (100.0));
-                    order.setSymbol(symbol);
-                    order.setQuantity(quantity);
-                    order.setInitialStopLoss(order.getCurrentStopLoss());
-                    order.setOrderId(orderNew.getClientOrderId());
-                    priceReal = orderNew.getAvgPrice().toString();
-                    break;
-                }
-                default:
-                    throw new IllegalStateException("Unexpected value: " + type);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
             }
-
-
-        } catch (Exception e) {
-            sell(alertPrice);
-            CopyBot.closeOrder(symbol, 0.00, null, type);
-            throw new GeneralException(e);
-
         }
-        order.setCreationTime(System.currentTimeMillis());
-        Log.info(getClass(), "Buy [" + type + "] ready : " + symbol + ", quantity: " + quantity + ",  " + priceReal);
-    }
-
-    private Position createStatisticPosition(String status) {
-        String orderType = order.getType();
-        if (orderType.equals("LONG")) {
-            orderType = orderType + " ";
-        }
-        return new Position(order.getCreationTime(), order.getCloseTime(), orderType,
-                order.getSymbol(), order.getPrice(), order.getClosePrice(), order.getPrice(), order.getQuantity(), order.getProfit(), order.getCurrentProfit(order.getPrice()) + " % ", status, startColorStr);
+    */
+    private static int getDecimalPlaces(double number) {
+        String[] parts = Double.toString(number).split("\\.");
+        return parts.length > 1 ? parts[1].length() : 0;
     }
 
 
@@ -175,31 +128,77 @@ public class TradeTask implements Runnable {
         }
     }
 
-    private Double getAmountDouble(Double price) {
-        // This method should be refactored... there is a method in Binance API to get symbol info
-        return usdtAmount / price;
-    }
+    /*
+        private synchronized void buy() throws GeneralException {
+            String quantity = getAmount(alertPrice);
+            Log.info(getClass(), "Trying to buy " + symbol + ", quantity: " + quantity);
+            String priceReal = "";
+            try {
 
-    private void monitorPrice() throws GeneralException {
-        while (true) {
-            RequestOptions options = new RequestOptions();
-            SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
-                    options);
-            List<MarkPrice> markPriceList = syncRequestClient.getMarkPrice(symbol);
-            BigDecimal price = markPriceList.get(0).getMarkPrice();
-            checkPrice(Double.parseDouble(price.toString()));
-                    try {
-                        wait(2000);
 
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                RequestOptions options = new RequestOptions();
+                SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
+                        options);
+                // By now we will not be creating real orders
+                Order orderNew;
+                switch (type) {
+                    case "SHORT": {
+                        orderNew = syncRequestClient.postOrder(symbol,
+                                OrderSide.SELL, PositionSide.SHORT, OrderType.MARKET, null, quantity,
+                                null, null, null, null, null, null, null, null, null,
+                                NewOrderRespType.RESULT);
+                        order = new ExecutedOrder();
+                        order.setType(type);
+                        order.setPrice(orderNew.getAvgPrice().doubleValue());
+                        priceReal = orderNew.getAvgPrice().toString();
+                        order.setCurrentStopLoss((100 + stopLossPercentage) * order.getPrice() / (100.0));
+                        order.setSymbol(symbol);
+                        order.setQuantity(quantity);
+                        order.setInitialStopLoss(order.getCurrentStopLoss());
+                        order.setOrderId(orderNew.getClientOrderId());
+                        priceReal = orderNew.getAvgPrice().toString();
+                        break;
                     }
-        }
-    }
+                    case "LONG": {
 
-    private static int getDecimalPlaces(double number) {
-        String[] parts = Double.toString(number).split("\\.");
-        return parts.length > 1 ? parts[1].length() : 0;
+                        orderNew = syncRequestClient.postOrder(symbol,
+                                OrderSide.BUY, PositionSide.LONG, OrderType.MARKET, null, quantity,
+                                null, null, null, null, null, null, null, null, null,
+                                NewOrderRespType.RESULT);
+                        order = new ExecutedOrder();
+                        order.setType(type);
+                        order.setPrice(orderNew.getAvgPrice().doubleValue());
+                        priceReal = orderNew.getAvgPrice().toString();
+                        order.setCurrentStopLoss((100.0 - (stopLossPercentage)) * alertPrice / (100.0));
+                        order.setSymbol(symbol);
+                        order.setQuantity(quantity);
+                        order.setInitialStopLoss(order.getCurrentStopLoss());
+                        order.setOrderId(orderNew.getClientOrderId());
+                        priceReal = orderNew.getAvgPrice().toString();
+                        break;
+                    }
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + type);
+                }
+
+
+            } catch (Exception e) {
+                sell(alertPrice);
+                CopyBot.closeOrder(symbol, 0.00, null, type);
+                throw new GeneralException(e);
+
+            }
+            order.setCreationTime(System.currentTimeMillis());
+            Log.info(getClass(), "Buy [" + type + "] ready : " + symbol + ", quantity: " + quantity + ",  " + priceReal);
+        }
+    */
+    private Position createStatisticPosition(String status) {
+        String orderType = order.getType();
+        if (orderType.equals("LONG")) {
+            orderType = orderType + " ";
+        }
+        return new Position(order.getCreationTime(), order.getCloseTime(), orderType,
+                order.getSymbol(), order.getPrice(), order.getClosePrice(), order.getPrice(), order.getQuantity(), order.getProfit(), order.getCurrentProfit(order.getPrice()) + " % ", status, startColorStr);
     }
 
     public synchronized String getErrorMessage() {
@@ -230,22 +229,19 @@ public class TradeTask implements Runnable {
 
         try {
             // 1.- BUY, get order data - price and create ExecutedOrder with stoploss
-            buy_limit();
-
-
+            buyLimit();
 
             // 2.- Suscribe to price ticks for the symbol, evaluate current price and update stoploss (if trailing stop)
             while (!stopThread) {
                 RequestOptions options = new RequestOptions();
                 SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
                         options);
-                List<MarkPrice> markPriceList = syncRequestClient.getMarkPrice(symbol);
-                BigDecimal price = markPriceList.get(0).getMarkPrice();
+                BigDecimal price = syncRequestClient.getMarkPrice(symbol).getFirst().getMarkPrice();
                 if (!checkPrice(Double.parseDouble(price.toString()))) {
                     break;
                 }
                 try {
-                    sleep(6000);   // 6c Cна
+                    wait(6000);   // 6c Cна
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -389,14 +385,16 @@ public class TradeTask implements Runnable {
                     return proffitNew;
                 }
             }
-        }
+            default:
                 return null;
+        }
 
     }
 
     private synchronized boolean checkPrice(Double price) throws GeneralException {
+       /*
         Long now = System.currentTimeMillis();
-        // This is a bit harcoded, but just trying to avoid too many logs..
+        // This is a bit harcoded, but just trying to avoid too many logs.. -*/
         try {
             String proffit = order.getCurrentProfit(price).replace(",", ".");
 
@@ -431,7 +429,6 @@ public class TradeTask implements Runnable {
             }
             Log.info(getClass(), msg);
             counter = 0;
-            //  CopyBot.updateMapPosition(createStatisticPosition("Work"));
         }
         counter++;
         switch (type) {
@@ -465,7 +462,7 @@ public class TradeTask implements Runnable {
         return true;
     }
 
-    private synchronized void buy_limit() throws GeneralException {
+    private synchronized void buyLimit() {
         String quantity = getAmount(alertPrice);
         Log.info(getClass(), "Trying to buy " + symbol + ", quantity: " + quantity + " using limit order");
         String priceReal = "";
@@ -488,7 +485,7 @@ public class TradeTask implements Runnable {
                     Long orderId = orderNew.getOrderId();
                     int count = 0;
                     while (true) {
-                        sleep(20000);
+                        wait(20000);
                         orderNew = syncRequestClient.getOrder(symbol, orderId, null);
                         if (count % 15 == 0) {
                             Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
@@ -522,7 +519,7 @@ public class TradeTask implements Runnable {
                     Long orderId = orderNew.getOrderId();
                     int count = 0;
                     while (true) {
-                        sleep(20000);
+                        wait(20000);
                         orderNew = syncRequestClient.getOrder(symbol, orderId, null);
                         if (count % 15 == 0) {
                             Log.info(getClass(), "[" + type + "] Waiting to buy " + symbol + "    " + count * 20 + " s. ");
