@@ -202,7 +202,7 @@ public class TradeTask implements Runnable {
             BigDecimal price = markPriceList.get(0).getMarkPrice();
             checkPrice(Double.parseDouble(price.toString()));
                     try {
-                        wait(5000);
+                        wait(2000);
 
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
@@ -428,7 +428,7 @@ public class TradeTask implements Runnable {
                 }
             }
         //      CopyBot.updateMapPosition(createStatisticPosition(type));
-        if (counter == 10) {
+            if (counter == 30) {
             String msg =
                     type + " : " + symbol + ". Curr : " + showPrice(price)
                             + ", buy : " + showPrice(order.getPrice())
