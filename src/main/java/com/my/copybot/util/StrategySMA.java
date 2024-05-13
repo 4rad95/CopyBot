@@ -27,7 +27,6 @@ public class StrategySMA {
         //  EMAIndicator emaLong = new EMAIndicator(closePrice, 15);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         MACDIndicator macdLong = new MACDIndicator(closePrice, 50, 100);
-
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
@@ -70,7 +69,7 @@ public class StrategySMA {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule exitRule = new UnderIndicatorRule(rsi, deltaK);
+        Rule exitRule = new OverIndicatorRule(rsi, deltaK);
 
         return new BaseStrategy(entryRule, exitRule);
     }
@@ -113,7 +112,7 @@ public class StrategySMA {
         boolean emaTrend = (sma14.getValue(maxIndex).toDouble() < sma14.getValue((maxIndex - 1)).toDouble());
         //Math.abs(diffSma) > Math.abs(diffSmaP);
 
-        // Проверка старших EMA на расширение
+
 
         Decimal deltaK = Decimal.valueOf(-2);
 
@@ -133,7 +132,7 @@ public class StrategySMA {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule exitRule = new UnderIndicatorRule(rsi, deltaK);
+        Rule exitRule = new OverIndicatorRule(rsi, deltaK);
 
 
         return new BaseStrategy(entryRule, exitRule);
