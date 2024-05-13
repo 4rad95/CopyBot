@@ -225,7 +225,7 @@ public class TradeTask implements Runnable {
         return symbol;
     }
 
-    public void run() {
+    public void run() throws RuntimeException {
 
         try {
             // 1.- BUY, get order data - price and create ExecutedOrder with stoploss
@@ -242,6 +242,7 @@ public class TradeTask implements Runnable {
                 }
                 try {
                     wait(6000);   // 6c Cна
+
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
