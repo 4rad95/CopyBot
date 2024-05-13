@@ -35,9 +35,9 @@ public class StrategySMA {
         int maxIndex = series.getEndIndex();
 
 
-        boolean macdChange = (macd.getValue(maxIndex - 3).doubleValue() < macd.getValue(maxIndex - 2).doubleValue())
-                && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
-                && (macd.getValue(maxIndex - 1).doubleValue() > macd.getValue(maxIndex).doubleValue());
+        boolean macdChange = (macd.getValue(maxIndex - 3).doubleValue() > macd.getValue(maxIndex - 2).doubleValue())
+                && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
+                && (macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue());
 
 
         boolean macdTrend = (macdLong.getValue(maxIndex - 2).doubleValue() < macdLong.getValue(maxIndex).doubleValue());
@@ -49,7 +49,8 @@ public class StrategySMA {
                 - sma14.getValue(maxIndex - 1).toDouble());
 
 
-        boolean emaTrend = diffSma.doubleValue() > diffSmaP.doubleValue();
+        boolean emaTrend = (sma14.getValue(maxIndex).toDouble() > sma14.getValue((maxIndex - 1)).toDouble());
+        //diffSma.doubleValue() > diffSmaP.doubleValue();
 
         // Проверка старших EMA на расширение
 
@@ -94,9 +95,9 @@ public class StrategySMA {
         int maxIndex = series.getEndIndex();
 
 
-        boolean macdChange = macd.getValue(maxIndex - 3).doubleValue() < macd.getValue(maxIndex - 2).doubleValue()
-                && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
-                && (macd.getValue(maxIndex - 1).doubleValue() > macd.getValue(maxIndex).doubleValue());
+        boolean macdChange = macd.getValue(maxIndex - 3).doubleValue() > macd.getValue(maxIndex - 2).doubleValue()
+                && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
+                && (macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue());
 
 
         boolean macdTrend = (macdLong.getValue(maxIndex - 2).doubleValue() > macdLong.getValue(maxIndex).doubleValue());
@@ -109,7 +110,8 @@ public class StrategySMA {
                 - sma14.getValue(maxIndex - 1).toDouble());
 
 
-        boolean emaTrend = Math.abs(diffSma) > Math.abs(diffSmaP);
+        boolean emaTrend = (sma14.getValue(maxIndex).toDouble() < sma14.getValue((maxIndex - 1)).toDouble());
+        //Math.abs(diffSma) > Math.abs(diffSmaP);
 
         // Проверка старших EMA на расширение
 
