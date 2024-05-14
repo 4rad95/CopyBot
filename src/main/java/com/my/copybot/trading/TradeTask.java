@@ -60,6 +60,7 @@ public class TradeTask implements Runnable {
         this.stopNoLoss = stopNoLoss;
         this.type = type;
         this.identLimitOredr = identLimitOredr;
+
     }
 
     public static String multiplyAndRound(Double number, double multiplier) {
