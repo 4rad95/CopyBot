@@ -25,6 +25,8 @@ public class StrategySMA {
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         MACDIndicator macdLong = new MACDIndicator(closePrice, 50, 100);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
+        EMAIndicator emaMacdLong = new EMAIndicator(macd, 50);
+
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
@@ -47,7 +49,8 @@ public class StrategySMA {
         }
 
         Rule entryRule = new UnderIndicatorRule(macd, emaMacd)
-                .and(new UnderIndicatorRule(rsi, deltaK));
+                .and(new UnderIndicatorRule(rsi, deltaK))
+                .and(new OverIndicatorRule(macdLong, emaMacdLong));
 
         macdTrend = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue();
 
@@ -74,6 +77,7 @@ public class StrategySMA {
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         MACDIndicator macdLong = new MACDIndicator(closePrice, 50, 100);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
+        EMAIndicator emaMacdLong = new EMAIndicator(macd, 50);
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
         int maxIndex = series.getEndIndex();
@@ -94,8 +98,9 @@ public class StrategySMA {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule entryRule = new UnderIndicatorRule(macd, emaMacd)
-                .and(new UnderIndicatorRule(rsi, deltaK));
+        Rule entryRule = new OverIndicatorRule(macd, emaMacd)
+                .and(new UnderIndicatorRule(rsi, deltaK))
+                .and(new UnderIndicatorRule(macdLong, emaMacdLong));
 
         macdTrend = macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue();
 
