@@ -52,7 +52,7 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK))
                 .and(new OverIndicatorRule(macdLong, emaMacdLong));
 
-        macdTrend = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue();
+        macdTrend = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 2).doubleValue();
 
         if (macdTrend || !emaTrend) {
             deltaK = Decimal.valueOf(-2);
@@ -103,7 +103,7 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK))
                 .and(new UnderIndicatorRule(macdLong, emaMacdLong));
 
-        macdTrend = macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue();
+        macdTrend = macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 2).doubleValue();
 
         if (macdTrend || !emaTrend) {
 
