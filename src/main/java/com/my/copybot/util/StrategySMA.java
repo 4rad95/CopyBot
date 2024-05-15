@@ -60,7 +60,8 @@ public class StrategySMA {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule exitRule = new OverIndicatorRule(rsi, deltaK);
+        Rule exitRule = new OverIndicatorRule(rsi, deltaK)
+                .or(new UnderIndicatorRule(macdLong, emaMacdLong));
 
         return new BaseStrategy(entryRule, exitRule);
     }
@@ -111,9 +112,11 @@ public class StrategySMA {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule exitRule = new OverIndicatorRule(rsi, deltaK);
+        Rule exitRule = new OverIndicatorRule(rsi, deltaK)
+                .or(new OverIndicatorRule(macdLong, emaMacdLong));
 
         return new BaseStrategy(entryRule, exitRule);
+
     }
 }
 
