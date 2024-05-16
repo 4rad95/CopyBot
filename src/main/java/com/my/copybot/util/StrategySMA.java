@@ -51,7 +51,7 @@ public class StrategySMA {
         Rule entryRule = new UnderIndicatorRule(macd, emaMacd)
                 .and(new UnderIndicatorRule(rsi, deltaK))
                 .and(new UnderIndicatorRule(macdLong, emaMacdLong))
-                .and(new UnderIndicatorRule(rsi, Decimal.valueOf(35)))
+                .and(new UnderIndicatorRule(rsi, Decimal.valueOf(50)))
                 ;
 
         macdTrend = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue()
@@ -105,7 +105,7 @@ public class StrategySMA {
         Rule entryRule = new OverIndicatorRule(macd, emaMacd)
                 .and(new UnderIndicatorRule(rsi, deltaK))
                 .and(new OverIndicatorRule(macdLong, emaMacdLong))
-                .and(new OverIndicatorRule(rsi, Decimal.valueOf(65)))
+                .and(new OverIndicatorRule(rsi, Decimal.valueOf(50)))
                 ;
 
         macdTrend = macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue()
