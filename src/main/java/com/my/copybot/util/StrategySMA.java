@@ -54,9 +54,9 @@ public class StrategySMA {
                 //.and(new UnderIndicatorRule(rsi, Decimal.valueOf(50)))
                 ;
 
-        macdTrend = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 2).doubleValue();
+        // i think  macdTrend = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 2).doubleValue();
 
-        if (macdTrend || !emaTrend) {
+        if (!emaTrend) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
