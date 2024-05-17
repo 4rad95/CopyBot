@@ -38,7 +38,7 @@ public class StrategySMA {
                 && (macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue());
 
 
-        boolean macdTrend = (macdLong.getValue(maxIndex - 2).doubleValue() < macdLong.getValue(maxIndex).doubleValue());
+        boolean macdTrend = (macdLong.getValue(maxIndex - 1).doubleValue() < macdLong.getValue(maxIndex).doubleValue());
 
         boolean emaTrend = (sma14.getValue(maxIndex).doubleValue() > sma14.getValue((maxIndex - 1)).doubleValue());
 
@@ -54,10 +54,10 @@ public class StrategySMA {
                 //      .and(new UnderIndicatorRule(rsi, Decimal.valueOf(50)))
                 ;
 
-        macdTrend = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue()
+        macdChange = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue()
                 && macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex - 2).doubleValue();
 
-        if (!emaTrend || macdTrend) {
+        if (macdChange || macdTrend) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -92,7 +92,7 @@ public class StrategySMA {
                 && (macd.getValue(maxIndex - 1).doubleValue() < macd.getValue(maxIndex).doubleValue());
 
 
-        boolean macdTrend = (macdLong.getValue(maxIndex - 2).doubleValue() > macdLong.getValue(maxIndex).doubleValue());
+        boolean macdTrend = (macdLong.getValue(maxIndex - 1).doubleValue() > macdLong.getValue(maxIndex).doubleValue());
 
         boolean emaTrend = (sma14.getValue(maxIndex).doubleValue() < sma14.getValue(maxIndex - 1).doubleValue());
 
@@ -108,10 +108,11 @@ public class StrategySMA {
                 //        .and(new OverIndicatorRule(rsi, Decimal.valueOf(50)))
                 ;
 
-        macdTrend = macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue()
+        macdChange = macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue()
                 && macd.getValue(maxIndex - 1).doubleValue() > macd.getValue(maxIndex - 2).doubleValue();
 
-        if (macdTrend || !emaTrend) {
+
+        if (macdTrend || macdChange) {
 
             deltaK = Decimal.valueOf(-2);
         } else {
