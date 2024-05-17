@@ -27,8 +27,11 @@ public class StrategySMA {
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
         EMAIndicator emaMacdLong = new EMAIndicator(macd, 50);
 
+        EMAIndicator ema22 = new EMAIndicator(closePrice, 22);
+        EMAIndicator ema10 = new EMAIndicator(closePrice, 10);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+
 
         int maxIndex = series.getEndIndex();
 
@@ -57,13 +60,14 @@ public class StrategySMA {
         macdChange = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 3).doubleValue();
 
 
-        if (macdChange) {
+        if (!emaTrend) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule exitRule = new OverIndicatorRule(rsi, deltaK)
+        Rule exitRule = // new OverIndicatorRule(rsi, deltaK)
+                new OverIndicatorRule(ema22, ema10)
                 .or(new UnderIndicatorRule(macdLong, emaMacdLong));
 
         return new BaseStrategy(entryRule, exitRule);
@@ -82,6 +86,10 @@ public class StrategySMA {
         MACDIndicator macdLong = new MACDIndicator(closePrice, 50, 100);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
         EMAIndicator emaMacdLong = new EMAIndicator(macd, 50);
+
+        EMAIndicator ema22 = new EMAIndicator(closePrice, 22);
+        EMAIndicator ema10 = new EMAIndicator(closePrice, 10);
+
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
         int maxIndex = series.getEndIndex();
@@ -111,14 +119,15 @@ public class StrategySMA {
         macdChange = macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 3).doubleValue();
 
 
-        if (macdChange) {
+        if (!emaTrend) {
 
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule exitRule = new OverIndicatorRule(rsi, deltaK)
+        Rule exitRule = //new OverIndicatorRule(rsi, deltaK)
+                new UnderIndicatorRule(ema22, ema10)
                 .or(new OverIndicatorRule(macdLong, emaMacdLong));
 
         return new BaseStrategy(entryRule, exitRule);
