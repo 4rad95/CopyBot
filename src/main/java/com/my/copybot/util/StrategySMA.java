@@ -57,7 +57,7 @@ public class StrategySMA {
         macdChange = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 3).doubleValue();
 
 
-        if (macdChange || macdTrend) {
+        if (macdChange) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
@@ -111,7 +111,7 @@ public class StrategySMA {
         macdChange = macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 3).doubleValue();
 
 
-        if (macdTrend || macdChange) {
+        if (macdChange) {
 
             deltaK = Decimal.valueOf(-2);
         } else {
