@@ -63,16 +63,16 @@ public class StrategySMA {
 
 
         macdChange = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 3).doubleValue();
+        emaTrend = (ema22.getValue(maxIndex).doubleValue() < ema22.getValue((maxIndex - 1)).doubleValue());
 
-
-        if (!emaTrend) {
+        if (!emaTrend && macdChange) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule exitRule = // new OverIndicatorRule(rsi, deltaK)
-                new OverIndicatorRule(ema22, ema10)
+        Rule exitRule = new OverIndicatorRule(rsi, deltaK)
+                .or(new OverIndicatorRule(ema22, ema10))
                 .or(new UnderIndicatorRule(macdLong, emaMacdLong));
 
         return new BaseStrategy(entryRule, exitRule);
@@ -124,17 +124,18 @@ public class StrategySMA {
                 );
 
         macdChange = macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 3).doubleValue();
+        emaTrend = (ema22.getValue(maxIndex).doubleValue() > ema22.getValue((maxIndex - 1)).doubleValue());
 
 
-        if (!emaTrend) {
+        if (!emaTrend && macdChange) {
 
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule exitRule = //new OverIndicatorRule(rsi, deltaK)
-                new UnderIndicatorRule(ema22, ema10)
+        Rule exitRule = new OverIndicatorRule(rsi, deltaK)
+                .or(new UnderIndicatorRule(ema22, ema10))
                 .or(new OverIndicatorRule(macdLong, emaMacdLong));
 
         return new BaseStrategy(entryRule, exitRule);

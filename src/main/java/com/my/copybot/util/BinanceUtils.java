@@ -48,40 +48,40 @@ public class BinanceUtils {
 		URL url = new URL("https://www.binance.com/fapi/v1/premiumIndex");
 		URLConnection urc = url.openConnection();
 
-           BufferedReader in = new BufferedReader(
-				   new InputStreamReader(urc.getInputStream()));
-           
-           String inputLine;
-           inputLine = in.readLine();
-           in.close();
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(urc.getInputStream()));
 
-                List<String> symbols = new LinkedList<String>();
-                symbols = parserJsonMy(inputLine);
-                
+        String inputLine;
+        inputLine = in.readLine();
+        in.close();
+
+        List<String> symbols = new LinkedList<String>();
+        symbols = parserJsonMy(inputLine);
+
 		return symbols;
 	}
 
 	public static List<Candlestick> getCandlestickBars(String symbol,
-			CandlestickInterval interval) throws GeneralException {
+                                                       CandlestickInterval interval) throws GeneralException {
 		try {
-                    
+
 
 			return getRestClient().getCandlestickBars(symbol, interval);
 		} catch (Exception e) {
 			throw new GeneralException(e);
-                        
+
 		}
 	}
 
 	public static List<Candlestick> getLatestCandlestickBars(String symbol,
-			CandlestickInterval interval) throws GeneralException {
+                                                             CandlestickInterval interval) throws GeneralException {
 		try {
 			return getRestClient().getCandlestickBars(symbol, interval, 2,
 					null, null);
 		} catch (Exception e) {
 			//throw new GeneralException(e);
-                        System.out.print("---"+ symbol);           
-                        return null; 
+            System.out.print("---" + symbol);
+            return null;
 		}
 	}
 
@@ -92,9 +92,9 @@ public class BinanceUtils {
 				BinanceApiClientFactory factory = BinanceApiClientFactory
 						.newInstance(API_KEY, API_SECRET);
 
-                                client = factory.newRestClient();
-                                                          
-                       
+                client = factory.newRestClient();
+
+
 			} catch (Exception e) {
 				throw new GeneralException(e);
 			}
@@ -102,7 +102,7 @@ public class BinanceUtils {
 		return client;
 
 	}
-	
+
 	public static BinanceApiWebSocketClient getWebSocketClient() throws GeneralException {
 		if(liveClient == null) {
 			try {
@@ -119,37 +119,38 @@ public class BinanceUtils {
 				throw new GeneralException(e);
 			}
 		}
-		return liveClient;		
+        return liveClient;
 	}
-	
-	public static void init(String binanceApiKey, String binanceApiSecret) throws GeneralException {
+
+    public static void init(String binanceApiKey, String binanceApiSecret) throws GeneralException {
 		if(StringUtils.isEmpty(binanceApiKey) || StringUtils.isEmpty(binanceApiSecret)) {
 			throw new GeneralException("Binance API params cannot be empty; please check the config properties file");
 		}
 		API_KEY = binanceApiKey;
 		API_SECRET = binanceApiSecret;
 	}
-        
-                public static List<String> parserJsonMy(String string) throws Exception{
-       
-                    List<String> names = new ArrayList<>();
-                   
-              try {
-                    JSONArray array = new JSONArray(string);
-                  
-                    for (int i = 0; i < array.length(); i++) {
-                            JSONObject objectInArray = array.getJSONObject(i);
-                              String temp = objectInArray.getString("symbol");
-                          //  String temp = objectInArray.getString("symbol")+";"+objectInArray.getString("markPrice");
-                            if (temp.contains("USDT")){
-                                names.add(temp);}
-                    }              
-                    } catch (Exception e) {
-                           System.out.print(e);
-                     }
-       
+
+    public static List<String> parserJsonMy(String string) throws Exception {
+
+        List<String> names = new ArrayList<>();
+
+        try {
+            JSONArray array = new JSONArray(string);
+
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject objectInArray = array.getJSONObject(i);
+                String temp = objectInArray.getString("symbol");
+                //  String temp = objectInArray.getString("symbol")+";"+objectInArray.getString("markPrice");
+                if (temp.contains("USDT")) {
+                    names.add(temp);
+                }
+            }
+        } catch (Exception e) {
+            System.out.print(e);
+        }
+
         return names;
-        
+
     }
 
 }

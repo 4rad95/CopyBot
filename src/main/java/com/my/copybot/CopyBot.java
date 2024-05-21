@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.my.copybot;
 
 /**
@@ -39,7 +35,7 @@ public class CopyBot {
 	private static Boolean DO_TRADES = true;
 	private static Integer MAX_SIMULTANEOUS_TRADES = 0;
 	private static Double TRADE_SIZE_BTC;
-    private static Double TRADE_SIZE_USDT;
+	private static Double TRADE_SIZE_USDT;
 	private static Double STOPLOSS_PERCENTAGE = 1.00;
 	private static Boolean DO_TRAILING_STOP = false;
 	private static String TRADING_STRATEGY;
@@ -76,15 +72,14 @@ public class CopyBot {
 	private static Double totalProfitShort = 0.0;
 	private static Integer closedTradesShort = 0;
 
-        
+
 	private static CandlestickInterval interval = null;
 	private static BigDecimal startBalance;
-        
-        
+
 
 	public static void main(String[] args) throws IOException {
-                    
-               
+
+
 		Log.info(CopyBot.class, "Initializing Binance bot");
 		String configFilePath = System.getProperty("CONFIG_FILE_PATH");
 		Log.info(CopyBot.class,
@@ -98,7 +93,7 @@ public class CopyBot {
 		init();
 		process();
 	}
-	
+
 	public static void init() throws IOException {
 		// Pause time
 		String strPauseTimeMinutes = ConfigUtils
@@ -141,10 +136,10 @@ public class CopyBot {
 			TRADE_SIZE_USDT = Double
 					.valueOf(ConfigUtils
 							.readPropertyValue(ConfigUtils.CONFIG_TRADING_TRADE_SIZE_USDT));
-                        TRADE_SIZE_BTC = Double
+			TRADE_SIZE_BTC = Double
 					.valueOf(ConfigUtils
 							.readPropertyValue(ConfigUtils.CONFIG_TRADING_TRADE_SIZE_BTC));
-                      
+
 			String strDoTrailingStop = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_DO_TRAILING_STOP);
 			if ("true".equalsIgnoreCase(strDoTrailingStop)
@@ -153,25 +148,25 @@ public class CopyBot {
 			}
 			TRADING_STRATEGY = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_STRATEGY);
-                        
-                        String makeLong= ConfigUtils
+
+			String makeLong = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_LONG);
-            MAKE_LONG = "true".equalsIgnoreCase(makeLong)
-                    || "1".equals(makeLong);
-                                
-                        String makeShort= ConfigUtils
+			MAKE_LONG = "true".equalsIgnoreCase(makeLong)
+					|| "1".equals(makeLong);
+
+			String makeShort = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_SHORT);
-            MAKE_SHORT = "true".equalsIgnoreCase(makeLong)
-                    || "1".equals(makeLong);
-                        String makeAvg= ConfigUtils
+			MAKE_SHORT = "true".equalsIgnoreCase(makeLong)
+					|| "1".equals(makeLong);
+			String makeAvg = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_AVRG);
-            MAKE_TRADE_AVG = "true".equalsIgnoreCase(makeLong)
-                    || "1".equals(makeLong);
-                        BLACK_LIST = ConfigUtils
+			MAKE_TRADE_AVG = "true".equalsIgnoreCase(makeLong)
+					|| "1".equals(makeLong);
+			BLACK_LIST = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_BLACKLIST);
-						String strStopNoLoss = ConfigUtils
+			String strStopNoLoss = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_STOPNOLOSS);
-						STOP_NO_LOSS = Integer.valueOf(strStopNoLoss);
+			STOP_NO_LOSS = Integer.valueOf(strStopNoLoss);
 			String waitLimitOrder = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_WAIT_LIMIT);
 			WAIT_LIMIT_ORDER = Integer.valueOf(strStopNoLoss);
@@ -182,7 +177,7 @@ public class CopyBot {
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_IDENT_LIMIT);
 			IDENT_LIMIT_ORDER = Integer.valueOf(identLimit);
 
-                }
+		}
 		try {
 			String futuresBaseUrl = "wss://fstream.binance.com/ws";
 
@@ -202,10 +197,10 @@ public class CopyBot {
 			Log.severe(CopyBot.class, "Unable to generate Binance clients!", e);
 		}
 	}
-        
+
 	public static void process() {
 		try {
-                        
+
 			List<String> symbols = BinanceUtils.getBitcoinSymbols();
 			symbols = blackListCheck(symbols);
 			// 1.- Get ticks for every symbol and generate TimeSeries -> cache
@@ -221,7 +216,7 @@ public class CopyBot {
 				thread.start();
 			}
 			while (true) {
-                                //Thread.getAllStackTraces().keySet(); 
+				//Thread.getAllStackTraces().keySet();
 				if (DO_TRADES) {
 					Long t0 = currentTimeMillis();
 
@@ -254,7 +249,7 @@ public class CopyBot {
 										+ ", LONG: " + String.format("%.2f", totalProfitLong)
 										+ ", SHORT: " + String.format("%.2f", totalProfitShort) + "\u001B[0m ");
 						Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-                                                
+
 					}
 					if ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
 						// We will not continue trading... avoid checking
@@ -294,97 +289,97 @@ public class CopyBot {
 			Log.severe(CopyBot.class, "Unable to get symbols", e);
 		}
 	}
-	
+
 	private static void checkSymbol(String symbol) {
 
 		if (check(symbol) && frozenTrade.get(symbol) == null) {
-                // Log.debug(CopyBotSpot.class, "Checking symbol: " + symbol);
+			// Log.debug(CopyBotSpot.class, "Checking symbol: " + symbol);
 			Long t0 = currentTimeMillis();
-		try {
-			List<Candlestick> latestCandlesticks = BinanceUtils.getLatestCandlestickBars(symbol, interval);
-			TimeSeries series = timeSeriesCache.get(symbol);
-			if (BinanceTa4jUtils.isSameTick(latestCandlesticks.get(1), series.getLastBar())) {
-				// We are still in the same tick - just update the last tick with the fresh data
-				updateLastTick(symbol, latestCandlesticks.get(1));
-			} else {
-				// We have just got a new tick - update the previous one and include the new tick
-				updateLastTick(symbol, latestCandlesticks.get(0));
-				series.addBar(BinanceTa4jUtils.convertToTa4jTick(latestCandlesticks.get(1)));
-			}
-			// Now check the TA strategy with the refreshed time series
-			int endIndex = series.getEndIndex();
+			try {
+				List<Candlestick> latestCandlesticks = BinanceUtils.getLatestCandlestickBars(symbol, interval);
+				TimeSeries series = timeSeriesCache.get(symbol);
+				if (BinanceTa4jUtils.isSameTick(latestCandlesticks.get(1), series.getLastBar())) {
+					// We are still in the same tick - just update the last tick with the fresh data
+					updateLastTick(symbol, latestCandlesticks.get(1));
+				} else {
+					// We have just got a new tick - update the previous one and include the new tick
+					updateLastTick(symbol, latestCandlesticks.get(0));
+					series.addBar(BinanceTa4jUtils.convertToTa4jTick(latestCandlesticks.get(1)));
+				}
+				// Now check the TA strategy with the refreshed time series
+				int endIndex = series.getEndIndex();
 
-			Strategy strategyLong = buildStrategyLong(series, TRADING_STRATEGY);
-			Strategy strategyShort = buildStrategyShort(series, TRADING_STRATEGY);
+				Strategy strategyLong = buildStrategyLong(series, TRADING_STRATEGY);
+				Strategy strategyShort = buildStrategyShort(series, TRADING_STRATEGY);
 
-			checkStrategy(strategyLong, strategyShort, endIndex, symbol);
-                        
-
-			if (strategyLong.shouldEnter(endIndex)) {
+				checkStrategy(strategyLong, strategyShort, endIndex, symbol);
 
 
-				// If we have an open trade for the symbol, we do not create a new one
-				if (DO_TRADES && openTradesLong.get(symbol) == null&& (MAKE_LONG)) {
-					Decimal currentPrice = series.getLastBar().getClosePrice();
+				if (strategyLong.shouldEnter(endIndex)) {
 
-                                        if (((openTradesLong.keySet().size()+openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES))                                       
-                                        {
 
-											// We create a new thread to trade with the symbol
+					// If we have an open trade for the symbol, we do not create a new one
+					if (DO_TRADES && openTradesLong.get(symbol) == null && (MAKE_LONG)) {
+						Decimal currentPrice = series.getLastBar().getClosePrice();
 
-											// We create a new position to trade with the symbol
-											addTrade(symbol, "LONG");
-											//	openTradesLong.put(symbol, "LONG" );
+						if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
 
-					} else {
+							// We create a new thread to trade with the symbol
 
+							// We create a new position to trade with the symbol
+							addTrade(symbol, "LONG");
+							//	openTradesLong.put(symbol, "LONG" );
+
+						} else {
+
+						}
+					}
+				} else if (strategyShort.shouldEnter(endIndex)) {
+
+
+					if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
+						Decimal currentPrice = series.getLastBar().getClosePrice();
+
+						//	Log.info(CopyBot.class, "SHORT signal for symbol: " + symbol + ", price: " + currentPrice);
+
+						if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
+
+							// We create a new thread to short trade with the symbol
+
+							addTrade(symbol, "SHORT");
+
+						}
 					}
 				}
-			} else if (strategyShort.shouldEnter(endIndex))
-                                {
 
-
-									if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
-										Decimal currentPrice = series.getLastBar().getClosePrice();
-
-										//	Log.info(CopyBot.class, "SHORT signal for symbol: " + symbol + ", price: " + currentPrice);
-
-										if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
-
-											// We create a new thread to short trade with the symbol
-
-											addTrade(symbol, "SHORT");
-
-										}
-									}
-                                }
-
-			//	Log.debug(CopyBotSpot.class, "Symbol " + symbol + " checked in " + ((System.currentTimeMillis() - t0) / 1000.0) + " seconds");
-		} catch (GeneralException e) {
-			Log.severe(CopyBot.class, "Unable to check symbol " + symbol + "Error: " + e);
+				//	Log.debug(CopyBotSpot.class, "Symbol " + symbol + " checked in " + ((System.currentTimeMillis() - t0) / 1000.0) + " seconds");
+			} catch (GeneralException e) {
+				Log.severe(CopyBot.class, "Unable to check symbol " + symbol + "Error: " + e);
+			}
 		}
-	}}
-	
+	}
+
 	private static void updateLastTick(String symbol, Candlestick candlestick) {
 		TimeSeries series = timeSeriesCache.get(symbol);
 		List<Bar> seriesTick = series.getBarData();
 		seriesTick.remove(series.getEndIndex());
 		seriesTick.add(BinanceTa4jUtils.convertToTa4jTick(candlestick));
 	}
-	
+
 	private static void generateTimeSeriesCache(List<String> symbols) {
 		for (String symbol : symbols) {
-                    if (check(symbol)){
-			Log.info(CopyBot.class, "Generating time series for " + symbol);
-			try {
-				List<Candlestick> candlesticks = BinanceUtils.getCandlestickBars(symbol, interval);
-				TimeSeries series = BinanceTa4jUtils.convertToTimeSeries(candlesticks, symbol, interval.getIntervalId());
-				timeSeriesCache.put(symbol, series);
-			} catch (Exception e) {
-				// Log.severe(CopyBotSpot.class, "Unable to generate time series / strategy for " + symbol, e);
-				System.out.println("\u001B[32m" + symbol + "  -  Not used symbol !!! \u001B[0m");
-				badSymbols.add(symbol);
-			}}
+			if (check(symbol)) {
+				Log.info(CopyBot.class, "Generating time series for " + symbol);
+				try {
+					List<Candlestick> candlesticks = BinanceUtils.getCandlestickBars(symbol, interval);
+					TimeSeries series = BinanceTa4jUtils.convertToTimeSeries(candlesticks, symbol, interval.getIntervalId());
+					timeSeriesCache.put(symbol, series);
+				} catch (Exception e) {
+					// Log.severe(CopyBotSpot.class, "Unable to generate time series / strategy for " + symbol, e);
+					System.out.println("\u001B[32m" + symbol + "  -  Not used symbol !!! \u001B[0m");
+					badSymbols.add(symbol);
+				}
+			}
 		}
 	}
 
@@ -395,40 +390,42 @@ public class CopyBot {
 	 * @param errorMessage
 	 */
 	public synchronized static void closeOrder(String symbol, Double profit, String errorMessage, String type) // 0-short, 1-long
-               
-                {
-                int delta=0;
+
+	{
+		int delta = 0;
 		if (StringUtils.isNotEmpty(errorMessage)) {
-                        
+
 			Log.info(CopyBot.class, "Trade " + symbol + " is closed due to error: " + errorMessage);
-                        badSymbols.add(symbol);
-                        
+			badSymbols.add(symbol);
+
 		} else {
 			Log.info(CopyBot.class, "[Close]------- Trade " + symbol + " is closed with profit: " + String.format("%.8f", profit));
-                        delta=1;
-                        
-                }
-               // if (openTradesLong.containsKey(symbol)){
-					if (profit == 0.00) {
-						delta = 0;
-						clearPosition(symbol);
-					}
-             if (profit == null ){profit = 0.00;}
-					if (type.equals("SHORT")) {
-                        closedTradesShort+=delta;
-                        totalProfitShort +=profit;
-					} else if (type.equals("LONG")) {
-                        closedTradesLong+=delta;
-                        totalProfitLong +=profit;
-             
-             }
-                        closedTrades+=delta;
-                        totalProfit += profit;
-                        ordersToBeClosed.remove(symbol);
-					frozenTrade.put(symbol, 0);
-                        openTradesLong.remove(symbol);
-                        openTradesShort.remove(symbol);
-        }
+			delta = 1;
+
+		}
+		// if (openTradesLong.containsKey(symbol)){
+		if (profit == 0.00) {
+			delta = 0;
+			clearPosition(symbol);
+		}
+		if (profit == null) {
+			profit = 0.00;
+		}
+		if (type.equals("SHORT")) {
+			closedTradesShort += delta;
+			totalProfitShort += profit;
+		} else if (type.equals("LONG")) {
+			closedTradesLong += delta;
+			totalProfitLong += profit;
+
+		}
+		closedTrades += delta;
+		totalProfit += profit;
+		ordersToBeClosed.remove(symbol);
+		frozenTrade.put(symbol, 0);
+		openTradesLong.remove(symbol);
+		openTradesShort.remove(symbol);
+	}
 
 	/**
 	 * The open thread invokes this method to check if an order should be closed
@@ -436,63 +433,61 @@ public class CopyBot {
 	 * @return if it should be closed or not
 	 */
 	public static boolean shouldCloseOrder(String symbol) {
-        return ordersToBeClosed.contains(symbol);
-    }
-        
-        public static boolean check(String symbol){
+		return ordersToBeClosed.contains(symbol);
+	}
 
-            for (String badSymbol:badSymbols){
-                if (badSymbol == symbol)
-                        return false;
-            }
-            return true;
-        }
+	public static boolean check(String symbol) {
+
+		for (String badSymbol : badSymbols) {
+			if (badSymbol == symbol)
+				return false;
+		}
+		return true;
+	}
 
 	public static boolean checkOpenOrder(String Symbol){
-        
-            
-            return false;
-        }
-        
-        
-        public static List<String> blackListCheck(List<String> symbols){
-        String[] badSymbols = BLACK_LIST.split(",");
-        for (int i=0; i < symbols.size();i++){
-        for (int j=0;j<badSymbols.length;j++){
-                if (symbols.get(i).equalsIgnoreCase(badSymbols[j])){
-                        symbols.remove(i);
-                        break;
-                }}
-            }
-        return symbols;
-        }
-        
-        private static void checkStrategy(Strategy strategyLong,Strategy strategyShort, int endIndex,String symbol){
-            if (strategyShort.shouldEnter(endIndex)||strategyLong.shouldExit(endIndex)){
-                    if (null != openTradesLong.get(symbol))
-                    {
-                        ordersToBeClosed.add(symbol);
-						Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
-                    }}
-            
-            else if (strategyShort.shouldExit(endIndex)||strategyLong.shouldEnter(endIndex)){
-                    if (null != openTradesShort.get(symbol))
-                    {
-                        ordersToBeClosed.add(symbol);
-						Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
-                    }}
-        }
-
-        private static BigDecimal printBalance()
-        {
-                RequestOptions options = new RequestOptions();
-        		SyncRequestClient syncRequestClient = SyncRequestClient.create( BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
-                options);
 
 
-			return  syncRequestClient.getBalance().get(6).getBalance();
-                
-        }
+		return false;
+	}
+
+
+	public static List<String> blackListCheck(List<String> symbols) {
+		String[] badSymbols = BLACK_LIST.split(",");
+		for (int i = 0; i < symbols.size(); i++) {
+			for (int j = 0; j < badSymbols.length; j++) {
+				if (symbols.get(i).equalsIgnoreCase(badSymbols[j])) {
+					symbols.remove(i);
+					break;
+				}
+			}
+		}
+		return symbols;
+	}
+
+	private static void checkStrategy(Strategy strategyLong, Strategy strategyShort, int endIndex, String symbol) {
+		if (strategyShort.shouldEnter(endIndex) || strategyLong.shouldExit(endIndex)) {
+			if (null != openTradesLong.get(symbol)) {
+				ordersToBeClosed.add(symbol);
+				Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
+			}
+		} else if (strategyShort.shouldExit(endIndex) || strategyLong.shouldEnter(endIndex)) {
+			if (null != openTradesShort.get(symbol)) {
+				ordersToBeClosed.add(symbol);
+				Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
+			}
+		}
+	}
+
+	private static BigDecimal printBalance() {
+		RequestOptions options = new RequestOptions();
+		SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
+				options);
+
+
+		return syncRequestClient.getBalance().get(6).getBalance();
+
+	}
 
 	public static void codeInput(String inputString) throws IOException {
 		if (inputString.equals("END")) {
@@ -640,7 +635,7 @@ public class CopyBot {
 		}
 	}
 
-//	private synchronized static void outputPosition() {
+	//	private synchronized static void outputPosition() {
 //
 //
 //		Log.info(CopyBot.class, " LONG position : ");
@@ -654,11 +649,11 @@ public class CopyBot {
 //
 //
 //	}
-public static synchronized void checkStrategyOpenPosition(Map<String, String> mapPosition) {
-	for (Map.Entry position : mapPosition.entrySet()) {
-		checkSymbol(position.getKey().toString());
+	public static synchronized void checkStrategyOpenPosition(Map<String, String> mapPosition) {
+		for (Map.Entry position : mapPosition.entrySet()) {
+			checkSymbol(position.getKey().toString());
+		}
 	}
-}
 
 	public static synchronized void modifyFrozenList() {
 		for (Map.Entry<String, Integer> entry : frozenTrade.entrySet()) {
@@ -667,4 +662,3 @@ public static synchronized void checkStrategyOpenPosition(Map<String, String> ma
 		frozenTrade.entrySet().removeIf(entry -> entry.getValue() > WAIT_FROZEN);
 	}
 }
-
