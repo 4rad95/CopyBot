@@ -367,10 +367,10 @@ public class TradeTask implements Runnable {
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
 
                 } else if (chkProffit > 24.00) {
-                    proffitNew = order.getPrice() - (order.getPrice() - price) * 4 / 5;
+                    proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
                     return proffitNew;
                 } else {
-                    proffitNew = order.getPrice() - ((order.getPrice() - price)) * 4 / 5;
+                    proffitNew = order.getPrice() - ((order.getPrice() - price)) * 9 / 10;
                     return proffitNew;
                 }
             }
@@ -379,10 +379,10 @@ public class TradeTask implements Runnable {
                     proffitNew = order.getPrice() + (price - order.getPrice()) * 9 / 10;
                     return proffitNew;
                 } else if (chkProffit > 24.00) {
-                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 4 / 5);
+                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 9 / 10);
                     return proffitNew;
                 } else {
-                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 4 / 5);
+                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 9 / 10);
                     return proffitNew;
                 }
             }

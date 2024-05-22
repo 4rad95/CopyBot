@@ -24,10 +24,10 @@ public class StrategySMA {
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 100);
-        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
-        MACDIndicator macdLong = new MACDIndicator(closePrice, 50, 100);
-        EMAIndicator emaMacd = new EMAIndicator(macd, 9);
-        EMAIndicator emaMacdLong = new EMAIndicator(macd, 50);
+        MACDIndicator macd = new MACDIndicator(closePrice, 6, 13);
+        MACDIndicator macdLong = new MACDIndicator(closePrice, 19, 39);
+        EMAIndicator emaMacd = new EMAIndicator(macd, 6);
+        EMAIndicator emaMacdLong = new EMAIndicator(macd, 9);
 
         EMAIndicator ema22 = new EMAIndicator(closePrice, 22);
         EMAIndicator ema10 = new EMAIndicator(closePrice, 10);
@@ -87,10 +87,10 @@ public class StrategySMA {
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 100);
-        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
-        MACDIndicator macdLong = new MACDIndicator(closePrice, 50, 100);
-        EMAIndicator emaMacd = new EMAIndicator(macd, 9);
-        EMAIndicator emaMacdLong = new EMAIndicator(macd, 50);
+        MACDIndicator macd = new MACDIndicator(closePrice, 6, 13);
+        MACDIndicator macdLong = new MACDIndicator(closePrice, 39, 52);
+        EMAIndicator emaMacd = new EMAIndicator(macd, 6);
+        EMAIndicator emaMacdLong = new EMAIndicator(macd, 9);
 
         EMAIndicator ema22 = new EMAIndicator(closePrice, 22);
         EMAIndicator ema10 = new EMAIndicator(closePrice, 10);
