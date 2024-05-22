@@ -88,8 +88,6 @@ public class CopyBot {
 		if (StringUtils.isNotEmpty(configFilePath)) {
 			ConfigUtils.setSystemConfigFilePath(configFilePath);
 		}
-//                badSymbols.add("SCUSDT");
-//                badSymbols.add("USDCUSDT");
 		init();
 		process();
 	}
@@ -227,7 +225,7 @@ public class CopyBot {
 					seconds = seconds - minutes * 60;
 					String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
 					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-					Log.info(CopyBot.class, "\u001B[36m CopyBot 1.010 (SMA test Edition beta. Good!)    \u001B[0m");
+					Log.info(CopyBot.class, "\u001B[36m CopyBot 1.011 (SMA test Edition beta. Good!)    \u001B[0m");
 					//		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
 					Log.info(CopyBot.class," Open trades LONG: " + openTradesLong.keySet().size() +" SHORT:" + openTradesShort.keySet().size());
 					Log.info(CopyBot.class," LONG:  " + openTradesLong.keySet());
