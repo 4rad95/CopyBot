@@ -74,8 +74,8 @@ public class StrategySMA {
         }
 
         Rule exitRule = new OverIndicatorRule(rsi, deltaK)
-                .or(new OverIndicatorRule(ema22, ema10))
-                .or(new UnderIndicatorRule(macdLong, emaMacdLong));
+                .or(new OverIndicatorRule(ema22, ema10));
+        //          .or(new UnderIndicatorRule(macdLong, emaMacdLong));
 
         return new BaseStrategy(entryRule, exitRule);
     }
@@ -139,8 +139,8 @@ public class StrategySMA {
         }
 
         Rule exitRule = new OverIndicatorRule(rsi, deltaK)
-                .or(new UnderIndicatorRule(ema22, ema10))
-                .or(new OverIndicatorRule(macdLong, emaMacdLong));
+                .or(new UnderIndicatorRule(ema22, ema10));
+        //.or(new OverIndicatorRule(macdLong, emaMacdLong));
 
         return new BaseStrategy(entryRule, exitRule);
 
