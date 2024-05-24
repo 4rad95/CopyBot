@@ -64,7 +64,7 @@ public class StrategySMA {
 
 
         macdChange = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 3).doubleValue();
-        emaTrend = (ema22.getValue(maxIndex).doubleValue() < ema22.getValue((maxIndex - 1)).doubleValue());
+        emaTrend = (ema22.getValue(maxIndex).doubleValue() < ema22.getValue((maxIndex - 2)).doubleValue());
 
         if (!emaTrend && macdChange) {
             deltaK = Decimal.valueOf(-2);
@@ -126,7 +126,7 @@ public class StrategySMA {
                 );
 
         macdChange = macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 3).doubleValue();
-        emaTrend = (ema22.getValue(maxIndex).doubleValue() > ema22.getValue((maxIndex - 1)).doubleValue());
+        emaTrend = (ema22.getValue(maxIndex).doubleValue() > ema22.getValue((maxIndex - 2)).doubleValue());
 
 
         if (!emaTrend && macdChange) {
