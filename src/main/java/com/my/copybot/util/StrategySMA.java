@@ -55,7 +55,8 @@ public class StrategySMA {
 
         Rule entryRule = (new UnderIndicatorRule(macd, emaMacd)
                 .and(new UnderIndicatorRule(rsi, deltaK)))
-                .and(new OverIndicatorRule(macdLong, emaMacdLong))
+                .and(new OverIndicatorRule(macdLong, emaMacdLong)
+                        .and(new OverIndicatorRule(ema10, ema22)))
                 .or(new CrossedUpIndicatorRule(macdLong, emaMacdLong)
                         .and(new OverIndicatorRule(macd, emaMacd))
                 );
@@ -117,7 +118,8 @@ public class StrategySMA {
 
         Rule entryRule = (new OverIndicatorRule(macd, emaMacd)
                 .and(new UnderIndicatorRule(rsi, deltaK))
-                .and(new UnderIndicatorRule(macdLong, emaMacdLong)))
+                .and(new UnderIndicatorRule(macdLong, emaMacdLong))
+                .and(new UnderIndicatorRule(ema10, ema22)))
                 .or(new CrossedDownIndicatorRule(macdLong, emaMacdLong)
                                 .and(new UnderIndicatorRule(macd, emaMacd))
                 //        .and(new OverIndicatorRule(rsi, Decimal.valueOf(50)))
