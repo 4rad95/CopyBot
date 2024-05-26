@@ -56,25 +56,24 @@ public class StrategySMA {
 
         Rule entryRule = ((new UnderIndicatorRule(macd, emaMacd))
                 .and(new UnderIndicatorRule(rsi, deltaK))
-                .and(new OverIndicatorRule(macdLong, emaMacdLong)))
+                .and(new OverIndicatorRule(macdLong, emaMacdLong))
+                .and(new UnderIndicatorRule(closePrice, ema22)))
                 .or(new CrossedUpIndicatorRule(macdLong, emaMacdLong)
                         .and(new OverIndicatorRule(macd, emaMacd))
                 );
-                //      .and(new UnderIndicatorRule(rsi, Decimal.valueOf(50)))
 
 
-        macdChange = macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 3).doubleValue();
-        //      emaTrend = (ema22.getValue(maxIndex).doubleValue() < ema22.getValue((maxIndex - 2)).doubleValue());
+        macdChange = emaMacd.getValue(maxIndex).doubleValue() < emaMacd.getValue(maxIndex - 1).doubleValue();
+        emaTrend = (ema22.getValue(maxIndex).doubleValue() < ema22.getValue((maxIndex - 1)).doubleValue());
 
-        if (macdChange) {
+        if (macdChange && !emaTrend) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule exitRule = (new UnderIndicatorRule(closePrice, ema22))
-                .or(new OverIndicatorRule(rsi, deltaK));
-        //          .or(new UnderIndicatorRule(macdLong, emaMacdLong));
+        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
+                .or(new UnderIndicatorRule(macd, emaMacd));
 
         return new BaseStrategy(entryRule, exitRule);
     }
@@ -88,7 +87,7 @@ public class StrategySMA {
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 100);
-        EMAIndicator sma50 = new EMAIndicator(closePrice, 50);
+        //     EMAIndicator sma50 = new EMAIndicator(closePrice, 50);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         MACDIndicator macdLong = new MACDIndicator(closePrice, 19, 39);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
@@ -120,13 +119,13 @@ public class StrategySMA {
         Rule entryRule = (new OverIndicatorRule(macd, emaMacd)
                 .and(new UnderIndicatorRule(rsi, deltaK))
                 .and(new UnderIndicatorRule(macdLong, emaMacdLong))
-                .and(new OverIndicatorRule(sma14, sma50)))
+                .and(new OverIndicatorRule(closePrice, ema22)))
+
                 .or(new CrossedDownIndicatorRule(macdLong, emaMacdLong)
                                 .and(new UnderIndicatorRule(macd, emaMacd))
-                //        .and(new OverIndicatorRule(rsi, Decimal.valueOf(50)))
                 );
 
-        macdChange = macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 3).doubleValue();
+        macdChange = emaMacd.getValue(maxIndex).doubleValue() > emaMacd.getValue(maxIndex - 3).doubleValue();
         emaTrend = (ema22.getValue(maxIndex).doubleValue() > ema22.getValue((maxIndex - 2)).doubleValue());
 
 
@@ -137,10 +136,8 @@ public class StrategySMA {
             deltaK = Decimal.valueOf(102);
         }
 
-        Rule exitRule = new OverIndicatorRule(closePrice, ema22);
-        //    .or(new OverIndicatorRule(rsi, deltaK))
-        //    .or(new UnderIndicatorRule(ema22, ema10));
-        //.or(new OverIndicatorRule(macdLong, emaMacdLong));
+        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
+                .or(new OverIndicatorRule(macd, emaMacd));
 
         return new BaseStrategy(entryRule, exitRule);
 
