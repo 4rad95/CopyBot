@@ -366,7 +366,7 @@ public class CopyBot {
 			if (check(symbol)) {
 				Log.info(CopyBot.class, "Generating time series for " + symbol);
 				try {
-					List<Candlestick> candlesticks = BinanceUtils.getCandelSeries(symbol, interval.getIntervalId(), 2); //BinanceUtils.getCandlestickBars(symbol, interval);
+                    List<Candlestick> candlesticks = BinanceUtils.getCandelSeries(symbol, interval.getIntervalId(), 500); //BinanceUtils.getCandlestickBars(symbol, interval);
 					TimeSeries series = BinanceTa4jUtils.convertToTimeSeries(candlesticks, symbol, interval.getIntervalId());
 					timeSeriesCache.put(symbol, series);
 				} catch (Exception e) {

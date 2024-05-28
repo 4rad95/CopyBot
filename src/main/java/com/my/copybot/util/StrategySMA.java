@@ -98,8 +98,19 @@ public class StrategySMA {
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
-        int maxIndex = series.getEndIndex();
+//        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
+//        StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
+//
+//        RSIIndicator r = new RSIIndicator(closePrice, 14);
+//        StochasticRSIIndicator rsi1 = new StochasticRSIIndicator(closePrice, 14);
+//
+//        StochasticOscillatorKIndicator stochK1= new StochasticOscillatorKIndicator(rsi1,3,new MaxPriceIndicator(series), new MinPriceIndicator(series));
+//        StochasticOscillatorDIndicator stochD1 = new StochasticOscillatorDIndicator(stochK); // time frame always 3, maybe we should constructor parameter for this
+//
 
+
+        int maxIndex = series.getEndIndex();
+        //      System.out.println(series.getName() + "  K="+stochK1.getValue(maxIndex)+"   D="+stochD1.getValue(maxIndex) );
 
         boolean macdChange = macd.getValue(maxIndex - 3).doubleValue() > macd.getValue(maxIndex - 2).doubleValue()
                 && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
