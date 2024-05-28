@@ -58,7 +58,7 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(rsi, deltaK))
                 .and(new OverIndicatorRule(macdLong, emaMacdLong))
                 .and(new UnderIndicatorRule(closePrice, ema22)))
-                .or(new CrossedUpIndicatorRule(macdLong, emaMacdLong)
+                .or((new CrossedUpIndicatorRule(macdLong, emaMacdLong))
                         .and(new OverIndicatorRule(macd, emaMacd))
                 );
 
@@ -121,7 +121,7 @@ public class StrategySMA {
                 .and(new UnderIndicatorRule(macdLong, emaMacdLong))
                 .and(new OverIndicatorRule(closePrice, ema22)))
 
-                .or(new CrossedDownIndicatorRule(macdLong, emaMacdLong)
+                .or((new CrossedDownIndicatorRule(macdLong, emaMacdLong))
                                 .and(new UnderIndicatorRule(macd, emaMacd))
                 );
 

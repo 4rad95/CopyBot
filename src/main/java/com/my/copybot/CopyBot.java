@@ -5,8 +5,6 @@ package com.my.copybot;
  * @author radomir
  */
 
-import com.binance.api.client.BinanceApiRestClient;
-import com.binance.api.client.BinanceApiWebSocketClient;
 import com.binance.api.client.domain.market.Candlestick;
 import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.client.RequestOptions;
@@ -60,8 +58,8 @@ public class CopyBot {
 	private static final List<String> ordersToBeClosed = Collections.synchronizedList(new LinkedList<String>());
 	private static final List<Position> closedPositions = Collections.synchronizedList(new LinkedList<Position>());
 
-	private static BinanceApiRestClient client;
-	private static BinanceApiWebSocketClient liveClient;
+//	private static BinanceApiRestClient client;
+//	private static BinanceApiWebSocketClient liveClient;
 
 	private static Integer closedTrades = 0;
 	private static Double totalProfit = 0.0;
@@ -184,12 +182,11 @@ public class CopyBot {
 					ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_SECRET));
 
 
-			client = BinanceUtils.getRestClient();
-			liveClient = BinanceUtils.getWebSocketClient();
+//			client = BinanceUtils.getRestClient();
+//			liveClient = BinanceUtils.getWebSocketClient();
 			startBalance = printBalance();
 			Runnable InputString = new InputString();
 			Thread thread = new Thread(InputString);
-			//InputString.thisThread = thread;
 			thread.start();
 		} catch (GeneralException e) {
 			Log.severe(CopyBot.class, "Unable to generate Binance clients!", e);
@@ -225,7 +222,7 @@ public class CopyBot {
 					seconds = seconds - minutes * 60;
 					String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
 					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-					Log.info(CopyBot.class, "\u001B[36m CopyBot 1.011 (SMA test Edition beta. Good!)    \u001B[0m");
+					Log.info(CopyBot.class, "\u001B[36m CopyBot 1.012 (SMA test Edition beta. Good!)    \u001B[0m");
 					//		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
 					Log.info(CopyBot.class," Open trades LONG: " + openTradesLong.keySet().size() +" SHORT:" + openTradesShort.keySet().size());
 					Log.info(CopyBot.class," LONG:  " + openTradesLong.keySet());
@@ -369,7 +366,7 @@ public class CopyBot {
 			if (check(symbol)) {
 				Log.info(CopyBot.class, "Generating time series for " + symbol);
 				try {
-					List<Candlestick> candlesticks = BinanceUtils.getCandlestickBars(symbol, interval);
+					List<Candlestick> candlesticks = BinanceUtils.getCandelSeries(symbol, interval.getIntervalId(), 2); //BinanceUtils.getCandlestickBars(symbol, interval);
 					TimeSeries series = BinanceTa4jUtils.convertToTimeSeries(candlesticks, symbol, interval.getIntervalId());
 					timeSeriesCache.put(symbol, series);
 				} catch (Exception e) {
@@ -478,12 +475,16 @@ public class CopyBot {
 	}
 
 	private static BigDecimal printBalance() {
-		RequestOptions options = new RequestOptions();
-		SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
-				options);
+		try {
+			RequestOptions options = new RequestOptions();
+			SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
+					options);
 
 
-		return syncRequestClient.getBalance().get(6).getBalance();
+			return syncRequestClient.getBalance().get(6).getBalance();
+		} catch (Exception e) {
+			return BigDecimal.ZERO;
+		}
 
 	}
 
@@ -659,4 +660,6 @@ public class CopyBot {
 		}
 		frozenTrade.entrySet().removeIf(entry -> entry.getValue() > WAIT_FROZEN);
 	}
+
+
 }

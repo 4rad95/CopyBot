@@ -1,9 +1,6 @@
 
 package com.my.copybot.util;
 
-import com.binance.api.client.BinanceApiClientFactory;
-import com.binance.api.client.BinanceApiRestClient;
-import com.binance.api.client.BinanceApiWebSocketClient;
 import com.binance.api.client.domain.market.Candlestick;
 import com.binance.api.client.domain.market.CandlestickInterval;
 import com.my.copybot.exceptions.GeneralException;
@@ -24,8 +21,8 @@ public class BinanceUtils {
 	private static String API_KEY;
 	private static String API_SECRET;
 
-	private static BinanceApiRestClient client = null;
-	private static BinanceApiWebSocketClient liveClient = null;
+//	private static BinanceApiRestClient client = null;
+//	private static BinanceApiWebSocketClient liveClient = null;
 
 	public static String getApiKey() {
 		return API_KEY;
@@ -61,66 +58,64 @@ public class BinanceUtils {
 		return symbols;
 	}
 
-	public static List<Candlestick> getCandlestickBars(String symbol,
-                                                       CandlestickInterval interval) throws GeneralException {
-		try {
+//	public static List<Candlestick> getCandlestickBars(String symbol,
+//                                                       CandlestickInterval interval) throws GeneralException {
+//		try {
+//			return getRestClient().getCandlestickBars(symbol, interval);
+//		} catch (Exception e) {
+//			throw new GeneralException(e);
+//
+//		}
+//	}
 
+//	public static List<Candlestick> getLatestCandlestickBars(String symbol,
+//                                                             CandlestickInterval interval) throws GeneralException {
+//		try {
+//			return getRestClient().getCandlestickBars(symbol, interval, 2,
+//					null, null);
+//		} catch (Exception e) {
+//			//throw new GeneralException(e);
+//            System.out.print("---" + symbol);
+//            return null;
+//		}
+//	}
 
-			return getRestClient().getCandlestickBars(symbol, interval);
-		} catch (Exception e) {
-			throw new GeneralException(e);
+//	public static BinanceApiRestClient getRestClient() throws GeneralException {
+//		if (client == null) {
+//			try {
+//                System.setProperty("wss://stream.binance.com:9443/ws", "wss://ws-fapi.binance.com/ws-fapi/v1");
+//				BinanceApiClientFactory factory = BinanceApiClientFactory
+//						.newInstance(API_KEY, API_SECRET);
+//
+//                client = factory.newRestClient();
+//
+//
+//			} catch (Exception e) {
+//				throw new GeneralException(e);
+//			}
+//		}
+//		return client;
+//
+//	}
 
-		}
-	}
-
-	public static List<Candlestick> getLatestCandlestickBars(String symbol,
-                                                             CandlestickInterval interval) throws GeneralException {
-		try {
-			return getRestClient().getCandlestickBars(symbol, interval, 2,
-					null, null);
-		} catch (Exception e) {
-			//throw new GeneralException(e);
-            System.out.print("---" + symbol);
-            return null;
-		}
-	}
-
-	public static BinanceApiRestClient getRestClient() throws GeneralException {
-		if (client == null) {
-			try {
-                System.setProperty("wss://stream.binance.com:9443/ws", "wss://ws-fapi.binance.com/ws-fapi/v1");
-				BinanceApiClientFactory factory = BinanceApiClientFactory
-						.newInstance(API_KEY, API_SECRET);
-
-                client = factory.newRestClient();
-
-
-			} catch (Exception e) {
-				throw new GeneralException(e);
-			}
-		}
-		return client;
-
-	}
-
-	public static BinanceApiWebSocketClient getWebSocketClient() throws GeneralException {
-		if(liveClient == null) {
-			try {
-				String futuresBaseUrl = "https://fapi.binance.com";
-                //	System.setProperty("wss://stream.binance.com:9443/ws", "wss://ws-fapi.binance.com/ws-fapi/v1");
-
-				BinanceApiClientFactory factory = BinanceApiClientFactory
-						.newInstance(API_KEY, API_SECRET);
-
-
-				liveClient = factory.newWebSocketClient();
-
-			} catch (Exception e) {
-				throw new GeneralException(e);
-			}
-		}
-        return liveClient;
-	}
+//	public static BinanceApiWebSocketClient getWebSocketClient() throws GeneralException {
+//		if(liveClient == null) {
+//			try {
+//				String futuresBaseUrl = "https://fapi.binance.com";
+//                //	System.setProperty("wss://stream.binance.com:9443/ws", "wss://ws-fapi.binance.com/ws-fapi/v1");
+//
+//				BinanceApiClientFactory factory = BinanceApiClientFactory
+//						.newInstance(API_KEY, API_SECRET);
+//
+//
+//				liveClient = factory.newWebSocketClient();
+//
+//			} catch (Exception e) {
+//				throw new GeneralException(e);
+//			}
+//		}
+//        return liveClient;
+//	}
 
     public static void init(String binanceApiKey, String binanceApiSecret) throws GeneralException {
 		if(StringUtils.isEmpty(binanceApiKey) || StringUtils.isEmpty(binanceApiSecret)) {
@@ -140,7 +135,6 @@ public class BinanceUtils {
             for (int i = 0; i < array.length(); i++) {
                 JSONObject objectInArray = array.getJSONObject(i);
                 String temp = objectInArray.getString("symbol");
-                //  String temp = objectInArray.getString("symbol")+";"+objectInArray.getString("markPrice");
                 if (temp.contains("USDT")) {
                     names.add(temp);
                 }
@@ -153,4 +147,47 @@ public class BinanceUtils {
 
     }
 
+	public static List<Candlestick> getLatestCandlestickBars(String symbol,
+															 CandlestickInterval interval) throws GeneralException {
+		try {
+			return getCandelSeries(symbol, interval.getIntervalId(), 2);//getRestClient().getCandlestickBars(symbol, interval, 2,
+//					null, null);
+		} catch (Exception e) {
+			//throw new GeneralException(e);
+			System.out.print("---" + symbol);
+			return null;
+		}
+	}
+
+	public static List<Candlestick> getCandelSeries(String symbol, String interval, Integer limit) {
+		try {
+			URL url = new URL("https://www.binance.com/fapi/v1/klines?symbol=" + symbol + "&interval=" + interval + "&limit=" + limit);
+			URLConnection urc = url.openConnection();
+			BufferedReader in = new BufferedReader(
+					new InputStreamReader(urc.getInputStream()));
+			String inputLine;
+			inputLine = in.readLine();
+			JSONArray array = new JSONArray(inputLine);
+			List<Candlestick> candela = new ArrayList<>();
+			for (int i = 0; i < array.length(); i++) {
+				String str = String.valueOf(array.get(i)).substring(1, String.valueOf(array.get(i)).length() - 2);
+				String[] strArray = str.split(",");
+				Candlestick candlestick = new Candlestick();
+				candlestick.setOpenTime(Long.valueOf(strArray[0]));
+				candlestick.setCloseTime(Long.valueOf(strArray[6]));
+				candlestick.setOpen(strArray[1]);
+				candlestick.setHigh(strArray[2]);
+				candlestick.setLow(strArray[3]);
+				candlestick.setClose(strArray[4]);
+				candlestick.setVolume(strArray[7]);
+				candela.add(candlestick);
+			}
+			in.close();
+			return candela;
+
+		} catch (Exception ex) {
+			System.out.println(" connected false " + ex);
+			return null;
+		}
+	}
 }
