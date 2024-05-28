@@ -38,9 +38,10 @@ public class BinanceTa4jUtils {
 		Decimal highPrice = Decimal.valueOf(candlestick.getHigh().substring(1, candlestick.getHigh().length() - 2));
 		Decimal lowPrice = Decimal.valueOf(candlestick.getLow().substring(1, candlestick.getLow().length() - 2));
 		Decimal volume = Decimal.valueOf(candlestick.getVolume().substring(1, candlestick.getVolume().length() - 2));
+		Decimal amount = Decimal.valueOf(candlestick.getQuoteAssetVolume().substring(1, candlestick.getQuoteAssetVolume().length() - 2));
 
 		return new BaseBar(candleDuration, closeTime, openPrice, highPrice,
-				lowPrice, closePrice, volume);
+				lowPrice, closePrice, volume, amount);
 	}
 
 	public static ZonedDateTime getZonedDateTime(Long timestamp) {
