@@ -180,7 +180,7 @@ public class BinanceUtils {
 				candlestick.setLow(strArray[3]);
 				candlestick.setClose(strArray[4]);
 				if (strArray[5] == null) {
-					candlestick.setVolume("0.0000");
+					candlestick.setVolume("00.0000");
 				} else {
 					candlestick.setVolume(strArray[5]);
 				}
