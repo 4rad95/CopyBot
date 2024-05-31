@@ -38,7 +38,7 @@ public class BinanceTa4jUtils {
 		Decimal closePrice = Decimal.valueOf(candlestick.getClose().substring(1, candlestick.getClose().length() - 2));
 		Decimal highPrice = Decimal.valueOf(candlestick.getHigh().substring(1, candlestick.getHigh().length() - 2));
 		Decimal lowPrice = Decimal.valueOf(candlestick.getLow().substring(1, candlestick.getLow().length() - 2));
-		if (candlestick.getVolume() != null) {
+		if (candlestick.getVolume().length() > 2) {
 			volume = Decimal.valueOf(candlestick.getVolume().substring(1, candlestick.getVolume().length() - 2));
 		} else {
 			System.out.println("Volume = null ");
