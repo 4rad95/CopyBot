@@ -483,7 +483,8 @@ public class CopyBot {
 
 			return syncRequestClient.getBalance().get(6).getBalance();
 		} catch (Exception e) {
-			return BigDecimal.ZERO;
+			System.out.println(e);
+			return BigDecimal.valueOf(0.00);
 		}
 
 	}
