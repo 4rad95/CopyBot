@@ -57,9 +57,12 @@ public class StrategySMA {
         Rule entryRule = ((new UnderIndicatorRule(macd, emaMacd))
                 .and(new UnderIndicatorRule(rsi, deltaK))
                 .and(new OverIndicatorRule(macdLong, emaMacdLong))
-                .and(new UnderIndicatorRule(closePrice, ema22)))
+                .and(new UnderIndicatorRule(closePrice, ema22))
+                .and(new OverIndicatorRule(sma50, sma14)))
+
                 .or((new CrossedUpIndicatorRule(macdLong, emaMacdLong))
                         .and(new OverIndicatorRule(macd, emaMacd))
+                        .and(new OverIndicatorRule(sma50, sma14))
                 );
 
 
@@ -87,7 +90,7 @@ public class StrategySMA {
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 100);
-        //     EMAIndicator sma50 = new EMAIndicator(closePrice, 50);
+        EMAIndicator sma50 = new EMAIndicator(closePrice, 50);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         MACDIndicator macdLong = new MACDIndicator(closePrice, 19, 39);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
@@ -98,19 +101,8 @@ public class StrategySMA {
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
 
-//        StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, 14);
-//        StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
-//
-//        RSIIndicator r = new RSIIndicator(closePrice, 14);
-//        StochasticRSIIndicator rsi1 = new StochasticRSIIndicator(closePrice, 14);
-//
-//        StochasticOscillatorKIndicator stochK1= new StochasticOscillatorKIndicator(rsi1,3,new MaxPriceIndicator(series), new MinPriceIndicator(series));
-//        StochasticOscillatorDIndicator stochD1 = new StochasticOscillatorDIndicator(stochK); // time frame always 3, maybe we should constructor parameter for this
-//
-
 
         int maxIndex = series.getEndIndex();
-        //      System.out.println(series.getName() + "  K="+stochK1.getValue(maxIndex)+"   D="+stochD1.getValue(maxIndex) );
 
         boolean macdChange = macd.getValue(maxIndex - 3).doubleValue() > macd.getValue(maxIndex - 2).doubleValue()
                 && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
@@ -130,10 +122,13 @@ public class StrategySMA {
         Rule entryRule = (new OverIndicatorRule(macd, emaMacd)
                 .and(new UnderIndicatorRule(rsi, deltaK))
                 .and(new UnderIndicatorRule(macdLong, emaMacdLong))
-                .and(new OverIndicatorRule(closePrice, ema22)))
+                .and(new OverIndicatorRule(closePrice, ema22))
+                .and(new UnderIndicatorRule(sma50, sma14)))
 
                 .or((new CrossedDownIndicatorRule(macdLong, emaMacdLong))
-                                .and(new UnderIndicatorRule(macd, emaMacd))
+                        .and(new UnderIndicatorRule(macd, emaMacd))
+                        .and(new UnderIndicatorRule(sma50, sma14))
+
                 );
 
         macdChange = emaMacd.getValue(maxIndex).doubleValue() > emaMacd.getValue(maxIndex - 3).doubleValue();
