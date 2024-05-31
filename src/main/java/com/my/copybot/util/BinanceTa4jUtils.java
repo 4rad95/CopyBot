@@ -30,6 +30,7 @@ public class BinanceTa4jUtils {
 	}
 
 	public static Bar convertToTa4jTick(Candlestick candlestick) {
+		Decimal volume = Decimal.valueOf(0);
 		ZonedDateTime closeTime = getZonedDateTime(candlestick.getCloseTime());
 		Duration candleDuration = Duration.ofMillis(candlestick.getCloseTime()
 				- candlestick.getOpenTime());
@@ -37,7 +38,12 @@ public class BinanceTa4jUtils {
 		Decimal closePrice = Decimal.valueOf(candlestick.getClose().substring(1, candlestick.getClose().length() - 2));
 		Decimal highPrice = Decimal.valueOf(candlestick.getHigh().substring(1, candlestick.getHigh().length() - 2));
 		Decimal lowPrice = Decimal.valueOf(candlestick.getLow().substring(1, candlestick.getLow().length() - 2));
-		Decimal volume = Decimal.valueOf(candlestick.getVolume().substring(1, candlestick.getVolume().length() - 2));
+		if (candlestick.getVolume() != null) {
+			volume = Decimal.valueOf(candlestick.getVolume().substring(1, candlestick.getVolume().length() - 2));
+		} else {
+			System.out.println("Volume = null ");
+		}
+
 		Decimal amount = Decimal.valueOf(candlestick.getQuoteAssetVolume().substring(1, candlestick.getQuoteAssetVolume().length() - 2));
 
 		return new BaseBar(candleDuration, closeTime, openPrice, highPrice,

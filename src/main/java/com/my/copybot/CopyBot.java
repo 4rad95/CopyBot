@@ -1,7 +1,6 @@
 package com.my.copybot;
 
 /**
- *
  * @author radomir
  */
 
@@ -25,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import static java.lang.System.currentTimeMillis;
+import static java.lang.Thread.sleep;
 
 public class CopyBot {
 
@@ -152,12 +152,12 @@ public class CopyBot {
 
 			String makeShort = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_SHORT);
-			MAKE_SHORT = "true".equalsIgnoreCase(makeLong)
-					|| "1".equals(makeLong);
+			MAKE_SHORT = "true".equalsIgnoreCase(makeShort)
+					|| "1".equals(makeShort);
 			String makeAvg = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_AVRG);
-			MAKE_TRADE_AVG = "true".equalsIgnoreCase(makeLong)
-					|| "1".equals(makeLong);
+			MAKE_TRADE_AVG = "true".equalsIgnoreCase(makeAvg)
+					|| "1".equals(makeAvg);
 			BLACK_LIST = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_BLACKLIST);
 			String strStopNoLoss = ConfigUtils
@@ -165,7 +165,7 @@ public class CopyBot {
 			STOP_NO_LOSS = Integer.valueOf(strStopNoLoss);
 			String waitLimitOrder = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_WAIT_LIMIT);
-			WAIT_LIMIT_ORDER = Integer.valueOf(strStopNoLoss);
+			WAIT_LIMIT_ORDER = Integer.valueOf(waitLimitOrder);
 			String waiFrozen = ConfigUtils
 					.readPropertyValue(ConfigUtils.CONFIG_TRADING_WAIT_FROZEN);
 			WAIT_FROZEN = Integer.valueOf(waiFrozen);
@@ -175,8 +175,6 @@ public class CopyBot {
 
 		}
 		try {
-			String futuresBaseUrl = "wss://fstream.binance.com/ws";
-
 
 			BinanceUtils.init(ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_KEY),
 					ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_SECRET));
@@ -211,75 +209,15 @@ public class CopyBot {
 				thread.start();
 			}
 			while (true) {
-				//Thread.getAllStackTraces().keySet();
-				if (DO_TRADES) {
-					Long t0 = currentTimeMillis();
-
-					int seconds = (int) ((t0 - timer) / 1000);
-					int minutes = seconds / 60;
-					int hours = minutes / 60;
-					minutes = minutes - hours * 60;
-					seconds = seconds - minutes * 60;
-					String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
-					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-					Log.info(CopyBot.class, "\u001B[36m CopyBot 1.012 (SMA test Edition beta. Good!)    \u001B[0m");
-					//		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
-					Log.info(CopyBot.class," Open trades LONG: " + openTradesLong.keySet().size() +" SHORT:" + openTradesShort.keySet().size());
-					Log.info(CopyBot.class," LONG:  " + openTradesLong.keySet());
-					Log.info(CopyBot.class," SHORT: " + openTradesShort.keySet());
-					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-					Log.info(CopyBot.class, "\u001B[32m Start time       : " + new Date(timer) + " \u001B[0m ");
-					Log.info(CopyBot.class, "\u001B[32m Execute time     : " + formattedTime + " \u001B[0m ");
-					Log.info(CopyBot.class, "\u001B[32m Start Balance    : " + startBalance + "               Current  Balance : " + printBalance() + " \u001B[0m ");
-					//	Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-					Log.info(CopyBot.class, "\u001B[32m Max. Position:   : " + MAX_SIMULTANEOUS_TRADES + "                         USDT Size : " + TRADE_SIZE_USDT + " \u001B[0m ");
-					Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-					//	Log.info(CopyBot.class, "|Start time          | Work time | Symbol        | Open price       | Current price    | Stop loss        |  Profit");
-					//	outputPosition();
-					if (DO_TRADES && closedTrades > 0) {
-						Log.info(
-								CopyBot.class,
-								"\u001B[32mClosed trades: " + closedTrades + " Long: " + closedTradesLong + " Short: " + closedTradesShort
-										+ ", total profit: " + String.format("%.8f", totalProfit)
-										+ ", LONG: " + String.format("%.2f", totalProfitLong)
-										+ ", SHORT: " + String.format("%.2f", totalProfitShort) + "\u001B[0m ");
-						Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-
-					}
-					if ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
-						// We will not continue trading... avoid checking
-
-						try {
-							Thread.sleep(timeToWait);
-							checkStrategyOpenPosition(openTradesLong);
-							checkStrategyOpenPosition(openTradesShort);
-
-						} catch (InterruptedException e) {
-							Log.severe(CopyBot.class, "Error sleeping", e);
-						}
-						continue;
-					}
-				}
-				Long t0 = currentTimeMillis();
-				// 2.- Get two last ticks for symbol and update cache.
-				for (String symbol : symbols) {
-					try {
-						checkSymbol(symbol);
-					} catch (Exception e) {
-						Log.severe(CopyBot.class, "Error checking symbol "
-								+ symbol, e);
-					}
-				}
-				Long t1 = currentTimeMillis() - t0;
-				Log.info(CopyBot.class, "All symbols analyzed, time elapsed: "
-						+ (t1 / 1000.0) + " seconds.");
-
 				try {
-					Thread.sleep(timeToWait);
-				} catch (InterruptedException e) {
-					Log.severe(CopyBot.class, "Error sleeping", e);
+					mainProcess(timeToWait, symbols);
+					sleep(timeToWait);
+				} catch (Exception e) {
+					System.out.println("Error in 1 : " + e);
+
 				}
 			}
+
 		} catch (Exception e) {
 			Log.severe(CopyBot.class, "Unable to get symbols", e);
 		}
@@ -288,7 +226,7 @@ public class CopyBot {
 	private static void checkSymbol(String symbol) {
 
 		if (check(symbol) && frozenTrade.get(symbol) == null) {
-			// Log.debug(CopyBotSpot.class, "Checking symbol: " + symbol);
+
 			Long t0 = currentTimeMillis();
 			try {
 				List<Candlestick> latestCandlesticks = BinanceUtils.getLatestCandlestickBars(symbol, interval);
@@ -323,7 +261,6 @@ public class CopyBot {
 
 							// We create a new position to trade with the symbol
 							addTrade(symbol, "LONG");
-							//	openTradesLong.put(symbol, "LONG" );
 
 						} else {
 
@@ -335,7 +272,6 @@ public class CopyBot {
 					if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
 						Decimal currentPrice = series.getLastBar().getClosePrice();
 
-						//	Log.info(CopyBot.class, "SHORT signal for symbol: " + symbol + ", price: " + currentPrice);
 
 						if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
 
@@ -346,8 +282,6 @@ public class CopyBot {
 						}
 					}
 				}
-
-				//	Log.debug(CopyBotSpot.class, "Symbol " + symbol + " checked in " + ((System.currentTimeMillis() - t0) / 1000.0) + " seconds");
 			} catch (GeneralException e) {
 				Log.severe(CopyBot.class, "Unable to check symbol " + symbol + "Error: " + e);
 			}
@@ -366,11 +300,10 @@ public class CopyBot {
 			if (check(symbol)) {
 				Log.info(CopyBot.class, "Generating time series for " + symbol);
 				try {
-                    List<Candlestick> candlesticks = BinanceUtils.getCandelSeries(symbol, interval.getIntervalId(), 500); //BinanceUtils.getCandlestickBars(symbol, interval);
+					List<Candlestick> candlesticks = BinanceUtils.getCandelSeries(symbol, interval.getIntervalId(), 500);
 					TimeSeries series = BinanceTa4jUtils.convertToTimeSeries(candlesticks, symbol, interval.getIntervalId());
 					timeSeriesCache.put(symbol, series);
 				} catch (Exception e) {
-					// Log.severe(CopyBotSpot.class, "Unable to generate time series / strategy for " + symbol, e);
 					System.out.println("\u001B[32m" + symbol + "  -  Not used symbol !!! \u001B[0m");
 					badSymbols.add(symbol);
 				}
@@ -378,12 +311,7 @@ public class CopyBot {
 		}
 	}
 
-	/**
-	 * The open thread invokes this method to mark an order as closed
-	 * @param symbol
-	 * @param profit
-	 * @param errorMessage
-	 */
+
 	public synchronized static void closeOrder(String symbol, Double profit, String errorMessage, String type) // 0-short, 1-long
 
 	{
@@ -398,7 +326,7 @@ public class CopyBot {
 			delta = 1;
 
 		}
-		// if (openTradesLong.containsKey(symbol)){
+
 		if (profit == 0.00) {
 			delta = 0;
 			clearPosition(symbol);
@@ -424,6 +352,7 @@ public class CopyBot {
 
 	/**
 	 * The open thread invokes this method to check if an order should be closed
+	 *
 	 * @param symbol
 	 * @return if it should be closed or not
 	 */
@@ -440,7 +369,7 @@ public class CopyBot {
 		return true;
 	}
 
-	public static boolean checkOpenOrder(String Symbol){
+	public static boolean checkOpenOrder(String Symbol) {
 
 
 		return false;
@@ -479,7 +408,6 @@ public class CopyBot {
 			RequestOptions options = new RequestOptions();
 			SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
 					options);
-
 
 			return syncRequestClient.getBalance().get(6).getBalance();
 		} catch (Exception e) {
@@ -559,11 +487,7 @@ public class CopyBot {
 				break;
 			}
 		}
-//		try {
-//			Thread.sleep(500);
-//		} catch (InterruptedException e) {
-//			Log.severe(CopyBot.class, "Error sleeping", e);
-//		}
+
 	}
 
 	public static Decimal getCurrentPrice(String symbol) {
@@ -623,8 +547,6 @@ public class CopyBot {
 		String switchString = position.getType();
 		switch (switchString) {
 			case "SHORT": {
-
-
 				openTradesShort.put(position.getSymbol(), "position");
 				break;
 			}
@@ -660,6 +582,66 @@ public class CopyBot {
 			entry.setValue(entry.getValue() + 1);
 		}
 		frozenTrade.entrySet().removeIf(entry -> entry.getValue() > WAIT_FROZEN);
+	}
+
+	public static void mainProcess(Long timeToWait1, List<String> symbols) {
+
+		try {
+			Long t0 = currentTimeMillis();
+
+			int seconds = (int) ((t0 - timer) / 1000);
+			int minutes = seconds / 60;
+			int hours = minutes / 60;
+			minutes = minutes - hours * 60;
+			seconds = seconds - minutes * 60;
+			String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
+			Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
+			Log.info(CopyBot.class, "\u001B[36m CopyBot 1.012 (SMA test Edition beta. Good!)    \u001B[0m");
+			//		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
+			Log.info(CopyBot.class, " Open trades LONG: " + openTradesLong.keySet().size() + " SHORT:" + openTradesShort.keySet().size());
+			Log.info(CopyBot.class, " LONG:  " + openTradesLong.keySet());
+			Log.info(CopyBot.class, " SHORT: " + openTradesShort.keySet());
+			Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
+			Log.info(CopyBot.class, "\u001B[32m Start time       : " + new Date(timer) + " \u001B[0m ");
+			Log.info(CopyBot.class, "\u001B[32m Execute time     : " + formattedTime + " \u001B[0m ");
+			Log.info(CopyBot.class, "\u001B[32m Start Balance    : " + startBalance + "               Current  Balance : " + printBalance() + " \u001B[0m ");
+			//	Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
+			Log.info(CopyBot.class, "\u001B[32m Max. Position:   : " + MAX_SIMULTANEOUS_TRADES + "                         USDT Size : " + TRADE_SIZE_USDT + " \u001B[0m ");
+			Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
+			//	Log.info(CopyBot.class, "|Start time          | Work time | Symbol        | Open price       | Current price    | Stop loss        |  Profit");
+			//	outputPosition();
+			if (DO_TRADES && closedTrades > 0) {
+				Log.info(
+						CopyBot.class,
+						"\u001B[32mClosed trades: " + closedTrades + " Long: " + closedTradesLong + " Short: " + closedTradesShort
+								+ ", total profit: " + String.format("%.8f", totalProfit)
+								+ ", LONG: " + String.format("%.2f", totalProfitLong)
+								+ ", SHORT: " + String.format("%.2f", totalProfitShort) + "\u001B[0m ");
+				Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
+
+			}
+			if ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
+				// We will not continue trading... avoid checking
+				checkStrategyOpenPosition(openTradesLong);
+				checkStrategyOpenPosition(openTradesShort);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		Long t0 = currentTimeMillis();
+		for (String symbol : symbols) {
+			try {
+				checkSymbol(symbol);
+			} catch (Exception e) {
+				Log.severe(CopyBot.class, "Error checking symbol "
+						+ symbol, e);
+			}
+		}
+		Long t1 = currentTimeMillis() - t0;
+		Log.info(CopyBot.class, "All symbols analyzed, time elapsed: "
+				+ (t1 / 1000.0) + " seconds.");
+
 	}
 
 
