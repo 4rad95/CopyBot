@@ -210,7 +210,10 @@ public class CopyBot {
 			}
 			while (true) {
 				try {
-					mainProcess(timeToWait, symbols);
+					List<String> finalSymbols = symbols;
+					Runnable r = () -> {
+						mainProcess(finalSymbols);
+					};
 					sleep(timeToWait);
 				} catch (Exception e) {
 					System.out.println("Error in 1 : " + e);
@@ -584,7 +587,7 @@ public class CopyBot {
 		frozenTrade.entrySet().removeIf(entry -> entry.getValue() > WAIT_FROZEN);
 	}
 
-	public static void mainProcess(Long timeToWait1, List<String> symbols) {
+	public static void mainProcess(List<String> symbols) {
 
 		try {
 			Long t0 = currentTimeMillis();
