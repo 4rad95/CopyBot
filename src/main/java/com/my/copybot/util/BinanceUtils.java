@@ -179,10 +179,10 @@ public class BinanceUtils {
 				candlestick.setHigh(strArray[2]);
 				candlestick.setLow(strArray[3]);
 				candlestick.setClose(strArray[4]);
-				if (strArray[5] == null) {
-					candlestick.setVolume("00.0000");
-				} else {
+				if (strArray[5] != null) {
 					candlestick.setVolume(strArray[5]);
+				} else {
+					candlestick.setVolume(" 0.00 ");
 				}
 				candlestick.setQuoteAssetVolume(strArray[7]);
 				candela.add(candlestick);
