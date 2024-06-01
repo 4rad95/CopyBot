@@ -214,6 +214,8 @@ public class CopyBot {
 					Runnable r = () -> {
 						mainProcess(finalSymbols);
 					};
+					Thread myThread = new Thread(r, "Search thread");
+					myThread.start();
 					sleep(timeToWait);
 				} catch (Exception e) {
 					System.out.println("Error in 1 : " + e);
