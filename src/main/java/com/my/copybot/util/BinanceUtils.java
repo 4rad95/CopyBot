@@ -184,7 +184,11 @@ public class BinanceUtils {
 				} else {
 					candlestick.setVolume(strArray[5]);
 				}
-				candlestick.setQuoteAssetVolume(strArray[7]);
+				if (strArray[7] == "null") {
+					candlestick.setQuoteAssetVolume(" 0.00 ");
+				} else {
+					candlestick.setVolume(strArray[7]);
+				}
 				candela.add(candlestick);
 			}
 			in.close();
