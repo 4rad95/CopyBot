@@ -43,7 +43,6 @@ public class BinanceTa4jUtils {
 			volume = Decimal.valueOf(candlestick.getVolume().substring(1, candlestick.getVolume().length() - 2));
 		} catch (Exception e) {
 			volume = Decimal.valueOf(0.00);
-			System.out.println("Volume = null ");
 		}
 		try {
 			amount = Decimal.valueOf(candlestick.getQuoteAssetVolume().substring(1, candlestick.getVolume().length() - 2));
