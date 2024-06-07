@@ -208,14 +208,19 @@ public class CopyBot {
 				frozen.thisThread = thread;
 				thread.start();
 			}
+			List<String> finalSymbols = symbols;
+			Runnable r = () -> mainProcess(finalSymbols);
+			Thread mainThread = new Thread(r, "Search thread");
 			while (true) {
 				try {
 //					List<String> finalSymbols = symbols;
 //					Runnable r = () -> mainProcess(finalSymbols);
 //					Thread myThread = new Thread(r, "Search thread");
-//					myThread.start();
-					mainProcess(symbols);
+					mainThread.start();
+					mainThread.join();
+					//				mainProcess(symbols);
 					sleep(timeToWait);
+
 				} catch (Exception e) {
 					System.out.println("Error in 1 : " + e);
 
