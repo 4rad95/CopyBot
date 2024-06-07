@@ -210,12 +210,13 @@ public class CopyBot {
 			}
 			List<String> finalSymbols = symbols;
 			Runnable r = () -> mainProcess(finalSymbols);
-			Thread mainThread = new Thread(r, "Search thread");
+
 			while (true) {
 				try {
 //					List<String> finalSymbols = symbols;
 //					Runnable r = () -> mainProcess(finalSymbols);
 //					Thread myThread = new Thread(r, "Search thread");
+					Thread mainThread = new Thread(r, "Search thread");
 					mainThread.start();
 					mainThread.join();
 					//				mainProcess(symbols);
