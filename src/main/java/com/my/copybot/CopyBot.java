@@ -482,8 +482,9 @@ public class CopyBot {
 
 	public static void addTrade(String symbol, String type) {
 
+		CopyBot copyBot = new CopyBot();
 		TradeTask tradeTask = new TradeTask(symbol, getCurrentPrice(symbol).toDouble(),
-				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER);
+				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER, copyBot);
 		Thread thread = new Thread(tradeTask);
 		tradeTask.thisThread = thread;
 		thread.start();
@@ -520,7 +521,7 @@ public class CopyBot {
 		}
 	}
 
-	private static void clearPosition(String symbol) {
+	private synchronized static void clearPosition(String symbol) {
 		ordersToBeClosed.remove(symbol);
 		openTradesLong.remove(symbol);
 		openTradesShort.remove(symbol);
