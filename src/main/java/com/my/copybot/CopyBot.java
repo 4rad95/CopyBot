@@ -218,7 +218,7 @@ public class CopyBot {
 //					Thread myThread = new Thread(r, "Search thread");
 					Thread mainThread = new Thread(r, "Search thread");
 					mainThread.start();
-					mainThread.join();
+					//				mainThread.join();
 					//				mainProcess(symbols);
 					sleep(timeToWait);
 
