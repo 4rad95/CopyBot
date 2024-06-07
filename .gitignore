@@ -1,3 +1,4 @@
 # Project exclude paths
 /target/
 config.properties
+/src/test/java/

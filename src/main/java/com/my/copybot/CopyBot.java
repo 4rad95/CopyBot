@@ -210,10 +210,11 @@ public class CopyBot {
 			}
 			while (true) {
 				try {
-					List<String> finalSymbols = symbols;
-					Runnable r = () -> mainProcess(finalSymbols);
-					Thread myThread = new Thread(r, "Search thread");
-					myThread.start();
+//					List<String> finalSymbols = symbols;
+//					Runnable r = () -> mainProcess(finalSymbols);
+//					Thread myThread = new Thread(r, "Search thread");
+//					myThread.start();
+					mainProcess(symbols);
 					sleep(timeToWait);
 				} catch (Exception e) {
 					System.out.println("Error in 1 : " + e);
@@ -315,7 +316,7 @@ public class CopyBot {
 	}
 
 
-	public synchronized static void closeOrder(String symbol, Double profit, String errorMessage, String type) // 0-short, 1-long
+	public static synchronized void closeOrder(String symbol, Double profit, String errorMessage, String type) // 0-short, 1-long
 
 	{
 		int delta = 0;
