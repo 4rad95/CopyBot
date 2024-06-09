@@ -535,6 +535,9 @@ public class CopyBot {
 			case "SMA": {
 				return StrategySMA.buildSmaStrategyLong(series);
 			}
+            case "STOCH": {
+                return StrategyStoch.buildStochStrategyLong(series);
+            }
 			default:
 				return null;
 		}
@@ -549,6 +552,10 @@ public class CopyBot {
 			case "SMA": {
 				return StrategySMA.buildSmaStrategyShort(series);
 			}
+            case "STOCH": {
+                return StrategyStoch.buildStochStrategyShort(series);
+
+            }
 			default:
 				return null;
 		}
