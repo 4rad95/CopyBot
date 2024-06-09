@@ -60,7 +60,7 @@ public class StrategyStoch {
         }
 
         Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
-                .or(new UnderIndicatorRule(macd, emaMacd))
+                //            .or(new UnderIndicatorRule(macd, emaMacd))
                 .or(new UnderIndicatorRule(sma50, sma14));
 
         return new BaseStrategy(entryRule, exitRule);
@@ -129,7 +129,7 @@ public class StrategyStoch {
 
 
         Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
-                .or(new OverIndicatorRule(macd, emaMacd))
+                //           .or(new OverIndicatorRule(macd, emaMacd))
                 .or(new OverIndicatorRule(sma50, sma14));
 
         return new BaseStrategy(entryRule, exitRule);
