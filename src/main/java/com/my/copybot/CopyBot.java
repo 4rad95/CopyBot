@@ -287,11 +287,8 @@ public class CopyBot {
                                     Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
                                     , symbol, interval2.getIntervalId());
 
-                            Strategy strategyLong1 = buildStrategyShort(series1, "CHECK");
-                            Strategy strategyLong2 = buildStrategyShort(series2, "CHECK");
-
-
-                            if (strategyLong1.shouldEnter(series1.getEndIndex()) && strategyLong2.shouldEnter(series2.getEndIndex())) {
+                            if (BinanceTa4jUtils.checkStrategyLong(series1)
+                                    && BinanceTa4jUtils.checkStrategyLong(series2)) {
 
                                 if (BEEP) {
                                     Sound.tone(15000, 1000);
@@ -309,17 +306,15 @@ public class CopyBot {
                             // We create a new thread to short trade with the symbol
 
                             TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
-                                    Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
+                                    Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), endIndex))
                                     , symbol, interval1.getIntervalId());
                             TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
-                                    Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
+                                    Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
                                     , symbol, interval2.getIntervalId());
 
-                            Strategy strategyShort1 = buildStrategyShort(series1, "CHECK");
-                            Strategy strategyShort2 = buildStrategyShort(series2, "CHECK");
 
-
-                            if (strategyShort1.shouldEnter(series1.getEndIndex()) && strategyShort2.shouldEnter(series2.getEndIndex())) {
+                            if (BinanceTa4jUtils.checkStrategyShort(series1)
+                                    && BinanceTa4jUtils.checkStrategyShort(series2)) {
 
                                 if (BEEP) {
                                     Sound.tone(15000, 1000);
@@ -573,9 +568,6 @@ public class CopyBot {
             case "STOCH": {
                 return StrategyStoch.buildStochStrategyLong(series);
             }
-            case "CHECK": {
-                return BinanceTa4jUtils.checkStrategyLong(series);
-            }
             default:
                 return null;
         }
@@ -592,10 +584,6 @@ public class CopyBot {
             }
             case "STOCH": {
                 return StrategyStoch.buildStochStrategyShort(series);
-
-            }
-            case "CHECK": {
-                return BinanceTa4jUtils.checkStrategyLong(series);
             }
             default:
                 return null;
@@ -616,20 +604,6 @@ public class CopyBot {
         }
     }
 
-    //	private synchronized static void outputPosition() {
-//
-//
-//		Log.info(CopyBot.class, " LONG position : ");
-//		for (Map.Entry<String, Position> entry : openTradesLong.entrySet()) {
-//			entry.getValue().printStat();
-//		}
-//		Log.info(CopyBot.class, " SHORT position : ");
-//		for (Map.Entry<String, Position> entry : openTradesShort.entrySet()) {
-//			entry.getValue().printStat();
-//		}
-//
-//
-//	}
     public static synchronized void checkStrategyOpenPosition(Map<String, String> mapPosition) {
         for (Map.Entry position : mapPosition.entrySet()) {
             checkSymbol(position.getKey().toString());

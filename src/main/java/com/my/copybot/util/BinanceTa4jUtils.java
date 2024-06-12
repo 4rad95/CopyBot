@@ -6,8 +6,6 @@ import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
 import org.ta4j.core.indicators.StochasticRSIIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.trading.rules.OverIndicatorRule;
-import org.ta4j.core.trading.rules.UnderIndicatorRule;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -64,7 +62,7 @@ public class BinanceTa4jUtils {
 				getZonedDateTime(candlestick.getCloseTime()));
 	}
 
-	public static Strategy checkStrategyLong(TimeSeries series) {
+	public static Boolean checkStrategyLong(TimeSeries series) {
 		if (series == null) {
 			throw new IllegalArgumentException("Series cannot be null");
 		}
@@ -73,15 +71,16 @@ public class BinanceTa4jUtils {
 		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
 		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
 		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+		int maxIndex = series.getEndIndex();
 
-		Rule entryRule = new OverIndicatorRule(smoothedStochRsi, stochRsiD);
-		Rule exitRule = new UnderIndicatorRule(smoothedStochRsi, stochRsiD);
-
-		return new BaseStrategy(entryRule, exitRule);
+        //				&& smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 30)
+        return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) > 0
+//				&& smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 1)) < 0
+                && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) > 0;
 	}
 
 
-	public static Strategy checkStrategyShort(TimeSeries series) {
+	public static Boolean checkStrategyShort(TimeSeries series) {
 		if (series == null) {
 			throw new IllegalArgumentException("Series cannot be null");
 		}
@@ -90,11 +89,12 @@ public class BinanceTa4jUtils {
 		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
 		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
 		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+		int maxIndex = series.getEndIndex();
 
-		Rule entryRule = new UnderIndicatorRule(smoothedStochRsi, stochRsiD);
-		Rule exitRule = new OverIndicatorRule(smoothedStochRsi, stochRsiD);
-
-		return new BaseStrategy(entryRule, exitRule);
+        //&& smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 80)
+        return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) < 0
+                //&& smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 2)) > 0
+                && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) < 0;
 	}
 
 }
