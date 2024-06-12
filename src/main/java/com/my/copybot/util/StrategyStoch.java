@@ -37,6 +37,7 @@ public class StrategyStoch {
         if (smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) > 0
                 && smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 1)) < 0
                 && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) > 0
+                && macd.getValue(maxIndex).compareTo(macd.getValue(maxIndex - 1)) > 0
                 && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 30) {
 
             deltaK = Decimal.valueOf(102);
@@ -70,6 +71,7 @@ public class StrategyStoch {
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
         EMAIndicator sma14 = new EMAIndicator(closePrice, 100);
         EMAIndicator sma50 = new EMAIndicator(closePrice, 50);
+        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
@@ -85,6 +87,7 @@ public class StrategyStoch {
         if (smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) < 0
                 && smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 2)) > 0
                 && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) < 0
+                && macd.getValue(maxIndex).compareTo(macd.getValue(maxIndex - 1)) < 0
                 && smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 80) {
             deltaK = Decimal.valueOf(102);
             //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));

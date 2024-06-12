@@ -17,7 +17,11 @@ public class ConfigUtils {
 	
 	public static final String CONFIG_PAUSE_TIME_MINUTES = "thread.pauseTimeInMinutes";
 	public static final String CONFIG_BINANCE_TICK_INTERVAL = "tick.timeFrame";
-	public static final String CONFIG_BINANCE_API_KEY = "binance.apiKey";
+    public static final String CONFIG_BINANCE_ADD1_INTERVAL = "add1.timeFrame";
+    public static final String CONFIG_BINANCE_ADD2_INTERVAL = "add2.timeFrame";
+    public static final String CONFIG_SYSTEM_BEEP = "system.beep";
+
+    public static final String CONFIG_BINANCE_API_KEY = "binance.apiKey";
 	public static final String CONFIG_BINANCE_API_SECRET = "binance.apiSecret";
 	public static final String CONFIG_TRADING_DO_TRADES = "trading.doTrades";
 	public static final String CONFIG_TRADING_STOPLOSS_PERCENTAGE = "trading.stopLossPercentage";
