@@ -29,6 +29,7 @@ public class TradeTask implements Runnable {
     private final Double stopLossPercentage;
     private final Integer waitOrderLimit;
 
+    private final CopyBot copyBot;
     private final boolean makeAvg;
     private final Integer stopNoLoss;
     private final String type;   // (Short or Long)
@@ -48,7 +49,7 @@ public class TradeTask implements Runnable {
 
 
     public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
-                     Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type, Integer identLimitOredr) {
+                     Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type, Integer identLimitOredr, CopyBot copyBot) {
 
         this.symbol = symbol;
         this.alertPrice = alertPrice;
@@ -60,7 +61,7 @@ public class TradeTask implements Runnable {
         this.stopNoLoss = stopNoLoss;
         this.type = type;
         this.identLimitOredr = identLimitOredr;
-
+        this.copyBot = copyBot;
     }
 
     public static String multiplyAndRound(Double number, double multiplier) {

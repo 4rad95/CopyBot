@@ -208,14 +208,20 @@ public class CopyBot {
 				frozen.thisThread = thread;
 				thread.start();
 			}
+			List<String> finalSymbols = symbols;
+			Runnable r = () -> mainProcess(finalSymbols);
+
 			while (true) {
 				try {
 //					List<String> finalSymbols = symbols;
 //					Runnable r = () -> mainProcess(finalSymbols);
 //					Thread myThread = new Thread(r, "Search thread");
-//					myThread.start();
-					mainProcess(symbols);
+					Thread mainThread = new Thread(r, "Search thread");
+					mainThread.start();
+					//				mainThread.join();
+					//				mainProcess(symbols);
 					sleep(timeToWait);
+
 				} catch (Exception e) {
 					System.out.println("Error in 1 : " + e);
 
@@ -476,8 +482,9 @@ public class CopyBot {
 
 	public static void addTrade(String symbol, String type) {
 
+		CopyBot copyBot = new CopyBot();
 		TradeTask tradeTask = new TradeTask(symbol, getCurrentPrice(symbol).toDouble(),
-				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER);
+				TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER, copyBot);
 		Thread thread = new Thread(tradeTask);
 		tradeTask.thisThread = thread;
 		thread.start();
@@ -514,7 +521,7 @@ public class CopyBot {
 		}
 	}
 
-	private static void clearPosition(String symbol) {
+	private synchronized static void clearPosition(String symbol) {
 		ordersToBeClosed.remove(symbol);
 		openTradesLong.remove(symbol);
 		openTradesShort.remove(symbol);
@@ -528,6 +535,9 @@ public class CopyBot {
 			case "SMA": {
 				return StrategySMA.buildSmaStrategyLong(series);
 			}
+            case "STOCH": {
+                return StrategyStoch.buildStochStrategyLong(series);
+            }
 			default:
 				return null;
 		}
@@ -542,6 +552,10 @@ public class CopyBot {
 			case "SMA": {
 				return StrategySMA.buildSmaStrategyShort(series);
 			}
+            case "STOCH": {
+                return StrategyStoch.buildStochStrategyShort(series);
+
+            }
 			default:
 				return null;
 		}

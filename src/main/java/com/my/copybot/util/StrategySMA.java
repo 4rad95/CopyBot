@@ -1,9 +1,7 @@
 package com.my.copybot.util;
 
 import org.ta4j.core.*;
-import org.ta4j.core.indicators.EMAIndicator;
-import org.ta4j.core.indicators.MACDIndicator;
-import org.ta4j.core.indicators.RSIIndicator;
+import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
@@ -119,6 +117,29 @@ public class StrategySMA {
         if (macdChange && macdTrend && emaTrend) {
             deltaK = Decimal.valueOf(102);
         }
+
+        StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
+
+//        System.out.println(series.getName());
+//        for (int i = 0; i < series.getBarCount(); i++) {
+//            System.out.println("StochRSI %K at index " + i + ": " + stochRsi.getValue(i));
+//        }
+        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3); // 3-периодное SMA
+
+        //  for (int i = 495; i < series.getBarCount(); i++) {
+        if (smoothedStochRsi.getValue(series.getBarCount() - 1).compareTo(stochRsiD.getValue(series.getBarCount() - 1)) > 0
+                && smoothedStochRsi.getValue(series.getBarCount() - 2).compareTo(stochRsiD.getValue(series.getBarCount() - 2)) < 0
+                && smoothedStochRsi.getValue(series.getBarCount() - 1).multipliedBy(100).intValue() < 30) {
+            System.out.println("LONG " + series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount() - 1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount() - 1).multipliedBy(100));
+        }
+
+        if (smoothedStochRsi.getValue(series.getBarCount() - 1).compareTo(stochRsiD.getValue(series.getBarCount() - 1)) < 0
+                && smoothedStochRsi.getValue(series.getBarCount() - 2).compareTo(stochRsiD.getValue(series.getBarCount() - 2)) > 0
+                && smoothedStochRsi.getValue(series.getBarCount() - 1).multipliedBy(100).intValue() > 80) {
+            System.out.println("SHORT " + series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount() - 1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount() - 1).multipliedBy(100));
+        }
+
 
         Rule entryRule = (new OverIndicatorRule(macd, emaMacd)
                 .and(new UnderIndicatorRule(rsi, deltaK))
