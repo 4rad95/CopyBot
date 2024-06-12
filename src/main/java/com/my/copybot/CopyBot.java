@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import static java.lang.System.currentTimeMillis;
+import static java.lang.System.out;
 import static java.lang.Thread.sleep;
 
 public class CopyBot {
@@ -286,7 +287,7 @@ public class CopyBot {
                             TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
                                     Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
                                     , symbol, interval2.getIntervalId());
-
+                            out.print(" " + symbol);
                             if (BinanceTa4jUtils.checkStrategyLong(series1)
                                     && BinanceTa4jUtils.checkStrategyLong(series2)) {
 
@@ -312,7 +313,7 @@ public class CopyBot {
                                     Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
                                     , symbol, interval2.getIntervalId());
 
-
+                            out.print(" " + symbol);
                             if (BinanceTa4jUtils.checkStrategyShort(series1)
                                     && BinanceTa4jUtils.checkStrategyShort(series2)) {
 

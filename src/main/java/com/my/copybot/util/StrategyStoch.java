@@ -38,7 +38,7 @@ public class StrategyStoch {
                 && smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 1)) < 0
                 && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) > 0
                 && macd.getValue(maxIndex).compareTo(macd.getValue(maxIndex - 1)) > 0
-                && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 30) {
+                && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 40) {
 
             deltaK = Decimal.valueOf(102);
 
@@ -88,7 +88,7 @@ public class StrategyStoch {
                 && smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 2)) > 0
                 && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) < 0
                 && macd.getValue(maxIndex).compareTo(macd.getValue(maxIndex - 1)) < 0
-                && smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 80) {
+                && smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 60) {
             deltaK = Decimal.valueOf(102);
             //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }

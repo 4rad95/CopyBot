@@ -73,10 +73,11 @@ public class BinanceTa4jUtils {
 		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 		int maxIndex = series.getEndIndex();
 
-        //				&& smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 30)
-        return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) > 0
+
+		return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) > 0;
 //				&& smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 1)) < 0
-                && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) > 0;
+		//		&& smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 50
+		//          && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) > 0;
 	}
 
 
@@ -91,10 +92,10 @@ public class BinanceTa4jUtils {
 		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 		int maxIndex = series.getEndIndex();
 
-        //&& smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 80)
-        return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) < 0
+		return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) < 0;
+		//			&& smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 50
                 //&& smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 2)) > 0
-                && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) < 0;
+		//             && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) < 0;
 	}
 
 }
