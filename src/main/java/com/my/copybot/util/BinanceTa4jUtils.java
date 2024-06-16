@@ -2,12 +2,10 @@ package com.my.copybot.util;
 
 import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
-import org.ta4j.core.indicators.*;
+import org.ta4j.core.indicators.RSIIndicator;
+import org.ta4j.core.indicators.SMAIndicator;
+import org.ta4j.core.indicators.StochasticRSIIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
-import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
-import org.ta4j.core.trading.rules.OverIndicatorRule;
-import org.ta4j.core.trading.rules.UnderIndicatorRule;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -64,124 +62,40 @@ public class BinanceTa4jUtils {
 				getZonedDateTime(candlestick.getCloseTime()));
 	}
 
-//	public static Strategy buildStrategyLong(TimeSeries series, String strategyCode) {
-//		if (STRATEGY.equals(strategyCode)) {
-//			return buildMacdStrategyLong(series);
-//		}
-//		return null;
-//	}
-
-	private static Strategy buildMacdStrategyLong(TimeSeries series) {
+	public static Boolean checkStrategyLong(TimeSeries series) {
 		if (series == null) {
 			throw new IllegalArgumentException("Series cannot be null");
 		}
-
 		ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
+		RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
+		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+		int maxIndex = series.getEndIndex();
 
 
-		// Параметризация периодов для индикаторов
-
-		int shortTermPeriod = 50;
-		int longTermPeriod = 200;
-		int stochasticPeriod = 14;
-		int rsiPeriod = 14;
-		int adxPeriod = 14;
-		int cmfPeriod = 20;
-		int williamsRPeriod = 14;
-
-		MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
-		MACDIndicator macdHigh = new MACDIndicator(closePrice, 48, 104);
-		EMAIndicator emaMacd = new EMAIndicator(macd, 9);
-		EMAIndicator emaMacdHigh = new EMAIndicator(macd, 36);
-		SMAIndicator shortTermSMA = new SMAIndicator(closePrice, shortTermPeriod);
-		SMAIndicator longTermSMA = new SMAIndicator(closePrice, longTermPeriod);
-		StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
-		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
-		RSIIndicator rsiIndicator = new RSIIndicator(closePrice, rsiPeriod);
-
-
-		//	AverageDirectionalMovementIndicator adx = new AverageDirectionalMovementIndicator(series, adxPeriod);
-		//	AverageTrueRangeIndicator atr = new AverageTrueRangeIndicator(series, adxPeriod);
-		//	ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);
-		//#stat	WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
-
-		EMAIndicator sma1 = new EMAIndicator(closePrice, 5);
-		EMAIndicator sma2 = new EMAIndicator(closePrice, 10);
-
-
-		Rule entryRule = new CrossedUpIndicatorRule(macd, emaMacd)
-				.and(new OverIndicatorRule(macdHigh, emaMacdHigh))
-				.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
-				.and(new OverIndicatorRule(stochK, stochD))
-				//		.and(new OverIndicatorRule(adx, Decimal.valueOf(25)))
-				.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(30)))
-				.and(new UnderIndicatorRule(stochD, Decimal.valueOf(40)));
-
-
-		Rule exitRule = new UnderIndicatorRule(macd, emaMacd)
-				.or(new UnderIndicatorRule(stochK, stochD))
-				.or(new UnderIndicatorRule(shortTermSMA, longTermSMA));
-
-
-		return new BaseStrategy(entryRule, exitRule);
+		return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) > 0;
+//				&& smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 1)) < 0
+		//		&& smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 50
+		//          && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) > 0;
 	}
 
 
-//	public static Strategy buildStrategyShort(TimeSeries series, String strategyCode) {
-//		if (STRATEGY.equals(strategyCode)) {
-//			return buildMacdStrategyShort(series);
-//		}
-//		return null;
-//	}
-
-	private static Strategy buildMacdStrategyShort(TimeSeries series) {
+	public static Boolean checkStrategyShort(TimeSeries series) {
 		if (series == null) {
 			throw new IllegalArgumentException("Series cannot be null");
 		}
-
 		ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-		//	EMAIndicator sma1 = new EMAIndicator(closePrice, 5);
-		//	EMAIndicator sma2 = new EMAIndicator(closePrice, 10);
-		// Параметризация периодов для индикаторов
-		int shortTermPeriod = 50;
-		int longTermPeriod = 200;
-		int stochasticPeriod = 14;
-		int rsiPeriod = 14;
-		int cmfPeriod = 20;
-		int williamsRPeriod = 14;
+		RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
+		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+		int maxIndex = series.getEndIndex();
 
-		MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
-		MACDIndicator macdHigh = new MACDIndicator(closePrice, 48, 104);
-		EMAIndicator emaMacd = new EMAIndicator(macd, 9);
-		EMAIndicator emaMacdHigh = new EMAIndicator(macd, 36);
-		SMAIndicator shortTermSMA = new SMAIndicator(closePrice, shortTermPeriod);
-		SMAIndicator longTermSMA = new SMAIndicator(closePrice, longTermPeriod);
-		StochasticOscillatorKIndicator stochK = new StochasticOscillatorKIndicator(series, stochasticPeriod);
-		StochasticOscillatorDIndicator stochD = new StochasticOscillatorDIndicator(stochK);
-		RSIIndicator rsiIndicator = new RSIIndicator(closePrice, rsiPeriod);
-		/*	ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, cmfPeriod);*/
-		WilliamsRIndicator williamsR = new WilliamsRIndicator(series, williamsRPeriod);
-		StochasticRSIIndicator dd = new StochasticRSIIndicator(series, 19);
-
-		Rule entryRule = new CrossedDownIndicatorRule(macd, emaMacd)
-				.and(new UnderIndicatorRule(macdHigh, emaMacdHigh))
-				.and(new UnderIndicatorRule(shortTermSMA, longTermSMA))
-				.and(new UnderIndicatorRule(stochK, stochD))
-				.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(60)))
-				.and(new OverIndicatorRule(stochD, Decimal.valueOf(70)));
-//				.and(new OverIndicatorRule(rsiIndicator, Decimal.valueOf(50)))
-//				.and(new UnderIndicatorRule(stochK, stochD))
-//					.and(new OverIndicatorRule(shortTermSMA, longTermSMA))
-//					.and(new UnderIndicatorRule(stochD, Decimal.valueOf(60)));
-
-		Rule exitRule = new OverIndicatorRule(macd, emaMacd)
-				.or(new OverIndicatorRule(stochK, stochD))
-				.or(new OverIndicatorRule(shortTermSMA, longTermSMA));
-		//	.or(new CrossedUpIndicatorRule(rsiIndicator, Decimal.valueOf(70)));
-
-		return new BaseStrategy(entryRule, exitRule);
+		return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) < 0;
+		//			&& smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 50
+                //&& smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 2)) > 0
+		//             && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) < 0;
 	}
-
-
 
 }
