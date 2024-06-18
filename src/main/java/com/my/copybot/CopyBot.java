@@ -450,7 +450,7 @@ public class CopyBot {
             SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
                     options);
 
-            return syncRequestClient.getBalance().get(6).getBalance();
+            return syncRequestClient.getBalance().get(4).getBalance();
         } catch (Exception e) {
             System.out.println(e);
             return BigDecimal.valueOf(0.00);
