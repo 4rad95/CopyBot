@@ -76,7 +76,7 @@ public class BinanceTa4jUtils {
 
 		return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) > 0
 //				&& smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 1)) < 0
-				&& smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 70;
+				&& smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 90;
 		//          && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) > 0;
 	}
 
@@ -93,7 +93,7 @@ public class BinanceTa4jUtils {
 		int maxIndex = series.getEndIndex();
 
 		return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) < 0
-				&& smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 30;
+				&& smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 10;
                 //&& smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 2)) > 0
 		//             && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) < 0;
 	}
