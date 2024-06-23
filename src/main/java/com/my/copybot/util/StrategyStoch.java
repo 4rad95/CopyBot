@@ -55,35 +55,27 @@ public class StrategyStoch {
             deltaK = Decimal.valueOf(-2);
             //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
-
         Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
                 .or(new UnderIndicatorRule(sma50, sma14))
                 .or(new UnderIndicatorRule(smoothedStochRsi, stochRsiD));
-
         return new BaseStrategy(entryRule, exitRule);
     }
-
 
     public static Strategy buildStochStrategyShort(TimeSeries series) {
         if (series == null) {
             throw new IllegalArgumentException("Series cannot be null");
         }
-
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
         EMAIndicator sma14 = new EMAIndicator(closePrice, 100);
         EMAIndicator sma50 = new EMAIndicator(closePrice, 50);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
-
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
         SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
         SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 
         int maxIndex = series.getEndIndex();
-
-
         Decimal deltaK = Decimal.valueOf(-2);
-
 
         if (smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) < 0
                 && smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 2)) > 0
@@ -96,10 +88,8 @@ public class StrategyStoch {
         Rule entryRule = (new UnderIndicatorRule(sma50, sma14))
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
-
         deltaK = Decimal.valueOf(102);
-        if (smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) > 0) {
-
+        if (smoothedStochRsi.getValue(maxIndex - 1).compareTo(smoothedStochRsi.getValue(maxIndex)) < 0) {
             deltaK = Decimal.valueOf(-2);
             //        System.out.println("LONG "+series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
@@ -107,8 +97,6 @@ public class StrategyStoch {
         Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
                 .or(new OverIndicatorRule(sma50, sma14))
                 .or(new OverIndicatorRule(smoothedStochRsi, stochRsiD));
-
-
         return new BaseStrategy(entryRule, exitRule);
 
     }
