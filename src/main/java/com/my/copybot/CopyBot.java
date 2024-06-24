@@ -420,8 +420,8 @@ public class CopyBot {
     public static List<String> blackListCheck(List<String> symbols) {
         String[] badSymbols = BLACK_LIST.split(",");
         for (int i = 0; i < symbols.size(); i++) {
-            for (int j = 0; j < badSymbols.length; j++) {
-                if (symbols.get(i).equalsIgnoreCase(badSymbols[j])) {
+            for (String badSymbol : badSymbols) {
+                if (symbols.get(i).equalsIgnoreCase(badSymbol)) {
                     symbols.remove(i);
                     break;
                 }
