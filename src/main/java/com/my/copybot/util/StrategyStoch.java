@@ -94,19 +94,18 @@ public class StrategyStoch {
         Rule entryRule = (new UnderIndicatorRule(sma50, sma14))
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
-        deltaK = Decimal.valueOf(102);
+        deltaK = Decimal.valueOf(120);
         if (smoothedStochRsi.getValue(maxIndex - 1).compareTo(smoothedStochRsi.getValue(maxIndex)) < 0
                 || macd.getValue(maxIndex).compareTo(macd.getValue(maxIndex - 2)) > 0) {
-            deltaK = Decimal.valueOf(-2);
-            //        System.out.println("LONG "+series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
+            deltaK = Decimal.valueOf(-100);
+            //         System.out.println("SHORT "+series.getName()+ "   rsi = " + rsi.getValue(series.getBarCount()-1)); //+"   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
 
-        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
+        Rule exitRule = (new OverIndicatorRule(smoothedStochRsi, deltaK))
                 .or(new OverIndicatorRule(sma50, sma14))
                 .or(new OverIndicatorRule(smoothedStochRsi, stochRsiD));
 
         return new BaseStrategy(entryRule, exitRule);
-
     }
 }
 

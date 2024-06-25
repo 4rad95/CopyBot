@@ -431,16 +431,14 @@ public class CopyBot {
     }
 
     private static void checkStrategy(Strategy strategyLong, Strategy strategyShort, int endIndex, String symbol) {
-        if (strategyShort.shouldEnter(endIndex) || strategyLong.shouldExit(endIndex)) {
-            if (null != openTradesLong.get(symbol)) {
+        if ((null != openTradesLong.get(symbol)) && (strategyLong.shouldExit(endIndex))) {
                 ordersToBeClosed.add(symbol);
                 Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
-            }
-        } else if (strategyShort.shouldExit(endIndex) || strategyLong.shouldEnter(endIndex)) {
-            if (null != openTradesShort.get(symbol)) {
+
+        } else if ((null != openTradesShort.get(symbol)) && (strategyShort.shouldExit(endIndex))) {
                 ordersToBeClosed.add(symbol);
                 Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
-            }
+
         }
     }
 
@@ -654,11 +652,11 @@ public class CopyBot {
                 Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
 
             }
-            if ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
+            //     if ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
                 // We will not continue trading... avoid checking
                 checkStrategyOpenPosition(openTradesLong);
                 checkStrategyOpenPosition(openTradesShort);
-            }
+            //       }
 
         } catch (Exception e) {
             System.out.println(e);
