@@ -221,7 +221,7 @@ public class CopyBot {
                 timeToWait = 5 * 60 * 1000L;
             }
             {
-                Frozen frozen = new Frozen(20);
+                Frozen frozen = new Frozen(WAIT_FROZEN);
                 Thread thread = new Thread(frozen);
                 frozen.thisThread = thread;
                 thread.start();
