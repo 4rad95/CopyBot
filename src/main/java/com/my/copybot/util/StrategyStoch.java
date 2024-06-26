@@ -52,8 +52,8 @@ public class StrategyStoch {
 
         deltaK = Decimal.valueOf(102);
 
-        if ((smoothedStochRsi.getValue(maxIndex - 2).doubleValue() - smoothedStochRsi.getValue(maxIndex).doubleValue()) > 0
-                || macd.getValue(maxIndex).doubleValue() - macd.getValue(maxIndex - 2).doubleValue() < 0) {
+        if (stochRsiD.getValue(maxIndex).doubleValue() < smoothedStochRsi.getValue(maxIndex).doubleValue()) {
+
             deltaK = Decimal.valueOf(-2);
             //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
@@ -97,8 +97,7 @@ public class StrategyStoch {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
         deltaK = Decimal.valueOf(120);
-        if ((smoothedStochRsi.getValue(maxIndex - 2).doubleValue() - smoothedStochRsi.getValue(maxIndex).doubleValue()) < 0
-                || macd.getValue(maxIndex).doubleValue() - macd.getValue(maxIndex - 2).doubleValue() > 0) {
+        if (stochRsiD.getValue(maxIndex).doubleValue() > smoothedStochRsi.getValue(maxIndex).doubleValue()) {
             deltaK = Decimal.valueOf(-100);
             //         System.out.println("SHORT "+series.getName()+ "   rsi = " + rsi.getValue(series.getBarCount()-1)); //+"   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }

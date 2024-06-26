@@ -55,7 +55,7 @@ public class CopyBot {
     private static Double STOPLOSS_PERCENTAGE = 1.00;
     private static Boolean DO_TRAILING_STOP = false;
     private static String TRADING_STRATEGY;
-    private static final Boolean BEEP = false;
+    private static Boolean BEEP = false;
 
 //	private static BinanceApiRestClient client;
 //	private static BinanceApiWebSocketClient liveClient;
@@ -101,7 +101,7 @@ public class CopyBot {
                 .readPropertyValue(ConfigUtils.CONFIG_SYSTEM_BEEP);
         if ("true".equalsIgnoreCase(beep)
                 || "1".equals(beep)) {
-            DO_TRAILING_STOP = true;
+            BEEP = true;
         }
         // Candle time frame
         String candleInterval = ConfigUtils
