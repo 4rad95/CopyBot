@@ -52,14 +52,14 @@ public class StrategyStoch {
 
         deltaK = Decimal.valueOf(102);
 
-        if (stochRsiD.getValue(maxIndex).doubleValue() < smoothedStochRsi.getValue(maxIndex).doubleValue()) {
+        if (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue()) {
 
             deltaK = Decimal.valueOf(-2);
             //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
         Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
-                .or(new UnderIndicatorRule(sma50, sma14))
-                .or(new UnderIndicatorRule(smoothedStochRsi, stochRsiD));
+                .or(new UnderIndicatorRule(sma50, sma14));
+        //          .or(new UnderIndicatorRule(smoothedStochRsi, stochRsiD));
 
 
         return new BaseStrategy(entryRule, exitRule);
@@ -97,14 +97,14 @@ public class StrategyStoch {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
         deltaK = Decimal.valueOf(120);
-        if (stochRsiD.getValue(maxIndex).doubleValue() > smoothedStochRsi.getValue(maxIndex).doubleValue()) {
+        if (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue()) {
             deltaK = Decimal.valueOf(-100);
             //         System.out.println("SHORT "+series.getName()+ "   rsi = " + rsi.getValue(series.getBarCount()-1)); //+"   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
 
         Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
-                .or(new OverIndicatorRule(sma50, sma14))
-                .or(new OverIndicatorRule(smoothedStochRsi, stochRsiD));
+                .or(new OverIndicatorRule(sma50, sma14));
+        //                .or(new OverIndicatorRule(smoothedStochRsi, stochRsiD));
 
         return new BaseStrategy(entryRule, exitRule);
     }
