@@ -21,7 +21,7 @@ public class StrategyStoch {
 
         EMAIndicator sma14 = new EMAIndicator(closePrice, 100);
         EMAIndicator sma50 = new EMAIndicator(closePrice, 50);
-        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
+        MACDIndicator macd = new MACDIndicator(closePrice, 19, 39);
 
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
@@ -53,7 +53,7 @@ public class StrategyStoch {
         deltaK = Decimal.valueOf(102);
 
         if ((smoothedStochRsi.getValue(maxIndex - 1).doubleValue() - smoothedStochRsi.getValue(maxIndex).doubleValue()) > 0
-                || macd.getValue(maxIndex).doubleValue() - macd.getValue(maxIndex - 2).doubleValue() < 0) {
+                && macd.getValue(maxIndex).doubleValue() - macd.getValue(maxIndex - 2).doubleValue() < 0) {
             deltaK = Decimal.valueOf(-2);
             //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
@@ -73,7 +73,7 @@ public class StrategyStoch {
         EMAIndicator sma14 = new EMAIndicator(closePrice, 100);
         EMAIndicator sma50 = new EMAIndicator(closePrice, 50);
 
-        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
+        MACDIndicator macd = new MACDIndicator(closePrice, 19, 39);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
@@ -98,7 +98,7 @@ public class StrategyStoch {
 
         deltaK = Decimal.valueOf(120);
         if ((smoothedStochRsi.getValue(maxIndex - 1).doubleValue() - smoothedStochRsi.getValue(maxIndex).doubleValue()) < 0
-                || macd.getValue(maxIndex).doubleValue() - macd.getValue(maxIndex - 2).doubleValue() > 0) {
+                && macd.getValue(maxIndex).doubleValue() - macd.getValue(maxIndex - 2).doubleValue() > 0) {
             deltaK = Decimal.valueOf(-100);
             //         System.out.println("SHORT "+series.getName()+ "   rsi = " + rsi.getValue(series.getBarCount()-1)); //+"   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
