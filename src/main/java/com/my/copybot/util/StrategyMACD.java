@@ -79,21 +79,34 @@ public class StrategyMACD {
         //        .and(new UnderIndicatorRule(macdDirection, emaMacdDirection))
 // && (diffEmaShort.doubleValue() < 0) && (diffEmaLong.doubleValue() < 0)
 
-        if ((diffMacd.doubleValue() < 0) && (diffEmaShort.doubleValue() < 0)
-                && (diffEmaLong.doubleValue() < 0) && (diffSma.doubleValue() > diffSmaP.doubleValue())) {
+//        if ((diffMacd.doubleValue() < 0) && (diffEmaShort.doubleValue() < 0)
+//                && (diffEmaLong.doubleValue() < 0) && (diffSma.doubleValue() > diffSmaP.doubleValue())) {
+//            deltaK = Decimal.valueOf(-2);
+//        } else {
+//            deltaK = Decimal.valueOf(102);
+//        }
+//
+//
+//        Rule exitRule = // (new UnderIndicatorRule(ssK, ssD))
+//        //(new CrossedDownIndicatorRule(macd, emaMacd))
+//                // (new UnderIndicatorRule(emaShort, emaLong))
+//                //(new OverIndicatorRule(sma14, sma24));
+//                (new OverIndicatorRule(rsi, deltaK));
+
+        EMAIndicator ema22 = new EMAIndicator(closePrice, 22);
+
+        boolean macdChange = emaMacd.getValue(maxIndex).doubleValue() < emaMacd.getValue(maxIndex - 1).doubleValue();
+        boolean emaTrend = (ema22.getValue(maxIndex).doubleValue() < ema22.getValue((maxIndex - 1)).doubleValue());
+
+        if (macdChange && !emaTrend) {
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
         }
 
-
-        Rule exitRule = // (new UnderIndicatorRule(ssK, ssD))
-        //(new CrossedDownIndicatorRule(macd, emaMacd))
-                // (new UnderIndicatorRule(emaShort, emaLong))
-                //(new OverIndicatorRule(sma14, sma24));
-                (new OverIndicatorRule(rsi, deltaK));
-
-
+        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
+                .or(new UnderIndicatorRule(macd, emaMacd))
+                .or(new UnderIndicatorRule(sma14, sma24));
         return new BaseStrategy(entryRule, exitRule);
     }
 
@@ -155,22 +168,37 @@ public class StrategyMACD {
 //                .or((new CrossedDownIndicatorRule(sma14, sma24)
 //                        .and(new UnderIndicatorRule(emaShort, emaLong))
 //                        .and(new OverIndicatorRule(rsi, deltaK))));
+//
+//        if ((diffMacd.doubleValue() > 0) && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
+//            deltaK = Decimal.valueOf(-2);
+//        } else {
+//            deltaK = Decimal.valueOf(102);
+//        }
+//
+//
+//
+//        Rule exitRule = // (new OverIndicatorRule(ssK, ssD))
+//                //   new CrossedUpIndicatorRule(macd, emaMacd)
+//                (new OverIndicatorRule(sma14, sma24))
+//                        .or(new OverIndicatorRule(rsi, deltaK));
+//        //     .or(new OverIndicatorRule(macd, emaMacd))
+//        //      .or(new OverIndicatorRule(stochK, stochD));
+        EMAIndicator ema22 = new EMAIndicator(closePrice, 22);
 
-        if ((diffMacd.doubleValue() > 0) && (diffEmaShort.doubleValue() > 0) && (diffEmaLong.doubleValue() > 0)) {
+        boolean macdChange = emaMacd.getValue(maxIndex).doubleValue() > emaMacd.getValue(maxIndex - 3).doubleValue();
+        boolean emaTrend = (ema22.getValue(maxIndex).doubleValue() > ema22.getValue((maxIndex - 2)).doubleValue());
+
+
+        if (!emaTrend && macdChange) {
+
             deltaK = Decimal.valueOf(-2);
         } else {
             deltaK = Decimal.valueOf(102);
         }
 
-
-
-        Rule exitRule = // (new OverIndicatorRule(ssK, ssD))
-                //   new CrossedUpIndicatorRule(macd, emaMacd)
-                (new OverIndicatorRule(sma14, sma24))
-                        .or(new OverIndicatorRule(rsi, deltaK));
-        //     .or(new OverIndicatorRule(macd, emaMacd))
-        //      .or(new OverIndicatorRule(stochK, stochD));
-
+        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
+                .or(new OverIndicatorRule(macd, emaMacd))
+                .or(new OverIndicatorRule(sma14, sma24));
 
         return new BaseStrategy(entryRule, exitRule);
     }
