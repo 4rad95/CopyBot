@@ -57,7 +57,7 @@ public class StrategyStoch {
             deltaK = Decimal.valueOf(-2);
             //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
-        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
+        Rule exitRule = (new UnderIndicatorRule(rsi, deltaK))
                 .or(new UnderIndicatorRule(sma50, sma14));
         //          .or(new UnderIndicatorRule(smoothedStochRsi, stochRsiD));
 
@@ -102,7 +102,7 @@ public class StrategyStoch {
             //         System.out.println("SHORT "+series.getName()+ "   rsi = " + rsi.getValue(series.getBarCount()-1)); //+"   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
 
-        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
+        Rule exitRule = (new UnderIndicatorRule(rsi, deltaK))
                 .or(new OverIndicatorRule(sma50, sma14));
         //                .or(new OverIndicatorRule(smoothedStochRsi, stochRsiD));
 
