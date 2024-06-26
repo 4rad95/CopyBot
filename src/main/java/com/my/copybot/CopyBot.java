@@ -438,7 +438,6 @@ public class CopyBot {
         } else if ((null != openTradesShort.get(symbol)) && (strategyShort.shouldExit(endIndex))) {
                 ordersToBeClosed.add(symbol);
                 Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
-
         }
     }
 

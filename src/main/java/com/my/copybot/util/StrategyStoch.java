@@ -52,14 +52,16 @@ public class StrategyStoch {
 
         deltaK = Decimal.valueOf(102);
 
-        if (smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) < 0
-                || macd.getValue(maxIndex).compareTo(macd.getValue(maxIndex - 2)) < 0) {
+        if ((smoothedStochRsi.getValue(maxIndex - 1).doubleValue() - smoothedStochRsi.getValue(maxIndex).doubleValue()) > 0
+                || macd.getValue(maxIndex).doubleValue() - macd.getValue(maxIndex - 2).doubleValue() < 0) {
             deltaK = Decimal.valueOf(-2);
             //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
         Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
                 .or(new UnderIndicatorRule(sma50, sma14))
                 .or(new UnderIndicatorRule(smoothedStochRsi, stochRsiD));
+
+
         return new BaseStrategy(entryRule, exitRule);
     }
 
@@ -95,13 +97,13 @@ public class StrategyStoch {
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
         deltaK = Decimal.valueOf(120);
-        if (smoothedStochRsi.getValue(maxIndex - 1).compareTo(smoothedStochRsi.getValue(maxIndex)) < 0
-                || macd.getValue(maxIndex).compareTo(macd.getValue(maxIndex - 2)) > 0) {
+        if ((smoothedStochRsi.getValue(maxIndex - 1).doubleValue() - smoothedStochRsi.getValue(maxIndex).doubleValue()) < 0
+                || macd.getValue(maxIndex).doubleValue() - macd.getValue(maxIndex - 2).doubleValue() > 0) {
             deltaK = Decimal.valueOf(-100);
             //         System.out.println("SHORT "+series.getName()+ "   rsi = " + rsi.getValue(series.getBarCount()-1)); //+"   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
 
-        Rule exitRule = (new OverIndicatorRule(smoothedStochRsi, deltaK))
+        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
                 .or(new OverIndicatorRule(sma50, sma14))
                 .or(new OverIndicatorRule(smoothedStochRsi, stochRsiD));
 
