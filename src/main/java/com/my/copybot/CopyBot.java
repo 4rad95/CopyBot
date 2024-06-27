@@ -270,7 +270,8 @@ public class CopyBot {
 
                 Strategy strategyLong = buildStrategyLong(series, TRADING_STRATEGY);
                 Strategy strategyShort = buildStrategyShort(series, TRADING_STRATEGY);
-                checkStrategy(strategyLong, strategyShort, endIndex, symbol);
+
+                //    checkStrategy(strategyLong, strategyShort, endIndex, symbol);
 
                 if (strategyLong.shouldEnter(endIndex)) {
 
@@ -292,15 +293,13 @@ public class CopyBot {
                                     && BinanceTa4jUtils.checkStrategyLong(series2)) {
 
                                 if (BEEP) {
-                                    Sound.tone(15000, 1000);
+                                    Sound.tone(15000, 100);
                                 }
                                 addTrade(symbol, "LONG");
                             }
                         }
                     }
-                } else if (strategyShort.shouldEnter(endIndex)) {
-
-
+                }
                     if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
                         //	Decimal currentPrice = series.getLastBar().getClosePrice();
                         if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
@@ -318,12 +317,20 @@ public class CopyBot {
                                     && BinanceTa4jUtils.checkStrategyShort(series2)) {
 
                                 if (BEEP) {
-                                    Sound.tone(15000, 1000);
+                                    Sound.tone(15000, 100);
                                 }
                                 addTrade(symbol, "SHORT");
                             }
                         }
                     }
+
+                if ((null != openTradesLong.get(symbol)) && (strategyLong.shouldExit(endIndex))) {
+                    ordersToBeClosed.add(symbol);
+                    Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
+
+                } else if ((null != openTradesShort.get(symbol)) && (strategyShort.shouldExit(endIndex))) {
+                    ordersToBeClosed.add(symbol);
+                    Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
                 }
             } catch (GeneralException e) {
                 Log.severe(CopyBot.class, "Unable to check symbol " + symbol + "Error: " + e);
