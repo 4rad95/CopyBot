@@ -268,69 +268,74 @@ public class CopyBot {
                 // Now check the TA strategy with the refreshed time series
                 int endIndex = series.getEndIndex();
 
-                Strategy strategyLong = buildStrategyLong(series, TRADING_STRATEGY);
-                Strategy strategyShort = buildStrategyShort(series, TRADING_STRATEGY);
+                if ((openTradesLong.get(symbol) != null) || (openTradesShort.get(symbol) != null) ||
+                        ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
+                    Strategy strategyLong = buildStrategyLong(series, TRADING_STRATEGY);
+                    Strategy strategyShort = buildStrategyShort(series, TRADING_STRATEGY);
 
-                //    checkStrategy(strategyLong, strategyShort, endIndex, symbol);
+                    checkStrategy(strategyLong, strategyShort, endIndex, symbol);
 
-                if (strategyLong.shouldEnter(endIndex)) {
+                    if (strategyLong.shouldEnter(endIndex) && (!strategyLong.shouldExit(endIndex))) {
 
-                    // If we have an open trade for the symbol, we do not create a new one
-                    if (DO_TRADES && openTradesLong.get(symbol) == null && (MAKE_LONG)) {
-                        //Decimal currentPrice = series.getLastBar().getClosePrice();
+                        // If we have an open trade for the symbol, we do not create a new one
+                        if (DO_TRADES && openTradesLong.get(symbol) == null && (MAKE_LONG)) {
+                            //Decimal currentPrice = series.getLastBar().getClosePrice();
 
-                        if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
+                            if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
 
+                                TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
+                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
+                                        , symbol, interval1.getIntervalId());
+                                TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
+                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
+                                        , symbol, interval2.getIntervalId());
+                                out.print(" " + symbol);
+                                if (BinanceTa4jUtils.checkStrategyLong(series1)
+                                        && BinanceTa4jUtils.checkStrategyLong(series2)) {
 
-                            TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
-                                    Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
-                                    , symbol, interval1.getIntervalId());
-                            TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
-                                    Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
-                                    , symbol, interval2.getIntervalId());
-                            out.print(" " + symbol);
-                            if (BinanceTa4jUtils.checkStrategyLong(series1)
-                                    && BinanceTa4jUtils.checkStrategyLong(series2)) {
-
-                                if (BEEP) {
-                                    Sound.tone(15000, 100);
+                                    if (BEEP) {
+                                        Sound.tone(15000, 100);
+                                    }
+                                    addTrade(symbol, "LONG");
                                 }
-                                addTrade(symbol, "LONG");
                             }
                         }
                     }
-                }
-                    if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
-                        //	Decimal currentPrice = series.getLastBar().getClosePrice();
-                        if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
-                            // We create a new thread to short trade with the symbol
+                    if (strategyShort.shouldEnter(endIndex) || (!strategyShort.shouldExit(endIndex))) {
+                        if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
+                            //	Decimal currentPrice = series.getLastBar().getClosePrice();
+                            if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
+                                // We create a new thread to short trade with the symbol
 
-                            TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
-                                    Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), endIndex))
-                                    , symbol, interval1.getIntervalId());
-                            TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
-                                    Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
-                                    , symbol, interval2.getIntervalId());
+                                TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
+                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), endIndex))
+                                        , symbol, interval1.getIntervalId());
+                                TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
+                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
+                                        , symbol, interval2.getIntervalId());
 
-                            out.print(" " + symbol);
-                            if (BinanceTa4jUtils.checkStrategyShort(series1)
-                                    && BinanceTa4jUtils.checkStrategyShort(series2)) {
+                                out.print(" " + symbol);
+                                if (BinanceTa4jUtils.checkStrategyShort(series1)
+                                        && BinanceTa4jUtils.checkStrategyShort(series2)) {
 
-                                if (BEEP) {
-                                    Sound.tone(15000, 100);
+                                    if (BEEP) {
+                                        Sound.tone(15000, 100);
+                                    }
+                                    addTrade(symbol, "SHORT");
                                 }
-                                addTrade(symbol, "SHORT");
                             }
                         }
                     }
 
-                if ((null != openTradesLong.get(symbol)) && (strategyLong.shouldExit(endIndex))) {
-                    ordersToBeClosed.add(symbol);
-                    Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
+                    if ((null != openTradesLong.get(symbol)) && (strategyLong.shouldExit(endIndex))) {
+                        ordersToBeClosed.add(symbol);
+                        Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
 
-                } else if ((null != openTradesShort.get(symbol)) && (strategyShort.shouldExit(endIndex))) {
-                    ordersToBeClosed.add(symbol);
-                    Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
+                    } else if ((null != openTradesShort.get(symbol)) && (strategyShort.shouldExit(endIndex))) {
+                        ordersToBeClosed.add(symbol);
+                        Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
+                    }
+
                 }
             } catch (GeneralException e) {
                 Log.severe(CopyBot.class, "Unable to check symbol " + symbol + "Error: " + e);
@@ -634,7 +639,7 @@ public class CopyBot {
             seconds = seconds - minutes * 60;
             String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
             Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.015 ( test Edition beta. Good and Best!)    \u001B[0m");
+            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.016 ( test Edition beta. Good and Best!)    \u001B[0m");
             //		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
             Log.info(CopyBot.class, " Open trades LONG: " + openTradesLong.keySet().size() + " SHORT:" + openTradesShort.keySet().size());
             Log.info(CopyBot.class, " LONG:  " + openTradesLong.keySet());
@@ -658,11 +663,11 @@ public class CopyBot {
                 Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
 
             }
-            if ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
-                // We will not continue trading... avoid checking
-                checkStrategyOpenPosition(openTradesLong);
-                checkStrategyOpenPosition(openTradesShort);
-            }
+//            if ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
+//                // We will not continue trading... avoid checking
+//                checkStrategyOpenPosition(openTradesLong);
+//                checkStrategyOpenPosition(openTradesShort);
+//            }
 
         } catch (Exception e) {
             System.out.println(e);
