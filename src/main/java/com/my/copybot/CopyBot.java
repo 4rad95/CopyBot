@@ -658,11 +658,11 @@ public class CopyBot {
                 Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
 
             }
-            //     if ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
+            if ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) >= MAX_SIMULTANEOUS_TRADES) {
                 // We will not continue trading... avoid checking
                 checkStrategyOpenPosition(openTradesLong);
                 checkStrategyOpenPosition(openTradesShort);
-            //       }
+            }
 
         } catch (Exception e) {
             System.out.println(e);

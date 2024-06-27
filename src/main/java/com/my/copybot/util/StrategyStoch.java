@@ -49,31 +49,15 @@ public class StrategyStoch {
         Rule entryRule = (new OverIndicatorRule(sma50, sma14))
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
-//
-//        deltaK = Decimal.valueOf(102);
-//
-//        if (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue()) {
-//
-//            deltaK = Decimal.valueOf(-2);
-//            //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
-//        }
-//        Rule exitRule = (new UnderIndicatorRule(rsi, deltaK))
-//                .or(new UnderIndicatorRule(sma50, sma14));
-//        //          .or(new UnderIndicatorRule(smoothedStochRsi, stochRsiD));
-        EMAIndicator ema22 = new EMAIndicator(closePrice, 22);
-
-        boolean macdChange = emaMacd.getValue(maxIndex).doubleValue() < emaMacd.getValue(maxIndex - 1).doubleValue();
-        boolean emaTrend = (ema22.getValue(maxIndex).doubleValue() < ema22.getValue((maxIndex - 1)).doubleValue());
-
-        if (macdChange && !emaTrend) {
+        deltaK = Decimal.valueOf(102);
+        if (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue()) {
             deltaK = Decimal.valueOf(-2);
-        } else {
-            deltaK = Decimal.valueOf(102);
+            //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
+        Rule exitRule = (new OverIndicatorRule(rsi, deltaK));
+//                .or(new UnderIndicatorRule(sma50, sma14));
+        //          .or(new UnderIndicatorRule(smoothedStochRsi, stochRsiD));
 
-        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
-                .or(new UnderIndicatorRule(macd, emaMacd))
-                .or(new UnderIndicatorRule(ema22, sma50));
 
         return new BaseStrategy(entryRule, exitRule);
     }
@@ -109,31 +93,17 @@ public class StrategyStoch {
         Rule entryRule = (new UnderIndicatorRule(sma50, sma14))
                 .and(new UnderIndicatorRule(rsi, deltaK));
 
-//        deltaK = Decimal.valueOf(120);
-//        if (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue()) {
-//            deltaK = Decimal.valueOf(-100);
-//            //         System.out.println("SHORT "+series.getName()+ "   rsi = " + rsi.getValue(series.getBarCount()-1)); //+"   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
-//        }
-//
-//        Rule exitRule = (new UnderIndicatorRule(rsi, deltaK))
-//                .or(new OverIndicatorRule(sma50, sma14));
-//        //                .or(new OverIndicatorRule(smoothedStochRsi, stochRsiD));
-        EMAIndicator ema22 = new EMAIndicator(closePrice, 22);
-
-        boolean macdChange = emaMacd.getValue(maxIndex).doubleValue() > emaMacd.getValue(maxIndex - 3).doubleValue();
-        boolean emaTrend = (ema22.getValue(maxIndex).doubleValue() > ema22.getValue((maxIndex - 2)).doubleValue());
-
-
-        if (!emaTrend && macdChange) {
-
-            deltaK = Decimal.valueOf(-2);
-        } else {
-            deltaK = Decimal.valueOf(102);
+        deltaK = Decimal.valueOf(120);
+        if (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue()) {
+            deltaK = Decimal.valueOf(-20);
+            //         System.out.println("SHORT "+series.getName()+ "   rsi = " + rsi.getValue(series.getBarCount()-1)); //+"   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
 
-        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
-                .or(new OverIndicatorRule(macd, emaMacd))
-                .or(new OverIndicatorRule(ema22, sma50));
+        Rule exitRule = (new OverIndicatorRule(rsi, deltaK));
+        //             .or(new OverIndicatorRule(sma50, sma14));
+        //                .or(new OverIndicatorRule(smoothedStochRsi, stochRsiD));
+
+
         return new BaseStrategy(entryRule, exitRule);
     }
 }
