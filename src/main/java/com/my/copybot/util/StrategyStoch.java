@@ -55,8 +55,8 @@ public class StrategyStoch {
             //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
         Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
-//                .or(new UnderIndicatorRule(sma50, sma14));
-                .or(new CrossedDownIndicatorRule(smoothedStochRsi, stochRsiD));
+                .and(new UnderIndicatorRule(smoothedStochRsi, stochRsiD));
+//                .or(new CrossedDownIndicatorRule(smoothedStochRsi, stochRsiD));
 
 
         return new BaseStrategy(entryRule, exitRule);
@@ -99,8 +99,8 @@ public class StrategyStoch {
         }
 
         Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
-        //             .or(new OverIndicatorRule(sma50, sma14));
-                .or(new CrossedUpIndicatorRule(smoothedStochRsi, stochRsiD));
+                .and(new OverIndicatorRule(smoothedStochRsi, stochRsiD));
+        //    .and(new CrossedUpIndicatorRule(smoothedStochRsi, stochRsiD));
 
 
         return new BaseStrategy(entryRule, exitRule);
