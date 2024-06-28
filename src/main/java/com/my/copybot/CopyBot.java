@@ -275,7 +275,7 @@ public class CopyBot {
 
                     checkStrategy(strategyLong, strategyShort, endIndex, symbol);
 
-                    if (strategyLong.shouldEnter(endIndex) && (!strategyLong.shouldExit(endIndex))) {
+                    if (strategyLong.shouldEnter(endIndex)) {
 
                         // If we have an open trade for the symbol, we do not create a new one
                         if (DO_TRADES && openTradesLong.get(symbol) == null && (MAKE_LONG)) {
@@ -301,7 +301,7 @@ public class CopyBot {
                             }
                         }
                     }
-                    if (strategyShort.shouldEnter(endIndex) || (!strategyShort.shouldExit(endIndex))) {
+                    if (strategyShort.shouldEnter(endIndex)) {
                         if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
                             //	Decimal currentPrice = series.getLastBar().getClosePrice();
                             if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
