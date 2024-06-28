@@ -47,6 +47,7 @@ public class StrategyStoch {
 
         Rule entryRule = (new OverIndicatorRule(sma50, sma14))
                 .and(new UnderIndicatorRule(rsi, deltaK))
+                .and(new OverIndicatorRule(smoothedStochRsi, stochRsiD))
                 .and(new CrossedUpIndicatorRule(smoothedStochRsi, stochRsiD));
 
         deltaK = Decimal.valueOf(102);
@@ -90,6 +91,7 @@ public class StrategyStoch {
         }
         Rule entryRule = (new UnderIndicatorRule(sma50, sma14))
                 .and(new UnderIndicatorRule(rsi, deltaK))
+                .and(new UnderIndicatorRule(smoothedStochRsi, stochRsiD))
                 .and(new CrossedDownIndicatorRule(smoothedStochRsi, stochRsiD));
 
         deltaK = Decimal.valueOf(120);
