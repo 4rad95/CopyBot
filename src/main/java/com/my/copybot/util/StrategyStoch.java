@@ -21,15 +21,15 @@ public class StrategyStoch {
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
 
-        EMAIndicator sma14 = new EMAIndicator(closePrice, 100);
-        EMAIndicator sma50 = new EMAIndicator(closePrice, 50);
+        EMAIndicator ema100 = new EMAIndicator(closePrice, 100);
+        EMAIndicator ema50 = new EMAIndicator(closePrice, 50);
         MACDIndicator macd = new MACDIndicator(closePrice, 19, 39);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
-        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3); // 3-периодное SMA
+        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 7);
+        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 7); // 3-периодное SMA
 
         int maxIndex = series.getEndIndex();
 
@@ -45,19 +45,19 @@ public class StrategyStoch {
 
         }
 
-        Rule entryRule = (new OverIndicatorRule(sma50, sma14))
-                .and(new UnderIndicatorRule(rsi, deltaK))
+        Rule entryRule = ((new OverIndicatorRule(ema50, ema100))
+                .and(new OverIndicatorRule(rsi, deltaK))
                 .and(new OverIndicatorRule(smoothedStochRsi, stochRsiD))
-                .and(new UnderIndicatorRule(smoothedStochRsi, Decimal.valueOf(0.25)))
-                .and(new CrossedUpIndicatorRule(smoothedStochRsi, stochRsiD));
+                //               .and(new UnderIndicatorRule(smoothedStochRsi, Decimal.valueOf(0.25)))
+                .and(new CrossedUpIndicatorRule(smoothedStochRsi, stochRsiD)));
 
         deltaK = Decimal.valueOf(102);
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 3).multipliedBy(100).intValue()) {
             deltaK = Decimal.valueOf(-2);
             //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
-        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
-                .and(new UnderIndicatorRule(smoothedStochRsi, stochRsiD));
+        Rule exitRule = ((new OverIndicatorRule(rsi, deltaK))
+                .and(new UnderIndicatorRule(smoothedStochRsi, stochRsiD)));
 //                .or(new CrossedDownIndicatorRule(smoothedStochRsi, stochRsiD));
 
 
@@ -77,8 +77,8 @@ public class StrategyStoch {
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
-        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 7);
+        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 7);
 
         int maxIndex = series.getEndIndex();
         Decimal deltaK = Decimal.valueOf(-2);
@@ -90,20 +90,20 @@ public class StrategyStoch {
             deltaK = Decimal.valueOf(102);
             //         System.out.println("SHORT " +series.getName() + "   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
-        Rule entryRule = (new UnderIndicatorRule(sma50, sma14))
-                .and(new UnderIndicatorRule(rsi, deltaK))
+        Rule entryRule = ((new UnderIndicatorRule(sma50, sma14))
+                .and(new OverIndicatorRule(rsi, deltaK))
                 .and(new UnderIndicatorRule(smoothedStochRsi, stochRsiD))
-                .and(new OverIndicatorRule(smoothedStochRsi, Decimal.valueOf(0.75)))
-                .and(new CrossedDownIndicatorRule(smoothedStochRsi, stochRsiD));
+//                .and(new OverIndicatorRule(smoothedStochRsi, Decimal.valueOf(0.75)))
+                .and(new CrossedDownIndicatorRule(smoothedStochRsi, stochRsiD)));
 
         deltaK = Decimal.valueOf(120);
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()) {
             deltaK = Decimal.valueOf(-20);
-            //         System.out.println("SHORT "+series.getName()+ "   rsi = " + rsi.getValue(series.getBarCount()-1)); //+"   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
+            //     System.out.println("SHORT "+series.getName()+ "   rsi = " + rsi.getValue(series.getBarCount()-1)); //+"   StochRSI %K at index : " + smoothedStochRsi.getValue(series.getBarCount()-1).multipliedBy(100) + "   StochRSI %D at index : " + stochRsiD.getValue(series.getBarCount()-1).multipliedBy(100));
         }
 
-        Rule exitRule = (new OverIndicatorRule(rsi, deltaK))
-                .and(new OverIndicatorRule(smoothedStochRsi, stochRsiD));
+        Rule exitRule = ((new OverIndicatorRule(rsi, deltaK))
+                .and(new OverIndicatorRule(smoothedStochRsi, stochRsiD)));
         //    .and(new CrossedUpIndicatorRule(smoothedStochRsi, stochRsiD));
 
 

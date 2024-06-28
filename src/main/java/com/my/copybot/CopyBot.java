@@ -289,7 +289,7 @@ public class CopyBot {
                                 TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
                                         Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
                                         , symbol, interval2.getIntervalId());
-                                out.print(" " + symbol);
+                                out.println("Long  " + symbol);
                                 if (BinanceTa4jUtils.checkStrategyLong(series1)
                                         && BinanceTa4jUtils.checkStrategyLong(series2)) {
 
