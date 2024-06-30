@@ -315,7 +315,7 @@ public class CopyBot {
                                         Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
                                         , symbol, interval2.getIntervalId());
 
-                                out.print(" " + symbol);
+                                out.println("Short: " + symbol);
                                 if (BinanceTa4jUtils.checkStrategyShort(series1)
                                         && BinanceTa4jUtils.checkStrategyShort(series2)) {
 
