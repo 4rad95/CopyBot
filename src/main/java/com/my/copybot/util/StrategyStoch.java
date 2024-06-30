@@ -130,6 +130,7 @@ public class StrategyStoch {
         Decimal deltaK = Decimal.valueOf(-2);
 
         if ((stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue())
+                && (sma50.getValue(maxIndex).doubleValue() < sma14.getValue(maxIndex).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 75)) {
@@ -198,6 +199,7 @@ public class StrategyStoch {
 
 
         return (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue())
+                && (ema50.getValue(maxIndex).doubleValue() > ema100.getValue(maxIndex).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
                 && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 25;
