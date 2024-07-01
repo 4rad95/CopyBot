@@ -133,6 +133,7 @@ public class StrategyStoch {
                 && (sma50.getValue(maxIndex).doubleValue() < sma14.getValue(maxIndex).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
+                && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 75);
 
     }
@@ -179,6 +180,7 @@ public class StrategyStoch {
                 && (ema50.getValue(maxIndex).doubleValue() > ema100.getValue(maxIndex).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
+                && (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
                 && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 25;
 
     }
@@ -196,7 +198,7 @@ public class StrategyStoch {
 
         int maxIndex = series.getEndIndex();
 
-        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue();
+        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue();
     }
 
 }
