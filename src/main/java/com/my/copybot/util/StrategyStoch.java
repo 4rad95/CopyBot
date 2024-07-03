@@ -153,7 +153,7 @@ public class StrategyStoch {
         int maxIndex = series.getEndIndex();
 
 
-        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue();
+        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue();
     }
 
     public static Boolean openStochStrategyLong(TimeSeries series) {
@@ -198,7 +198,7 @@ public class StrategyStoch {
 
         int maxIndex = series.getEndIndex();
 
-        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue();
+        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue();
     }
 
 }
