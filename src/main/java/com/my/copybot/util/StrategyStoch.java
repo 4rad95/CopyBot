@@ -123,8 +123,8 @@ public class StrategyStoch {
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 7);
-        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 7);
+        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 
         int maxIndex = series.getEndIndex();
         Decimal deltaK = Decimal.valueOf(-2);
@@ -147,8 +147,8 @@ public class StrategyStoch {
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 7);
-        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 7);
+        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 
         int maxIndex = series.getEndIndex();
 
@@ -170,8 +170,8 @@ public class StrategyStoch {
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 7);
-        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 7); // 3-периодное SMA
+        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3); // 3-периодное SMA
 
         int maxIndex = series.getEndIndex();
 
@@ -193,8 +193,8 @@ public class StrategyStoch {
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 7);
-        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 7); // 3-периодное SMA
+        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3); // 3-периодное SMA
 
         int maxIndex = series.getEndIndex();
 
