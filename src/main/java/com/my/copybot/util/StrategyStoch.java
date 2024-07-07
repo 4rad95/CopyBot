@@ -115,8 +115,8 @@ public class StrategyStoch {
             throw new IllegalArgumentException("Series cannot be null");
         }
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-        EMAIndicator sma14 = new EMAIndicator(closePrice, 100);
-        EMAIndicator sma50 = new EMAIndicator(closePrice, 50);
+        EMAIndicator sma14 = new EMAIndicator(closePrice, 22);
+        EMAIndicator sma50 = new EMAIndicator(closePrice, 10);
 
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
@@ -133,8 +133,8 @@ public class StrategyStoch {
                 && (sma50.getValue(maxIndex).doubleValue() < sma14.getValue(maxIndex).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
-                && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
-                && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 75);
+                && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue());
+        //   && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 75);
 
     }
 
@@ -163,8 +163,8 @@ public class StrategyStoch {
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
 
-        EMAIndicator ema100 = new EMAIndicator(closePrice, 100);
-        EMAIndicator ema50 = new EMAIndicator(closePrice, 50);
+        EMAIndicator ema100 = new EMAIndicator(closePrice, 22);
+        EMAIndicator ema50 = new EMAIndicator(closePrice, 10);
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
         EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 
@@ -180,8 +180,8 @@ public class StrategyStoch {
                 && (ema50.getValue(maxIndex).doubleValue() > ema100.getValue(maxIndex).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
-                && (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
-                && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 25;
+                && (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue());
+        //&& smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 25;
 
     }
 
