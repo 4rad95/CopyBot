@@ -153,8 +153,8 @@ public class StrategyStoch {
         int maxIndex = series.getEndIndex();
 
 
-        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
-                //    || smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue()
+        return //smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
+                smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
                 //  || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue();
                 ;
     }
@@ -201,8 +201,8 @@ public class StrategyStoch {
 
         int maxIndex = series.getEndIndex();
 
-        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
-                //          || smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue()
+        return // smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
+                smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
                 //     || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
                 ;
     }
