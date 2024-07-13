@@ -158,15 +158,13 @@ public class StrategyStoch {
         return //smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
                 // smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
                 //  || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue();
-                (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 2).doubleValue())
-                ;
+                (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue());
     }
 
     public static Boolean openStochStrategyLong(TimeSeries series) {
         if (series == null) {
             throw new IllegalArgumentException("Series cannot be null");
         }
-
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
 
         EMAIndicator ema100 = new EMAIndicator(closePrice, 22);
@@ -210,8 +208,7 @@ public class StrategyStoch {
         return  //smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
                 // smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
                 //     || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
-                (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 2).doubleValue())
-                ;
+                (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue());
     }
 
 }
