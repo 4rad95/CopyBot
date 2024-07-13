@@ -131,10 +131,12 @@ public class StrategyStoch {
 
         return (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue())
                 && (sma50.getValue(maxIndex).doubleValue() < sma14.getValue(maxIndex).doubleValue())
+                && (stochRsiD.getValue(maxIndex - 1).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
-                && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue());
-        //   && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 75);
+                && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
+                && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())  ///
+                && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 75);
 
     }
 
@@ -149,13 +151,15 @@ public class StrategyStoch {
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
         SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
         SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
 
         int maxIndex = series.getEndIndex();
 
 
         return //smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
-                smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
+                // smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
                 //  || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue();
+                (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 2).doubleValue())
                 ;
     }
 
@@ -181,10 +185,12 @@ public class StrategyStoch {
 
         return (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue())
                 && (ema50.getValue(maxIndex).doubleValue() > ema100.getValue(maxIndex).doubleValue())
+                && (stochRsiD.getValue(maxIndex - 1).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
-                && (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue());
-        //&& smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 25;
+                && (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
+                && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
+                && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 25;
 
     }
 
@@ -198,12 +204,14 @@ public class StrategyStoch {
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
         SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
         SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3); // 3-периодное SMA
+        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
 
         int maxIndex = series.getEndIndex();
 
-        return // smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
-                smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
+        return  //smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
+                // smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
                 //     || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
+                (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 2).doubleValue())
                 ;
     }
 
