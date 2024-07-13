@@ -155,10 +155,11 @@ public class StrategyStoch {
         int maxIndex = series.getEndIndex();
 
 
-        return //smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
-                // smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
+        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
+                || smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
                 //  || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue();
-                (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue());
+                // (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
+                ;
     }
 
     public static Boolean openStochStrategyLong(TimeSeries series) {
@@ -205,10 +206,11 @@ public class StrategyStoch {
 
         int maxIndex = series.getEndIndex();
 
-        return  //smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
-                // smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
+        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
+                || smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
                 //     || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
-                (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue());
+//                (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
+                ;
     }
 
 }
