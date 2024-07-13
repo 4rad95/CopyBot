@@ -137,7 +137,6 @@ public class StrategyStoch {
                 && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
                 && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())  ///
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 75);
-
     }
 
     public static Boolean closeStochStrategyShort(TimeSeries series) {
