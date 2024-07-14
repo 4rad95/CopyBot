@@ -136,7 +136,7 @@ public class StrategyStoch {
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
                 && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
                 && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())  ///
-                && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 75);
+                && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 50);
     }
 
     public static Boolean closeStochStrategyShort(TimeSeries series) {
@@ -193,7 +193,7 @@ public class StrategyStoch {
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
                 && (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
                 && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
-                && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 25;
+                && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 50;
     }
 
     public static Boolean closeStochStrategyLong(TimeSeries series) {
