@@ -135,7 +135,7 @@ public class StrategyStoch {
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
                 && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
-                && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())  ///
+                && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())  ///
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 50);
     }
 
@@ -192,7 +192,7 @@ public class StrategyStoch {
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
                 && (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
-                && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
+                && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
                 && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 50;
     }
 
@@ -218,7 +218,7 @@ public class StrategyStoch {
 
         return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
                 || smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
-                //     || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
+                || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
 //                (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
                 ;
     }
