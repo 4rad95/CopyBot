@@ -155,10 +155,10 @@ public class StrategyStoch {
         int maxIndex = series.getEndIndex();
 
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue())
-            System.out.println(STR."Exit SHORT: K[last] > K[last-2] : \{smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue()} > \{smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()}");
+            System.out.println("Exit SHORT " + series.getName() + " : K[last] > K[last-2] : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " > " + smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue());
 
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue())
-            System.out.println(STR."Exit SHORT: K > D :  \{smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue()} > \{stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()}");
+            System.out.println("Exit SHORT " + series.getName() + " : K > D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " > " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
 
         return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() - smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue() > 7
                 || (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
@@ -211,10 +211,10 @@ public class StrategyStoch {
         int maxIndex = series.getEndIndex();
 
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue())
-            System.out.println(STR."Exit LONG K[last] < K[last-2] : \{smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue()} < \{smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()}");
+            System.out.println("Exit LONG " + series.getName() + " K[last] < K[last-2] : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " < " + smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue());
 
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue())
-            System.out.println("Exit LONG K < D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " < " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
+            System.out.println("Exit LONG " + series.getName() + " K < D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " < " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
 
         return smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() - smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > 7
                 || (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
