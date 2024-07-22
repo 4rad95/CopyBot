@@ -198,8 +198,6 @@ public class CopyBot {
                     ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_SECRET));
 
 
-//			client = BinanceUtils.getRestClient();
-//			liveClient = BinanceUtils.getWebSocketClient();
             startBalance = printBalance();
             Runnable InputString = new InputString();
             Thread thread = new Thread(InputString);

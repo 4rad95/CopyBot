@@ -129,14 +129,14 @@ public class StrategyStoch {
         int maxIndex = series.getEndIndex();
         Decimal deltaK = Decimal.valueOf(-2);
 
-        return (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue())
+        return (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() - smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > 3)
                 && (sma50.getValue(maxIndex).doubleValue() < sma14.getValue(maxIndex).doubleValue())
                 && (stochRsiD.getValue(maxIndex - 1).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
                 && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
                 && (macd.getValue(maxIndex - 2).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())  ///
-                && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 50);
+                && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 40);
     }
 
     public static Boolean closeStochStrategyShort(TimeSeries series) {
@@ -160,10 +160,9 @@ public class StrategyStoch {
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue())
             System.out.println(STR."Exit SHORT: K > D :  \{smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue()} > \{stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()}");
 
-        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
-                && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
-                //  || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue();
-                && (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
+        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() - smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue() > 7
+                || (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
+                && (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue()))
                 ;
     }
 
@@ -186,14 +185,15 @@ public class StrategyStoch {
         int maxIndex = series.getEndIndex();
 
 
-        return (stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue())
+        return (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() - stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() > 3)
+
                 && (ema50.getValue(maxIndex).doubleValue() > ema100.getValue(maxIndex).doubleValue())
                 && (stochRsiD.getValue(maxIndex - 1).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex - 2).multipliedBy(100).intValue())
                 && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
                 && (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue())
                 && (macd.getValue(maxIndex - 2).doubleValue() < macd.getValue(maxIndex - 1).doubleValue())
-                && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 50;
+                && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 60;
     }
 
     public static Boolean closeStochStrategyLong(TimeSeries series) {
@@ -216,10 +216,9 @@ public class StrategyStoch {
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue())
             System.out.println("Exit LONG K < D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " < " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
 
-        return smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue()
-                && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
-//                || stochRsiD.getValue(maxIndex - 1).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
-                && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 2).doubleValue())
+        return smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() - smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > 7
+                || (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue()
+                && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 2).doubleValue()))
                 ;
     }
 
