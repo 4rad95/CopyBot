@@ -198,8 +198,6 @@ public class CopyBot {
                     ConfigUtils.readPropertyValue(ConfigUtils.CONFIG_BINANCE_API_SECRET));
 
 
-//			client = BinanceUtils.getRestClient();
-//			liveClient = BinanceUtils.getWebSocketClient();
             startBalance = printBalance();
             Runnable InputString = new InputString();
             Thread thread = new Thread(InputString);
@@ -270,17 +268,17 @@ public class CopyBot {
 
                 if ((openTradesLong.get(symbol) != null) || (openTradesShort.get(symbol) != null) ||
                         ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
-                    Strategy strategyLong = buildStrategyLong(series, TRADING_STRATEGY);
-                    Strategy strategyShort = buildStrategyShort(series, TRADING_STRATEGY);
+//                    Strategy strategyLong = buildStrategyLong(series, TRADING_STRATEGY);
+//                    Strategy strategyShort = buildStrategyShort(series, TRADING_STRATEGY);
+//
+//                    checkStrategy(strategyLong, strategyShort, endIndex, symbol);
+//
 
-                    checkStrategy(strategyLong, strategyShort, endIndex, symbol);
-
-                    if (strategyLong.shouldEnter(endIndex)) {
 
                         // If we have an open trade for the symbol, we do not create a new one
                         if (DO_TRADES && openTradesLong.get(symbol) == null && (MAKE_LONG)) {
                             //Decimal currentPrice = series.getLastBar().getClosePrice();
-
+                            if (StrategyStoch.openStochStrategyLong(series)) {
                             if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
 
                                 TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
@@ -301,9 +299,10 @@ public class CopyBot {
                             }
                         }
                     }
-                    if (strategyShort.shouldEnter(endIndex)) {
+
                         if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
-                            //	Decimal currentPrice = series.getLastBar().getClosePrice();
+                            if (StrategyStoch.openStochStrategyShort(series)) {
+                                //	Decimal currentPrice = series.getLastBar().getClosePrice();
                             if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
                                 // We create a new thread to short trade with the symbol
 
@@ -314,7 +313,7 @@ public class CopyBot {
                                         Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
                                         , symbol, interval2.getIntervalId());
 
-                                out.print(" " + symbol);
+                                out.println("Short: " + symbol);
                                 if (BinanceTa4jUtils.checkStrategyShort(series1)
                                         && BinanceTa4jUtils.checkStrategyShort(series2)) {
 
@@ -327,11 +326,11 @@ public class CopyBot {
                         }
                     }
 
-                    if ((null != openTradesLong.get(symbol)) && (strategyLong.shouldExit(endIndex))) {
+                    if ((null != openTradesLong.get(symbol)) && (StrategyStoch.closeStochStrategyLong(series))) {
                         ordersToBeClosed.add(symbol);
                         Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
 
-                    } else if ((null != openTradesShort.get(symbol)) && (strategyShort.shouldExit(endIndex))) {
+                    } else if ((null != openTradesShort.get(symbol)) && (StrategyStoch.closeStochStrategyShort(series))) {
                         ordersToBeClosed.add(symbol);
                         Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
                     }

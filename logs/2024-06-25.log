@@ -1,0 +1,2226 @@
+2024-06-25 00:14:13 [INFO] - Initializing Binance bot
+2024-06-25 00:14:13 [INFO] - === Detected config file path (VM argument, optional): null ===
+2024-06-25 00:14:13 [INFO] - Setting add1 candlestick interval to: 15m
+2024-06-25 00:14:13 [INFO] - Setting candlestick interval to: 1h
+2024-06-25 00:14:13 [INFO] - Setting add2 candlestick interval to: 12h
+2024-06-25 00:14:16 [INFO] - Generating time series for BADGERUSDT
+2024-06-25 00:14:18 [INFO] - Generating time series for MDTUSDT
+2024-06-25 00:14:18 [INFO] - Generating time series for SNXUSDT
+2024-06-25 00:14:20 [INFO] - Generating time series for YGGUSDT
+2024-06-25 00:14:20 [INFO] - Generating time series for ENAUSDT
+2024-06-25 00:14:21 [INFO] - Generating time series for STRAXUSDT
+2024-06-25 00:14:22 [INFO] - Generating time series for BELUSDT
+2024-06-25 00:14:23 [INFO] - Generating time series for DYDXUSDT
+2024-06-25 00:14:23 [INFO] - Generating time series for JTOUSDT
+2024-06-25 00:14:25 [INFO] - Generating time series for STMXUSDT
+2024-06-25 00:14:25 [INFO] - Generating time series for LISTAUSDT
+2024-06-25 00:14:26 [INFO] - Generating time series for COMBOUSDT
+2024-06-25 00:14:28 [INFO] - Generating time series for BEAMXUSDT
+2024-06-25 00:14:28 [INFO] - Generating time series for OXTUSDT
+2024-06-25 00:14:29 [INFO] - Generating time series for SOLUSDT
+2024-06-25 00:14:31 [INFO] - Generating time series for HIFIUSDT
+2024-06-25 00:14:32 [INFO] - Generating time series for SUPERUSDT
+2024-06-25 00:14:33 [INFO] - Generating time series for 1000LUNCUSDT
+2024-06-25 00:14:35 [INFO] - Generating time series for RONINUSDT
+2024-06-25 00:14:35 [INFO] - Generating time series for ENSUSDT
+2024-06-25 00:14:36 [INFO] - Generating time series for AGLDUSDT
+2024-06-25 00:14:38 [INFO] - Generating time series for 1000SATSUSDT
+2024-06-25 00:14:38 [INFO] - Generating time series for DARUSDT
+2024-06-25 00:14:39 [INFO] - Generating time series for FRONTUSDT
+2024-06-25 00:14:39 [INFO] - Generating time series for NTRNUSDT
+2024-06-25 00:14:40 [INFO] - Generating time series for MOVRUSDT
+2024-06-25 00:14:40 [INFO] - Generating time series for ICPUSDT
+2024-06-25 00:14:40 [INFO] - Generating time series for LITUSDT
+2024-06-25 00:14:41 [INFO] - Generating time series for POLYXUSDT
+2024-06-25 00:14:41 [INFO] - Generating time series for BLZUSDT
+2024-06-25 00:14:41 [INFO] - Generating time series for DENTUSDT
+2024-06-25 00:14:42 [INFO] - Generating time series for MINAUSDT
+2024-06-25 00:14:42 [INFO] - Generating time series for ZECUSDT
+2024-06-25 00:14:42 [INFO] - Generating time series for BSVUSDT
+2024-06-25 00:14:42 [INFO] - Generating time series for STXUSDT
+2024-06-25 00:14:43 [INFO] - Generating time series for 1000RATSUSDT
+2024-06-25 00:14:43 [INFO] - Generating time series for CHRUSDT
+2024-06-25 00:14:43 [INFO] - Generating time series for CRVUSDT
+2024-06-25 00:14:44 [INFO] - Generating time series for CELRUSDT
+2024-06-25 00:14:44 [INFO] - Generating time series for BANDUSDT
+2024-06-25 00:14:44 [INFO] - Generating time series for OMNIUSDT
+2024-06-25 00:14:45 [INFO] - Generating time series for MANTAUSDT
+2024-06-25 00:14:45 [INFO] - Generating time series for SPELLUSDT
+2024-06-25 00:14:45 [INFO] - Generating time series for DASHUSDT
+2024-06-25 00:14:46 [INFO] - Generating time series for DYMUSDT
+2024-06-25 00:14:46 [INFO] - Generating time series for ALPHAUSDT
+2024-06-25 00:14:46 [INFO] - Generating time series for GRTUSDT
+2024-06-25 00:14:47 [INFO] - Generating time series for LEVERUSDT
+2024-06-25 00:14:47 [INFO] - Generating time series for CYBERUSDT
+2024-06-25 00:14:47 [INFO] - Generating time series for XVSUSDT
+2024-06-25 00:14:47 [INFO] - Generating time series for ENJUSDT
+2024-06-25 00:14:48 [INFO] - Generating time series for COCOSUSDT
+2024-06-25 00:14:48 [INFO] - Generating time series for BALUSDT
+2024-06-25 00:14:48 [INFO] - Generating time series for ARBUSDT
+2024-06-25 00:14:49 [INFO] - Generating time series for PIXELUSDT
+2024-06-25 00:14:49 [INFO] - Generating time series for VANRYUSDT
+2024-06-25 00:14:49 [INFO] - Generating time series for STORJUSDT
+2024-06-25 00:14:50 [INFO] - Generating time series for TOKENUSDT
+2024-06-25 00:14:50 [INFO] - Generating time series for ZROUSDT
+2024-06-25 00:14:50 [INFO] - Generating time series for TURBOUSDT
+2024-06-25 00:14:51 [INFO] - Generating time series for STPTUSDT
+2024-06-25 00:14:51 [INFO] - Generating time series for ARPAUSDT
+2024-06-25 00:14:51 [INFO] - Generating time series for CTSIUSDT
+2024-06-25 00:14:51 [INFO] - Generating time series for JASMYUSDT
+2024-06-25 00:14:52 [INFO] - Generating time series for FTMUSDT
+2024-06-25 00:14:52 [INFO] - Generating time series for QNTUSDT
+2024-06-25 00:14:52 [INFO] - Generating time series for 1000SHIBUSDT
+2024-06-25 00:14:53 [INFO] - Generating time series for BTCSTUSDT
+2024-06-25 00:14:53 [INFO] - Generating time series for NEARUSDT
+2024-06-25 00:14:53 [INFO] - Generating time series for ANTUSDT
+2024-06-25 00:14:54 [INFO] - Generating time series for KASUSDT
+2024-06-25 00:15:49 [INFO] - Initializing Binance bot
+2024-06-25 00:15:49 [INFO] - === Detected config file path (VM argument, optional): null ===
+2024-06-25 00:15:49 [INFO] - Setting add1 candlestick interval to: 15m
+2024-06-25 00:15:49 [INFO] - Setting candlestick interval to: 1h
+2024-06-25 00:15:49 [INFO] - Setting add2 candlestick interval to: 12h
+2024-06-25 00:15:52 [INFO] - Generating time series for ORDIUSDT
+2024-06-25 00:15:52 [INFO] - Generating time series for RADUSDT
+2024-06-25 00:15:53 [INFO] - Generating time series for LITUSDT
+2024-06-25 00:15:53 [INFO] - Generating time series for LISTAUSDT
+2024-06-25 00:15:54 [INFO] - Generating time series for ALGOUSDT
+2024-06-25 00:15:55 [INFO] - Generating time series for THETAUSDT
+2024-06-25 00:15:56 [INFO] - Generating time series for BNXUSDT
+2024-06-25 00:15:56 [INFO] - Generating time series for KASUSDT
+2024-06-25 00:15:57 [INFO] - Generating time series for BTCUSDT
+2024-06-25 00:15:58 [INFO] - Generating time series for PEOPLEUSDT
+2024-06-25 00:15:59 [INFO] - Generating time series for XLMUSDT
+2024-06-25 00:16:00 [INFO] - Generating time series for LQTYUSDT
+2024-06-25 00:16:02 [INFO] - Generating time series for RVNUSDT
+2024-06-25 00:16:03 [INFO] - Generating time series for BNBUSDT
+2024-06-25 00:16:05 [INFO] - Generating time series for C98USDT
+2024-06-25 00:16:06 [INFO] - Generating time series for STRKUSDT
+2024-06-25 00:16:07 [INFO] - Generating time series for AXLUSDT
+2024-06-25 00:16:07 [INFO] - Generating time series for ACHUSDT
+2024-06-25 00:16:08 [INFO] - Generating time series for BLUEBIRDUSDT
+2024-06-25 00:16:10 [INFO] - Generating time series for QNTUSDT
+2024-06-25 00:16:10 [INFO] - Generating time series for ETHUSDT_240628
+2024-06-25 00:16:12 [INFO] - Generating time series for OPUSDT
+2024-06-25 00:16:13 [INFO] - Generating time series for CELRUSDT
+2024-06-25 00:16:13 [INFO] - Generating time series for MANAUSDT
+2024-06-25 00:16:14 [INFO] - Generating time series for ONTUSDT
+2024-06-25 00:16:14 [INFO] - Generating time series for ONEUSDT
+2024-06-25 00:16:14 [INFO] - Generating time series for EOSUSDT
+2024-06-25 00:16:14 [INFO] - Generating time series for FRONTUSDT
+2024-06-25 00:16:15 [INFO] - Generating time series for SANDUSDT
+2024-06-25 00:16:15 [INFO] - Generating time series for BEAMXUSDT
+2024-06-25 00:16:15 [INFO] - Generating time series for CYBERUSDT
+2024-06-25 00:16:16 [INFO] - Generating time series for BELUSDT
+2024-06-25 00:16:16 [INFO] - Generating time series for DARUSDT
+2024-06-25 00:16:16 [INFO] - Generating time series for BICOUSDT
+2024-06-25 00:16:17 [INFO] - Generating time series for SUSHIUSDT
+2024-06-25 00:16:17 [INFO] - Generating time series for COCOSUSDT
+2024-06-25 00:16:17 [INFO] - Generating time series for 1000BONKUSDT
+2024-06-25 00:16:18 [INFO] - Generating time series for BCHUSDT
+2024-06-25 00:16:18 [INFO] - Generating time series for ICXUSDT
+2024-06-25 00:16:18 [INFO] - Generating time series for RONINUSDT
+2024-06-25 00:16:18 [INFO] - Generating time series for YGGUSDT
+2024-06-25 00:16:19 [INFO] - Generating time series for PIXELUSDT
+2024-06-25 00:16:19 [INFO] - Generating time series for BLZUSDT
+2024-06-25 00:16:19 [INFO] - Generating time series for HBARUSDT
+2024-06-25 00:16:20 [INFO] - Generating time series for COMBOUSDT
+2024-06-25 00:16:20 [INFO] - Generating time series for TAOUSDT
+2024-06-25 00:16:20 [INFO] - Generating time series for DGBUSDT
+2024-06-25 00:16:21 [INFO] - Generating time series for MINAUSDT
+2024-06-25 00:16:21 [INFO] - Generating time series for KEYUSDT
+2024-06-25 00:16:21 [INFO] - Generating time series for RAYUSDT
+2024-06-25 00:16:22 [INFO] - Generating time series for TRXUSDT
+2024-06-25 00:16:22 [INFO] - Generating time series for PERPUSDT
+2024-06-25 00:16:22 [INFO] - Generating time series for SSVUSDT
+2024-06-25 00:16:23 [INFO] - Generating time series for NTRNUSDT
+2024-06-25 00:16:23 [INFO] - Generating time series for WLDUSDT
+2024-06-25 00:16:23 [INFO] - Generating time series for JOEUSDT
+2024-06-25 00:16:24 [INFO] - Generating time series for AGLDUSDT
+2024-06-25 00:16:24 [INFO] - Generating time series for LINAUSDT
+2024-06-25 00:16:24 [INFO] - Generating time series for USTCUSDT
+2024-06-25 00:16:24 [INFO] - Generating time series for ICPUSDT
+2024-06-25 00:16:25 [INFO] - Generating time series for PHBUSDT
+2024-06-25 00:16:25 [INFO] - Generating time series for VETUSDT
+2024-06-25 00:16:25 [INFO] - Generating time series for EDUUSDT
+2024-06-25 00:16:26 [INFO] - Generating time series for TONUSDT
+2024-06-25 00:16:26 [INFO] - Generating time series for CTKUSDT
+2024-06-25 00:16:26 [INFO] - Generating time series for COTIUSDT
+2024-06-25 00:16:27 [INFO] - Generating time series for TLMUSDT
+2024-06-25 00:16:27 [INFO] - Generating time series for VANRYUSDT
+2024-06-25 00:16:27 [INFO] - Generating time series for TIAUSDT
+2024-06-25 00:16:29 [INFO] - Generating time series for BALUSDT
+2024-06-25 00:16:29 [INFO] - Generating time series for ETHUSDT
+2024-06-25 00:16:29 [INFO] - Generating time series for ENAUSDT
+2024-06-25 00:16:29 [INFO] - Generating time series for XVSUSDT
+2024-06-25 00:16:30 [INFO] - Generating time series for SEIUSDT
+2024-06-25 00:16:30 [INFO] - Generating time series for XEMUSDT
+2024-06-25 00:16:30 [INFO] - Generating time series for RNDRUSDT
+2024-06-25 00:16:31 [INFO] - Generating time series for AGIXUSDT
+2024-06-25 00:16:31 [INFO] - Generating time series for ETHFIUSDT
+2024-06-25 00:16:31 [INFO] - Generating time series for TUSDT
+2024-06-25 00:16:32 [INFO] - Generating time series for LPTUSDT
+2024-06-25 00:16:32 [INFO] - Generating time series for IOTAUSDT
+2024-06-25 00:16:32 [INFO] - Generating time series for STEEMUSDT
+2024-06-25 00:16:33 [INFO] - Generating time series for PORTALUSDT
+2024-06-25 00:16:33 [INFO] - Generating time series for XAIUSDT
+2024-06-25 00:16:33 [INFO] - Generating time series for OCEANUSDT
+2024-06-25 00:16:33 [INFO] - Generating time series for OMNIUSDT
+2024-06-25 00:16:34 [INFO] - Generating time series for ALTUSDT
+2024-06-25 00:16:34 [INFO] - Generating time series for MTLUSDT
+2024-06-25 00:16:34 [INFO] - Generating time series for RUNEUSDT
+2024-06-25 00:16:35 [INFO] - Generating time series for MKRUSDT
+2024-06-25 00:16:35 [INFO] - Generating time series for OXTUSDT
+2024-06-25 00:16:35 [INFO] - Generating time series for GTCUSDT
+2024-06-25 00:16:36 [INFO] - Generating time series for HIGHUSDT
+2024-06-25 00:16:36 [INFO] - Generating time series for MDTUSDT
+2024-06-25 00:16:36 [INFO] - Generating time series for ALICEUSDT
+2024-06-25 00:16:36 [INFO] - Generating time series for TWTUSDT
+2024-06-25 00:16:37 [INFO] - Generating time series for CAKEUSDT
+2024-06-25 00:16:37 [INFO] - Generating time series for RDNTUSDT
+2024-06-25 00:16:37 [INFO] - Generating time series for TURBOUSDT
+2024-06-25 00:16:38 [INFO] - Generating time series for KLAYUSDT
+2024-06-25 00:16:38 [INFO] - Generating time series for ZRXUSDT
+2024-06-25 00:16:38 [INFO] - Generating time series for STRAXUSDT
+2024-06-25 00:16:39 [INFO] - Generating time series for ZILUSDT
+2024-06-25 00:16:39 [INFO] - Generating time series for LDOUSDT
+2024-06-25 00:16:39 [INFO] - Generating time series for LTCUSDT
+2024-06-25 00:16:40 [INFO] - Generating time series for MASKUSDT
+2024-06-25 00:16:40 [INFO] - Generating time series for ETCUSDT
+2024-06-25 00:16:40 [INFO] - Generating time series for MOVRUSDT
+2024-06-25 00:16:40 [INFO] - Generating time series for CFXUSDT
+2024-06-25 00:16:41 [INFO] - Generating time series for BTCSTUSDT
+2024-06-25 00:16:41 [INFO] - Generating time series for ENSUSDT
+2024-06-25 00:16:41 [INFO] - Generating time series for FLOWUSDT
+2024-06-25 00:16:42 [INFO] - Generating time series for AVAXUSDT
+2024-06-25 00:16:42 [INFO] - Generating time series for MBLUSDT
+2024-06-25 00:16:42 [INFO] - Generating time series for LSKUSDT
+2024-06-25 00:16:43 [INFO] - Generating time series for OGNUSDT
+2024-06-25 00:16:43 [INFO] - Generating time series for ATOMUSDT
+2024-06-25 00:16:43 [INFO] - Generating time series for ZECUSDT
+2024-06-25 00:16:43 [INFO] - Generating time series for ACEUSDT
+2024-06-25 00:16:44 [INFO] - Generating time series for BOMEUSDT
+2024-06-25 00:16:44 [INFO] - Generating time series for UNFIUSDT
+2024-06-25 00:16:44 [INFO] - Generating time series for AIUSDT
+2024-06-25 00:16:45 [INFO] - Generating time series for 1000PEPEUSDT
+2024-06-25 00:16:45 [INFO] - Generating time series for ANKRUSDT
+2024-06-25 00:16:45 [INFO] - Generating time series for FETUSDT
+2024-06-25 00:16:46 [INFO] - Generating time series for QTUMUSDT
+2024-06-25 00:16:46 [INFO] - Generating time series for SUPERUSDT
+2024-06-25 00:16:46 [INFO] - Generating time series for ROSEUSDT
+2024-06-25 00:16:47 [INFO] - Generating time series for 1000LUNCUSDT
+2024-06-25 00:16:47 [INFO] - Generating time series for UMAUSDT
+2024-06-25 00:16:47 [INFO] - Generating time series for ILVUSDT
+2024-06-25 00:16:47 [INFO] - Generating time series for FILUSDT
+2024-06-25 00:16:48 [INFO] - Generating time series for CVXUSDT
+2024-06-25 00:16:48 [INFO] - Generating time series for 1INCHUSDT
+2024-06-25 00:16:48 [INFO] - Generating time series for FOOTBALLUSDT
+2024-06-25 00:16:49 [INFO] - Generating time series for SPELLUSDT
+2024-06-25 00:16:49 [INFO] - Generating time series for BTSUSDT
+2024-06-25 00:16:49 [INFO] - Generating time series for FLMUSDT
+2024-06-25 00:16:50 [INFO] - Generating time series for ANTUSDT
+2024-06-25 00:16:50 [INFO] - Generating time series for BTCUSDT_240927
+2024-06-25 00:16:50 [INFO] - Generating time series for DOGEUSDT
+2024-06-25 00:16:51 [INFO] - Generating time series for 1000RATSUSDT
+2024-06-25 00:16:51 [INFO] - Generating time series for WUSDT
+2024-06-25 00:16:51 [INFO] - Generating time series for SNTUSDT
+2024-06-25 00:16:51 [INFO] - Generating time series for NEARUSDT
+2024-06-25 00:16:52 [INFO] - Generating time series for ADAUSDT
+2024-06-25 00:16:52 [INFO] - Generating time series for STPTUSDT
+2024-06-25 00:16:52 [INFO] - Generating time series for ATAUSDT
+2024-06-25 00:16:53 [INFO] - Generating time series for GALAUSDT
+2024-06-25 00:16:53 [INFO] - Generating time series for NFPUSDT
+2024-06-25 00:16:53 [INFO] - Generating time series for PENDLEUSDT
+2024-06-25 00:16:54 [INFO] - Generating time series for AXSUSDT
+2024-06-25 00:16:54 [INFO] - Generating time series for ZKUSDT
+2024-06-25 00:16:54 [INFO] - Generating time series for APEUSDT
+2024-06-25 00:16:54 [INFO] - Generating time series for WAVESUSDT
+2024-06-25 00:16:55 [INFO] - Generating time series for RIFUSDT
+2024-06-25 00:16:55 [INFO] - Generating time series for COMPUSDT
+2024-06-25 00:16:55 [INFO] - Generating time series for DASHUSDT
+2024-06-25 00:16:56 [INFO] - Generating time series for REZUSDT
+2024-06-25 00:16:56 [INFO] - Generating time series for REEFUSDT
+2024-06-25 00:16:56 [INFO] - Generating time series for NOTUSDT
+2024-06-25 00:16:57 [INFO] - Generating time series for BTCUSDT_240628
+2024-06-25 00:16:57 [INFO] - Generating time series for IOSTUSDT
+2024-06-25 00:16:57 [INFO] - Generating time series for STXUSDT
+2024-06-25 00:16:57 [INFO] - Generating time series for XVGUSDT
+2024-06-25 00:16:58 [INFO] - Generating time series for LINKUSDT
+2024-06-25 00:16:58 [INFO] - Generating time series for SUIUSDT
+2024-06-25 00:16:58 [INFO] - Generating time series for GRTUSDT
+2024-06-25 00:16:59 [INFO] - Generating time series for DEFIUSDT
+2024-06-25 00:16:59 [INFO] - Generating time series for MAVUSDT
+2024-06-25 00:16:59 [INFO] - Generating time series for BADGERUSDT
+2024-06-25 00:17:00 [INFO] - Generating time series for YFIUSDT
+2024-06-25 00:17:00 [INFO] - Generating time series for UNIUSDT
+2024-06-25 00:17:00 [INFO] - Generating time series for BTCDOMUSDT
+2024-06-25 00:17:00 [INFO] - Generating time series for BONDUSDT
+2024-06-25 00:17:01 [INFO] - Generating time series for CHRUSDT
+2024-06-25 00:17:01 [INFO] - Generating time series for JUPUSDT
+2024-06-25 00:17:01 [INFO] - Generating time series for DODOXUSDT
+2024-06-25 00:17:02 [INFO] - Generating time series for NKNUSDT
+2024-06-25 00:17:02 [INFO] - Generating time series for ZROUSDT
+2024-06-25 00:17:02 [INFO] - Generating time series for SAGAUSDT
+2024-06-25 00:17:03 [INFO] - Generating time series for IOUSDT
+2024-06-25 00:17:03 [INFO] - Generating time series for GLMRUSDT
+2024-06-25 00:17:03 [INFO] - Generating time series for SCUSDT
+2024-06-25 00:17:04 [INFO] - Generating time series for AAVEUSDT
+2024-06-25 00:17:04 [INFO] - Generating time series for 1000FLOKIUSDT
+2024-06-25 00:17:04 [INFO] - Generating time series for STMXUSDT
+2024-06-25 00:17:04 [INFO] - Generating time series for RLCUSDT
+2024-06-25 00:17:05 [INFO] - Generating time series for SRMUSDT
+2024-06-25 00:17:05 [INFO] - Generating time series for CKBUSDT
+2024-06-25 00:17:05 [INFO] - Generating time series for WAXPUSDT
+2024-06-25 00:17:06 [INFO] - Generating time series for LUNA2USDT
+2024-06-25 00:17:06 [INFO] - Generating time series for DYMUSDT
+2024-06-25 00:17:06 [INFO] - Generating time series for AUCTIONUSDT
+2024-06-25 00:17:07 [INFO] - Generating time series for SFPUSDT
+2024-06-25 00:17:07 [INFO] - Generating time series for MAGICUSDT
+2024-06-25 00:17:07 [INFO] - Generating time series for MYROUSDT
+2024-06-25 00:17:07 [INFO] - Generating time series for NEOUSDT
+2024-06-25 00:17:08 [INFO] - Generating time series for OMUSDT
+2024-06-25 00:17:08 [INFO] - Generating time series for TOKENUSDT
+2024-06-25 00:17:08 [INFO] - Generating time series for MATICUSDT
+2024-06-25 00:17:09 [INFO] - Generating time series for POLYXUSDT
+2024-06-25 00:17:09 [INFO] - Generating time series for BIGTIMEUSDT
+2024-06-25 00:17:09 [INFO] - Generating time series for KAVAUSDT
+2024-06-25 00:17:10 [INFO] - Generating time series for AEVOUSDT
+2024-06-25 00:17:10 [INFO] - Generating time series for BLURUSDT
+2024-06-25 00:17:10 [INFO] - Generating time series for MEWUSDT
+2024-06-25 00:17:10 [INFO] - Generating time series for FTMUSDT
+2024-06-25 00:17:11 [INFO] - Generating time series for LEVERUSDT
+2024-06-25 00:17:11 [INFO] - Generating time series for STGUSDT
+2024-06-25 00:17:11 [INFO] - Generating time series for ETHWUSDT
+2024-06-25 00:17:12 [INFO] - Generating time series for BANDUSDT
+2024-06-25 00:17:12 [INFO] - Generating time series for STORJUSDT
+2024-06-25 00:17:12 [INFO] - Generating time series for JASMYUSDT
+2024-06-25 00:17:13 [INFO] - Generating time series for DENTUSDT
+2024-06-25 00:17:13 [INFO] - Generating time series for XTZUSDT
+2024-06-25 00:17:13 [INFO] - Generating time series for CHZUSDT
+2024-06-25 00:17:13 [INFO] - Generating time series for SXPUSDT
+2024-06-25 00:17:14 [INFO] - Generating time series for IOTXUSDT
+2024-06-25 00:17:14 [INFO] - Generating time series for HOTUSDT
+2024-06-25 00:17:14 [INFO] - Generating time series for IDEXUSDT
+2024-06-25 00:17:15 [INFO] - Generating time series for IDUSDT
+2024-06-25 00:17:15 [INFO] - Generating time series for GMXUSDT
+2024-06-25 00:17:15 [INFO] - Generating time series for GMTUSDT
+2024-06-25 00:17:16 [INFO] - Generating time series for ONGUSDT
+2024-06-25 00:17:16 [INFO] - Generating time series for EGLDUSDT
+2024-06-25 00:17:16 [INFO] - Generating time series for ZENUSDT
+2024-06-25 00:17:16 [INFO] - Generating time series for ENJUSDT
+2024-06-25 00:17:17 [INFO] - Generating time series for POWRUSDT
+2024-06-25 00:17:17 [INFO] - Generating time series for SOLUSDT
+2024-06-25 00:17:17 [INFO] - Generating time series for HOOKUSDT
+2024-06-25 00:17:18 [INFO] - Generating time series for HFTUSDT
+2024-06-25 00:17:18 [INFO] - Generating time series for WIFUSDT
+2024-06-25 00:17:18 [INFO] - Generating time series for LOOMUSDT
+2024-06-25 00:17:19 [INFO] - Generating time series for BBUSDT
+2024-06-25 00:17:19 [INFO] - Generating time series for IMXUSDT
+2024-06-25 00:17:19 [INFO] - Generating time series for ARBUSDT
+2024-06-25 00:17:19 [INFO] - Generating time series for FXSUSDT
+2024-06-25 00:17:20 [INFO] - Generating time series for 1000SHIBUSDT
+2024-06-25 00:17:20 [INFO] - Generating time series for CTSIUSDT
+2024-06-25 00:17:20 [INFO] - Generating time series for ARUSDT
+2024-06-25 00:17:21 [INFO] - Generating time series for AMBUSDT
+2024-06-25 00:17:21 [INFO] - Generating time series for KSMUSDT
+2024-06-25 00:17:21 [INFO] - Generating time series for ALPHAUSDT
+2024-06-25 00:17:22 [INFO] - Generating time series for METISUSDT
+2024-06-25 00:17:22 [INFO] - Generating time series for DYDXUSDT
+2024-06-25 00:17:22 [INFO] - Generating time series for GALUSDT
+2024-06-25 00:17:22 [INFO] - Generating time series for API3USDT
+2024-06-25 00:17:23 [INFO] - Generating time series for GLMUSDT
+2024-06-25 00:17:23 [INFO] - Generating time series for BNTUSDT
+2024-06-25 00:17:23 [INFO] - Generating time series for BSVUSDT
+2024-06-25 00:17:24 [INFO] - Generating time series for TRUUSDT
+2024-06-25 00:17:24 [INFO] - Generating time series for MANTAUSDT
+2024-06-25 00:17:24 [INFO] - Generating time series for KNCUSDT
+2024-06-25 00:17:25 [INFO] - Generating time series for ZETAUSDT
+2024-06-25 00:17:25 [INFO] - Generating time series for JTOUSDT
+2024-06-25 00:17:25 [INFO] - Generating time series for ARKUSDT
+2024-06-25 00:17:25 [INFO] - Generating time series for CELOUSDT
+2024-06-25 00:17:26 [INFO] - Generating time series for WOOUSDT
+2024-06-25 00:17:26 [INFO] - Generating time series for TRBUSDT
+2024-06-25 00:17:26 [INFO] - Generating time series for ONDOUSDT
+2024-06-25 00:17:27 [INFO] - Generating time series for CRVUSDT
+2024-06-25 00:17:27 [INFO] - Generating time series for AUDIOUSDT
+2024-06-25 00:17:27 [INFO] - Generating time series for XRPUSDT
+2024-06-25 00:17:28 [INFO] - Generating time series for CVCUSDT
+2024-06-25 00:17:28 [INFO] - Generating time series for ARKMUSDT
+2024-06-25 00:17:28 [INFO] - Generating time series for HNTUSDT
+2024-06-25 00:17:29 [INFO] - Generating time series for ASTRUSDT
+2024-06-25 00:17:29 [INFO] - Generating time series for NMRUSDT
+2024-06-25 00:17:29 [INFO] - Generating time series for RENUSDT
+2024-06-25 00:17:29 [INFO] - Generating time series for SNXUSDT
+2024-06-25 00:17:30 [INFO] - Generating time series for FTTUSDT
+2024-06-25 00:17:30 [INFO] - Generating time series for GASUSDT
+2024-06-25 00:17:30 [INFO] - Generating time series for SLPUSDT
+2024-06-25 00:17:31 [INFO] - Generating time series for MEMEUSDT
+2024-06-25 00:17:31 [INFO] - Generating time series for DUSKUSDT
+2024-06-25 00:17:31 [INFO] - Generating time series for HIFIUSDT
+2024-06-25 00:17:32 [INFO] - Generating time series for APTUSDT
+2024-06-25 00:17:32 [INFO] - Generating time series for RSRUSDT
+2024-06-25 00:17:32 [INFO] - Generating time series for OMGUSDT
+2024-06-25 00:17:33 [INFO] - Generating time series for ORBSUSDT
+2024-06-25 00:17:33 [INFO] - Generating time series for 1000SATSUSDT
+2024-06-25 00:17:33 [INFO] - Generating time series for LRCUSDT
+2024-06-25 00:17:33 [INFO] - Generating time series for MAVIAUSDT
+2024-06-25 00:17:34 [INFO] - Generating time series for ARPAUSDT
+2024-06-25 00:17:34 [INFO] - Generating time series for XMRUSDT
+2024-06-25 00:17:34 [INFO] - Generating time series for DOTUSDT
+2024-06-25 00:17:35 [INFO] - Generating time series for TOMOUSDT
+2024-06-25 00:17:35 [INFO] - Generating time series for 1000XECUSDT
+2024-06-25 00:17:35 [INFO] - Generating time series for PYTHUSDT
+2024-06-25 00:17:36 [INFO] - Generating time series for ETHUSDT_240927
+2024-06-25 00:17:36 [INFO] - Generating time series for INJUSDT
+2024-06-25 00:17:36 [INFO] - Generating time series for BAKEUSDT
+2024-06-25 00:17:36 [INFO] - Generating time series for SKLUSDT
+2024-06-25 00:17:37 [INFO] - Generating time series for TNSRUSDT
+2024-06-25 00:17:37 [INFO] - Generating time series for BATUSDT
+2024-06-25 00:17:37 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 00:17:37 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 00:17:37 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 00:17:37 [INFO] -  LONG:  []
+2024-06-25 00:17:37 [INFO] -  SHORT: []
+2024-06-25 00:17:37 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 00:17:37 [INFO] - [32m Start time       : Tue Jun 25 00:15:48 CEST 2024 [0m 
+2024-06-25 00:17:37 [INFO] - [32m Execute time     : 0:01:49 [0m 
+2024-06-25 00:17:39 [INFO] - [32m Start Balance    : 44.97226458               Current  Balance : 44.97226458 [0m 
+2024-06-25 00:17:39 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 00:17:39 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 00:19:13 [INFO] - All symbols analyzed, time elapsed: 93.915 seconds.
+2024-06-25 00:20:37 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 00:20:37 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 00:20:37 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 00:20:37 [INFO] -  LONG:  []
+2024-06-25 00:20:37 [INFO] -  SHORT: []
+2024-06-25 00:20:37 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 00:20:37 [INFO] - [32m Start time       : Tue Jun 25 00:15:48 CEST 2024 [0m 
+2024-06-25 00:20:37 [INFO] - [32m Execute time     : 0:04:49 [0m 
+2024-06-25 00:20:38 [INFO] - [32m Start Balance    : 44.97226458               Current  Balance : 44.97226458 [0m 
+2024-06-25 00:20:38 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 00:20:38 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 00:21:51 [INFO] - Initializing Binance bot
+2024-06-25 00:21:51 [INFO] - === Detected config file path (VM argument, optional): null ===
+2024-06-25 00:21:51 [INFO] - Setting add1 candlestick interval to: 15m
+2024-06-25 00:21:51 [INFO] - Setting candlestick interval to: 1h
+2024-06-25 00:21:51 [INFO] - Setting add2 candlestick interval to: 12h
+2024-06-25 00:21:54 [INFO] - Generating time series for BADGERUSDT
+2024-06-25 00:21:55 [INFO] - Generating time series for MDTUSDT
+2024-06-25 00:21:56 [INFO] - Generating time series for SNXUSDT
+2024-06-25 00:21:57 [INFO] - Generating time series for YGGUSDT
+2024-06-25 00:21:59 [INFO] - Generating time series for ENAUSDT
+2024-06-25 00:21:59 [INFO] - Generating time series for STRAXUSDT
+2024-06-25 00:22:00 [INFO] - Generating time series for BELUSDT
+2024-06-25 00:22:00 [INFO] - Generating time series for DYDXUSDT
+2024-06-25 00:22:00 [INFO] - Generating time series for JTOUSDT
+2024-06-25 00:22:01 [INFO] - Generating time series for STMXUSDT
+2024-06-25 00:22:02 [INFO] - Generating time series for LISTAUSDT
+2024-06-25 00:22:02 [INFO] - Generating time series for COMBOUSDT
+2024-06-25 00:22:03 [INFO] - Generating time series for BEAMXUSDT
+2024-06-25 00:22:05 [INFO] - Generating time series for OXTUSDT
+2024-06-25 00:22:05 [INFO] - Generating time series for SOLUSDT
+2024-06-25 00:22:05 [INFO] - Generating time series for HIFIUSDT
+2024-06-25 00:22:06 [INFO] - Generating time series for SUPERUSDT
+2024-06-25 00:22:06 [INFO] - Generating time series for 1000LUNCUSDT
+2024-06-25 00:22:06 [INFO] - Generating time series for RONINUSDT
+2024-06-25 00:22:07 [INFO] - Generating time series for ENSUSDT
+2024-06-25 00:22:07 [INFO] - Generating time series for AGLDUSDT
+2024-06-25 00:22:07 [INFO] - Generating time series for 1000SATSUSDT
+2024-06-25 00:22:08 [INFO] - Generating time series for DARUSDT
+2024-06-25 00:22:08 [INFO] - Generating time series for FRONTUSDT
+2024-06-25 00:22:08 [INFO] - Generating time series for NTRNUSDT
+2024-06-25 00:22:08 [INFO] - Generating time series for MOVRUSDT
+2024-06-25 00:22:09 [INFO] - Generating time series for ICPUSDT
+2024-06-25 00:22:09 [INFO] - Generating time series for LITUSDT
+2024-06-25 00:22:09 [INFO] - Generating time series for POLYXUSDT
+2024-06-25 00:22:10 [INFO] - Generating time series for BLZUSDT
+2024-06-25 00:22:10 [INFO] - Generating time series for DENTUSDT
+2024-06-25 00:22:10 [INFO] - Generating time series for MINAUSDT
+2024-06-25 00:22:11 [INFO] - Generating time series for ZECUSDT
+2024-06-25 00:22:11 [INFO] - Generating time series for BSVUSDT
+2024-06-25 00:22:11 [INFO] - Generating time series for STXUSDT
+2024-06-25 00:22:12 [INFO] - Generating time series for 1000RATSUSDT
+2024-06-25 00:22:12 [INFO] - Generating time series for CHRUSDT
+2024-06-25 00:22:12 [INFO] - Generating time series for CRVUSDT
+2024-06-25 00:22:12 [INFO] - Generating time series for CELRUSDT
+2024-06-25 00:22:13 [INFO] - Generating time series for BANDUSDT
+2024-06-25 00:22:13 [INFO] - Generating time series for OMNIUSDT
+2024-06-25 00:22:13 [INFO] - Generating time series for MANTAUSDT
+2024-06-25 00:22:14 [INFO] - Generating time series for SPELLUSDT
+2024-06-25 00:22:14 [INFO] - Generating time series for DASHUSDT
+2024-06-25 00:22:14 [INFO] - Generating time series for DYMUSDT
+2024-06-25 00:22:15 [INFO] - Generating time series for ALPHAUSDT
+2024-06-25 00:22:15 [INFO] - Generating time series for GRTUSDT
+2024-06-25 00:22:15 [INFO] - Generating time series for LEVERUSDT
+2024-06-25 00:22:16 [INFO] - Generating time series for CYBERUSDT
+2024-06-25 00:22:16 [INFO] - Generating time series for XVSUSDT
+2024-06-25 00:22:16 [INFO] - Generating time series for ENJUSDT
+2024-06-25 00:22:16 [INFO] - Generating time series for COCOSUSDT
+2024-06-25 00:22:17 [INFO] - Generating time series for BALUSDT
+2024-06-25 00:22:18 [INFO] - Generating time series for ARBUSDT
+2024-06-25 00:22:18 [INFO] - Generating time series for PIXELUSDT
+2024-06-25 00:22:18 [INFO] - Generating time series for VANRYUSDT
+2024-06-25 00:22:19 [INFO] - Generating time series for STORJUSDT
+2024-06-25 00:22:19 [INFO] - Generating time series for TOKENUSDT
+2024-06-25 00:22:19 [INFO] - Generating time series for ZROUSDT
+2024-06-25 00:22:20 [INFO] - Generating time series for TURBOUSDT
+2024-06-25 00:22:20 [INFO] - Generating time series for STPTUSDT
+2024-06-25 00:22:20 [INFO] - Generating time series for ARPAUSDT
+2024-06-25 00:22:21 [INFO] - Generating time series for CTSIUSDT
+2024-06-25 00:22:21 [INFO] - Generating time series for JASMYUSDT
+2024-06-25 00:22:21 [INFO] - Generating time series for FTMUSDT
+2024-06-25 00:22:22 [INFO] - Generating time series for QNTUSDT
+2024-06-25 00:22:22 [INFO] - Generating time series for 1000SHIBUSDT
+2024-06-25 00:22:22 [INFO] - Generating time series for BTCSTUSDT
+2024-06-25 00:22:23 [INFO] - Generating time series for NEARUSDT
+2024-06-25 00:22:23 [INFO] - Generating time series for ANTUSDT
+2024-06-25 00:22:23 [INFO] - Generating time series for KASUSDT
+2024-06-25 00:22:23 [INFO] - Generating time series for DODOXUSDT
+2024-06-25 00:22:24 [INFO] - Generating time series for BTCUSDT
+2024-06-25 00:22:24 [INFO] - Generating time series for ZKUSDT
+2024-06-25 00:22:24 [INFO] - Generating time series for NOTUSDT
+2024-06-25 00:22:25 [INFO] - Generating time series for ICXUSDT
+2024-06-25 00:22:25 [INFO] - Generating time series for XMRUSDT
+2024-06-25 00:22:25 [INFO] - Generating time series for EGLDUSDT
+2024-06-25 00:22:26 [INFO] - Generating time series for ACHUSDT
+2024-06-25 00:22:26 [INFO] - Generating time series for UMAUSDT
+2024-06-25 00:22:26 [INFO] - Generating time series for LRCUSDT
+2024-06-25 00:22:26 [INFO] - Generating time series for FILUSDT
+2024-06-25 00:22:27 [INFO] - Generating time series for TIAUSDT
+2024-06-25 00:22:27 [INFO] - Generating time series for KLAYUSDT
+2024-06-25 00:22:27 [INFO] - Generating time series for APEUSDT
+2024-06-25 00:22:28 [INFO] - Generating time series for BTCDOMUSDT
+2024-06-25 00:22:28 [INFO] - Generating time series for ATAUSDT
+2024-06-25 00:22:28 [INFO] - Generating time series for SAGAUSDT
+2024-06-25 00:22:29 [INFO] - Generating time series for JUPUSDT
+2024-06-25 00:22:29 [INFO] - Generating time series for IOSTUSDT
+2024-06-25 00:22:29 [INFO] - Generating time series for XTZUSDT
+2024-06-25 00:22:30 [INFO] - Generating time series for API3USDT
+2024-06-25 00:22:30 [INFO] - Generating time series for ALGOUSDT
+2024-06-25 00:22:30 [INFO] - Generating time series for BICOUSDT
+2024-06-25 00:22:30 [INFO] - Generating time series for 1000FLOKIUSDT
+2024-06-25 00:22:31 [INFO] - Generating time series for TRBUSDT
+2024-06-25 00:22:31 [INFO] - Generating time series for GALAUSDT
+2024-06-25 00:22:31 [INFO] - Generating time series for MEWUSDT
+2024-06-25 00:22:32 [INFO] - Generating time series for ETHUSDT_240628
+2024-06-25 00:22:32 [INFO] - Generating time series for SRMUSDT
+2024-06-25 00:22:32 [INFO] - Generating time series for MBLUSDT
+2024-06-25 00:22:33 [INFO] - Generating time series for MEMEUSDT
+2024-06-25 00:22:33 [INFO] - Generating time series for HOOKUSDT
+2024-06-25 00:22:33 [INFO] - Generating time series for RLCUSDT
+2024-06-25 00:22:34 [INFO] - Generating time series for IOUSDT
+2024-06-25 00:22:34 [INFO] - Generating time series for RENUSDT
+2024-06-25 00:22:34 [INFO] - Generating time series for ONDOUSDT
+2024-06-25 00:22:34 [INFO] - Generating time series for BIGTIMEUSDT
+2024-06-25 00:22:35 [INFO] - Generating time series for ILVUSDT
+2024-06-25 00:22:35 [INFO] - Generating time series for FOOTBALLUSDT
+2024-06-25 00:22:35 [INFO] - Generating time series for XEMUSDT
+2024-06-25 00:22:36 [INFO] - Generating time series for REZUSDT
+2024-06-25 00:22:36 [INFO] - Generating time series for 1000BONKUSDT
+2024-06-25 00:22:36 [INFO] - Generating time series for TLMUSDT
+2024-06-25 00:22:37 [INFO] - Generating time series for SUIUSDT
+2024-06-25 00:22:37 [INFO] - Generating time series for MASKUSDT
+2024-06-25 00:22:37 [INFO] - Generating time series for BLURUSDT
+2024-06-25 00:22:38 [INFO] - Generating time series for RUNEUSDT
+2024-06-25 00:22:38 [INFO] - Generating time series for OCEANUSDT
+2024-06-25 00:22:38 [INFO] - Generating time series for LSKUSDT
+2024-06-25 00:22:38 [INFO] - Generating time series for CAKEUSDT
+2024-06-25 00:22:39 [INFO] - Generating time series for UNIUSDT
+2024-06-25 00:22:39 [INFO] - Generating time series for PYTHUSDT
+2024-06-25 00:22:39 [INFO] - Generating time series for USTCUSDT
+2024-06-25 00:22:40 [INFO] - Generating time series for GMTUSDT
+2024-06-25 00:22:40 [INFO] - Generating time series for SUSHIUSDT
+2024-06-25 00:22:40 [INFO] - Generating time series for COTIUSDT
+2024-06-25 00:22:41 [INFO] - Generating time series for ARKMUSDT
+2024-06-25 00:22:41 [INFO] - Generating time series for COMPUSDT
+2024-06-25 00:22:41 [INFO] - Generating time series for KAVAUSDT
+2024-06-25 00:22:41 [INFO] - Generating time series for OGNUSDT
+2024-06-25 00:22:42 [INFO] - Generating time series for KEYUSDT
+2024-06-25 00:22:42 [INFO] - Generating time series for PERPUSDT
+2024-06-25 00:22:42 [INFO] - Generating time series for APTUSDT
+2024-06-25 00:22:43 [INFO] - Generating time series for OPUSDT
+2024-06-25 00:22:43 [INFO] - Generating time series for RAYUSDT
+2024-06-25 00:22:43 [INFO] - Generating time series for LDOUSDT
+2024-06-25 00:22:44 [INFO] - Generating time series for PEOPLEUSDT
+2024-06-25 00:22:44 [INFO] - Generating time series for SSVUSDT
+2024-06-25 00:22:44 [INFO] - Generating time series for ACEUSDT
+2024-06-25 00:22:44 [INFO] - Generating time series for SEIUSDT
+2024-06-25 00:22:45 [INFO] - Generating time series for ORDIUSDT
+2024-06-25 00:22:45 [INFO] - Generating time series for ROSEUSDT
+2024-06-25 00:22:46 [INFO] - Generating time series for MAGICUSDT
+2024-06-25 00:22:46 [INFO] - Generating time series for GLMUSDT
+2024-06-25 00:22:46 [INFO] - Generating time series for ETHWUSDT
+2024-06-25 00:22:47 [INFO] - Generating time series for POWRUSDT
+2024-06-25 00:22:47 [INFO] - Generating time series for ATOMUSDT
+2024-06-25 00:22:47 [INFO] - Generating time series for BLUEBIRDUSDT
+2024-06-25 00:22:47 [INFO] - Generating time series for BOMEUSDT
+2024-06-25 00:22:48 [INFO] - Generating time series for AVAXUSDT
+2024-06-25 00:22:48 [INFO] - Generating time series for CVXUSDT
+2024-06-25 00:22:48 [INFO] - Generating time series for TNSRUSDT
+2024-06-25 00:22:49 [INFO] - Generating time series for KNCUSDT
+2024-06-25 00:22:49 [INFO] - Generating time series for ZETAUSDT
+2024-06-25 00:22:49 [INFO] - Generating time series for BTSUSDT
+2024-06-25 00:22:50 [INFO] - Generating time series for ONGUSDT
+2024-06-25 00:22:50 [INFO] - Generating time series for ZENUSDT
+2024-06-25 00:22:50 [INFO] - Generating time series for ORBSUSDT
+2024-06-25 00:22:51 [INFO] - Generating time series for RDNTUSDT
+2024-06-25 00:22:51 [INFO] - Generating time series for NEOUSDT
+2024-06-25 00:22:51 [INFO] - Generating time series for SCUSDT
+2024-06-25 00:22:52 [INFO] - Generating time series for HBARUSDT
+2024-06-25 00:22:52 [INFO] - Generating time series for SXPUSDT
+2024-06-25 00:22:52 [INFO] - Generating time series for XAIUSDT
+2024-06-25 00:22:52 [INFO] - Generating time series for RSRUSDT
+2024-06-25 00:22:53 [INFO] - Generating time series for TRUUSDT
+2024-06-25 00:22:53 [INFO] - Generating time series for ONTUSDT
+2024-06-25 00:22:53 [INFO] - Generating time series for DGBUSDT
+2024-06-25 00:22:54 [INFO] - Generating time series for GALUSDT
+2024-06-25 00:22:54 [INFO] - Generating time series for TWTUSDT
+2024-06-25 00:22:54 [INFO] - Generating time series for YFIUSDT
+2024-06-25 00:22:55 [INFO] - Generating time series for SNTUSDT
+2024-06-25 00:22:55 [INFO] - Generating time series for BNBUSDT
+2024-06-25 00:22:55 [INFO] - Generating time series for 1INCHUSDT
+2024-06-25 00:22:56 [INFO] - Generating time series for DUSKUSDT
+2024-06-25 00:22:56 [INFO] - Generating time series for SLPUSDT
+2024-06-25 00:22:56 [INFO] - Generating time series for LINAUSDT
+2024-06-25 00:22:57 [INFO] - Generating time series for CHZUSDT
+2024-06-25 00:22:57 [INFO] - Generating time series for 1000PEPEUSDT
+2024-06-25 00:22:57 [INFO] - Generating time series for MANAUSDT
+2024-06-25 00:22:57 [INFO] - Generating time series for IDUSDT
+2024-06-25 00:22:58 [INFO] - Generating time series for ALTUSDT
+2024-06-25 00:22:58 [INFO] - Generating time series for RIFUSDT
+2024-06-25 00:22:58 [INFO] - Generating time series for BCHUSDT
+2024-06-25 00:22:59 [INFO] - Generating time series for NMRUSDT
+2024-06-25 00:22:59 [INFO] - Generating time series for ZRXUSDT
+2024-06-25 00:22:59 [INFO] - Generating time series for AXLUSDT
+2024-06-25 00:23:00 [INFO] - Generating time series for EDUUSDT
+2024-06-25 00:23:00 [INFO] - Generating time series for ARUSDT
+2024-06-25 00:23:00 [INFO] - Generating time series for STEEMUSDT
+2024-06-25 00:23:00 [INFO] - Generating time series for SANDUSDT
+2024-06-25 00:23:01 [INFO] - Generating time series for CVCUSDT
+2024-06-25 00:23:01 [INFO] - Generating time series for GASUSDT
+2024-06-25 00:23:01 [INFO] - Generating time series for PENDLEUSDT
+2024-06-25 00:23:02 [INFO] - Generating time series for ANKRUSDT
+2024-06-25 00:23:02 [INFO] - Generating time series for DEFIUSDT
+2024-06-25 00:23:02 [INFO] - Generating time series for IDEXUSDT
+2024-06-25 00:23:03 [INFO] - Generating time series for STGUSDT
+2024-06-25 00:23:03 [INFO] - Generating time series for TRXUSDT
+2024-06-25 00:23:03 [INFO] - Generating time series for LUNA2USDT
+2024-06-25 00:23:04 [INFO] - Generating time series for BBUSDT
+2024-06-25 00:23:04 [INFO] - Generating time series for ETCUSDT
+2024-06-25 00:23:04 [INFO] - Generating time series for AEVOUSDT
+2024-06-25 00:23:04 [INFO] - Generating time series for GMXUSDT
+2024-06-25 00:23:05 [INFO] - Generating time series for RNDRUSDT
+2024-06-25 00:23:05 [INFO] - Generating time series for AMBUSDT
+2024-06-25 00:23:05 [INFO] - Generating time series for CTKUSDT
+2024-06-25 00:23:06 [INFO] - Generating time series for MAVUSDT
+2024-06-25 00:23:06 [INFO] - Generating time series for BNXUSDT
+2024-06-25 00:23:06 [INFO] - Generating time series for LOOMUSDT
+2024-06-25 00:23:07 [INFO] - Generating time series for WIFUSDT
+2024-06-25 00:23:07 [INFO] - Generating time series for CFXUSDT
+2024-06-25 00:23:07 [INFO] - Generating time series for JOEUSDT
+2024-06-25 00:23:08 [INFO] - Generating time series for LTCUSDT
+2024-06-25 00:23:08 [INFO] - Generating time series for IMXUSDT
+2024-06-25 00:23:08 [INFO] - Generating time series for AIUSDT
+2024-06-25 00:23:08 [INFO] - Generating time series for MKRUSDT
+2024-06-25 00:23:09 [INFO] - Generating time series for REEFUSDT
+2024-06-25 00:23:09 [INFO] - Generating time series for HIGHUSDT
+2024-06-25 00:23:09 [INFO] - Generating time series for BATUSDT
+2024-06-25 00:23:10 [INFO] - Generating time series for IOTXUSDT
+2024-06-25 00:23:10 [INFO] - Generating time series for FETUSDT
+2024-06-25 00:23:10 [INFO] - Generating time series for NKNUSDT
+2024-06-25 00:23:11 [INFO] - Generating time series for GTCUSDT
+2024-06-25 00:23:11 [INFO] - Generating time series for FLOWUSDT
+2024-06-25 00:23:11 [INFO] - Generating time series for PHBUSDT
+2024-06-25 00:23:11 [INFO] - Generating time series for MTLUSDT
+2024-06-25 00:23:12 [INFO] - Generating time series for QTUMUSDT
+2024-06-25 00:23:12 [INFO] - Generating time series for IOTAUSDT
+2024-06-25 00:23:12 [INFO] - Generating time series for TAOUSDT
+2024-06-25 00:23:13 [INFO] - Generating time series for XLMUSDT
+2024-06-25 00:23:13 [INFO] - Generating time series for CELOUSDT
+2024-06-25 00:23:13 [INFO] - Generating time series for STRKUSDT
+2024-06-25 00:23:14 [INFO] - Generating time series for HFTUSDT
+2024-06-25 00:23:14 [INFO] - Generating time series for THETAUSDT
+2024-06-25 00:23:14 [INFO] - Generating time series for XRPUSDT
+2024-06-25 00:23:14 [INFO] - Generating time series for VETUSDT
+2024-06-25 00:23:15 [INFO] - Generating time series for RVNUSDT
+2024-06-25 00:23:15 [INFO] - Generating time series for BTCUSDT_240927
+2024-06-25 00:23:15 [INFO] - Generating time series for ETHUSDT
+2024-06-25 00:23:16 [INFO] - Generating time series for WLDUSDT
+2024-06-25 00:23:16 [INFO] - Generating time series for AUDIOUSDT
+2024-06-25 00:23:16 [INFO] - Generating time series for ADAUSDT
+2024-06-25 00:23:17 [INFO] - Generating time series for EOSUSDT
+2024-06-25 00:23:17 [INFO] - Generating time series for PORTALUSDT
+2024-06-25 00:23:17 [INFO] - Generating time series for METISUSDT
+2024-06-25 00:23:18 [INFO] - Generating time series for OMUSDT
+2024-06-25 00:23:18 [INFO] - Generating time series for MAVIAUSDT
+2024-06-25 00:23:18 [INFO] - Generating time series for TUSDT
+2024-06-25 00:23:19 [INFO] - Generating time series for BONDUSDT
+2024-06-25 00:23:19 [INFO] - Generating time series for LPTUSDT
+2024-06-25 00:23:19 [INFO] - Generating time series for INJUSDT
+2024-06-25 00:23:20 [INFO] - Generating time series for WAXPUSDT
+2024-06-25 00:23:20 [INFO] - Generating time series for SKLUSDT
+2024-06-25 00:23:20 [INFO] - Generating time series for TOMOUSDT
+2024-06-25 00:23:21 [INFO] - Generating time series for FXSUSDT
+2024-06-25 00:23:21 [INFO] - Generating time series for OMGUSDT
+2024-06-25 00:23:21 [INFO] - Generating time series for MATICUSDT
+2024-06-25 00:23:21 [INFO] - Generating time series for ETHFIUSDT
+2024-06-25 00:23:22 [INFO] - Generating time series for HNTUSDT
+2024-06-25 00:23:22 [INFO] - Generating time series for ONEUSDT
+2024-06-25 00:23:22 [INFO] - Generating time series for ZILUSDT
+2024-06-25 00:23:23 [INFO] - Generating time series for HOTUSDT
+2024-06-25 00:23:23 [INFO] - Generating time series for ASTRUSDT
+2024-06-25 00:23:23 [INFO] - Generating time series for TONUSDT
+2024-06-25 00:23:24 [INFO] - Generating time series for BNTUSDT
+2024-06-25 00:23:24 [INFO] - Generating time series for FLMUSDT
+2024-06-25 00:23:24 [INFO] - Generating time series for 1000XECUSDT
+2024-06-25 00:23:25 [INFO] - Generating time series for LINKUSDT
+2024-06-25 00:23:25 [INFO] - Generating time series for KSMUSDT
+2024-06-25 00:23:25 [INFO] - Generating time series for AGIXUSDT
+2024-06-25 00:23:25 [INFO] - Generating time series for ETHUSDT_240927
+2024-06-25 00:23:26 [INFO] - Generating time series for LQTYUSDT
+2024-06-25 00:23:26 [INFO] - Generating time series for MYROUSDT
+2024-06-25 00:23:26 [INFO] - Generating time series for AUCTIONUSDT
+2024-06-25 00:23:27 [INFO] - Generating time series for RADUSDT
+2024-06-25 00:23:27 [INFO] - Generating time series for GLMRUSDT
+2024-06-25 00:23:27 [INFO] - Generating time series for BTCUSDT_240628
+2024-06-25 00:23:28 [INFO] - Generating time series for C98USDT
+2024-06-25 00:23:28 [INFO] - Generating time series for WUSDT
+2024-06-25 00:23:28 [INFO] - Generating time series for ALICEUSDT
+2024-06-25 00:23:29 [INFO] - Generating time series for BAKEUSDT
+2024-06-25 00:23:29 [INFO] - Generating time series for NFPUSDT
+2024-06-25 00:23:29 [INFO] - Generating time series for FTTUSDT
+2024-06-25 00:23:29 [INFO] - Generating time series for DOGEUSDT
+2024-06-25 00:23:30 [INFO] - Generating time series for WOOUSDT
+2024-06-25 00:23:30 [INFO] - Generating time series for AAVEUSDT
+2024-06-25 00:23:30 [INFO] - Generating time series for AXSUSDT
+2024-06-25 00:23:31 [INFO] - Generating time series for UNFIUSDT
+2024-06-25 00:23:31 [INFO] - Generating time series for DOTUSDT
+2024-06-25 00:23:31 [INFO] - Generating time series for WAVESUSDT
+2024-06-25 00:23:32 [INFO] - Generating time series for XVGUSDT
+2024-06-25 00:23:32 [INFO] - Generating time series for CKBUSDT
+2024-06-25 00:23:32 [INFO] - Generating time series for SFPUSDT
+2024-06-25 00:23:33 [INFO] - Generating time series for ARKUSDT
+2024-06-25 00:23:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 00:23:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 00:23:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 00:23:33 [INFO] -  LONG:  []
+2024-06-25 00:23:33 [INFO] -  SHORT: []
+2024-06-25 00:23:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 00:23:33 [INFO] - [32m Start time       : Tue Jun 25 00:21:50 CEST 2024 [0m 
+2024-06-25 00:23:33 [INFO] - [32m Execute time     : 0:01:42 [0m 
+2024-06-25 00:23:35 [INFO] - [32m Start Balance    : 44.97226458               Current  Balance : 44.97226458 [0m 
+2024-06-25 00:23:35 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 00:23:35 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 00:26:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 00:26:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 00:26:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 00:26:33 [INFO] -  LONG:  []
+2024-06-25 00:26:33 [INFO] -  SHORT: []
+2024-06-25 00:26:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 00:26:33 [INFO] - [32m Start time       : Tue Jun 25 00:21:50 CEST 2024 [0m 
+2024-06-25 00:26:33 [INFO] - [32m Execute time     : 0:04:43 [0m 
+2024-06-25 02:50:16 [INFO] - Initializing Binance bot
+2024-06-25 02:50:16 [INFO] - === Detected config file path (VM argument, optional): null ===
+2024-06-25 02:50:16 [INFO] - Setting add1 candlestick interval to: 15m
+2024-06-25 02:50:16 [INFO] - Setting candlestick interval to: 1h
+2024-06-25 02:50:16 [INFO] - Setting add2 candlestick interval to: 12h
+2024-06-25 02:50:19 [INFO] - Generating time series for SOLUSDT
+2024-06-25 02:50:20 [INFO] - Generating time series for BLURUSDT
+2024-06-25 02:50:21 [INFO] - Generating time series for SAGAUSDT
+2024-06-25 02:50:21 [INFO] - Generating time series for KSMUSDT
+2024-06-25 02:50:22 [INFO] - Generating time series for ZILUSDT
+2024-06-25 02:50:22 [INFO] - Generating time series for ETHUSDT_240628
+2024-06-25 02:50:23 [INFO] - Generating time series for KAVAUSDT
+2024-06-25 02:50:23 [INFO] - Generating time series for DYDXUSDT
+2024-06-25 02:50:25 [INFO] - Generating time series for ALPHAUSDT
+2024-06-25 02:50:26 [INFO] - Generating time series for ILVUSDT
+2024-06-25 02:50:26 [INFO] - Generating time series for TOKENUSDT
+2024-06-25 02:50:28 [INFO] - Generating time series for COTIUSDT
+2024-06-25 02:50:28 [INFO] - Generating time series for OMNIUSDT
+2024-06-25 02:50:30 [INFO] - Generating time series for EOSUSDT
+2024-06-25 02:50:31 [INFO] - Generating time series for STXUSDT
+2024-06-25 02:50:32 [INFO] - Generating time series for ICXUSDT
+2024-06-25 02:50:34 [INFO] - Generating time series for ATAUSDT
+2024-06-25 02:50:35 [INFO] - Generating time series for GLMUSDT
+2024-06-25 02:50:36 [INFO] - Generating time series for MAVUSDT
+2024-06-25 02:50:38 [INFO] - Generating time series for CTSIUSDT
+2024-06-25 02:50:38 [INFO] - Generating time series for ROSEUSDT
+2024-06-25 02:50:39 [INFO] - Generating time series for NEARUSDT
+2024-06-25 02:50:39 [INFO] - Generating time series for ENAUSDT
+2024-06-25 02:50:41 [INFO] - Generating time series for ONEUSDT
+2024-06-25 02:50:42 [INFO] - Generating time series for PYTHUSDT
+2024-06-25 02:50:43 [INFO] - Generating time series for LEVERUSDT
+2024-06-25 02:50:44 [INFO] - Generating time series for AXSUSDT
+2024-06-25 02:50:45 [INFO] - Generating time series for BCHUSDT
+2024-06-25 02:50:46 [INFO] - Generating time series for DENTUSDT
+2024-06-25 02:50:46 [INFO] - Generating time series for BIGTIMEUSDT
+2024-06-25 02:50:47 [INFO] - Generating time series for ETHUSDT
+2024-06-25 02:50:47 [INFO] - Generating time series for HNTUSDT
+2024-06-25 02:50:47 [INFO] - Generating time series for PENDLEUSDT
+2024-06-25 02:50:48 [INFO] - Generating time series for ORBSUSDT
+2024-06-25 02:50:48 [INFO] - Generating time series for BTCUSDT_240628
+2024-06-25 02:50:48 [INFO] - Generating time series for EGLDUSDT
+2024-06-25 02:50:48 [INFO] - Generating time series for MAVIAUSDT
+2024-06-25 02:50:49 [INFO] - Generating time series for ETHUSDT_240927
+2024-06-25 02:50:49 [INFO] - Generating time series for C98USDT
+2024-06-25 02:50:49 [INFO] - Generating time series for VANRYUSDT
+2024-06-25 02:50:50 [INFO] - Generating time series for ZETAUSDT
+2024-06-25 02:50:50 [INFO] - Generating time series for COMBOUSDT
+2024-06-25 02:50:50 [INFO] - Generating time series for SNXUSDT
+2024-06-25 02:50:51 [INFO] - Generating time series for CHZUSDT
+2024-06-25 02:50:51 [INFO] - Generating time series for BTCUSDT_240927
+2024-06-25 02:50:51 [INFO] - Generating time series for DASHUSDT
+2024-06-25 02:50:52 [INFO] - Generating time series for ANKRUSDT
+2024-06-25 02:50:52 [INFO] - Generating time series for TIAUSDT
+2024-06-25 02:50:52 [INFO] - Generating time series for LUNA2USDT
+2024-06-25 02:50:53 [INFO] - Generating time series for MANAUSDT
+2024-06-25 02:50:53 [INFO] - Generating time series for MINAUSDT
+2024-06-25 02:50:53 [INFO] - Generating time series for PERPUSDT
+2024-06-25 02:50:53 [INFO] - Generating time series for ARPAUSDT
+2024-06-25 02:50:54 [INFO] - Generating time series for AGLDUSDT
+2024-06-25 02:50:54 [INFO] - Generating time series for MASKUSDT
+2024-06-25 02:50:54 [INFO] - Generating time series for IOSTUSDT
+2024-06-25 02:50:55 [INFO] - Generating time series for FRONTUSDT
+2024-06-25 02:50:55 [INFO] - Generating time series for AVAXUSDT
+2024-06-25 02:50:55 [INFO] - Generating time series for KASUSDT
+2024-06-25 02:50:56 [INFO] - Generating time series for AXLUSDT
+2024-06-25 02:50:56 [INFO] - Generating time series for AGIXUSDT
+2024-06-25 02:50:56 [INFO] - Generating time series for ZECUSDT
+2024-06-25 02:50:57 [INFO] - Generating time series for CVXUSDT
+2024-06-25 02:50:57 [INFO] - Generating time series for QTUMUSDT
+2024-06-25 02:50:57 [INFO] - Generating time series for LINKUSDT
+2024-06-25 02:50:57 [INFO] - Generating time series for GRTUSDT
+2024-06-25 02:50:58 [INFO] - Generating time series for SUSHIUSDT
+2024-06-25 02:50:58 [INFO] - Generating time series for LSKUSDT
+2024-06-25 02:50:58 [INFO] - Generating time series for XMRUSDT
+2024-06-25 02:50:59 [INFO] - Generating time series for NTRNUSDT
+2024-06-25 02:50:59 [INFO] - Generating time series for JUPUSDT
+2024-06-25 02:50:59 [INFO] - Generating time series for ARBUSDT
+2024-06-25 02:51:00 [INFO] - Generating time series for SKLUSDT
+2024-06-25 02:51:00 [INFO] - Generating time series for POLYXUSDT
+2024-06-25 02:51:00 [INFO] - Generating time series for STPTUSDT
+2024-06-25 02:51:01 [INFO] - Generating time series for ICPUSDT
+2024-06-25 02:51:01 [INFO] - Generating time series for MDTUSDT
+2024-06-25 02:51:01 [INFO] - Generating time series for NEOUSDT
+2024-06-25 02:51:01 [INFO] - Generating time series for MOVRUSDT
+2024-06-25 02:51:02 [INFO] - Generating time series for WUSDT
+2024-06-25 02:51:02 [INFO] - Generating time series for WOOUSDT
+2024-06-25 02:51:02 [INFO] - Generating time series for XLMUSDT
+2024-06-25 02:51:03 [INFO] - Generating time series for XEMUSDT
+2024-06-25 02:51:03 [INFO] - Generating time series for COMPUSDT
+2024-06-25 02:51:03 [INFO] - Generating time series for BEAMXUSDT
+2024-06-25 02:51:04 [INFO] - Generating time series for APEUSDT
+2024-06-25 02:51:04 [INFO] - Generating time series for TAOUSDT
+2024-06-25 02:51:04 [INFO] - Generating time series for STRKUSDT
+2024-06-25 02:51:04 [INFO] - Generating time series for JASMYUSDT
+2024-06-25 02:51:05 [INFO] - Generating time series for JTOUSDT
+2024-06-25 02:51:05 [INFO] - Generating time series for LDOUSDT
+2024-06-25 02:51:05 [INFO] - Generating time series for BTSUSDT
+2024-06-25 02:51:06 [INFO] - Generating time series for DUSKUSDT
+2024-06-25 02:51:06 [INFO] - Generating time series for STMXUSDT
+2024-06-25 02:51:06 [INFO] - Generating time series for FLMUSDT
+2024-06-25 02:51:07 [INFO] - Generating time series for BAKEUSDT
+2024-06-25 02:51:07 [INFO] - Generating time series for SSVUSDT
+2024-06-25 02:51:07 [INFO] - Generating time series for AMBUSDT
+2024-06-25 02:51:08 [INFO] - Generating time series for AUCTIONUSDT
+2024-06-25 02:51:08 [INFO] - Generating time series for ETHWUSDT
+2024-06-25 02:51:08 [INFO] - Generating time series for GMXUSDT
+2024-06-25 02:51:08 [INFO] - Generating time series for DARUSDT
+2024-06-25 02:51:09 [INFO] - Generating time series for OMUSDT
+2024-06-25 02:51:09 [INFO] - Generating time series for BSVUSDT
+2024-06-25 02:51:09 [INFO] - Generating time series for MAGICUSDT
+2024-06-25 02:51:10 [INFO] - Generating time series for MATICUSDT
+2024-06-25 02:51:10 [INFO] - Generating time series for USTCUSDT
+2024-06-25 02:51:10 [INFO] - Generating time series for GMTUSDT
+2024-06-25 02:51:11 [INFO] - Generating time series for XAIUSDT
+2024-06-25 02:51:11 [INFO] - Generating time series for STGUSDT
+2024-06-25 02:51:11 [INFO] - Generating time series for ENJUSDT
+2024-06-25 02:51:11 [INFO] - Generating time series for REEFUSDT
+2024-06-25 02:51:12 [INFO] - Generating time series for TWTUSDT
+2024-06-25 02:51:12 [INFO] - Generating time series for ATOMUSDT
+2024-06-25 02:51:12 [INFO] - Generating time series for BTCUSDT
+2024-06-25 02:51:13 [INFO] - Generating time series for QNTUSDT
+2024-06-25 02:51:13 [INFO] - Generating time series for HOOKUSDT
+2024-06-25 02:51:13 [INFO] - Generating time series for FXSUSDT
+2024-06-25 02:51:14 [INFO] - Generating time series for CKBUSDT
+2024-06-25 02:51:14 [INFO] - Generating time series for LOOMUSDT
+2024-06-25 02:51:14 [INFO] - Generating time series for XRPUSDT
+2024-06-25 02:51:15 [INFO] - Generating time series for FETUSDT
+2024-06-25 02:51:15 [INFO] - Generating time series for ZENUSDT
+2024-06-25 02:51:15 [INFO] - Generating time series for ETCUSDT
+2024-06-25 02:51:15 [INFO] - Generating time series for ZKUSDT
+2024-06-25 02:51:16 [INFO] - Generating time series for CAKEUSDT
+2024-06-25 02:51:16 [INFO] - Generating time series for GLMRUSDT
+2024-06-25 02:51:16 [INFO] - Generating time series for MEWUSDT
+2024-06-25 02:51:17 [INFO] - Generating time series for API3USDT
+2024-06-25 02:51:17 [INFO] - Generating time series for STRAXUSDT
+2024-06-25 02:51:17 [INFO] - Generating time series for NMRUSDT
+2024-06-25 02:51:18 [INFO] - Generating time series for NFPUSDT
+2024-06-25 02:51:18 [INFO] - Generating time series for 1000RATSUSDT
+2024-06-25 02:51:18 [INFO] - Generating time series for ONTUSDT
+2024-06-25 02:51:18 [INFO] - Generating time series for RADUSDT
+2024-06-25 02:51:19 [INFO] - Generating time series for SPELLUSDT
+2024-06-25 02:51:19 [INFO] - Generating time series for FTMUSDT
+2024-06-25 02:51:19 [INFO] - Generating time series for MTLUSDT
+2024-06-25 02:51:20 [INFO] - Generating time series for SLPUSDT
+2024-06-25 02:51:20 [INFO] - Generating time series for BLZUSDT
+2024-06-25 02:51:20 [INFO] - Generating time series for FLOWUSDT
+2024-06-25 02:51:21 [INFO] - Generating time series for SUIUSDT
+2024-06-25 02:51:21 [INFO] - Generating time series for VETUSDT
+2024-06-25 02:51:21 [INFO] - Generating time series for TRBUSDT
+2024-06-25 02:51:21 [INFO] - Generating time series for FILUSDT
+2024-06-25 02:51:22 [INFO] - Generating time series for ETHFIUSDT
+2024-06-25 02:51:22 [INFO] - Generating time series for BALUSDT
+2024-06-25 02:51:22 [INFO] - Generating time series for SXPUSDT
+2024-06-25 02:51:23 [INFO] - Generating time series for ONDOUSDT
+2024-06-25 02:51:23 [INFO] - Generating time series for BATUSDT
+2024-06-25 02:51:23 [INFO] - Generating time series for ORDIUSDT
+2024-06-25 02:51:24 [INFO] - Generating time series for YFIUSDT
+2024-06-25 02:51:24 [INFO] - Generating time series for ALICEUSDT
+2024-06-25 02:51:24 [INFO] - Generating time series for LQTYUSDT
+2024-06-25 02:51:25 [INFO] - Generating time series for HBARUSDT
+2024-06-25 02:51:25 [INFO] - Generating time series for APTUSDT
+2024-06-25 02:51:25 [INFO] - Generating time series for RDNTUSDT
+2024-06-25 02:51:25 [INFO] - Generating time series for IMXUSDT
+2024-06-25 02:51:26 [INFO] - Generating time series for BBUSDT
+2024-06-25 02:51:26 [INFO] - Generating time series for BELUSDT
+2024-06-25 02:51:26 [INFO] - Generating time series for PEOPLEUSDT
+2024-06-25 02:51:27 [INFO] - Generating time series for STORJUSDT
+2024-06-25 02:51:27 [INFO] - Generating time series for BOMEUSDT
+2024-06-25 02:51:27 [INFO] - Generating time series for BADGERUSDT
+2024-06-25 02:51:28 [INFO] - Generating time series for RAYUSDT
+2024-06-25 02:51:28 [INFO] - Generating time series for PORTALUSDT
+2024-06-25 02:51:28 [INFO] - Generating time series for LRCUSDT
+2024-06-25 02:51:28 [INFO] - Generating time series for 1000PEPEUSDT
+2024-06-25 02:51:29 [INFO] - Generating time series for RUNEUSDT
+2024-06-25 02:51:29 [INFO] - Generating time series for SUPERUSDT
+2024-06-25 02:51:30 [INFO] - Generating time series for TLMUSDT
+2024-06-25 02:51:30 [INFO] - Generating time series for GTCUSDT
+2024-06-25 02:51:30 [INFO] - Generating time series for WAVESUSDT
+2024-06-25 02:51:30 [INFO] - Generating time series for KEYUSDT
+2024-06-25 02:51:31 [INFO] - Generating time series for LTCUSDT
+2024-06-25 02:51:31 [INFO] - Generating time series for JOEUSDT
+2024-06-25 02:51:31 [INFO] - Generating time series for TONUSDT
+2024-06-25 02:51:32 [INFO] - Generating time series for ALGOUSDT
+2024-06-25 02:51:32 [INFO] - Generating time series for ASTRUSDT
+2024-06-25 02:51:32 [INFO] - Generating time series for TOMOUSDT
+2024-06-25 02:51:33 [INFO] - Generating time series for BTCDOMUSDT
+2024-06-25 02:51:33 [INFO] - Generating time series for AUDIOUSDT
+2024-06-25 02:51:33 [INFO] - Generating time series for INJUSDT
+2024-06-25 02:51:34 [INFO] - Generating time series for TNSRUSDT
+2024-06-25 02:51:34 [INFO] - Generating time series for GALAUSDT
+2024-06-25 02:51:34 [INFO] - Generating time series for STEEMUSDT
+2024-06-25 02:51:34 [INFO] - Generating time series for RENUSDT
+2024-06-25 02:51:35 [INFO] - Generating time series for TRXUSDT
+2024-06-25 02:51:35 [INFO] - Generating time series for SRMUSDT
+2024-06-25 02:51:35 [INFO] - Generating time series for DYMUSDT
+2024-06-25 02:51:36 [INFO] - Generating time series for POWRUSDT
+2024-06-25 02:51:36 [INFO] - Generating time series for UMAUSDT
+2024-06-25 02:51:36 [INFO] - Generating time series for EDUUSDT
+2024-06-25 02:51:37 [INFO] - Generating time series for BNTUSDT
+2024-06-25 02:51:37 [INFO] - Generating time series for RLCUSDT
+2024-06-25 02:51:37 [INFO] - Generating time series for ARKUSDT
+2024-06-25 02:51:37 [INFO] - Generating time series for HIGHUSDT
+2024-06-25 02:51:38 [INFO] - Generating time series for MBLUSDT
+2024-06-25 02:51:38 [INFO] - Generating time series for IOTAUSDT
+2024-06-25 02:51:38 [INFO] - Generating time series for XVGUSDT
+2024-06-25 02:51:39 [INFO] - Generating time series for COCOSUSDT
+2024-06-25 02:51:39 [INFO] - Generating time series for 1INCHUSDT
+2024-06-25 02:51:39 [INFO] - Generating time series for IOUSDT
+2024-06-25 02:51:40 [INFO] - Generating time series for BONDUSDT
+2024-06-25 02:51:40 [INFO] - Generating time series for FOOTBALLUSDT
+2024-06-25 02:51:40 [INFO] - Generating time series for TURBOUSDT
+2024-06-25 02:51:41 [INFO] - Generating time series for OCEANUSDT
+2024-06-25 02:51:41 [INFO] - Generating time series for UNFIUSDT
+2024-06-25 02:51:41 [INFO] - Generating time series for ONGUSDT
+2024-06-25 02:51:41 [INFO] - Generating time series for DOGEUSDT
+2024-06-25 02:51:42 [INFO] - Generating time series for XTZUSDT
+2024-06-25 02:51:42 [INFO] - Generating time series for DEFIUSDT
+2024-06-25 02:51:42 [INFO] - Generating time series for 1000LUNCUSDT
+2024-06-25 02:51:43 [INFO] - Generating time series for BNBUSDT
+2024-06-25 02:51:43 [INFO] - Generating time series for XVSUSDT
+2024-06-25 02:51:43 [INFO] - Generating time series for MKRUSDT
+2024-06-25 02:51:44 [INFO] - Generating time series for OXTUSDT
+2024-06-25 02:51:44 [INFO] - Generating time series for LISTAUSDT
+2024-06-25 02:51:44 [INFO] - Generating time series for ADAUSDT
+2024-06-25 02:51:44 [INFO] - Generating time series for GALUSDT
+2024-06-25 02:51:45 [INFO] - Generating time series for RSRUSDT
+2024-06-25 02:51:45 [INFO] - Generating time series for ALTUSDT
+2024-06-25 02:51:45 [INFO] - Generating time series for BNXUSDT
+2024-06-25 02:51:46 [INFO] - Generating time series for MEMEUSDT
+2024-06-25 02:51:46 [INFO] - Generating time series for SEIUSDT
+2024-06-25 02:51:46 [INFO] - Generating time series for REZUSDT
+2024-06-25 02:51:47 [INFO] - Generating time series for CELOUSDT
+2024-06-25 02:51:47 [INFO] - Generating time series for FTTUSDT
+2024-06-25 02:51:47 [INFO] - Generating time series for ZRXUSDT
+2024-06-25 02:51:47 [INFO] - Generating time series for 1000SHIBUSDT
+2024-06-25 02:51:48 [INFO] - Generating time series for IDUSDT
+2024-06-25 02:51:48 [INFO] - Generating time series for CELRUSDT
+2024-06-25 02:51:48 [INFO] - Generating time series for ZROUSDT
+2024-06-25 02:51:49 [INFO] - Generating time series for LINAUSDT
+2024-06-25 02:51:49 [INFO] - Generating time series for PHBUSDT
+2024-06-25 02:51:49 [INFO] - Generating time series for 1000XECUSDT
+2024-06-25 02:51:50 [INFO] - Generating time series for KNCUSDT
+2024-06-25 02:51:50 [INFO] - Generating time series for 1000FLOKIUSDT
+2024-06-25 02:51:50 [INFO] - Generating time series for DGBUSDT
+2024-06-25 02:51:50 [INFO] - Generating time series for CHRUSDT
+2024-06-25 02:51:51 [INFO] - Generating time series for HIFIUSDT
+2024-06-25 02:51:51 [INFO] - Generating time series for CFXUSDT
+2024-06-25 02:51:51 [INFO] - Generating time series for BLUEBIRDUSDT
+2024-06-25 02:51:52 [INFO] - Generating time series for UNIUSDT
+2024-06-25 02:51:52 [INFO] - Generating time series for KLAYUSDT
+2024-06-25 02:51:52 [INFO] - Generating time series for IOTXUSDT
+2024-06-25 02:51:53 [INFO] - Generating time series for TUSDT
+2024-06-25 02:51:53 [INFO] - Generating time series for OPUSDT
+2024-06-25 02:51:53 [INFO] - Generating time series for DOTUSDT
+2024-06-25 02:51:54 [INFO] - Generating time series for NKNUSDT
+2024-06-25 02:51:54 [INFO] - Generating time series for CYBERUSDT
+2024-06-25 02:51:54 [INFO] - Generating time series for PIXELUSDT
+2024-06-25 02:51:54 [INFO] - Generating time series for WIFUSDT
+2024-06-25 02:51:55 [INFO] - Generating time series for CTKUSDT
+2024-06-25 02:51:55 [INFO] - Generating time series for THETAUSDT
+2024-06-25 02:51:55 [INFO] - Generating time series for IDEXUSDT
+2024-06-25 02:51:56 [INFO] - Generating time series for WLDUSDT
+2024-06-25 02:51:56 [INFO] - Generating time series for 1000SATSUSDT
+2024-06-25 02:51:56 [INFO] - Generating time series for NOTUSDT
+2024-06-25 02:51:57 [INFO] - Generating time series for LPTUSDT
+2024-06-25 02:51:57 [INFO] - Generating time series for DODOXUSDT
+2024-06-25 02:51:57 [INFO] - Generating time series for CVCUSDT
+2024-06-25 02:51:57 [INFO] - Generating time series for SANDUSDT
+2024-06-25 02:51:58 [INFO] - Generating time series for 1000BONKUSDT
+2024-06-25 02:51:58 [INFO] - Generating time series for LITUSDT
+2024-06-25 02:51:58 [INFO] - Generating time series for WAXPUSDT
+2024-06-25 02:51:59 [INFO] - Generating time series for OGNUSDT
+2024-06-25 02:51:59 [INFO] - Generating time series for HOTUSDT
+2024-06-25 02:51:59 [INFO] - Generating time series for AAVEUSDT
+2024-06-25 02:52:00 [INFO] - Generating time series for ARKMUSDT
+2024-06-25 02:52:00 [INFO] - Generating time series for YGGUSDT
+2024-06-25 02:52:00 [INFO] - Generating time series for CRVUSDT
+2024-06-25 02:52:00 [INFO] - Generating time series for ANTUSDT
+2024-06-25 02:52:01 [INFO] - Generating time series for MANTAUSDT
+2024-06-25 02:52:01 [INFO] - Generating time series for BICOUSDT
+2024-06-25 02:52:01 [INFO] - Generating time series for OMGUSDT
+2024-06-25 02:52:02 [INFO] - Generating time series for SCUSDT
+2024-06-25 02:52:02 [INFO] - Generating time series for TRUUSDT
+2024-06-25 02:52:02 [INFO] - Generating time series for GASUSDT
+2024-06-25 02:52:03 [INFO] - Generating time series for RONINUSDT
+2024-06-25 02:52:03 [INFO] - Generating time series for ACHUSDT
+2024-06-25 02:52:03 [INFO] - Generating time series for SFPUSDT
+2024-06-25 02:52:03 [INFO] - Generating time series for AEVOUSDT
+2024-06-25 02:52:04 [INFO] - Generating time series for RVNUSDT
+2024-06-25 02:52:04 [INFO] - Generating time series for AIUSDT
+2024-06-25 02:52:04 [INFO] - Generating time series for RNDRUSDT
+2024-06-25 02:52:05 [INFO] - Generating time series for ARUSDT
+2024-06-25 02:52:05 [INFO] - Generating time series for RIFUSDT
+2024-06-25 02:52:05 [INFO] - Generating time series for ACEUSDT
+2024-06-25 02:52:06 [INFO] - Generating time series for ENSUSDT
+2024-06-25 02:52:06 [INFO] - Generating time series for BANDUSDT
+2024-06-25 02:52:06 [INFO] - Generating time series for SNTUSDT
+2024-06-25 02:52:07 [INFO] - Generating time series for METISUSDT
+2024-06-25 02:52:07 [INFO] - Generating time series for MYROUSDT
+2024-06-25 02:52:07 [INFO] - Generating time series for BTCSTUSDT
+2024-06-25 02:52:07 [INFO] - Generating time series for HFTUSDT
+2024-06-25 02:52:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 02:52:08 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 02:52:08 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 02:52:08 [INFO] -  LONG:  []
+2024-06-25 02:52:08 [INFO] -  SHORT: []
+2024-06-25 02:52:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 02:52:08 [INFO] - [32m Start time       : Tue Jun 25 02:50:15 CEST 2024 [0m 
+2024-06-25 02:52:08 [INFO] - [32m Execute time     : 0:01:52 [0m 
+2024-06-25 02:52:09 [INFO] - [32m Start Balance    : 42.475952               Current  Balance : 42.475952 [0m 
+2024-06-25 02:52:09 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 02:52:09 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 02:53:44 [INFO] - All symbols analyzed, time elapsed: 94.335 seconds.
+2024-06-25 02:55:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 02:55:08 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 02:55:08 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 02:55:08 [INFO] -  LONG:  []
+2024-06-25 02:55:08 [INFO] -  SHORT: []
+2024-06-25 02:55:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 02:55:08 [INFO] - [32m Start time       : Tue Jun 25 02:50:15 CEST 2024 [0m 
+2024-06-25 02:55:08 [INFO] - [32m Execute time     : 0:04:52 [0m 
+2024-06-25 02:55:09 [INFO] - [32m Start Balance    : 42.475952               Current  Balance : 42.475952 [0m 
+2024-06-25 02:55:09 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 02:55:09 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 02:56:49 [INFO] - All symbols analyzed, time elapsed: 99.121 seconds.
+2024-06-25 02:58:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 02:58:08 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 02:58:08 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 02:58:08 [INFO] -  LONG:  []
+2024-06-25 02:58:08 [INFO] -  SHORT: []
+2024-06-25 02:58:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 02:58:08 [INFO] - [32m Start time       : Tue Jun 25 02:50:15 CEST 2024 [0m 
+2024-06-25 02:58:08 [INFO] - [32m Execute time     : 0:07:52 [0m 
+2024-06-25 02:58:09 [INFO] - [32m Start Balance    : 42.475952               Current  Balance : 42.475952 [0m 
+2024-06-25 02:58:09 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 02:58:09 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 02:59:49 [INFO] - All symbols analyzed, time elapsed: 99.491 seconds.
+2024-06-25 03:01:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:01:08 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 03:01:08 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 03:01:08 [INFO] -  LONG:  []
+2024-06-25 03:01:08 [INFO] -  SHORT: []
+2024-06-25 03:01:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:01:08 [INFO] - [32m Start time       : Tue Jun 25 02:50:15 CEST 2024 [0m 
+2024-06-25 03:01:08 [INFO] - [32m Execute time     : 0:10:52 [0m 
+2024-06-25 03:01:09 [INFO] - [32m Start Balance    : 42.475952               Current  Balance : 42.475952 [0m 
+2024-06-25 03:01:09 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 03:01:09 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:02:49 [INFO] - All symbols analyzed, time elapsed: 99.529 seconds.
+2024-06-25 03:04:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:04:08 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 03:04:08 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 03:04:08 [INFO] -  LONG:  []
+2024-06-25 03:04:08 [INFO] -  SHORT: []
+2024-06-25 03:04:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:04:08 [INFO] - [32m Start time       : Tue Jun 25 02:50:15 CEST 2024 [0m 
+2024-06-25 03:04:08 [INFO] - [32m Execute time     : 0:13:52 [0m 
+2024-06-25 03:04:09 [INFO] - [32m Start Balance    : 42.475952               Current  Balance : 42.475952 [0m 
+2024-06-25 03:04:09 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 03:04:09 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:05:47 [INFO] - All symbols analyzed, time elapsed: 97.966 seconds.
+2024-06-25 03:07:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:07:08 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 03:07:08 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 03:07:08 [INFO] -  LONG:  []
+2024-06-25 03:07:08 [INFO] -  SHORT: []
+2024-06-25 03:07:08 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:07:08 [INFO] - [32m Start time       : Tue Jun 25 02:50:15 CEST 2024 [0m 
+2024-06-25 03:07:08 [INFO] - [32m Execute time     : 0:16:52 [0m 
+2024-06-25 03:07:09 [INFO] - [32m Start Balance    : 42.475952               Current  Balance : 42.475952 [0m 
+2024-06-25 03:07:09 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 03:07:09 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:08:46 [INFO] - All symbols analyzed, time elapsed: 96.944 seconds.
+2024-06-25 03:15:56 [INFO] - Initializing Binance bot
+2024-06-25 03:15:56 [INFO] - === Detected config file path (VM argument, optional): null ===
+2024-06-25 03:15:57 [INFO] - Setting add1 candlestick interval to: 15m
+2024-06-25 03:15:57 [INFO] - Setting candlestick interval to: 1h
+2024-06-25 03:15:57 [INFO] - Setting add2 candlestick interval to: 12h
+2024-06-25 03:16:01 [INFO] - Generating time series for REZUSDT
+2024-06-25 03:16:02 [INFO] - Generating time series for ACHUSDT
+2024-06-25 03:16:03 [INFO] - Generating time series for MASKUSDT
+2024-06-25 03:16:04 [INFO] - Generating time series for KEYUSDT
+2024-06-25 03:16:05 [INFO] - Generating time series for PEOPLEUSDT
+2024-06-25 03:16:07 [INFO] - Generating time series for APTUSDT
+2024-06-25 03:16:08 [INFO] - Generating time series for 1000BONKUSDT
+2024-06-25 03:16:08 [INFO] - Generating time series for BBUSDT
+2024-06-25 03:16:09 [INFO] - Generating time series for ALICEUSDT
+2024-06-25 03:16:10 [INFO] - Generating time series for COMBOUSDT
+2024-06-25 03:16:12 [INFO] - Generating time series for SXPUSDT
+2024-06-25 03:16:12 [INFO] - Generating time series for AUDIOUSDT
+2024-06-25 03:16:14 [INFO] - Generating time series for CYBERUSDT
+2024-06-25 03:16:14 [INFO] - Generating time series for RENUSDT
+2024-06-25 03:16:14 [INFO] - Generating time series for MEWUSDT
+2024-06-25 03:16:15 [INFO] - Generating time series for USTCUSDT
+2024-06-25 03:16:17 [INFO] - Generating time series for RVNUSDT
+2024-06-25 03:16:17 [INFO] - Generating time series for TONUSDT
+2024-06-25 03:16:17 [INFO] - Generating time series for GMXUSDT
+2024-06-25 03:16:18 [INFO] - Generating time series for CVXUSDT
+2024-06-25 03:16:18 [INFO] - Generating time series for BTCUSDT
+2024-06-25 03:16:19 [INFO] - Generating time series for PORTALUSDT
+2024-06-25 03:16:19 [INFO] - Generating time series for NEARUSDT
+2024-06-25 03:16:19 [INFO] - Generating time series for EOSUSDT
+2024-06-25 03:16:19 [INFO] - Generating time series for LTCUSDT
+2024-06-25 03:16:20 [INFO] - Generating time series for ACEUSDT
+2024-06-25 03:16:20 [INFO] - Generating time series for SUIUSDT
+2024-06-25 03:16:20 [INFO] - Generating time series for AEVOUSDT
+2024-06-25 03:16:21 [INFO] - Generating time series for IOTAUSDT
+2024-06-25 03:16:21 [INFO] - Generating time series for FLMUSDT
+2024-06-25 03:16:21 [INFO] - Generating time series for MEMEUSDT
+2024-06-25 03:16:22 [INFO] - Generating time series for AXLUSDT
+2024-06-25 03:16:22 [INFO] - Generating time series for DARUSDT
+2024-06-25 03:16:22 [INFO] - Generating time series for MATICUSDT
+2024-06-25 03:16:23 [INFO] - Generating time series for BIGTIMEUSDT
+2024-06-25 03:16:23 [INFO] - Generating time series for IDUSDT
+2024-06-25 03:16:23 [INFO] - Generating time series for CKBUSDT
+2024-06-25 03:16:23 [INFO] - Generating time series for OMUSDT
+2024-06-25 03:16:24 [INFO] - Generating time series for APEUSDT
+2024-06-25 03:16:24 [INFO] - Generating time series for VANRYUSDT
+2024-06-25 03:16:24 [INFO] - Generating time series for HOTUSDT
+2024-06-25 03:16:25 [INFO] - Generating time series for COTIUSDT
+2024-06-25 03:16:25 [INFO] - Generating time series for AXSUSDT
+2024-06-25 03:16:25 [INFO] - Generating time series for POWRUSDT
+2024-06-25 03:16:26 [INFO] - Generating time series for DASHUSDT
+2024-06-25 03:16:26 [INFO] - Generating time series for SSVUSDT
+2024-06-25 03:16:26 [INFO] - Generating time series for DODOXUSDT
+2024-06-25 03:16:27 [INFO] - Generating time series for IOUSDT
+2024-06-25 03:16:27 [INFO] - Generating time series for 1000SHIBUSDT
+2024-06-25 03:16:27 [INFO] - Generating time series for SCUSDT
+2024-06-25 03:16:28 [INFO] - Generating time series for BELUSDT
+2024-06-25 03:16:28 [INFO] - Generating time series for COCOSUSDT
+2024-06-25 03:16:28 [INFO] - Generating time series for ARKUSDT
+2024-06-25 03:16:29 [INFO] - Generating time series for BICOUSDT
+2024-06-25 03:16:29 [INFO] - Generating time series for MAVIAUSDT
+2024-06-25 03:16:29 [INFO] - Generating time series for BTCDOMUSDT
+2024-06-25 03:16:29 [INFO] - Generating time series for TRBUSDT
+2024-06-25 03:16:30 [INFO] - Generating time series for XEMUSDT
+2024-06-25 03:16:30 [INFO] - Generating time series for ILVUSDT
+2024-06-25 03:16:30 [INFO] - Generating time series for ZRXUSDT
+2024-06-25 03:16:31 [INFO] - Generating time series for NTRNUSDT
+2024-06-25 03:16:31 [INFO] - Generating time series for GLMUSDT
+2024-06-25 03:16:31 [INFO] - Generating time series for TLMUSDT
+2024-06-25 03:16:32 [INFO] - Generating time series for ENJUSDT
+2024-06-25 03:16:32 [INFO] - Generating time series for IOTXUSDT
+2024-06-25 03:16:32 [INFO] - Generating time series for ETHUSDT
+2024-06-25 03:16:33 [INFO] - Generating time series for YFIUSDT
+2024-06-25 03:16:33 [INFO] - Generating time series for MKRUSDT
+2024-06-25 03:16:33 [INFO] - Generating time series for SPELLUSDT
+2024-06-25 03:16:34 [INFO] - Generating time series for LRCUSDT
+2024-06-25 03:16:34 [INFO] - Generating time series for SANDUSDT
+2024-06-25 03:16:34 [INFO] - Generating time series for PENDLEUSDT
+2024-06-25 03:16:34 [INFO] - Generating time series for SFPUSDT
+2024-06-25 03:16:35 [INFO] - Generating time series for XVSUSDT
+2024-06-25 03:16:35 [INFO] - Generating time series for STEEMUSDT
+2024-06-25 03:16:35 [INFO] - Generating time series for TWTUSDT
+2024-06-25 03:16:36 [INFO] - Generating time series for METISUSDT
+2024-06-25 03:16:36 [INFO] - Generating time series for ARBUSDT
+2024-06-25 03:16:36 [INFO] - Generating time series for XMRUSDT
+2024-06-25 03:16:37 [INFO] - Generating time series for BCHUSDT
+2024-06-25 03:16:37 [INFO] - Generating time series for RAYUSDT
+2024-06-25 03:16:37 [INFO] - Generating time series for HNTUSDT
+2024-06-25 03:16:38 [INFO] - Generating time series for FOOTBALLUSDT
+2024-06-25 03:16:38 [INFO] - Generating time series for BTSUSDT
+2024-06-25 03:16:38 [INFO] - Generating time series for GLMRUSDT
+2024-06-25 03:16:39 [INFO] - Generating time series for UNFIUSDT
+2024-06-25 03:16:39 [INFO] - Generating time series for MYROUSDT
+2024-06-25 03:16:39 [INFO] - Generating time series for ANKRUSDT
+2024-06-25 03:16:40 [INFO] - Generating time series for VETUSDT
+2024-06-25 03:16:40 [INFO] - Generating time series for ETHWUSDT
+2024-06-25 03:16:40 [INFO] - Generating time series for XAIUSDT
+2024-06-25 03:16:41 [INFO] - Generating time series for HIGHUSDT
+2024-06-25 03:16:41 [INFO] - Generating time series for AVAXUSDT
+2024-06-25 03:16:41 [INFO] - Generating time series for 1000PEPEUSDT
+2024-06-25 03:16:41 [INFO] - Generating time series for LUNA2USDT
+2024-06-25 03:16:42 [INFO] - Generating time series for GMTUSDT
+2024-06-25 03:16:42 [INFO] - Generating time series for CVCUSDT
+2024-06-25 03:16:42 [INFO] - Generating time series for PYTHUSDT
+2024-06-25 03:16:43 [INFO] - Generating time series for STGUSDT
+2024-06-25 03:16:43 [INFO] - Generating time series for RONINUSDT
+2024-06-25 03:16:43 [INFO] - Generating time series for BOMEUSDT
+2024-06-25 03:16:44 [INFO] - Generating time series for TURBOUSDT
+2024-06-25 03:16:44 [INFO] - Generating time series for AAVEUSDT
+2024-06-25 03:16:44 [INFO] - Generating time series for KAVAUSDT
+2024-06-25 03:16:45 [INFO] - Generating time series for LINKUSDT
+2024-06-25 03:16:45 [INFO] - Generating time series for MANTAUSDT
+2024-06-25 03:16:45 [INFO] - Generating time series for JUPUSDT
+2024-06-25 03:16:45 [INFO] - Generating time series for BLZUSDT
+2024-06-25 03:16:46 [INFO] - Generating time series for RSRUSDT
+2024-06-25 03:16:46 [INFO] - Generating time series for AGIXUSDT
+2024-06-25 03:16:46 [INFO] - Generating time series for STMXUSDT
+2024-06-25 03:16:47 [INFO] - Generating time series for SNTUSDT
+2024-06-25 03:16:47 [INFO] - Generating time series for REEFUSDT
+2024-06-25 03:16:47 [INFO] - Generating time series for BSVUSDT
+2024-06-25 03:16:48 [INFO] - Generating time series for MINAUSDT
+2024-06-25 03:16:48 [INFO] - Generating time series for JTOUSDT
+2024-06-25 03:16:48 [INFO] - Generating time series for AUCTIONUSDT
+2024-06-25 03:16:49 [INFO] - Generating time series for STXUSDT
+2024-06-25 03:16:49 [INFO] - Generating time series for HOOKUSDT
+2024-06-25 03:16:49 [INFO] - Generating time series for FLOWUSDT
+2024-06-25 03:16:49 [INFO] - Generating time series for OMNIUSDT
+2024-06-25 03:16:50 [INFO] - Generating time series for STPTUSDT
+2024-06-25 03:16:50 [INFO] - Generating time series for QNTUSDT
+2024-06-25 03:16:50 [INFO] - Generating time series for FTTUSDT
+2024-06-25 03:16:51 [INFO] - Generating time series for TUSDT
+2024-06-25 03:16:51 [INFO] - Generating time series for RLCUSDT
+2024-06-25 03:16:51 [INFO] - Generating time series for OPUSDT
+2024-06-25 03:16:52 [INFO] - Generating time series for ONGUSDT
+2024-06-25 03:16:52 [INFO] - Generating time series for ARKMUSDT
+2024-06-25 03:16:52 [INFO] - Generating time series for OXTUSDT
+2024-06-25 03:16:53 [INFO] - Generating time series for ETHFIUSDT
+2024-06-25 03:16:53 [INFO] - Generating time series for UMAUSDT
+2024-06-25 03:16:53 [INFO] - Generating time series for HIFIUSDT
+2024-06-25 03:16:54 [INFO] - Generating time series for NOTUSDT
+2024-06-25 03:16:54 [INFO] - Generating time series for SAGAUSDT
+2024-06-25 03:16:54 [INFO] - Generating time series for BTCSTUSDT
+2024-06-25 03:16:55 [INFO] - Generating time series for CRVUSDT
+2024-06-25 03:16:55 [INFO] - Generating time series for LOOMUSDT
+2024-06-25 03:16:55 [INFO] - Generating time series for COMPUSDT
+2024-06-25 03:16:55 [INFO] - Generating time series for PIXELUSDT
+2024-06-25 03:16:56 [INFO] - Generating time series for DOGEUSDT
+2024-06-25 03:16:56 [INFO] - Generating time series for DENTUSDT
+2024-06-25 03:16:56 [INFO] - Generating time series for MOVRUSDT
+2024-06-25 03:16:57 [INFO] - Generating time series for EGLDUSDT
+2024-06-25 03:16:57 [INFO] - Generating time series for BTCUSDT_240927
+2024-06-25 03:16:57 [INFO] - Generating time series for JOEUSDT
+2024-06-25 03:16:58 [INFO] - Generating time series for 1INCHUSDT
+2024-06-25 03:16:58 [INFO] - Generating time series for SEIUSDT
+2024-06-25 03:16:58 [INFO] - Generating time series for 1000FLOKIUSDT
+2024-06-25 03:16:58 [INFO] - Generating time series for ALGOUSDT
+2024-06-25 03:16:59 [INFO] - Generating time series for LISTAUSDT
+2024-06-25 03:16:59 [INFO] - Generating time series for ALTUSDT
+2024-06-25 03:16:59 [INFO] - Generating time series for RIFUSDT
+2024-06-25 03:17:00 [INFO] - Generating time series for XTZUSDT
+2024-06-25 03:17:00 [INFO] - Generating time series for XVGUSDT
+2024-06-25 03:17:00 [INFO] - Generating time series for CELOUSDT
+2024-06-25 03:17:01 [INFO] - Generating time series for BATUSDT
+2024-06-25 03:17:01 [INFO] - Generating time series for BTCUSDT_240628
+2024-06-25 03:17:01 [INFO] - Generating time series for YGGUSDT
+2024-06-25 03:17:01 [INFO] - Generating time series for IOSTUSDT
+2024-06-25 03:17:02 [INFO] - Generating time series for PHBUSDT
+2024-06-25 03:17:02 [INFO] - Generating time series for TOKENUSDT
+2024-06-25 03:17:02 [INFO] - Generating time series for TRXUSDT
+2024-06-25 03:17:03 [INFO] - Generating time series for ENAUSDT
+2024-06-25 03:17:03 [INFO] - Generating time series for LINAUSDT
+2024-06-25 03:17:03 [INFO] - Generating time series for ZILUSDT
+2024-06-25 03:17:04 [INFO] - Generating time series for INJUSDT
+2024-06-25 03:17:04 [INFO] - Generating time series for LSKUSDT
+2024-06-25 03:17:04 [INFO] - Generating time series for SLPUSDT
+2024-06-25 03:17:05 [INFO] - Generating time series for BADGERUSDT
+2024-06-25 03:17:05 [INFO] - Generating time series for LQTYUSDT
+2024-06-25 03:17:05 [INFO] - Generating time series for RDNTUSDT
+2024-06-25 03:17:05 [INFO] - Generating time series for ENSUSDT
+2024-06-25 03:17:06 [INFO] - Generating time series for BONDUSDT
+2024-06-25 03:17:06 [INFO] - Generating time series for ADAUSDT
+2024-06-25 03:17:06 [INFO] - Generating time series for HBARUSDT
+2024-06-25 03:17:07 [INFO] - Generating time series for EDUUSDT
+2024-06-25 03:17:07 [INFO] - Generating time series for XRPUSDT
+2024-06-25 03:17:07 [INFO] - Generating time series for KSMUSDT
+2024-06-25 03:17:08 [INFO] - Generating time series for WAVESUSDT
+2024-06-25 03:17:08 [INFO] - Generating time series for BANDUSDT
+2024-06-25 03:17:08 [INFO] - Generating time series for SUSHIUSDT
+2024-06-25 03:17:09 [INFO] - Generating time series for TNSRUSDT
+2024-06-25 03:17:09 [INFO] - Generating time series for ALPHAUSDT
+2024-06-25 03:17:09 [INFO] - Generating time series for UNIUSDT
+2024-06-25 03:17:09 [INFO] - Generating time series for ROSEUSDT
+2024-06-25 03:17:10 [INFO] - Generating time series for ZETAUSDT
+2024-06-25 03:17:10 [INFO] - Generating time series for NKNUSDT
+2024-06-25 03:17:10 [INFO] - Generating time series for ANTUSDT
+2024-06-25 03:17:11 [INFO] - Generating time series for ONDOUSDT
+2024-06-25 03:17:11 [INFO] - Generating time series for FILUSDT
+2024-06-25 03:17:11 [INFO] - Generating time series for CELRUSDT
+2024-06-25 03:17:12 [INFO] - Generating time series for ETCUSDT
+2024-06-25 03:17:12 [INFO] - Generating time series for CAKEUSDT
+2024-06-25 03:17:12 [INFO] - Generating time series for GRTUSDT
+2024-06-25 03:17:12 [INFO] - Generating time series for STORJUSDT
+2024-06-25 03:17:13 [INFO] - Generating time series for API3USDT
+2024-06-25 03:17:13 [INFO] - Generating time series for OCEANUSDT
+2024-06-25 03:17:13 [INFO] - Generating time series for AIUSDT
+2024-06-25 03:17:14 [INFO] - Generating time series for CHZUSDT
+2024-06-25 03:17:14 [INFO] - Generating time series for SRMUSDT
+2024-06-25 03:17:14 [INFO] - Generating time series for ICPUSDT
+2024-06-25 03:17:15 [INFO] - Generating time series for WIFUSDT
+2024-06-25 03:17:15 [INFO] - Generating time series for 1000SATSUSDT
+2024-06-25 03:17:15 [INFO] - Generating time series for ETHUSDT_240927
+2024-06-25 03:17:16 [INFO] - Generating time series for BEAMXUSDT
+2024-06-25 03:17:16 [INFO] - Generating time series for ATAUSDT
+2024-06-25 03:17:16 [INFO] - Generating time series for NFPUSDT
+2024-06-25 03:17:16 [INFO] - Generating time series for DGBUSDT
+2024-06-25 03:17:17 [INFO] - Generating time series for POLYXUSDT
+2024-06-25 03:17:17 [INFO] - Generating time series for FRONTUSDT
+2024-06-25 03:17:17 [INFO] - Generating time series for IDEXUSDT
+2024-06-25 03:17:18 [INFO] - Generating time series for LITUSDT
+2024-06-25 03:17:18 [INFO] - Generating time series for PERPUSDT
+2024-06-25 03:17:18 [INFO] - Generating time series for CHRUSDT
+2024-06-25 03:17:19 [INFO] - Generating time series for WUSDT
+2024-06-25 03:17:19 [INFO] - Generating time series for BLUEBIRDUSDT
+2024-06-25 03:17:19 [INFO] - Generating time series for ICXUSDT
+2024-06-25 03:17:20 [INFO] - Generating time series for ARPAUSDT
+2024-06-25 03:17:20 [INFO] - Generating time series for DYDXUSDT
+2024-06-25 03:17:20 [INFO] - Generating time series for FETUSDT
+2024-06-25 03:17:21 [INFO] - Generating time series for MBLUSDT
+2024-06-25 03:17:21 [INFO] - Generating time series for AMBUSDT
+2024-06-25 03:17:21 [INFO] - Generating time series for FTMUSDT
+2024-06-25 03:17:21 [INFO] - Generating time series for LDOUSDT
+2024-06-25 03:17:22 [INFO] - Generating time series for ONEUSDT
+2024-06-25 03:17:22 [INFO] - Generating time series for SNXUSDT
+2024-06-25 03:17:22 [INFO] - Generating time series for ZKUSDT
+2024-06-25 03:17:23 [INFO] - Generating time series for KLAYUSDT
+2024-06-25 03:17:23 [INFO] - Generating time series for WAXPUSDT
+2024-06-25 03:17:23 [INFO] - Generating time series for MDTUSDT
+2024-06-25 03:17:24 [INFO] - Generating time series for DEFIUSDT
+2024-06-25 03:17:24 [INFO] - Generating time series for IMXUSDT
+2024-06-25 03:17:24 [INFO] - Generating time series for ASTRUSDT
+2024-06-25 03:17:25 [INFO] - Generating time series for TOMOUSDT
+2024-06-25 03:17:25 [INFO] - Generating time series for MAVUSDT
+2024-06-25 03:17:25 [INFO] - Generating time series for BNTUSDT
+2024-06-25 03:17:25 [INFO] - Generating time series for GASUSDT
+2024-06-25 03:17:26 [INFO] - Generating time series for WLDUSDT
+2024-06-25 03:17:26 [INFO] - Generating time series for ETHUSDT_240628
+2024-06-25 03:17:26 [INFO] - Generating time series for WOOUSDT
+2024-06-25 03:17:27 [INFO] - Generating time series for GALUSDT
+2024-06-25 03:17:27 [INFO] - Generating time series for BNBUSDT
+2024-06-25 03:17:27 [INFO] - Generating time series for MAGICUSDT
+2024-06-25 03:17:28 [INFO] - Generating time series for OGNUSDT
+2024-06-25 03:17:28 [INFO] - Generating time series for RNDRUSDT
+2024-06-25 03:17:28 [INFO] - Generating time series for HFTUSDT
+2024-06-25 03:17:29 [INFO] - Generating time series for MTLUSDT
+2024-06-25 03:17:29 [INFO] - Generating time series for CTSIUSDT
+2024-06-25 03:17:29 [INFO] - Generating time series for DYMUSDT
+2024-06-25 03:17:29 [INFO] - Generating time series for BAKEUSDT
+2024-06-25 03:17:30 [INFO] - Generating time series for CFXUSDT
+2024-06-25 03:17:30 [INFO] - Generating time series for THETAUSDT
+2024-06-25 03:17:30 [INFO] - Generating time series for DUSKUSDT
+2024-06-25 03:17:31 [INFO] - Generating time series for KNCUSDT
+2024-06-25 03:17:31 [INFO] - Generating time series for C98USDT
+2024-06-25 03:17:31 [INFO] - Generating time series for ZROUSDT
+2024-06-25 03:17:32 [INFO] - Generating time series for ORDIUSDT
+2024-06-25 03:17:32 [INFO] - Generating time series for ZECUSDT
+2024-06-25 03:17:32 [INFO] - Generating time series for BNXUSDT
+2024-06-25 03:17:32 [INFO] - Generating time series for TAOUSDT
+2024-06-25 03:17:33 [INFO] - Generating time series for DOTUSDT
+2024-06-25 03:17:33 [INFO] - Generating time series for SKLUSDT
+2024-06-25 03:17:33 [INFO] - Generating time series for 1000LUNCUSDT
+2024-06-25 03:17:34 [INFO] - Generating time series for ONTUSDT
+2024-06-25 03:17:34 [INFO] - Generating time series for GALAUSDT
+2024-06-25 03:17:34 [INFO] - Generating time series for STRAXUSDT
+2024-06-25 03:17:35 [INFO] - Generating time series for OMGUSDT
+2024-06-25 03:17:35 [INFO] - Generating time series for NEOUSDT
+2024-06-25 03:17:35 [INFO] - Generating time series for ZENUSDT
+2024-06-25 03:17:36 [INFO] - Generating time series for JASMYUSDT
+2024-06-25 03:17:36 [INFO] - Generating time series for CTKUSDT
+2024-06-25 03:17:36 [INFO] - Generating time series for SOLUSDT
+2024-06-25 03:17:36 [INFO] - Generating time series for FXSUSDT
+2024-06-25 03:17:37 [INFO] - Generating time series for SUPERUSDT
+2024-06-25 03:17:37 [INFO] - Generating time series for STRKUSDT
+2024-06-25 03:17:37 [INFO] - Generating time series for TIAUSDT
+2024-06-25 03:17:38 [INFO] - Generating time series for TRUUSDT
+2024-06-25 03:17:38 [INFO] - Generating time series for NMRUSDT
+2024-06-25 03:17:38 [INFO] - Generating time series for BALUSDT
+2024-06-25 03:17:39 [INFO] - Generating time series for 1000RATSUSDT
+2024-06-25 03:17:39 [INFO] - Generating time series for XLMUSDT
+2024-06-25 03:17:39 [INFO] - Generating time series for MANAUSDT
+2024-06-25 03:17:39 [INFO] - Generating time series for ARUSDT
+2024-06-25 03:17:40 [INFO] - Generating time series for LEVERUSDT
+2024-06-25 03:17:40 [INFO] - Generating time series for BLURUSDT
+2024-06-25 03:17:40 [INFO] - Generating time series for ORBSUSDT
+2024-06-25 03:17:41 [INFO] - Generating time series for LPTUSDT
+2024-06-25 03:17:41 [INFO] - Generating time series for RADUSDT
+2024-06-25 03:17:41 [INFO] - Generating time series for KASUSDT
+2024-06-25 03:17:42 [INFO] - Generating time series for ATOMUSDT
+2024-06-25 03:17:42 [INFO] - Generating time series for QTUMUSDT
+2024-06-25 03:17:42 [INFO] - Generating time series for 1000XECUSDT
+2024-06-25 03:17:43 [INFO] - Generating time series for AGLDUSDT
+2024-06-25 03:17:43 [INFO] - Generating time series for RUNEUSDT
+2024-06-25 03:17:43 [INFO] - Generating time series for GTCUSDT
+2024-06-25 03:17:43 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:17:43 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 03:17:43 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 03:17:43 [INFO] -  LONG:  []
+2024-06-25 03:17:43 [INFO] -  SHORT: []
+2024-06-25 03:17:43 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:17:43 [INFO] - [32m Start time       : Tue Jun 25 03:15:56 CEST 2024 [0m 
+2024-06-25 03:17:43 [INFO] - [32m Execute time     : 0:01:47 [0m 
+2024-06-25 03:17:45 [INFO] - [32m Start Balance    : 42.475952               Current  Balance : 42.475952 [0m 
+2024-06-25 03:17:45 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 03:17:45 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:20:47 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:20:47 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 03:20:47 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 03:20:47 [INFO] -  LONG:  []
+2024-06-25 03:20:47 [INFO] -  SHORT: []
+2024-06-25 03:20:47 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 03:20:47 [INFO] - [32m Start time       : Tue Jun 25 03:15:56 CEST 2024 [0m 
+2024-06-25 03:20:47 [INFO] - [32m Execute time     : 0:04:51 [0m 
+2024-06-25 23:44:18 [INFO] - Initializing Binance bot
+2024-06-25 23:44:18 [INFO] - === Detected config file path (VM argument, optional): null ===
+2024-06-25 23:44:18 [INFO] - Setting add1 candlestick interval to: 15m
+2024-06-25 23:44:18 [INFO] - Setting candlestick interval to: 1h
+2024-06-25 23:44:18 [INFO] - Setting add2 candlestick interval to: 12h
+2024-06-25 23:44:21 [INFO] - Generating time series for ORDIUSDT
+2024-06-25 23:50:41 [INFO] - Initializing Binance bot
+2024-06-25 23:50:41 [INFO] - === Detected config file path (VM argument, optional): null ===
+2024-06-25 23:50:41 [INFO] - Setting add1 candlestick interval to: 15m
+2024-06-25 23:50:41 [INFO] - Setting candlestick interval to: 1h
+2024-06-25 23:50:41 [INFO] - Setting add2 candlestick interval to: 12h
+2024-06-25 23:50:44 [INFO] - Generating time series for LSKUSDT
+2024-06-25 23:50:45 [INFO] - Generating time series for BELUSDT
+2024-06-25 23:50:46 [INFO] - Generating time series for WLDUSDT
+2024-06-25 23:50:46 [INFO] - Generating time series for 1000LUNCUSDT
+2024-06-25 23:50:48 [INFO] - Generating time series for RENUSDT
+2024-06-25 23:50:49 [INFO] - Generating time series for HBARUSDT
+2024-06-25 23:50:50 [INFO] - Generating time series for STORJUSDT
+2024-06-25 23:50:50 [INFO] - Generating time series for DUSKUSDT
+2024-06-25 23:50:52 [INFO] - Generating time series for GRTUSDT
+2024-06-25 23:50:52 [INFO] - Generating time series for POLYXUSDT
+2024-06-25 23:50:52 [INFO] - Generating time series for ALICEUSDT
+2024-06-25 23:50:54 [INFO] - Generating time series for HOOKUSDT
+2024-06-25 23:50:54 [INFO] - Generating time series for LINKUSDT
+2024-06-25 23:50:55 [INFO] - Generating time series for HIGHUSDT
+2024-06-25 23:50:57 [INFO] - Generating time series for MANAUSDT
+2024-06-25 23:50:57 [INFO] - Generating time series for XLMUSDT
+2024-06-25 23:50:58 [INFO] - Generating time series for ONDOUSDT
+2024-06-25 23:50:58 [INFO] - Generating time series for KASUSDT
+2024-06-25 23:50:58 [INFO] - Generating time series for TURBOUSDT
+2024-06-25 23:50:59 [INFO] - Generating time series for ROSEUSDT
+2024-06-25 23:50:59 [INFO] - Generating time series for LEVERUSDT
+2024-06-25 23:50:59 [INFO] - Generating time series for TRUUSDT
+2024-06-25 23:51:00 [INFO] - Generating time series for ETHUSDT
+2024-06-25 23:51:00 [INFO] - Generating time series for COMPUSDT
+2024-06-25 23:51:00 [INFO] - Generating time series for ADAUSDT
+2024-06-25 23:51:01 [INFO] - Generating time series for WAXPUSDT
+2024-06-25 23:51:01 [INFO] - Generating time series for OMUSDT
+2024-06-25 23:51:01 [INFO] - Generating time series for MYROUSDT
+2024-06-25 23:51:02 [INFO] - Generating time series for PERPUSDT
+2024-06-25 23:51:02 [INFO] - Generating time series for DODOXUSDT
+2024-06-25 23:51:03 [INFO] - Generating time series for ALPHAUSDT
+2024-06-25 23:51:03 [INFO] - Generating time series for 1000SATSUSDT
+2024-06-25 23:51:03 [INFO] - Generating time series for OPUSDT
+2024-06-25 23:51:04 [INFO] - Generating time series for BTCSTUSDT
+2024-06-25 23:51:04 [INFO] - Generating time series for ILVUSDT
+2024-06-25 23:51:04 [INFO] - Generating time series for ENSUSDT
+2024-06-25 23:51:05 [INFO] - Generating time series for TRXUSDT
+2024-06-25 23:51:05 [INFO] - Generating time series for ARUSDT
+2024-06-25 23:51:05 [INFO] - Generating time series for DGBUSDT
+2024-06-25 23:51:06 [INFO] - Generating time series for LUNA2USDT
+2024-06-25 23:51:06 [INFO] - Generating time series for JUPUSDT
+2024-06-25 23:51:06 [INFO] - Generating time series for XAIUSDT
+2024-06-25 23:51:07 [INFO] - Generating time series for DOGEUSDT
+2024-06-25 23:51:07 [INFO] - Generating time series for LITUSDT
+2024-06-25 23:51:07 [INFO] - Generating time series for ATAUSDT
+2024-06-25 23:51:08 [INFO] - Generating time series for WOOUSDT
+2024-06-25 23:51:08 [INFO] - Generating time series for DEFIUSDT
+2024-06-25 23:51:08 [INFO] - Generating time series for NKNUSDT
+2024-06-25 23:51:09 [INFO] - Generating time series for GMXUSDT
+2024-06-25 23:51:09 [INFO] - Generating time series for TAOUSDT
+2024-06-25 23:51:09 [INFO] - Generating time series for 1000RATSUSDT
+2024-06-25 23:51:10 [INFO] - Generating time series for LTCUSDT
+2024-06-25 23:51:10 [INFO] - Generating time series for TONUSDT
+2024-06-25 23:51:10 [INFO] - Generating time series for REEFUSDT
+2024-06-25 23:51:10 [INFO] - Generating time series for SANDUSDT
+2024-06-25 23:51:11 [INFO] - Generating time series for KEYUSDT
+2024-06-25 23:51:11 [INFO] - Generating time series for ETHFIUSDT
+2024-06-25 23:51:11 [INFO] - Generating time series for HOTUSDT
+2024-06-25 23:51:12 [INFO] - Generating time series for QNTUSDT
+2024-06-25 23:51:12 [INFO] - Generating time series for RLCUSDT
+2024-06-25 23:51:12 [INFO] - Generating time series for PENDLEUSDT
+2024-06-25 23:51:13 [INFO] - Generating time series for STPTUSDT
+2024-06-25 23:51:13 [INFO] - Generating time series for OGNUSDT
+2024-06-25 23:51:13 [INFO] - Generating time series for CVXUSDT
+2024-06-25 23:51:14 [INFO] - Generating time series for ZROUSDT
+2024-06-25 23:51:14 [INFO] - Generating time series for VANRYUSDT
+2024-06-25 23:51:14 [INFO] - Generating time series for PEOPLEUSDT
+2024-06-25 23:51:15 [INFO] - Generating time series for BIGTIMEUSDT
+2024-06-25 23:51:15 [INFO] - Generating time series for CELOUSDT
+2024-06-25 23:51:15 [INFO] - Generating time series for APTUSDT
+2024-06-25 23:51:16 [INFO] - Generating time series for MAVUSDT
+2024-06-25 23:51:16 [INFO] - Generating time series for C98USDT
+2024-06-25 23:51:16 [INFO] - Generating time series for TOMOUSDT
+2024-06-25 23:51:17 [INFO] - Generating time series for LOOMUSDT
+2024-06-25 23:51:17 [INFO] - Generating time series for RIFUSDT
+2024-06-25 23:51:17 [INFO] - Generating time series for SNTUSDT
+2024-06-25 23:51:17 [INFO] - Generating time series for STEEMUSDT
+2024-06-25 23:51:18 [INFO] - Generating time series for HNTUSDT
+2024-06-25 23:51:18 [INFO] - Generating time series for MOVRUSDT
+2024-06-25 23:51:18 [INFO] - Generating time series for BALUSDT
+2024-06-25 23:51:19 [INFO] - Generating time series for SPELLUSDT
+2024-06-25 23:51:19 [INFO] - Generating time series for TNSRUSDT
+2024-06-25 23:51:19 [INFO] - Generating time series for SOLUSDT
+2024-06-25 23:51:20 [INFO] - Generating time series for BADGERUSDT
+2024-06-25 23:51:20 [INFO] - Generating time series for NOTUSDT
+2024-06-25 23:51:20 [INFO] - Generating time series for FXSUSDT
+2024-06-25 23:51:21 [INFO] - Generating time series for JTOUSDT
+2024-06-25 23:51:21 [INFO] - Generating time series for EOSUSDT
+2024-06-25 23:51:21 [INFO] - Generating time series for RVNUSDT
+2024-06-25 23:51:22 [INFO] - Generating time series for EGLDUSDT
+2024-06-25 23:51:22 [INFO] - Generating time series for MAVIAUSDT
+2024-06-25 23:51:22 [INFO] - Generating time series for ICXUSDT
+2024-06-25 23:51:22 [INFO] - Generating time series for EDUUSDT
+2024-06-25 23:51:23 [INFO] - Generating time series for XTZUSDT
+2024-06-25 23:51:23 [INFO] - Generating time series for XMRUSDT
+2024-06-25 23:51:23 [INFO] - Generating time series for RONINUSDT
+2024-06-25 23:51:24 [INFO] - Generating time series for ARBUSDT
+2024-06-25 23:51:24 [INFO] - Generating time series for FTTUSDT
+2024-06-25 23:51:24 [INFO] - Generating time series for STRKUSDT
+2024-06-25 23:51:25 [INFO] - Generating time series for UNFIUSDT
+2024-06-25 23:51:25 [INFO] - Generating time series for QTUMUSDT
+2024-06-25 23:51:25 [INFO] - Generating time series for CTSIUSDT
+2024-06-25 23:51:26 [INFO] - Generating time series for GASUSDT
+2024-06-25 23:51:26 [INFO] - Generating time series for AEVOUSDT
+2024-06-25 23:51:26 [INFO] - Generating time series for XVSUSDT
+2024-06-25 23:51:26 [INFO] - Generating time series for REZUSDT
+2024-06-25 23:51:27 [INFO] - Generating time series for GALAUSDT
+2024-06-25 23:51:27 [INFO] - Generating time series for SEIUSDT
+2024-06-25 23:51:27 [INFO] - Generating time series for MBLUSDT
+2024-06-25 23:51:28 [INFO] - Generating time series for KLAYUSDT
+2024-06-25 23:51:28 [INFO] - Generating time series for DARUSDT
+2024-06-25 23:51:28 [INFO] - Generating time series for BCHUSDT
+2024-06-25 23:51:29 [INFO] - Generating time series for CYBERUSDT
+2024-06-25 23:51:29 [INFO] - Generating time series for BLZUSDT
+2024-06-25 23:51:29 [INFO] - Generating time series for METISUSDT
+2024-06-25 23:51:30 [INFO] - Generating time series for ARKMUSDT
+2024-06-25 23:51:30 [INFO] - Generating time series for DYDXUSDT
+2024-06-25 23:51:30 [INFO] - Generating time series for SNXUSDT
+2024-06-25 23:51:31 [INFO] - Generating time series for AUDIOUSDT
+2024-06-25 23:51:31 [INFO] - Generating time series for CAKEUSDT
+2024-06-25 23:51:31 [INFO] - Generating time series for TRBUSDT
+2024-06-25 23:51:31 [INFO] - Generating time series for API3USDT
+2024-06-25 23:51:32 [INFO] - Generating time series for ZETAUSDT
+2024-06-25 23:51:32 [INFO] - Generating time series for SFPUSDT
+2024-06-25 23:51:32 [INFO] - Generating time series for 1INCHUSDT
+2024-06-25 23:51:33 [INFO] - Generating time series for GTCUSDT
+2024-06-25 23:51:33 [INFO] - Generating time series for FILUSDT
+2024-06-25 23:51:33 [INFO] - Generating time series for ASTRUSDT
+2024-06-25 23:51:34 [INFO] - Generating time series for ONEUSDT
+2024-06-25 23:51:34 [INFO] - Generating time series for DOTUSDT
+2024-06-25 23:51:34 [INFO] - Generating time series for WAVESUSDT
+2024-06-25 23:51:35 [INFO] - Generating time series for ETHUSDT_240628
+2024-06-25 23:51:35 [INFO] - Generating time series for OMNIUSDT
+2024-06-25 23:51:35 [INFO] - Generating time series for IDEXUSDT
+2024-06-25 23:51:36 [INFO] - Generating time series for BLUEBIRDUSDT
+2024-06-25 23:51:36 [INFO] - Generating time series for BEAMXUSDT
+2024-06-25 23:51:36 [INFO] - Generating time series for GLMUSDT
+2024-06-25 23:51:36 [INFO] - Generating time series for ONTUSDT
+2024-06-25 23:51:37 [INFO] - Generating time series for LQTYUSDT
+2024-06-25 23:51:37 [INFO] - Generating time series for PIXELUSDT
+2024-06-25 23:51:37 [INFO] - Generating time series for ETHWUSDT
+2024-06-25 23:51:38 [INFO] - Generating time series for ZRXUSDT
+2024-06-25 23:51:38 [INFO] - Generating time series for ETCUSDT
+2024-06-25 23:51:38 [INFO] - Generating time series for AVAXUSDT
+2024-06-25 23:51:39 [INFO] - Generating time series for BTCDOMUSDT
+2024-06-25 23:51:39 [INFO] - Generating time series for FETUSDT
+2024-06-25 23:51:39 [INFO] - Generating time series for MANTAUSDT
+2024-06-25 23:51:40 [INFO] - Generating time series for SUPERUSDT
+2024-06-25 23:51:40 [INFO] - Generating time series for 1000SHIBUSDT
+2024-06-25 23:51:40 [INFO] - Generating time series for AUCTIONUSDT
+2024-06-25 23:51:40 [INFO] - Generating time series for MATICUSDT
+2024-06-25 23:51:41 [INFO] - Generating time series for RADUSDT
+2024-06-25 23:51:41 [INFO] - Generating time series for WUSDT
+2024-06-25 23:51:41 [INFO] - Generating time series for SRMUSDT
+2024-06-25 23:51:42 [INFO] - Generating time series for TOKENUSDT
+2024-06-25 23:51:42 [INFO] - Generating time series for FOOTBALLUSDT
+2024-06-25 23:51:42 [INFO] - Generating time series for ZECUSDT
+2024-06-25 23:51:43 [INFO] - Generating time series for 1000PEPEUSDT
+2024-06-25 23:51:43 [INFO] - Generating time series for BATUSDT
+2024-06-25 23:51:43 [INFO] - Generating time series for COMBOUSDT
+2024-06-25 23:51:44 [INFO] - Generating time series for MINAUSDT
+2024-06-25 23:51:44 [INFO] - Generating time series for NFPUSDT
+2024-06-25 23:51:44 [INFO] - Generating time series for MASKUSDT
+2024-06-25 23:51:45 [INFO] - Generating time series for BSVUSDT
+2024-06-25 23:51:45 [INFO] - Generating time series for GALUSDT
+2024-06-25 23:51:45 [INFO] - Generating time series for PYTHUSDT
+2024-06-25 23:51:46 [INFO] - Generating time series for LPTUSDT
+2024-06-25 23:51:46 [INFO] - Generating time series for UMAUSDT
+2024-06-25 23:51:46 [INFO] - Generating time series for ACHUSDT
+2024-06-25 23:51:46 [INFO] - Generating time series for NEOUSDT
+2024-06-25 23:51:47 [INFO] - Generating time series for MKRUSDT
+2024-06-25 23:51:47 [INFO] - Generating time series for MTLUSDT
+2024-06-25 23:51:47 [INFO] - Generating time series for BBUSDT
+2024-06-25 23:51:48 [INFO] - Generating time series for SUIUSDT
+2024-06-25 23:51:48 [INFO] - Generating time series for PORTALUSDT
+2024-06-25 23:51:48 [INFO] - Generating time series for BAKEUSDT
+2024-06-25 23:51:49 [INFO] - Generating time series for WIFUSDT
+2024-06-25 23:51:49 [INFO] - Generating time series for IOSTUSDT
+2024-06-25 23:51:49 [INFO] - Generating time series for DYMUSDT
+2024-06-25 23:51:50 [INFO] - Generating time series for KAVAUSDT
+2024-06-25 23:51:50 [INFO] - Generating time series for ZENUSDT
+2024-06-25 23:51:50 [INFO] - Generating time series for JASMYUSDT
+2024-06-25 23:51:50 [INFO] - Generating time series for IOTXUSDT
+2024-06-25 23:51:51 [INFO] - Generating time series for ZILUSDT
+2024-06-25 23:51:51 [INFO] - Generating time series for STXUSDT
+2024-06-25 23:51:51 [INFO] - Generating time series for CKBUSDT
+2024-06-25 23:51:52 [INFO] - Generating time series for ICPUSDT
+2024-06-25 23:51:52 [INFO] - Generating time series for LINAUSDT
+2024-06-25 23:51:52 [INFO] - Generating time series for IOTAUSDT
+2024-06-25 23:51:53 [INFO] - Generating time series for ENAUSDT
+2024-06-25 23:51:53 [INFO] - Generating time series for IMXUSDT
+2024-06-25 23:51:53 [INFO] - Generating time series for TLMUSDT
+2024-06-25 23:51:53 [INFO] - Generating time series for LRCUSDT
+2024-06-25 23:51:54 [INFO] - Generating time series for KSMUSDT
+2024-06-25 23:51:54 [INFO] - Generating time series for INJUSDT
+2024-06-25 23:51:54 [INFO] - Generating time series for ATOMUSDT
+2024-06-25 23:51:55 [INFO] - Generating time series for ALGOUSDT
+2024-06-25 23:51:55 [INFO] - Generating time series for CHZUSDT
+2024-06-25 23:51:55 [INFO] - Generating time series for NTRNUSDT
+2024-06-25 23:51:56 [INFO] - Generating time series for XRPUSDT
+2024-06-25 23:51:56 [INFO] - Generating time series for LISTAUSDT
+2024-06-25 23:51:56 [INFO] - Generating time series for STGUSDT
+2024-06-25 23:51:57 [INFO] - Generating time series for AXLUSDT
+2024-06-25 23:51:57 [INFO] - Generating time series for GMTUSDT
+2024-06-25 23:51:57 [INFO] - Generating time series for JOEUSDT
+2024-06-25 23:51:57 [INFO] - Generating time series for IDUSDT
+2024-06-25 23:51:58 [INFO] - Generating time series for RSRUSDT
+2024-06-25 23:51:58 [INFO] - Generating time series for USTCUSDT
+2024-06-25 23:51:58 [INFO] - Generating time series for GLMRUSDT
+2024-06-25 23:51:59 [INFO] - Generating time series for MEMEUSDT
+2024-06-25 23:51:59 [INFO] - Generating time series for ARPAUSDT
+2024-06-25 23:51:59 [INFO] - Generating time series for BTCUSDT_240628
+2024-06-25 23:52:00 [INFO] - Generating time series for NMRUSDT
+2024-06-25 23:52:00 [INFO] - Generating time series for KNCUSDT
+2024-06-25 23:52:00 [INFO] - Generating time series for FRONTUSDT
+2024-06-25 23:52:01 [INFO] - Generating time series for ACEUSDT
+2024-06-25 23:52:01 [INFO] - Generating time series for MEWUSDT
+2024-06-25 23:52:01 [INFO] - Generating time series for AIUSDT
+2024-06-25 23:52:01 [INFO] - Generating time series for ETHUSDT_240927
+2024-06-25 23:52:02 [INFO] - Generating time series for BNTUSDT
+2024-06-25 23:52:02 [INFO] - Generating time series for CFXUSDT
+2024-06-25 23:52:02 [INFO] - Generating time series for BTCUSDT
+2024-06-25 23:52:03 [INFO] - Generating time series for APEUSDT
+2024-06-25 23:52:03 [INFO] - Generating time series for XVGUSDT
+2024-06-25 23:52:03 [INFO] - Generating time series for ORBSUSDT
+2024-06-25 23:52:04 [INFO] - Generating time series for DENTUSDT
+2024-06-25 23:52:04 [INFO] - Generating time series for BLURUSDT
+2024-06-25 23:52:04 [INFO] - Generating time series for STMXUSDT
+2024-06-25 23:52:04 [INFO] - Generating time series for 1000FLOKIUSDT
+2024-06-25 23:52:05 [INFO] - Generating time series for LDOUSDT
+2024-06-25 23:52:05 [INFO] - Generating time series for RDNTUSDT
+2024-06-25 23:52:05 [INFO] - Generating time series for YGGUSDT
+2024-06-25 23:52:06 [INFO] - Generating time series for RUNEUSDT
+2024-06-25 23:52:06 [INFO] - Generating time series for FLMUSDT
+2024-06-25 23:52:06 [INFO] - Generating time series for 1000BONKUSDT
+2024-06-25 23:52:07 [INFO] - Generating time series for ANTUSDT
+2024-06-25 23:52:07 [INFO] - Generating time series for AGLDUSDT
+2024-06-25 23:52:07 [INFO] - Generating time series for NEARUSDT
+2024-06-25 23:52:08 [INFO] - Generating time series for CHRUSDT
+2024-06-25 23:52:08 [INFO] - Generating time series for ZKUSDT
+2024-06-25 23:52:08 [INFO] - Generating time series for FTMUSDT
+2024-06-25 23:52:08 [INFO] - Generating time series for BONDUSDT
+2024-06-25 23:52:09 [INFO] - Generating time series for THETAUSDT
+2024-06-25 23:52:09 [INFO] - Generating time series for DASHUSDT
+2024-06-25 23:52:09 [INFO] - Generating time series for BOMEUSDT
+2024-06-25 23:52:10 [INFO] - Generating time series for HFTUSDT
+2024-06-25 23:52:10 [INFO] - Generating time series for OXTUSDT
+2024-06-25 23:52:10 [INFO] - Generating time series for XEMUSDT
+2024-06-25 23:52:11 [INFO] - Generating time series for RNDRUSDT
+2024-06-25 23:52:11 [INFO] - Generating time series for IOUSDT
+2024-06-25 23:52:11 [INFO] - Generating time series for RAYUSDT
+2024-06-25 23:52:12 [INFO] - Generating time series for HIFIUSDT
+2024-06-25 23:52:12 [INFO] - Generating time series for CVCUSDT
+2024-06-25 23:52:12 [INFO] - Generating time series for FLOWUSDT
+2024-06-25 23:52:13 [INFO] - Generating time series for MAGICUSDT
+2024-06-25 23:52:13 [INFO] - Generating time series for SXPUSDT
+2024-06-25 23:52:13 [INFO] - Generating time series for CELRUSDT
+2024-06-25 23:52:13 [INFO] - Generating time series for ALTUSDT
+2024-06-25 23:52:14 [INFO] - Generating time series for COCOSUSDT
+2024-06-25 23:52:14 [INFO] - Generating time series for BTCUSDT_240927
+2024-06-25 23:52:14 [INFO] - Generating time series for OMGUSDT
+2024-06-25 23:52:15 [INFO] - Generating time series for ARKUSDT
+2024-06-25 23:52:15 [INFO] - Generating time series for POWRUSDT
+2024-06-25 23:52:15 [INFO] - Generating time series for BNBUSDT
+2024-06-25 23:52:16 [INFO] - Generating time series for YFIUSDT
+2024-06-25 23:52:16 [INFO] - Generating time series for SUSHIUSDT
+2024-06-25 23:52:16 [INFO] - Generating time series for MDTUSDT
+2024-06-25 23:52:17 [INFO] - Generating time series for CRVUSDT
+2024-06-25 23:52:17 [INFO] - Generating time series for BANDUSDT
+2024-06-25 23:52:17 [INFO] - Generating time series for AMBUSDT
+2024-06-25 23:52:17 [INFO] - Generating time series for VETUSDT
+2024-06-25 23:52:18 [INFO] - Generating time series for ENJUSDT
+2024-06-25 23:52:18 [INFO] - Generating time series for ANKRUSDT
+2024-06-25 23:52:18 [INFO] - Generating time series for BTSUSDT
+2024-06-25 23:52:19 [INFO] - Generating time series for SAGAUSDT
+2024-06-25 23:52:19 [INFO] - Generating time series for PHBUSDT
+2024-06-25 23:52:19 [INFO] - Generating time series for SSVUSDT
+2024-06-25 23:52:20 [INFO] - Generating time series for CTKUSDT
+2024-06-25 23:52:20 [INFO] - Generating time series for 1000XECUSDT
+2024-06-25 23:52:20 [INFO] - Generating time series for UNIUSDT
+2024-06-25 23:52:21 [INFO] - Generating time series for TUSDT
+2024-06-25 23:52:21 [INFO] - Generating time series for SCUSDT
+2024-06-25 23:52:21 [INFO] - Generating time series for ONGUSDT
+2024-06-25 23:52:22 [INFO] - Generating time series for ORDIUSDT
+2024-06-25 23:52:22 [INFO] - Generating time series for AAVEUSDT
+2024-06-25 23:52:22 [INFO] - Generating time series for TIAUSDT
+2024-06-25 23:52:22 [INFO] - Generating time series for TWTUSDT
+2024-06-25 23:52:23 [INFO] - Generating time series for BICOUSDT
+2024-06-25 23:52:23 [INFO] - Generating time series for AGIXUSDT
+2024-06-25 23:52:23 [INFO] - Generating time series for COTIUSDT
+2024-06-25 23:52:24 [INFO] - Generating time series for SLPUSDT
+2024-06-25 23:52:24 [INFO] - Generating time series for STRAXUSDT
+2024-06-25 23:52:24 [INFO] - Generating time series for OCEANUSDT
+2024-06-25 23:52:25 [INFO] - Generating time series for AXSUSDT
+2024-06-25 23:52:25 [INFO] - Generating time series for SKLUSDT
+2024-06-25 23:52:25 [INFO] - Generating time series for BNXUSDT
+2024-06-25 23:52:26 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 23:52:26 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 23:52:26 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 23:52:26 [INFO] -  LONG:  []
+2024-06-25 23:52:26 [INFO] -  SHORT: []
+2024-06-25 23:52:26 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 23:52:26 [INFO] - [32m Start time       : Tue Jun 25 23:50:40 CEST 2024 [0m 
+2024-06-25 23:52:26 [INFO] - [32m Execute time     : 0:01:45 [0m 
+2024-06-25 23:52:27 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-25 23:52:27 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 23:52:27 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 23:52:32 [ERROR] - Error checking symbol ALICEUSDT
+java.lang.NumberFormatException: null
+	at java.base/java.math.BigDecimal.<init>(BigDecimal.java:703)
+	at java.base/java.math.BigDecimal.<init>(BigDecimal.java:919)
+	at org.ta4j.core.Decimal.<init>(Decimal.java:74)
+	at org.ta4j.core.Decimal.valueOf(Decimal.java:504)
+	at com.my.copybot.util.BinanceTa4jUtils.convertToTa4jTick(BinanceTa4jUtils.java:36)
+	at com.my.copybot.util.BinanceTa4jUtils.convertToTimeSeries(BinanceTa4jUtils.java:25)
+	at com.my.copybot.CopyBot.checkSymbol(CopyBot.java:312)
+	at com.my.copybot.CopyBot.mainProcess(CopyBot.java:667)
+	at com.my.copybot.CopyBot.lambda$process$0(CopyBot.java:230)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.ArrayIndexOutOfBoundsException: null
+2024-06-25 23:54:10 [INFO] - All symbols analyzed, time elapsed: 103.113 seconds.
+2024-06-25 23:55:26 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 23:55:26 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-25 23:55:26 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-25 23:55:26 [INFO] -  LONG:  []
+2024-06-25 23:55:26 [INFO] -  SHORT: []
+2024-06-25 23:55:26 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 23:55:26 [INFO] - [32m Start time       : Tue Jun 25 23:50:40 CEST 2024 [0m 
+2024-06-25 23:55:26 [INFO] - [32m Execute time     : 0:04:45 [0m 
+2024-06-25 23:55:27 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-25 23:55:27 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-25 23:55:27 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-25 23:55:35 [ERROR] - Error checking symbol ALICEUSDT
+java.lang.NumberFormatException: null
+	at java.base/java.math.BigDecimal.<init>(BigDecimal.java:703)
+	at java.base/java.math.BigDecimal.<init>(BigDecimal.java:919)
+	at org.ta4j.core.Decimal.<init>(Decimal.java:74)
+	at org.ta4j.core.Decimal.valueOf(Decimal.java:504)
+	at com.my.copybot.util.BinanceTa4jUtils.convertToTa4jTick(BinanceTa4jUtils.java:36)
+	at com.my.copybot.util.BinanceTa4jUtils.convertToTimeSeries(BinanceTa4jUtils.java:25)
+	at com.my.copybot.CopyBot.checkSymbol(CopyBot.java:312)
+	at com.my.copybot.CopyBot.mainProcess(CopyBot.java:667)
+	at com.my.copybot.CopyBot.lambda$process$0(CopyBot.java:230)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.ArrayIndexOutOfBoundsException: null
+2024-06-25 23:57:15 [INFO] - All symbols analyzed, time elapsed: 107.358 seconds.
+2024-06-25 23:58:48 [INFO] - Initializing Binance bot
+2024-06-25 23:58:48 [INFO] - === Detected config file path (VM argument, optional): null ===
+2024-06-25 23:58:48 [INFO] - Setting add1 candlestick interval to: 15m
+2024-06-25 23:58:48 [INFO] - Setting candlestick interval to: 1h
+2024-06-25 23:58:48 [INFO] - Setting add2 candlestick interval to: 12h
+2024-06-25 23:58:52 [INFO] - Generating time series for KEYUSDT
+2024-06-25 23:58:53 [INFO] - Generating time series for RSRUSDT
+2024-06-25 23:58:54 [INFO] - Generating time series for ZENUSDT
+2024-06-25 23:58:55 [INFO] - Generating time series for KAVAUSDT
+2024-06-25 23:58:56 [INFO] - Generating time series for AUCTIONUSDT
+2024-06-25 23:58:57 [INFO] - Generating time series for AUDIOUSDT
+2024-06-25 23:58:58 [INFO] - Generating time series for ETHFIUSDT
+2024-06-25 23:58:59 [INFO] - Generating time series for MBLUSDT
+2024-06-25 23:58:59 [INFO] - Generating time series for AAVEUSDT
+2024-06-25 23:59:00 [INFO] - Generating time series for IDUSDT
+2024-06-25 23:59:01 [INFO] - Generating time series for IDEXUSDT
+2024-06-25 23:59:02 [INFO] - Generating time series for ATAUSDT
+2024-06-25 23:59:03 [INFO] - Generating time series for SUPERUSDT
+2024-06-25 23:59:03 [INFO] - Generating time series for ENJUSDT
+2024-06-25 23:59:04 [INFO] - Generating time series for DOGEUSDT
+2024-06-25 23:59:04 [INFO] - Generating time series for FETUSDT
+2024-06-25 23:59:06 [INFO] - Generating time series for ROSEUSDT
+2024-06-25 23:59:06 [INFO] - Generating time series for STGUSDT
+2024-06-25 23:59:07 [INFO] - Generating time series for 1000SHIBUSDT
+2024-06-25 23:59:07 [INFO] - Generating time series for CVXUSDT
+2024-06-25 23:59:07 [INFO] - Generating time series for KASUSDT
+2024-06-25 23:59:08 [INFO] - Generating time series for USTCUSDT
+2024-06-25 23:59:08 [INFO] - Generating time series for LITUSDT
+2024-06-25 23:59:08 [INFO] - Generating time series for NTRNUSDT
+2024-06-25 23:59:08 [INFO] - Generating time series for TLMUSDT
+2024-06-25 23:59:09 [INFO] - Generating time series for AGLDUSDT
+2024-06-25 23:59:09 [INFO] - Generating time series for XLMUSDT
+2024-06-25 23:59:09 [INFO] - Generating time series for CTKUSDT
+2024-06-25 23:59:10 [INFO] - Generating time series for ZRXUSDT
+2024-06-25 23:59:10 [INFO] - Generating time series for HOTUSDT
+2024-06-25 23:59:10 [INFO] - Generating time series for UNIUSDT
+2024-06-25 23:59:11 [INFO] - Generating time series for BCHUSDT
+2024-06-25 23:59:11 [INFO] - Generating time series for BTCUSDT_240927
+2024-06-25 23:59:11 [INFO] - Generating time series for C98USDT
+2024-06-25 23:59:12 [INFO] - Generating time series for AVAXUSDT
+2024-06-25 23:59:12 [INFO] - Generating time series for HOOKUSDT
+2024-06-25 23:59:12 [INFO] - Generating time series for PEOPLEUSDT
+2024-06-25 23:59:12 [INFO] - Generating time series for NOTUSDT
+2024-06-25 23:59:13 [INFO] - Generating time series for 1000FLOKIUSDT
+2024-06-25 23:59:13 [INFO] - Generating time series for CELRUSDT
+2024-06-25 23:59:13 [INFO] - Generating time series for PORTALUSDT
+2024-06-25 23:59:14 [INFO] - Generating time series for LDOUSDT
+2024-06-25 23:59:14 [INFO] - Generating time series for FXSUSDT
+2024-06-25 23:59:14 [INFO] - Generating time series for IMXUSDT
+2024-06-25 23:59:15 [INFO] - Generating time series for ATOMUSDT
+2024-06-25 23:59:15 [INFO] - Generating time series for STEEMUSDT
+2024-06-25 23:59:15 [INFO] - Generating time series for RIFUSDT
+2024-06-25 23:59:16 [INFO] - Generating time series for ZROUSDT
+2024-06-25 23:59:16 [INFO] - Generating time series for AXLUSDT
+2024-06-25 23:59:16 [INFO] - Generating time series for EDUUSDT
+2024-06-25 23:59:17 [INFO] - Generating time series for XEMUSDT
+2024-06-25 23:59:17 [INFO] - Generating time series for ZKUSDT
+2024-06-25 23:59:17 [INFO] - Generating time series for ILVUSDT
+2024-06-25 23:59:18 [INFO] - Generating time series for FTTUSDT
+2024-06-25 23:59:18 [INFO] - Generating time series for FTMUSDT
+2024-06-25 23:59:18 [INFO] - Generating time series for BELUSDT
+2024-06-25 23:59:18 [INFO] - Generating time series for ICXUSDT
+2024-06-25 23:59:19 [INFO] - Generating time series for 1000SATSUSDT
+2024-06-25 23:59:19 [INFO] - Generating time series for MANAUSDT
+2024-06-25 23:59:19 [INFO] - Generating time series for IOTAUSDT
+2024-06-25 23:59:20 [INFO] - Generating time series for TRBUSDT
+2024-06-25 23:59:20 [INFO] - Generating time series for BLUEBIRDUSDT
+2024-06-25 23:59:20 [INFO] - Generating time series for DUSKUSDT
+2024-06-25 23:59:21 [INFO] - Generating time series for MYROUSDT
+2024-06-25 23:59:21 [INFO] - Generating time series for MEWUSDT
+2024-06-25 23:59:21 [INFO] - Generating time series for STRAXUSDT
+2024-06-25 23:59:22 [INFO] - Generating time series for WOOUSDT
+2024-06-25 23:59:22 [INFO] - Generating time series for CHRUSDT
+2024-06-25 23:59:22 [INFO] - Generating time series for SRMUSDT
+2024-06-25 23:59:23 [INFO] - Generating time series for ONGUSDT
+2024-06-25 23:59:23 [INFO] - Generating time series for XRPUSDT
+2024-06-25 23:59:23 [INFO] - Generating time series for NMRUSDT
+2024-06-25 23:59:24 [INFO] - Generating time series for 1000XECUSDT
+2024-06-25 23:59:24 [INFO] - Generating time series for SANDUSDT
+2024-06-25 23:59:24 [INFO] - Generating time series for DENTUSDT
+2024-06-25 23:59:25 [INFO] - Generating time series for LRCUSDT
+2024-06-25 23:59:25 [INFO] - Generating time series for 1000LUNCUSDT
+2024-06-25 23:59:25 [INFO] - Generating time series for ARKUSDT
+2024-06-25 23:59:25 [INFO] - Generating time series for OPUSDT
+2024-06-25 23:59:26 [INFO] - Generating time series for KSMUSDT
+2024-06-25 23:59:26 [INFO] - Generating time series for CKBUSDT
+2024-06-25 23:59:26 [INFO] - Generating time series for ONDOUSDT
+2024-06-25 23:59:27 [INFO] - Generating time series for LSKUSDT
+2024-06-25 23:59:27 [INFO] - Generating time series for BTCSTUSDT
+2024-06-25 23:59:27 [INFO] - Generating time series for GRTUSDT
+2024-06-25 23:59:28 [INFO] - Generating time series for MATICUSDT
+2024-06-25 23:59:28 [INFO] - Generating time series for OGNUSDT
+2024-06-25 23:59:28 [INFO] - Generating time series for RAYUSDT
+2024-06-25 23:59:29 [INFO] - Generating time series for ASTRUSDT
+2024-06-25 23:59:29 [INFO] - Generating time series for JASMYUSDT
+2024-06-25 23:59:29 [INFO] - Generating time series for TUSDT
+2024-06-25 23:59:30 [INFO] - Generating time series for NFPUSDT
+2024-06-25 23:59:30 [INFO] - Generating time series for DYMUSDT
+2024-06-25 23:59:30 [INFO] - Generating time series for MOVRUSDT
+2024-06-25 23:59:31 [INFO] - Generating time series for TNSRUSDT
+2024-06-25 23:59:31 [INFO] - Generating time series for SOLUSDT
+2024-06-25 23:59:31 [INFO] - Generating time series for OCEANUSDT
+2024-06-25 23:59:31 [INFO] - Generating time series for WAXPUSDT
+2024-06-25 23:59:32 [INFO] - Generating time series for HIFIUSDT
+2024-06-25 23:59:32 [INFO] - Generating time series for RDNTUSDT
+2024-06-25 23:59:32 [INFO] - Generating time series for RNDRUSDT
+2024-06-25 23:59:33 [INFO] - Generating time series for FOOTBALLUSDT
+2024-06-25 23:59:33 [INFO] - Generating time series for ALTUSDT
+2024-06-25 23:59:33 [INFO] - Generating time series for ANTUSDT
+2024-06-25 23:59:34 [INFO] - Generating time series for HIGHUSDT
+2024-06-25 23:59:34 [INFO] - Generating time series for EGLDUSDT
+2024-06-25 23:59:34 [INFO] - Generating time series for LOOMUSDT
+2024-06-25 23:59:35 [INFO] - Generating time series for BADGERUSDT
+2024-06-25 23:59:35 [INFO] - Generating time series for BNXUSDT
+2024-06-25 23:59:35 [INFO] - Generating time series for DYDXUSDT
+2024-06-25 23:59:36 [INFO] - Generating time series for ALGOUSDT
+2024-06-25 23:59:36 [INFO] - Generating time series for BTCUSDT_240628
+2024-06-25 23:59:36 [INFO] - Generating time series for STPTUSDT
+2024-06-25 23:59:37 [INFO] - Generating time series for HNTUSDT
+2024-06-25 23:59:37 [INFO] - Generating time series for GTCUSDT
+2024-06-25 23:59:37 [INFO] - Generating time series for ETHUSDT_240628
+2024-06-25 23:59:38 [INFO] - Generating time series for XVSUSDT
+2024-06-25 23:59:38 [INFO] - Generating time series for WLDUSDT
+2024-06-25 23:59:38 [INFO] - Generating time series for OXTUSDT
+2024-06-25 23:59:38 [INFO] - Generating time series for CTSIUSDT
+2024-06-25 23:59:39 [INFO] - Generating time series for FLMUSDT
+2024-06-25 23:59:39 [INFO] - Generating time series for ETCUSDT
+2024-06-25 23:59:39 [INFO] - Generating time series for ARUSDT
+2024-06-25 23:59:40 [INFO] - Generating time series for REZUSDT
+2024-06-25 23:59:40 [INFO] - Generating time series for XAIUSDT
+2024-06-25 23:59:40 [INFO] - Generating time series for SUSHIUSDT
+2024-06-25 23:59:41 [INFO] - Generating time series for EOSUSDT
+2024-06-25 23:59:41 [INFO] - Generating time series for CAKEUSDT
+2024-06-25 23:59:41 [INFO] - Generating time series for LEVERUSDT
+2024-06-25 23:59:42 [INFO] - Generating time series for STXUSDT
+2024-06-25 23:59:42 [INFO] - Generating time series for XMRUSDT
+2024-06-25 23:59:42 [INFO] - Generating time series for BICOUSDT
+2024-06-25 23:59:42 [INFO] - Generating time series for NKNUSDT
+2024-06-25 23:59:43 [INFO] - Generating time series for ARPAUSDT
+2024-06-25 23:59:43 [INFO] - Generating time series for HBARUSDT
+2024-06-25 23:59:43 [INFO] - Generating time series for GALAUSDT
+2024-06-25 23:59:44 [INFO] - Generating time series for COTIUSDT
+2024-06-25 23:59:44 [INFO] - Generating time series for IOSTUSDT
+2024-06-25 23:59:44 [INFO] - Generating time series for MAVIAUSDT
+2024-06-25 23:59:45 [INFO] - Generating time series for QTUMUSDT
+2024-06-25 23:59:45 [INFO] - Generating time series for SXPUSDT
+2024-06-25 23:59:45 [INFO] - Generating time series for NEARUSDT
+2024-06-25 23:59:46 [INFO] - Generating time series for STMXUSDT
+2024-06-25 23:59:46 [INFO] - Generating time series for LUNA2USDT
+2024-06-25 23:59:46 [INFO] - Generating time series for ORBSUSDT
+2024-06-25 23:59:46 [INFO] - Generating time series for JTOUSDT
+2024-06-25 23:59:47 [INFO] - Generating time series for MDTUSDT
+2024-06-25 23:59:47 [INFO] - Generating time series for POLYXUSDT
+2024-06-25 23:59:47 [INFO] - Generating time series for SUIUSDT
+2024-06-25 23:59:48 [INFO] - Generating time series for ICPUSDT
+2024-06-25 23:59:48 [INFO] - Generating time series for BSVUSDT
+2024-06-25 23:59:48 [INFO] - Generating time series for ETHUSDT
+2024-06-25 23:59:49 [INFO] - Generating time series for 1000BONKUSDT
+2024-06-25 23:59:49 [INFO] - Generating time series for YGGUSDT
+2024-06-25 23:59:49 [INFO] - Generating time series for PIXELUSDT
+2024-06-25 23:59:50 [INFO] - Generating time series for LISTAUSDT
+2024-06-25 23:59:50 [INFO] - Generating time series for AEVOUSDT
+2024-06-25 23:59:50 [INFO] - Generating time series for CVCUSDT
+2024-06-25 23:59:51 [INFO] - Generating time series for BLZUSDT
+2024-06-25 23:59:51 [INFO] - Generating time series for SPELLUSDT
+2024-06-25 23:59:51 [INFO] - Generating time series for PYTHUSDT
+2024-06-25 23:59:51 [INFO] - Generating time series for VANRYUSDT
+2024-06-25 23:59:52 [INFO] - Generating time series for SNXUSDT
+2024-06-25 23:59:52 [INFO] - Generating time series for LINKUSDT
+2024-06-25 23:59:52 [INFO] - Generating time series for RENUSDT
+2024-06-25 23:59:53 [INFO] - Generating time series for BEAMXUSDT
+2024-06-25 23:59:53 [INFO] - Generating time series for SKLUSDT
+2024-06-25 23:59:53 [INFO] - Generating time series for POWRUSDT
+2024-06-25 23:59:54 [INFO] - Generating time series for PERPUSDT
+2024-06-25 23:59:54 [INFO] - Generating time series for MAGICUSDT
+2024-06-25 23:59:54 [INFO] - Generating time series for SFPUSDT
+2024-06-25 23:59:54 [INFO] - Generating time series for RADUSDT
+2024-06-25 23:59:55 [INFO] - Generating time series for DASHUSDT
+2024-06-25 23:59:55 [INFO] - Generating time series for VETUSDT
+2024-06-25 23:59:55 [INFO] - Generating time series for AIUSDT
+2024-06-25 23:59:56 [INFO] - Generating time series for WIFUSDT
+2024-06-25 23:59:56 [INFO] - Generating time series for ALICEUSDT
+2024-06-25 23:59:56 [INFO] - Generating time series for ENAUSDT
+2024-06-25 23:59:57 [INFO] - Generating time series for ONTUSDT
+2024-06-25 23:59:57 [INFO] - Generating time series for TONUSDT
+2024-06-25 23:59:57 [INFO] - Generating time series for TRXUSDT
+2024-06-25 23:59:58 [INFO] - Generating time series for MTLUSDT
+2024-06-25 23:59:58 [INFO] - Generating time series for DGBUSDT
+2024-06-25 23:59:58 [INFO] - Generating time series for BALUSDT
+2024-06-25 23:59:59 [INFO] - Generating time series for INJUSDT
+2024-06-25 23:59:59 [INFO] - Generating time series for AGIXUSDT
+2024-06-25 23:59:59 [INFO] - Generating time series for LPTUSDT
+2024-06-25 23:59:59 [INFO] - Generating time series for ACHUSDT
+2024-06-26 00:00:00 [INFO] - Generating time series for RONINUSDT
+2024-06-26 00:00:00 [INFO] - Generating time series for XVGUSDT
+2024-06-26 00:00:00 [INFO] - Generating time series for IOTXUSDT
+2024-06-26 00:00:01 [INFO] - Generating time series for HFTUSDT
+2024-06-26 00:00:01 [INFO] - Generating time series for COMPUSDT
+2024-06-26 00:00:01 [INFO] - Generating time series for ORDIUSDT
+2024-06-26 00:00:02 [INFO] - Generating time series for BIGTIMEUSDT
+2024-06-26 00:00:02 [INFO] - Generating time series for AXSUSDT
+2024-06-26 00:00:02 [INFO] - Generating time series for BNBUSDT
+2024-06-26 00:00:03 [INFO] - Generating time series for REEFUSDT
+2024-06-26 00:00:03 [INFO] - Generating time series for ARKMUSDT
+2024-06-26 00:00:03 [INFO] - Generating time series for SAGAUSDT
+2024-06-26 00:00:04 [INFO] - Generating time series for TIAUSDT
+2024-06-26 00:00:04 [INFO] - Generating time series for ETHWUSDT
+2024-06-26 00:00:04 [INFO] - Generating time series for JUPUSDT
+2024-06-26 00:00:05 [INFO] - Generating time series for KLAYUSDT
+2024-06-26 00:00:05 [INFO] - Generating time series for ACEUSDT
+2024-06-26 00:00:05 [INFO] - Generating time series for NEOUSDT
+2024-06-26 00:00:05 [INFO] - Generating time series for MASKUSDT
+2024-06-26 00:00:06 [INFO] - Generating time series for AMBUSDT
+2024-06-26 00:00:06 [INFO] - Generating time series for 1000RATSUSDT
+2024-06-26 00:00:06 [INFO] - Generating time series for KNCUSDT
+2024-06-26 00:00:07 [INFO] - Generating time series for TURBOUSDT
+2024-06-26 00:00:07 [INFO] - Generating time series for DARUSDT
+2024-06-26 00:00:07 [INFO] - Generating time series for BNTUSDT
+2024-06-26 00:00:08 [INFO] - Generating time series for UMAUSDT
+2024-06-26 00:00:08 [INFO] - Generating time series for RVNUSDT
+2024-06-26 00:00:08 [INFO] - Generating time series for PHBUSDT
+2024-06-26 00:00:09 [INFO] - Generating time series for ALPHAUSDT
+2024-06-26 00:00:09 [INFO] - Generating time series for SEIUSDT
+2024-06-26 00:00:09 [INFO] - Generating time series for MANTAUSDT
+2024-06-26 00:00:09 [INFO] - Generating time series for 1INCHUSDT
+2024-06-26 00:00:10 [INFO] - Generating time series for GASUSDT
+2024-06-26 00:00:10 [INFO] - Generating time series for QNTUSDT
+2024-06-26 00:00:10 [INFO] - Generating time series for MAVUSDT
+2024-06-26 00:00:11 [INFO] - Generating time series for ETHUSDT_240927
+2024-06-26 00:00:11 [INFO] - Generating time series for TOKENUSDT
+2024-06-26 00:00:11 [INFO] - Generating time series for BOMEUSDT
+2024-06-26 00:00:12 [INFO] - Generating time series for RUNEUSDT
+2024-06-26 00:00:12 [INFO] - Generating time series for BBUSDT
+2024-06-26 00:00:12 [INFO] - Generating time series for ADAUSDT
+2024-06-26 00:00:13 [INFO] - Generating time series for SSVUSDT
+2024-06-26 00:00:13 [INFO] - Generating time series for API3USDT
+2024-06-26 00:00:13 [INFO] - Generating time series for UNFIUSDT
+2024-06-26 00:00:13 [INFO] - Generating time series for COMBOUSDT
+2024-06-26 00:00:14 [INFO] - Generating time series for SLPUSDT
+2024-06-26 00:00:14 [INFO] - Generating time series for ZECUSDT
+2024-06-26 00:00:14 [INFO] - Generating time series for ONEUSDT
+2024-06-26 00:00:15 [INFO] - Generating time series for GMTUSDT
+2024-06-26 00:00:15 [INFO] - Generating time series for OMUSDT
+2024-06-26 00:00:15 [INFO] - Generating time series for APEUSDT
+2024-06-26 00:00:16 [INFO] - Generating time series for GLMUSDT
+2024-06-26 00:00:16 [INFO] - Generating time series for FRONTUSDT
+2024-06-26 00:00:16 [INFO] - Generating time series for ENSUSDT
+2024-06-26 00:00:17 [INFO] - Generating time series for ANKRUSDT
+2024-06-26 00:00:17 [INFO] - Generating time series for GLMRUSDT
+2024-06-26 00:00:17 [INFO] - Generating time series for FILUSDT
+2024-06-26 00:00:18 [INFO] - Generating time series for TOMOUSDT
+2024-06-26 00:00:18 [INFO] - Generating time series for MINAUSDT
+2024-06-26 00:00:18 [INFO] - Generating time series for FLOWUSDT
+2024-06-26 00:00:19 [INFO] - Generating time series for GALUSDT
+2024-06-26 00:00:19 [INFO] - Generating time series for TAOUSDT
+2024-06-26 00:00:19 [INFO] - Generating time series for APTUSDT
+2024-06-26 00:00:19 [INFO] - Generating time series for SCUSDT
+2024-06-26 00:00:20 [INFO] - Generating time series for CHZUSDT
+2024-06-26 00:00:20 [INFO] - Generating time series for WUSDT
+2024-06-26 00:00:20 [INFO] - Generating time series for METISUSDT
+2024-06-26 00:00:21 [INFO] - Generating time series for OMGUSDT
+2024-06-26 00:00:21 [INFO] - Generating time series for RLCUSDT
+2024-06-26 00:00:21 [INFO] - Generating time series for STRKUSDT
+2024-06-26 00:00:22 [INFO] - Generating time series for DEFIUSDT
+2024-06-26 00:00:22 [INFO] - Generating time series for CYBERUSDT
+2024-06-26 00:00:22 [INFO] - Generating time series for OMNIUSDT
+2024-06-26 00:00:23 [INFO] - Generating time series for SNTUSDT
+2024-06-26 00:00:23 [INFO] - Generating time series for STORJUSDT
+2024-06-26 00:00:23 [INFO] - Generating time series for MKRUSDT
+2024-06-26 00:00:24 [INFO] - Generating time series for ZETAUSDT
+2024-06-26 00:00:24 [INFO] - Generating time series for YFIUSDT
+2024-06-26 00:00:24 [INFO] - Generating time series for PENDLEUSDT
+2024-06-26 00:00:24 [INFO] - Generating time series for GMXUSDT
+2024-06-26 00:00:25 [INFO] - Generating time series for CRVUSDT
+2024-06-26 00:00:25 [INFO] - Generating time series for ZILUSDT
+2024-06-26 00:00:25 [INFO] - Generating time series for LQTYUSDT
+2024-06-26 00:00:26 [INFO] - Generating time series for TWTUSDT
+2024-06-26 00:00:26 [INFO] - Generating time series for JOEUSDT
+2024-06-26 00:00:26 [INFO] - Generating time series for 1000PEPEUSDT
+2024-06-26 00:00:27 [INFO] - Generating time series for BTSUSDT
+2024-06-26 00:00:27 [INFO] - Generating time series for TRUUSDT
+2024-06-26 00:00:27 [INFO] - Generating time series for BAKEUSDT
+2024-06-26 00:00:28 [INFO] - Generating time series for XTZUSDT
+2024-06-26 00:00:28 [INFO] - Generating time series for IOUSDT
+2024-06-26 00:00:28 [INFO] - Generating time series for MEMEUSDT
+2024-06-26 00:00:28 [INFO] - Generating time series for DOTUSDT
+2024-06-26 00:00:29 [INFO] - Generating time series for LTCUSDT
+2024-06-26 00:00:29 [INFO] - Generating time series for THETAUSDT
+2024-06-26 00:00:29 [INFO] - Generating time series for LINAUSDT
+2024-06-26 00:00:30 [INFO] - Generating time series for CFXUSDT
+2024-06-26 00:00:30 [INFO] - Generating time series for BANDUSDT
+2024-06-26 00:00:30 [INFO] - Generating time series for BONDUSDT
+2024-06-26 00:00:31 [INFO] - Generating time series for DODOXUSDT
+2024-06-26 00:00:31 [INFO] - Generating time series for BTCDOMUSDT
+2024-06-26 00:00:31 [INFO] - Generating time series for WAVESUSDT
+2024-06-26 00:00:32 [INFO] - Generating time series for COCOSUSDT
+2024-06-26 00:00:32 [INFO] - Generating time series for BTCUSDT
+2024-06-26 00:00:32 [INFO] - Generating time series for BLURUSDT
+2024-06-26 00:00:33 [INFO] - Generating time series for ARBUSDT
+2024-06-26 00:00:33 [INFO] - Generating time series for CELOUSDT
+2024-06-26 00:00:33 [INFO] - Generating time series for BATUSDT
+2024-06-26 00:00:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:00:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:00:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:00:33 [INFO] -  LONG:  []
+2024-06-26 00:00:33 [INFO] -  SHORT: []
+2024-06-26 00:00:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:00:34 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:00:34 [INFO] - [32m Execute time     : 0:01:45 [0m 
+2024-06-26 00:00:36 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:00:36 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:00:36 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:02:13 [INFO] - All symbols analyzed, time elapsed: 97.197 seconds.
+2024-06-26 00:03:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:03:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:03:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:03:33 [INFO] -  LONG:  []
+2024-06-26 00:03:33 [INFO] -  SHORT: []
+2024-06-26 00:03:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:03:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:03:33 [INFO] - [32m Execute time     : 0:04:45 [0m 
+2024-06-26 00:03:36 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:03:36 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:03:36 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:05:12 [INFO] - All symbols analyzed, time elapsed: 96.459 seconds.
+2024-06-26 00:06:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:06:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:06:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:06:33 [INFO] -  LONG:  []
+2024-06-26 00:06:33 [INFO] -  SHORT: []
+2024-06-26 00:06:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:06:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:06:33 [INFO] - [32m Execute time     : 0:07:45 [0m 
+2024-06-26 00:06:36 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:06:36 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:06:36 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:08:14 [INFO] - All symbols analyzed, time elapsed: 98.882 seconds.
+2024-06-26 00:09:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:09:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:09:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:09:33 [INFO] -  LONG:  []
+2024-06-26 00:09:33 [INFO] -  SHORT: []
+2024-06-26 00:09:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:09:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:09:33 [INFO] - [32m Execute time     : 0:10:45 [0m 
+2024-06-26 00:09:36 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:09:36 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:09:36 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:11:57 [INFO] - All symbols analyzed, time elapsed: 141.875 seconds.
+2024-06-26 00:12:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:12:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:12:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:12:33 [INFO] -  LONG:  []
+2024-06-26 00:12:33 [INFO] -  SHORT: []
+2024-06-26 00:12:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:12:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:12:33 [INFO] - [32m Execute time     : 0:13:45 [0m 
+2024-06-26 00:12:36 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:12:36 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:12:36 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:15:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:15:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:15:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:15:33 [INFO] -  LONG:  []
+2024-06-26 00:15:33 [INFO] -  SHORT: []
+2024-06-26 00:15:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:15:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:15:33 [INFO] - [32m Execute time     : 0:16:45 [0m 
+2024-06-26 00:15:36 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:15:36 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:15:36 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:17:13 [INFO] - All symbols analyzed, time elapsed: 97.798 seconds.
+2024-06-26 00:18:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:18:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:18:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:18:33 [INFO] -  LONG:  []
+2024-06-26 00:18:33 [INFO] -  SHORT: []
+2024-06-26 00:18:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:18:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:18:33 [INFO] - [32m Execute time     : 0:19:45 [0m 
+2024-06-26 00:18:35 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:18:35 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:18:35 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:20:13 [INFO] - All symbols analyzed, time elapsed: 97.6 seconds.
+2024-06-26 00:21:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:21:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:21:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:21:33 [INFO] -  LONG:  []
+2024-06-26 00:21:33 [INFO] -  SHORT: []
+2024-06-26 00:21:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:21:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:21:33 [INFO] - [32m Execute time     : 0:22:45 [0m 
+2024-06-26 00:21:36 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:21:36 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:21:36 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:23:12 [INFO] - All symbols analyzed, time elapsed: 96.241 seconds.
+2024-06-26 00:24:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:24:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:24:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:24:33 [INFO] -  LONG:  []
+2024-06-26 00:24:33 [INFO] -  SHORT: []
+2024-06-26 00:24:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:24:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:24:33 [INFO] - [32m Execute time     : 0:25:45 [0m 
+2024-06-26 00:24:35 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:24:35 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:24:35 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:26:14 [INFO] - All symbols analyzed, time elapsed: 99.34 seconds.
+2024-06-26 00:27:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:27:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:27:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:27:33 [INFO] -  LONG:  []
+2024-06-26 00:27:33 [INFO] -  SHORT: []
+2024-06-26 00:27:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:27:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:27:33 [INFO] - [32m Execute time     : 0:28:45 [0m 
+2024-06-26 00:27:35 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:27:35 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:27:35 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:29:14 [INFO] - All symbols analyzed, time elapsed: 98.551 seconds.
+2024-06-26 00:30:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:30:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:30:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:30:33 [INFO] -  LONG:  []
+2024-06-26 00:30:33 [INFO] -  SHORT: []
+2024-06-26 00:30:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:30:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:30:33 [INFO] - [32m Execute time     : 0:31:45 [0m 
+2024-06-26 00:30:35 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:30:35 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:30:35 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:32:14 [INFO] - All symbols analyzed, time elapsed: 98.425 seconds.
+2024-06-26 00:33:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:33:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:33:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:33:33 [INFO] -  LONG:  []
+2024-06-26 00:33:33 [INFO] -  SHORT: []
+2024-06-26 00:33:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:33:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:33:33 [INFO] - [32m Execute time     : 0:34:45 [0m 
+2024-06-26 00:33:35 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:33:35 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:33:35 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:35:15 [INFO] - All symbols analyzed, time elapsed: 99.639 seconds.
+2024-06-26 00:36:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:36:33 [INFO] - [36m CopyBot 1.015 ( test Edition beta. Good and Best!)    [0m
+2024-06-26 00:36:33 [INFO] -  Open trades LONG: 0 SHORT:0
+2024-06-26 00:36:33 [INFO] -  LONG:  []
+2024-06-26 00:36:33 [INFO] -  SHORT: []
+2024-06-26 00:36:33 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:36:33 [INFO] - [32m Start time       : Tue Jun 25 23:58:48 CEST 2024 [0m 
+2024-06-26 00:36:33 [INFO] - [32m Execute time     : 0:37:45 [0m 
+2024-06-26 00:36:35 [INFO] - [32m Start Balance    : 30.27327424               Current  Balance : 30.27327424 [0m 
+2024-06-26 00:36:35 [INFO] - [32m Max. Position:   : 2                         USDT Size : 20.0 [0m 
+2024-06-26 00:36:35 [INFO] - --------------------------------------------------------------------------------------------------------------------
+2024-06-26 00:38:13 [INFO] - All symbols analyzed, time elapsed: 97.366 seconds.

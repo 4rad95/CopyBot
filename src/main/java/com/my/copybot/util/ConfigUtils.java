@@ -66,8 +66,7 @@ public class ConfigUtils {
         
 
         if (!useExternalFile) {
-          //  configFilePath = ConfigUtils.class.getResource("/home/radomir/config.properties").getFile();
-          //  configFilePath = ConfigUtils.class.getResource("./config.properties").getFile();
+
         }
 
         if (StringUtils.isNotEmpty(systemConfigFilePath)) {
