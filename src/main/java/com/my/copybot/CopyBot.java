@@ -294,7 +294,7 @@ public class CopyBot {
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
-                                    addTrade(symbol, "LONG");
+                                    addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series));
                                 }
                             }
                         }
@@ -320,7 +320,7 @@ public class CopyBot {
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
-                                    addTrade(symbol, "SHORT");
+                                    addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series));
                                 }
                             }
                         }
@@ -498,10 +498,10 @@ public class CopyBot {
                 System.out.println("New value STOP_NO_LOSS = " + STOP_NO_LOSS);
             } else if (inputTemp.equals("AL")) {
                 System.out.println("Add new position LONG ..... " + inputString.substring(2) + "USDT");
-                addTrade(inputString.substring(2) + "USDT", "LONG");
+                addTrade(inputString.substring(2) + "USDT", "LONG", null);
             } else if (inputTemp.equals("AS")) {
                 System.out.println("Add new position SHORT  ..... " + inputString.substring(2) + "USDT");
-                addTrade(inputString.substring(2) + "USDT", "SHORT");
+                addTrade(inputString.substring(2) + "USDT", "SHORT", null);
             } else if (inputTemp.equals("RP")) {
                 System.out.println("Remove position in list (WARNING!!! Position not closed !!)  ..... " + inputString.substring(2) + "USDT");
                 clearPosition(inputString.substring(2) + "USDT");
@@ -519,11 +519,11 @@ public class CopyBot {
         }
     }
 
-    public static void addTrade(String symbol, String type) {
+    public static void addTrade(String symbol, String type, Decimal ATR) {
 
         CopyBot copyBot = new CopyBot();
         TradeTask tradeTask = new TradeTask(symbol, getCurrentPrice(symbol).toDouble(),
-                TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER, copyBot);
+                TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER, copyBot, ATR);
         Thread thread = new Thread(tradeTask);
         tradeTask.thisThread = thread;
         thread.start();

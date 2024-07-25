@@ -15,8 +15,17 @@ public class ExecutedOrder {
 	private String orderId;
 	private Double priceAvg;
     private String type = " "; // short or long
+	private Double proffit;
 
-    public String getOrderId() {
+	public Double getProffit() {
+		return proffit;
+	}
+
+	public void setProffit(Double proffit) {
+		this.proffit = proffit;
+	}
+
+	public String getOrderId() {
         return orderId;
     }
 

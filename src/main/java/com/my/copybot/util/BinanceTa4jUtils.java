@@ -2,6 +2,7 @@ package com.my.copybot.util;
 
 import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
+import org.ta4j.core.indicators.ATRIndicator;
 import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
 import org.ta4j.core.indicators.StochasticRSIIndicator;
@@ -96,6 +97,15 @@ public class BinanceTa4jUtils {
 		//	&& smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 10;
                 //&& smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 2)) > 0
 		//             && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) < 0;
+	}
+
+	public static Decimal getATR(TimeSeries series) {
+		if (series == null) {
+			throw new IllegalArgumentException("Series cannot be null");
+		}
+		ATRIndicator atrIndicator = new ATRIndicator(series, 14);
+
+		return atrIndicator.getValue(series.getEndIndex());
 	}
 
 }

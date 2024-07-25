@@ -11,6 +11,7 @@ import com.my.copybot.model.ExecutedOrder;
 import com.my.copybot.model.Position;
 import com.my.copybot.util.BinanceUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.ta4j.core.Decimal;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -45,11 +46,12 @@ public class TradeTask implements Runnable {
     private Double maxPercent = 0.00;
     private Double minPercent = 0.00;
     private Integer identLimitOredr = 20;
+    private final Decimal ATR;
     private Double multik;
 
 
     public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
-                     Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type, Integer identLimitOredr, CopyBot copyBot) {
+                     Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type, Integer identLimitOredr, CopyBot copyBot, Decimal ATR) {
 
         this.symbol = symbol;
         this.alertPrice = alertPrice;
@@ -62,6 +64,7 @@ public class TradeTask implements Runnable {
         this.type = type;
         this.identLimitOredr = identLimitOredr;
         this.copyBot = copyBot;
+        this.ATR = ATR;
     }
 
     public static String multiplyAndRound(Double number, double multiplier) {
@@ -417,9 +420,8 @@ public class TradeTask implements Runnable {
             String msg =
                     type + " : " + symbol + ". Curr : " + showPrice(price)
                             + ", buy : " + showPrice(order.getPrice())
-                            + ", stop : "
-                            + showPrice(order.getCurrentStopLoss())
-
+                            + ", stop : " + showPrice(order.getCurrentStopLoss())
+                            + ", profit : " + showPrice(order.getProfit())
                             + ", Max. : " + String.format("%.2f", maxPercent) + " % "
                             + ", Min. : " + String.format("%.2f", minPercent) + " % "
                             + ", profit: " + order.getCurrentProfit(price) + " %  "
@@ -435,7 +437,7 @@ public class TradeTask implements Runnable {
         counter++;
         switch (type) {
             case "SHORT": {
-                if (price >= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol))      // Close stopLoss
+                if (price >= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol) || (price <= order.getProffit()))      // Close stopLoss
                 {
                     sell(price);
                     Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
@@ -445,7 +447,7 @@ public class TradeTask implements Runnable {
                 break;
             }
             case "LONG": {
-                if (price <= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol))      // Close stopLoss
+                if (price <= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol) || (price >= order.getProffit()))      // Close stopLoss
                 {
                     sell(price);
                     Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
@@ -507,6 +509,8 @@ public class TradeTask implements Runnable {
                     order.setPrice(orderNew.getAvgPrice().doubleValue());
                     priceReal = orderNew.getAvgPrice().toString();
                     order.setCurrentStopLoss((100 + stopLossPercentage) * order.getPrice() / (100.0));
+                    order.setCurrentStopLoss(order.getPrice() + (ATR.floatValue() * 1.5));
+                    order.setProffit(order.getPrice() - (ATR.floatValue() * 2));
                     order.setSymbol(symbol);
                     order.setQuantity(quantity);
                     order.setInitialStopLoss(order.getCurrentStopLoss());
@@ -542,6 +546,8 @@ public class TradeTask implements Runnable {
                     order.setPrice(orderNew.getAvgPrice().doubleValue());
                     priceReal = orderNew.getAvgPrice().toString();
                     order.setCurrentStopLoss((100.0 - (stopLossPercentage)) * alertPrice / (100.0));
+                    order.setCurrentStopLoss(order.getPrice() - (ATR.floatValue() * 1.5));
+                    order.setProffit(order.getPrice() + (ATR.floatValue() * 2));
                     order.setSymbol(symbol);
                     order.setQuantity(quantity);
                     order.setInitialStopLoss(order.getCurrentStopLoss());
