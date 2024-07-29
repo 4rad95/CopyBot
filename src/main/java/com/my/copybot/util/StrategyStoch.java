@@ -88,7 +88,7 @@ public class StrategyStoch {
 //        return false;
         return sma5.getValue(maxIndex - 2).multipliedBy(10000).intValue() > sma5.getValue(maxIndex).multipliedBy(10000).intValue()
 //                && (sma20.getValue(maxIndex).doubleValue() > sma20.getValue(maxIndex - 1).doubleValue())
-//                ;
+                ;
     }
 
     public static Boolean openStochStrategyLong(TimeSeries series) {
