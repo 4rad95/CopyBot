@@ -86,7 +86,7 @@ public class StrategyStoch {
             Log.info(StrategyStoch.class, "Exit SHORT " + series.getName() + " : K > D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " > " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
 
 //        return false;
-        return sma5.getValue(maxIndex - 2).multipliedBy(10000).intValue() < sma5.getValue(maxIndex).multipliedBy(10000).intValue()
+        return smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(10000).intValue() < smoothedStochRsi.getValue(maxIndex).multipliedBy(10000).intValue()
 //                && (sma20.getValue(maxIndex).doubleValue() > sma20.getValue(maxIndex - 1).doubleValue())
                 ;
     }
@@ -158,7 +158,7 @@ public class StrategyStoch {
             Log.info(StrategyStoch.class, "Exit LONG " + series.getName() + " K < D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " < " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
 
 
-        return sma5.getValue(maxIndex - 2).multipliedBy(10000).intValue() > sma5.getValue(maxIndex).multipliedBy(10000).intValue()
+        return smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(10000).intValue() > smoothedStochRsi.getValue(maxIndex).multipliedBy(10000).intValue()
                 //                && (sma20.getValue(maxIndex).doubleValue() < sma20.getValue(maxIndex - 1).doubleValue())
                 ;
     }
