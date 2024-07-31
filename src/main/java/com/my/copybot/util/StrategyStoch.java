@@ -82,6 +82,8 @@ public class StrategyStoch {
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
 
         int maxIndex = series.getEndIndex();
+        MinusDMIndicator minusDM = new MinusDMIndicator(series);
+        SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
 
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue())
             Log.info(StrategyStoch.class, "Exit SHORT " + series.getName() + " : K[last] > K[last-2] : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " > " + smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue());
@@ -89,10 +91,9 @@ public class StrategyStoch {
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue())
             Log.info(StrategyStoch.class, "Exit SHORT " + series.getName() + " : K > D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " > " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
 
-        return (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25);
-//        return smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(10000).intValue() < smoothedStochRsi.getValue(maxIndex).multipliedBy(10000).intValue()
-//                && (sma20.getValue(maxIndex).doubleValue() > sma20.getValue(maxIndex - 1).doubleValue())
-//               ;
+        return (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25)
+                || (smoothedMinusDM.getValue(maxIndex).doubleValue() > smoothedMinusDM.getValue(maxIndex - 1).doubleValue());
+
     }
 
     public static Boolean openStochStrategyLong(TimeSeries series) {
@@ -159,6 +160,9 @@ public class StrategyStoch {
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
 
         int maxIndex = series.getEndIndex();
+        PlusDMIndicator plusDM = new PlusDMIndicator(series);
+        SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
+
 
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue())
             Log.info(StrategyStoch.class, "Exit LONG " + series.getName() + " K[last] < K[last-2] : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " < " + smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue());
@@ -166,10 +170,9 @@ public class StrategyStoch {
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue())
             Log.info(StrategyStoch.class, "Exit LONG " + series.getName() + " K < D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " < " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
 
-        return (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25);
-        // return smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(10000).intValue() > smoothedStochRsi.getValue(maxIndex).multipliedBy(10000).intValue()
-                //                && (sma20.getValue(maxIndex).doubleValue() < sma20.getValue(maxIndex - 1).doubleValue())
-        //         ;
+        return (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25)
+                || (smoothedPlusDM.getValue(maxIndex).doubleValue() < smoothedPlusDM.getValue(maxIndex - 1).doubleValue());
+
     }
 
     public static Indicator<Decimal> calculateADX(TimeSeries series, int period) {

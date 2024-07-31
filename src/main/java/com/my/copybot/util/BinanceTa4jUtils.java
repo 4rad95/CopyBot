@@ -1,7 +1,6 @@
 package com.my.copybot.util;
 
 import com.binance.api.client.domain.market.Candlestick;
-import com.my.copybot.Log;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.ATRIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
@@ -15,8 +14,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
-
-import static com.my.copybot.util.StrategyStoch.calculateADX;
 
 
 public class BinanceTa4jUtils {
@@ -82,7 +79,7 @@ public class BinanceTa4jUtils {
 //		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
 //		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 		int maxIndex = series.getEndIndex();
-		Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
+		// Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
 		return (smoothedPlusDM.getValue(maxIndex).doubleValue() > smoothedMinusDM.getValue(maxIndex).doubleValue());
 	}
 
@@ -101,7 +98,7 @@ public class BinanceTa4jUtils {
 		MinusDMIndicator minusDM = new MinusDMIndicator(series);
 		SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
 		SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
-		Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
+		// Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
 
 		return (smoothedPlusDM.getValue(maxIndex).doubleValue() < smoothedMinusDM.getValue(maxIndex).doubleValue());
 
