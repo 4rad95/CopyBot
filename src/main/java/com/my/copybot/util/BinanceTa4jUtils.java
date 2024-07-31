@@ -1,12 +1,13 @@
 package com.my.copybot.util;
 
 import com.binance.api.client.domain.market.Candlestick;
+import com.my.copybot.Log;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.ATRIndicator;
-import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
-import org.ta4j.core.indicators.StochasticRSIIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
+import org.ta4j.core.indicators.helpers.MinusDMIndicator;
+import org.ta4j.core.indicators.helpers.PlusDMIndicator;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -14,6 +15,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.my.copybot.util.StrategyStoch.calculateADX;
 
 
 public class BinanceTa4jUtils {
@@ -68,17 +71,19 @@ public class BinanceTa4jUtils {
 			throw new IllegalArgumentException("Series cannot be null");
 		}
 		ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-		RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
-		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+
+		PlusDMIndicator plusDM = new PlusDMIndicator(series);
+		MinusDMIndicator minusDM = new MinusDMIndicator(series);
+		SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
+		SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
+
+//		RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+//		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
+//		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+//		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 		int maxIndex = series.getEndIndex();
-
-
-		return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) > 0;
-//				&& smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 1)) < 0
-		//		&& smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < 90;
-		//          && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) > 0;
+		Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
+		return (smoothedPlusDM.getValue(maxIndex).doubleValue() > smoothedMinusDM.getValue(maxIndex).doubleValue());
 	}
 
 
@@ -86,17 +91,20 @@ public class BinanceTa4jUtils {
 		if (series == null) {
 			throw new IllegalArgumentException("Series cannot be null");
 		}
-		ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-		RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
-		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+//		ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
+//		RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+//		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
+//		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+//		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 		int maxIndex = series.getEndIndex();
+		PlusDMIndicator plusDM = new PlusDMIndicator(series);
+		MinusDMIndicator minusDM = new MinusDMIndicator(series);
+		SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
+		SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
+		Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
 
-		return smoothedStochRsi.getValue(maxIndex).compareTo(stochRsiD.getValue(maxIndex)) < 0;
-		//	&& smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue() > 10;
-                //&& smoothedStochRsi.getValue(maxIndex - 1).compareTo(stochRsiD.getValue(maxIndex - 2)) > 0
-		//             && smoothedStochRsi.getValue(maxIndex).compareTo(smoothedStochRsi.getValue(maxIndex - 1)) < 0;
+		return (smoothedPlusDM.getValue(maxIndex).doubleValue() < smoothedMinusDM.getValue(maxIndex).doubleValue());
+
 	}
 
 	public static Decimal getATR(TimeSeries series) {

@@ -566,38 +566,8 @@ public class CopyBot {
         openTradesShort.remove(symbol);
     }
 
-    public static Strategy buildStrategyLong(TimeSeries series, String strategyCode) {
-        switch (strategyCode) {
-            case "MACD": {
-                return StrategyMACD.buildMacdStrategyLong(series);
-            }
-            case "SMA": {
-                return StrategySMA.buildSmaStrategyLong(series);
-            }
-            case "STOCH": {
-                return null; //StrategyStoch.buildStochStrategyLong(series);
-            }
-            default:
-                return null;
-        }
 
-    }
 
-    public static Strategy buildStrategyShort(TimeSeries series, String strategyCode) {
-        switch (strategyCode) {
-            case "MACD": {
-                return StrategyMACD.buildMacdStrategyShort(series);
-            }
-            case "SMA": {
-                return StrategySMA.buildSmaStrategyShort(series);
-            }
-            case "STOCH": {
-                return null; //StrategyStoch.buildStochStrategyShort(series);
-            }
-            default:
-                return null;
-        }
-    }
 
     public synchronized static void updateMapPosition(Position position) {
         String switchString = position.getType();
@@ -638,7 +608,7 @@ public class CopyBot {
             seconds = seconds - minutes * 60;
             String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
             Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.016 ( test Edition beta. Good and Best!)    \u001B[0m");
+            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.017 ( test Edition beta ADX Strategy. Good and Best!)    \u001B[0m");
             //		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
             Log.info(CopyBot.class, " Open trades LONG: " + openTradesLong.keySet().size() + " SHORT:" + openTradesShort.keySet().size());
             Log.info(CopyBot.class, " LONG:  " + openTradesLong.keySet());
