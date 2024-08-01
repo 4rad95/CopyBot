@@ -94,12 +94,18 @@ public class StrategyStoch {
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > stochRsiD.getValue(maxIndex).multipliedBy(100).intValue())
             Log.info(StrategyStoch.class, "Exit SHORT " + series.getName() + " : K > D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " > " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
 
-        return (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25)
-                || (smoothedMinusDM.getValue(maxIndex).doubleValue() - smoothedPlusDM.getValue(maxIndex).doubleValue()
+
+        if (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25) {
+            Log.info(StrategyStoch.class, "ADX = " + calculateADX(series, 14).getValue(maxIndex) + " < 25");
+            return true;
+        } else if (smoothedMinusDM.getValue(maxIndex).doubleValue() - smoothedPlusDM.getValue(maxIndex).doubleValue()
                 < smoothedMinusDM.getValue(maxIndex - 1).doubleValue() - smoothedPlusDM.getValue(maxIndex - 1).doubleValue()
                 && smoothedMinusDM.getValue(maxIndex - 1).doubleValue() - smoothedPlusDM.getValue(maxIndex - 1).doubleValue()
-                < smoothedMinusDM.getValue(maxIndex - 2).doubleValue() - smoothedPlusDM.getValue(maxIndex - 2).doubleValue());
-
+                < smoothedMinusDM.getValue(maxIndex - 2).doubleValue() - smoothedPlusDM.getValue(maxIndex - 2).doubleValue()) {
+            Log.info(StrategyStoch.class, "Delta Lower. Position close.");
+            return true;
+        }
+        return false;
     }
 
     public static Boolean openStochStrategyLong(TimeSeries series) {
@@ -180,12 +186,17 @@ public class StrategyStoch {
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue())
             Log.info(StrategyStoch.class, "Exit LONG " + series.getName() + " K < D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " < " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
 
-        return (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25)
-                || ((smoothedPlusDM.getValue(maxIndex).doubleValue() - smoothedMinusDM.getValue(maxIndex).doubleValue()
+        if (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25) {
+            Log.info(StrategyStoch.class, "ADX = " + calculateADX(series, 14).getValue(maxIndex) + " < 25");
+            return true;
+        } else if ((smoothedPlusDM.getValue(maxIndex).doubleValue() - smoothedMinusDM.getValue(maxIndex).doubleValue()
                 < smoothedPlusDM.getValue(maxIndex - 1).doubleValue() - smoothedMinusDM.getValue(maxIndex - 1).doubleValue())
                 && (smoothedPlusDM.getValue(maxIndex - 1).doubleValue() - smoothedMinusDM.getValue(maxIndex - 1).doubleValue()
-                < smoothedPlusDM.getValue(maxIndex - 2).doubleValue() - smoothedMinusDM.getValue(maxIndex - 2).doubleValue()));
-
+                < smoothedPlusDM.getValue(maxIndex - 2).doubleValue() - smoothedMinusDM.getValue(maxIndex - 2).doubleValue())) {
+            Log.info(StrategyStoch.class, "Delta Lower. Position close.");
+            return true;
+        }
+        return false;
     }
 
     public static Indicator<Decimal> calculateADX(TimeSeries series, int period) {
