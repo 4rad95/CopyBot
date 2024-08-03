@@ -100,7 +100,7 @@ public class StrategyStoch {
         if (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25) {
             Log.info(StrategyStoch.class, "ADX = " + calculateADX(series, 14).getValue(maxIndex) + " < 25");
             return true;
-        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()) {
+        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble() && (dxIndicator.getValue(maxIndex).doubleValue() > 10)) {
 //        (smoothedMinusDM.getValue(maxIndex).doubleValue() - smoothedPlusDM.getValue(maxIndex).doubleValue()
 //                < smoothedMinusDM.getValue(maxIndex - 1).doubleValue() - smoothedPlusDM.getValue(maxIndex - 1).doubleValue()
 //                && smoothedMinusDM.getValue(maxIndex - 1).doubleValue() - smoothedPlusDM.getValue(maxIndex - 1).doubleValue()
@@ -194,7 +194,7 @@ public class StrategyStoch {
         if (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25) {
             Log.info(StrategyStoch.class, "ADX = " + calculateADX(series, 14).getValue(maxIndex) + " < 25");
             return true;
-        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()) {
+        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble() && (dxIndicator.getValue(maxIndex).doubleValue() > 10)) {
 //        ((smoothedPlusDM.getValue(maxIndex).doubleValue() - smoothedMinusDM.getValue(maxIndex).doubleValue()
 //                < smoothedPlusDM.getValue(maxIndex - 1).doubleValue() - smoothedMinusDM.getValue(maxIndex - 1).doubleValue())
 //                && (smoothedPlusDM.getValue(maxIndex - 1).doubleValue() - smoothedMinusDM.getValue(maxIndex - 1).doubleValue()
