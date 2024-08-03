@@ -47,11 +47,12 @@ public class StrategyStoch {
         MinusDMIndicator minusDM = new MinusDMIndicator(series);
         SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
         SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
-
+        DXIndicator dxIndicator = new DXIndicator(series, 14);
         int maxIndex = series.getEndIndex();
 
         if ((smoothedPlusDM.getValue(maxIndex).doubleValue() < smoothedMinusDM.getValue(maxIndex).doubleValue())
                 && (smoothedPlusDM.getValue(maxIndex - 1).doubleValue() > smoothedMinusDM.getValue(maxIndex - 1).doubleValue()
+                && (dxIndicator.getValue(maxIndex).doubleValue() < 10)
                 && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25))) {
             Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
             return true;
@@ -136,11 +137,13 @@ public class StrategyStoch {
         MinusDMIndicator minusDM = new MinusDMIndicator(series);
         SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
         SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
+        DXIndicator dxIndicator = new DXIndicator(series, 14);
 
         int maxIndex = series.getEndIndex();
 
         if (smoothedPlusDM.getValue(maxIndex).doubleValue() > smoothedMinusDM.getValue(maxIndex).doubleValue()
                 && (smoothedPlusDM.getValue(maxIndex - 1).doubleValue() < smoothedMinusDM.getValue(maxIndex - 1).doubleValue()
+                && (dxIndicator.getValue(maxIndex).doubleValue() < 10)
                 && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25))) {
             Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
             return true;
