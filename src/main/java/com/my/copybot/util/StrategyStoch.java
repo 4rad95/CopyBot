@@ -88,6 +88,7 @@ public class StrategyStoch {
         MinusDMIndicator minusDM = new MinusDMIndicator(series);
         SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
         SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
+        DXIndicator dxIndicator = new DXIndicator(series, 14);
 
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue())
             Log.info(StrategyStoch.class, "Exit SHORT " + series.getName() + " : K[last] > K[last-2] : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " > " + smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue());
@@ -99,11 +100,12 @@ public class StrategyStoch {
         if (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25) {
             Log.info(StrategyStoch.class, "ADX = " + calculateADX(series, 14).getValue(maxIndex) + " < 25");
             return true;
-        } else if (smoothedMinusDM.getValue(maxIndex).doubleValue() - smoothedPlusDM.getValue(maxIndex).doubleValue()
-                < smoothedMinusDM.getValue(maxIndex - 1).doubleValue() - smoothedPlusDM.getValue(maxIndex - 1).doubleValue()
-                && smoothedMinusDM.getValue(maxIndex - 1).doubleValue() - smoothedPlusDM.getValue(maxIndex - 1).doubleValue()
-                < smoothedMinusDM.getValue(maxIndex - 2).doubleValue() - smoothedPlusDM.getValue(maxIndex - 2).doubleValue()) {
-            Log.info(StrategyStoch.class, "Delta Lower. Position close.");
+        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()) {
+//        (smoothedMinusDM.getValue(maxIndex).doubleValue() - smoothedPlusDM.getValue(maxIndex).doubleValue()
+//                < smoothedMinusDM.getValue(maxIndex - 1).doubleValue() - smoothedPlusDM.getValue(maxIndex - 1).doubleValue()
+//                && smoothedMinusDM.getValue(maxIndex - 1).doubleValue() - smoothedPlusDM.getValue(maxIndex - 1).doubleValue()
+//                < smoothedMinusDM.getValue(maxIndex - 2).doubleValue() - smoothedPlusDM.getValue(maxIndex - 2).doubleValue()) {
+            Log.info(StrategyStoch.class, "DX Low.");
             return true;
         }
         return false;
@@ -181,7 +183,7 @@ public class StrategyStoch {
         MinusDMIndicator minusDM = new MinusDMIndicator(series);
         SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
         SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
-
+        DXIndicator dxIndicator = new DXIndicator(series, 14);
 
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue())
             Log.info(StrategyStoch.class, "Exit LONG " + series.getName() + " K[last] < K[last-2] : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " < " + smoothedStochRsi.getValue(maxIndex - 2).multipliedBy(100).intValue());
@@ -192,11 +194,12 @@ public class StrategyStoch {
         if (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25) {
             Log.info(StrategyStoch.class, "ADX = " + calculateADX(series, 14).getValue(maxIndex) + " < 25");
             return true;
-        } else if ((smoothedPlusDM.getValue(maxIndex).doubleValue() - smoothedMinusDM.getValue(maxIndex).doubleValue()
-                < smoothedPlusDM.getValue(maxIndex - 1).doubleValue() - smoothedMinusDM.getValue(maxIndex - 1).doubleValue())
-                && (smoothedPlusDM.getValue(maxIndex - 1).doubleValue() - smoothedMinusDM.getValue(maxIndex - 1).doubleValue()
-                < smoothedPlusDM.getValue(maxIndex - 2).doubleValue() - smoothedMinusDM.getValue(maxIndex - 2).doubleValue())) {
-            Log.info(StrategyStoch.class, "Delta Lower. Position close.");
+        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()) {
+//        ((smoothedPlusDM.getValue(maxIndex).doubleValue() - smoothedMinusDM.getValue(maxIndex).doubleValue()
+//                < smoothedPlusDM.getValue(maxIndex - 1).doubleValue() - smoothedMinusDM.getValue(maxIndex - 1).doubleValue())
+//                && (smoothedPlusDM.getValue(maxIndex - 1).doubleValue() - smoothedMinusDM.getValue(maxIndex - 1).doubleValue()
+//                < smoothedPlusDM.getValue(maxIndex - 2).doubleValue() - smoothedMinusDM.getValue(maxIndex - 2).doubleValue())) {
+            Log.info(StrategyStoch.class, "DX Lower. Position close.");
             return true;
         }
         return false;
