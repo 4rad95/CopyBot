@@ -97,10 +97,10 @@ public class StrategyStoch {
             Log.info(StrategyStoch.class, "Exit SHORT " + series.getName() + " : K > D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " > " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
 
 
-        if (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25) {
+        if (calculateADX(series, 14).getValue(maxIndex).doubleValue() < calculateADX(series, 14).getValue(maxIndex - 2).doubleValue()) {
             Log.info(StrategyStoch.class, "ADX = " + calculateADX(series, 14).getValue(maxIndex) + " < 25");
             return true;
-        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble() && (dxIndicator.getValue(maxIndex).doubleValue() > 10)) {
+        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble() && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
 //        (smoothedMinusDM.getValue(maxIndex).doubleValue() - smoothedPlusDM.getValue(maxIndex).doubleValue()
 //                < smoothedMinusDM.getValue(maxIndex - 1).doubleValue() - smoothedPlusDM.getValue(maxIndex - 1).doubleValue()
 //                && smoothedMinusDM.getValue(maxIndex - 1).doubleValue() - smoothedPlusDM.getValue(maxIndex - 1).doubleValue()
@@ -191,10 +191,10 @@ public class StrategyStoch {
         if (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < stochRsiD.getValue(maxIndex).multipliedBy(100).intValue())
             Log.info(StrategyStoch.class, "Exit LONG " + series.getName() + " K < D : " + smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() + " < " + stochRsiD.getValue(maxIndex).multipliedBy(100).intValue());
 
-        if (calculateADX(series, 14).getValue(maxIndex).doubleValue() < 25) {
+        if (calculateADX(series, 14).getValue(maxIndex).doubleValue() < calculateADX(series, 14).getValue(maxIndex - 2).doubleValue()) {
             Log.info(StrategyStoch.class, "ADX = " + calculateADX(series, 14).getValue(maxIndex) + " < 25");
             return true;
-        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble() && (dxIndicator.getValue(maxIndex).doubleValue() > 10)) {
+        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble() && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
 //        ((smoothedPlusDM.getValue(maxIndex).doubleValue() - smoothedMinusDM.getValue(maxIndex).doubleValue()
 //                < smoothedPlusDM.getValue(maxIndex - 1).doubleValue() - smoothedMinusDM.getValue(maxIndex - 1).doubleValue())
 //                && (smoothedPlusDM.getValue(maxIndex - 1).doubleValue() - smoothedMinusDM.getValue(maxIndex - 1).doubleValue()
