@@ -94,7 +94,7 @@ public class StrategyStoch {
         MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
 
         int maxIndex = series.getEndIndex();
-        MaxPriceIndicator maxPrice = new MaxPriceIndicator(series);
+        MinPriceIndicator minPrice = new MinPriceIndicator(series);
 
         BollingerBandsMiddleIndicator bbm = new BollingerBandsMiddleIndicator(sma20);
         BollingerBandsUpperIndicator bbu = new BollingerBandsUpperIndicator(bbm, new StandardDeviationIndicator(closePrice, 20), Decimal.valueOf(2));
@@ -117,7 +117,7 @@ public class StrategyStoch {
 //        if (calculateADX(series, 14).getValue(maxIndex).doubleValue() < calculateADX(series, 14).getValue(maxIndex - 2).doubleValue()) {
 //            Log.info(StrategyStoch.class, "ADX = " + calculateADX(series, 14).getValue(maxIndex) + " < 25");
 //            return true;
-        if (maxPrice.getValue(maxIndex).doubleValue() < bbl.getValue(maxIndex).doubleValue()) {
+        if (minPrice.getValue(maxIndex).doubleValue() < bbl.getValue(maxIndex).doubleValue()) {
             Log.info(StrategyStoch.class, "MinPrice low BB. Position close.");
             return true;
         } else if (smoothedPlusDM.getValue(maxIndex).doubleValue() > smoothedMinusDM.getValue(maxIndex).doubleValue()) {
