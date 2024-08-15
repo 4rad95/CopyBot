@@ -16,8 +16,6 @@ import org.ta4j.core.indicators.bollinger.BollingerBandsUpperIndicator;
 import org.ta4j.core.indicators.helpers.*;
 import org.ta4j.core.indicators.statistics.StandardDeviationIndicator;
 
-import java.math.BigDecimal;
-
 public class StrategyStoch {
 
 
@@ -55,16 +53,18 @@ public class StrategyStoch {
         SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
         DXIndicator dxIndicator = new DXIndicator(series, 14);
         int maxIndex = series.getEndIndex();
+        SMAIndicator sma20 = new SMAIndicator(closePrice, 20);
+        BollingerBandsMiddleIndicator bbm = new BollingerBandsMiddleIndicator(sma20);
 
-
-        BigDecimal lastPlusDM = smoothedPlusDM.getValue(maxIndex).getDelegate();
-        BigDecimal lasMinisDM = smoothedMinusDM.getValue(maxIndex).getDelegate();
-        BigDecimal lasMinisDx = dxIndicator.getValue(maxIndex).getDelegate();
+//        BigDecimal lastPlusDM = smoothedPlusDM.getValue(maxIndex).getDelegate();
+//        BigDecimal lasMinisDM = smoothedMinusDM.getValue(maxIndex).getDelegate();
+//        BigDecimal lasMinisDx = dxIndicator.getValue(maxIndex).getDelegate();
 
         if ((smoothedPlusDM.getValue(maxIndex).doubleValue() < smoothedMinusDM.getValue(maxIndex).doubleValue())
                 && (smoothedPlusDM.getValue(maxIndex - 1).doubleValue() > smoothedMinusDM.getValue(maxIndex - 1).doubleValue()
                 && (dxIndicator.getValue(maxIndex).doubleValue() < 10)
-                && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25))) {
+                && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25))
+                && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())) {
             Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
             return true;
         } else return false;
@@ -95,6 +95,7 @@ public class StrategyStoch {
 
         int maxIndex = series.getEndIndex();
         MinPriceIndicator minPrice = new MinPriceIndicator(series);
+        MaxPriceIndicator maxPrice = new MaxPriceIndicator(series);
 
         BollingerBandsMiddleIndicator bbm = new BollingerBandsMiddleIndicator(sma20);
         BollingerBandsUpperIndicator bbu = new BollingerBandsUpperIndicator(bbm, new StandardDeviationIndicator(closePrice, 20), Decimal.valueOf(2));
@@ -131,7 +132,11 @@ public class StrategyStoch {
 //                < smoothedMinusDM.getValue(maxIndex - 2).doubleValue() - smoothedPlusDM.getValue(maxIndex - 2).doubleValue()) {
             Log.info(StrategyStoch.class, "DX Low.");
             return true;
+        } else if (bbu.getValue(maxIndex).doubleValue() < maxPrice.getValue(maxIndex).doubleValue()) {
+            Log.info(StrategyStoch.class, "MaxPrice high BB. Position close.");
+            return true;
         }
+
         return false;
     }
 
@@ -139,8 +144,8 @@ public class StrategyStoch {
         if (series == null) {
             throw new IllegalArgumentException("Series cannot be null");
         }
-//        ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-//        MinPriceIndicator minPrice = new MinPriceIndicator(series);
+        ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
+        MinPriceIndicator minPrice = new MinPriceIndicator(series);
 //
 //        SMAIndicator sma5 = new SMAIndicator(closePrice, 5);
 //        SMAIndicator sma20 = new SMAIndicator(closePrice, 20);
@@ -163,12 +168,16 @@ public class StrategyStoch {
         SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
         SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
         DXIndicator dxIndicator = new DXIndicator(series, 14);
+        SMAIndicator sma20 = new SMAIndicator(closePrice, 20);
+        BollingerBandsMiddleIndicator bbm = new BollingerBandsMiddleIndicator(sma20);
+
 
         int maxIndex = series.getEndIndex();
         if (smoothedPlusDM.getValue(maxIndex).doubleValue() > smoothedMinusDM.getValue(maxIndex).doubleValue()
                 && (smoothedPlusDM.getValue(maxIndex - 1).doubleValue() < smoothedMinusDM.getValue(maxIndex - 1).doubleValue()
                 && (dxIndicator.getValue(maxIndex).doubleValue() < 10)
-                && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25))) {
+                && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25))
+                && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue())) {
             Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
             return true;
         } else return false;
@@ -201,7 +210,7 @@ public class StrategyStoch {
 
         int maxIndex = series.getEndIndex();
         MaxPriceIndicator maxPrice = new MaxPriceIndicator(series);
-
+        MinPriceIndicator minPrice = new MinPriceIndicator(series);
         PlusDMIndicator plusDM = new PlusDMIndicator(series);
         MinusDMIndicator minusDM = new MinusDMIndicator(series);
         SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
@@ -232,7 +241,11 @@ public class StrategyStoch {
                 && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
             Log.info(StrategyStoch.class, "DX Lower. Position close.");
             return true;
+        } else if (bbl.getValue(maxIndex).doubleValue() > minPrice.getValue(maxIndex).doubleValue()) {
+            Log.info(StrategyStoch.class, "MinPrice low BB .");
+            return true;
         }
+
         return false;
     }
 
