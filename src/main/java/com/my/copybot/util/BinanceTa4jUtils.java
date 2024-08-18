@@ -79,8 +79,8 @@ public class BinanceTa4jUtils {
 //		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
 //		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 		int maxIndex = series.getEndIndex();
-		// Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
-		return (smoothedPlusDM.getValue(maxIndex).doubleValue() > smoothedMinusDM.getValue(maxIndex).doubleValue());
+		ATRIndicator atr = new ATRIndicator(series, 14);
+		return (smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100;
 	}
 
 
@@ -98,9 +98,9 @@ public class BinanceTa4jUtils {
 		MinusDMIndicator minusDM = new MinusDMIndicator(series);
 		SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
 		SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
-		// Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + smoothedPlusDM.getValue(maxIndex) + "   D-= " + smoothedMinusDM.getValue(maxIndex));
+		ATRIndicator atr = new ATRIndicator(series, 14);
 
-		return (smoothedPlusDM.getValue(maxIndex).doubleValue() < smoothedMinusDM.getValue(maxIndex).doubleValue());
+		return (smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100;
 
 	}
 
