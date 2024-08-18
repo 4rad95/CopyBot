@@ -608,7 +608,7 @@ public class CopyBot {
             seconds = seconds - minutes * 60;
             String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
             Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.017 ( test Edition beta ADX Strategy. Good and Best!)    \u001B[0m");
+            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.018 ( test Edition beta ADX Strategy. Good and Best!)    \u001B[0m");
             //		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
             Log.info(CopyBot.class, " Open trades LONG: " + openTradesLong.keySet().size() + " SHORT:" + openTradesShort.keySet().size());
             Log.info(CopyBot.class, " LONG:  " + openTradesLong.keySet());

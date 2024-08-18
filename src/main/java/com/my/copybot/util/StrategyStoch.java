@@ -132,8 +132,8 @@ public class StrategyStoch {
 //                < smoothedMinusDM.getValue(maxIndex - 2).doubleValue() - smoothedPlusDM.getValue(maxIndex - 2).doubleValue()) {
             Log.info(StrategyStoch.class, "DX Low.");
             return true;
-        } else if (bbu.getValue(maxIndex).doubleValue() < maxPrice.getValue(maxIndex).doubleValue()) {
-            Log.info(StrategyStoch.class, "MaxPrice high BB. Position close.");
+        } else if (bbu.getValue(maxIndex).doubleValue() < closePrice.getValue(maxIndex).doubleValue()) {
+            Log.info(StrategyStoch.class, "ClosePrice high BB. Position close.");
             return true;
         }
 
@@ -199,7 +199,7 @@ public class StrategyStoch {
         }
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-        SMAIndicator sma5 = new SMAIndicator(closePrice, 5);
+//        SMAIndicator sma5 = new SMAIndicator(closePrice, 5);
         SMAIndicator sma20 = new SMAIndicator(closePrice, 20);
 
 //        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
@@ -210,7 +210,7 @@ public class StrategyStoch {
 
         int maxIndex = series.getEndIndex();
         MaxPriceIndicator maxPrice = new MaxPriceIndicator(series);
-        MinPriceIndicator minPrice = new MinPriceIndicator(series);
+        // MinPriceIndicator minPrice = new MinPriceIndicator(series);
         PlusDMIndicator plusDM = new PlusDMIndicator(series);
         MinusDMIndicator minusDM = new MinusDMIndicator(series);
         SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
@@ -241,8 +241,8 @@ public class StrategyStoch {
                 && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
             Log.info(StrategyStoch.class, "DX Lower. Position close.");
             return true;
-        } else if (bbl.getValue(maxIndex).doubleValue() > minPrice.getValue(maxIndex).doubleValue()) {
-            Log.info(StrategyStoch.class, "MinPrice low BB .");
+        } else if (bbl.getValue(maxIndex).doubleValue() > closePrice.getValue(maxIndex).doubleValue()) {
+            Log.info(StrategyStoch.class, "ClosePrice low BB .");
             return true;
         }
 
