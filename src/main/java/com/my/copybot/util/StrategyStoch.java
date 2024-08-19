@@ -7,7 +7,9 @@ import org.ta4j.core.Decimal;
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.ATRIndicator;
+import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
+import org.ta4j.core.indicators.StochasticRSIIndicator;
 import org.ta4j.core.indicators.bollinger.BollingerBandsLowerIndicator;
 import org.ta4j.core.indicators.bollinger.BollingerBandsMiddleIndicator;
 import org.ta4j.core.indicators.bollinger.BollingerBandsUpperIndicator;
@@ -87,10 +89,10 @@ public class StrategyStoch {
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
 
         SMAIndicator sma20 = new SMAIndicator(closePrice, 20);
-//        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-//        StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-//        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
-//        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+        StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
+        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 //        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
 
         int maxIndex = series.getEndIndex();
@@ -114,9 +116,9 @@ public class StrategyStoch {
         if (curr[0] > curr[1] && prev[0] > prev[1]) {
             Log.info(StrategyStoch.class, "DI UP. Change Trend");
             return true;
-//        } else if (smoothedPlusDM.getValue(maxIndex).doubleValue() > smoothedMinusDM.getValue(maxIndex).doubleValue()) {
-//            Log.info(StrategyStoch.class, " D+ < D- . Position close.");
-//            return true;
+        } else if (smoothedStochRsi.getValue(maxIndex).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue()) {
+            Log.info(StrategyStoch.class, "[StochRsi] K > D  . Position close.");
+            return true;
         } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()
                 && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
             Log.info(StrategyStoch.class, "DX Low.");
@@ -199,10 +201,10 @@ public class StrategyStoch {
 //        SMAIndicator sma5 = new SMAIndicator(closePrice, 5);
         SMAIndicator sma20 = new SMAIndicator(closePrice, 20);
 
-//        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-//        StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-//        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
-//        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3); // 3-периодное SMA
+        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+        StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
+        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3); // 3-периодное SMA
 //        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
 
         int maxIndex = series.getEndIndex();
@@ -224,9 +226,9 @@ public class StrategyStoch {
         if (curr[0] < curr[1] && prev[0] < prev[1]) {
             Log.info(StrategyStoch.class, "DI Down. Change Trend");
             return true;
-//        } else if (smoothedPlusDM.getValue(maxIndex).doubleValue() < smoothedMinusDM.getValue(maxIndex).doubleValue()) {
-//            Log.info(StrategyStoch.class, " D+ < D- . Position close.");
-//            return true;
+        } else if (smoothedStochRsi.getValue(maxIndex).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue()) {
+            Log.info(StrategyStoch.class, "[StochRsi ] K < D  . Position close.");
+            return true;
         } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()
                 && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
             Log.info(StrategyStoch.class, "DX Lower. Position close.");
