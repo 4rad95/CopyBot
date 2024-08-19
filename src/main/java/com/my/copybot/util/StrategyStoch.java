@@ -61,6 +61,7 @@ public class StrategyStoch {
 
         if ((curr[0] < curr[1])
                 && (prev[0] > prev[1]
+                && (prev[1] < curr[1])
                 && (dxIndicator.getValue(maxIndex).doubleValue() < 10)
                 && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25))
             //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
@@ -110,7 +111,7 @@ public class StrategyStoch {
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
 
 
-        if (curr[0] > curr[1]) {
+        if (curr[0] > curr[1] && prev[0] > prev[1]) {
             Log.info(StrategyStoch.class, "DI UP. Change Trend");
             return true;
 //        } else if (smoothedPlusDM.getValue(maxIndex).doubleValue() > smoothedMinusDM.getValue(maxIndex).doubleValue()) {
@@ -118,7 +119,6 @@ public class StrategyStoch {
 //            return true;
         } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()
                 && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
-
             Log.info(StrategyStoch.class, "DX Low.");
             return true;
         } else if (bbu.getValue(maxIndex).doubleValue() < closePrice.getValue(maxIndex).doubleValue()) {
@@ -169,6 +169,7 @@ public class StrategyStoch {
 // nn [plus, minus]
         if (curr[0] > curr[1]
                 && (prev[0] < prev[1])
+                && (prev[0] < curr[0])
                 && (dxIndicator.getValue(maxIndex).doubleValue() < 10)
             //           && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25))
             //           && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue()))
@@ -220,7 +221,7 @@ public class StrategyStoch {
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
 
-        if (curr[0] < curr[1]) {
+        if (curr[0] < curr[1] && prev[0] < prev[1]) {
             Log.info(StrategyStoch.class, "DI Down. Change Trend");
             return true;
 //        } else if (smoothedPlusDM.getValue(maxIndex).doubleValue() < smoothedMinusDM.getValue(maxIndex).doubleValue()) {

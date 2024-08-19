@@ -509,8 +509,8 @@ public class TradeTask implements Runnable {
                     order.setPrice(orderNew.getAvgPrice().doubleValue());
                     priceReal = orderNew.getAvgPrice().toString();
                     order.setCurrentStopLoss((100 + stopLossPercentage) * order.getPrice() / (100.0));
-                    order.setCurrentStopLoss(order.getPrice() + (ATR.floatValue() * 1.5));
-                    order.setProffit(order.getPrice() - (ATR.floatValue() * 2));
+                    // order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 1.5));
+                    order.setProffit(order.getPrice() - (ATR.doubleValue() * 4));
                     order.setSymbol(symbol);
                     order.setQuantity(quantity);
                     order.setInitialStopLoss(order.getCurrentStopLoss());
@@ -546,8 +546,8 @@ public class TradeTask implements Runnable {
                     order.setPrice(orderNew.getAvgPrice().doubleValue());
                     priceReal = orderNew.getAvgPrice().toString();
                     order.setCurrentStopLoss((100.0 - (stopLossPercentage)) * alertPrice / (100.0));
-                    order.setCurrentStopLoss(order.getPrice() - (ATR.floatValue() * 1.5));
-                    order.setProffit(order.getPrice() + (ATR.floatValue() * 2));
+                    //          order.setCurrentStopLoss(order.getPrice() - (ATR.floatValue() * 1.5));
+                    order.setProffit(order.getPrice() + (ATR.floatValue() * 4));
                     order.setSymbol(symbol);
                     order.setQuantity(quantity);
                     order.setInitialStopLoss(order.getCurrentStopLoss());
