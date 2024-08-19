@@ -3,10 +3,10 @@ package com.my.copybot.util;
 import com.binance.api.client.domain.market.Candlestick;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.ATRIndicator;
+import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
+import org.ta4j.core.indicators.StochasticRSIIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.indicators.helpers.MinusDMIndicator;
-import org.ta4j.core.indicators.helpers.PlusDMIndicator;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -69,18 +69,19 @@ public class BinanceTa4jUtils {
 		}
 		ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
 
-		PlusDMIndicator plusDM = new PlusDMIndicator(series);
-		MinusDMIndicator minusDM = new MinusDMIndicator(series);
-		SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
-		SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
+//		PlusDMIndicator plusDM = new PlusDMIndicator(series);
+//		MinusDMIndicator minusDM = new MinusDMIndicator(series);
+//		SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
+//		SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
 
-//		RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-//		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-//		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
-//		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+		RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
+		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 		int maxIndex = series.getEndIndex();
-		ATRIndicator atr = new ATRIndicator(series, 14);
-		return (smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100;
+//		ATRIndicator atr = new ATRIndicator(series, 14);
+		//	return (smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100;
+		return (stochRsiD.getValue(maxIndex).doubleValue() < smoothedStochRsi.getValue(maxIndex).doubleValue());
 	}
 
 
@@ -88,20 +89,20 @@ public class BinanceTa4jUtils {
 		if (series == null) {
 			throw new IllegalArgumentException("Series cannot be null");
 		}
-//		ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-//		RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-//		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-//		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
-//		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+		ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
+		RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+		StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
+		SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 		int maxIndex = series.getEndIndex();
-		PlusDMIndicator plusDM = new PlusDMIndicator(series);
-		MinusDMIndicator minusDM = new MinusDMIndicator(series);
-		SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
-		SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
-		ATRIndicator atr = new ATRIndicator(series, 14);
+//		PlusDMIndicator plusDM = new PlusDMIndicator(series);
+//		MinusDMIndicator minusDM = new MinusDMIndicator(series);
+//		SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
+//		SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
+//		ATRIndicator atr = new ATRIndicator(series, 14);
 
-		return (smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100;
-
+//		return (smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100;
+		return (stochRsiD.getValue(maxIndex).doubleValue() > smoothedStochRsi.getValue(maxIndex).doubleValue());
 	}
 
 	public static Decimal getATR(TimeSeries series) {
