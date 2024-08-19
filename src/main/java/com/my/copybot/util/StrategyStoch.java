@@ -42,10 +42,10 @@ public class StrategyStoch {
 //        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
 //        EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 //
-//        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-//        StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-//        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
-//        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+        StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
+        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 
         PlusDMIndicator plusDM = new PlusDMIndicator(series);
         MinusDMIndicator minusDM = new MinusDMIndicator(series);
@@ -64,6 +64,7 @@ public class StrategyStoch {
         if ((curr[0] < curr[1])
                 && (prev[0] > prev[1]
                 && (prev[1] < curr[1])
+                && (smoothedStochRsi.getValue(maxIndex).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue())
                 && (dxIndicator.getValue(maxIndex).doubleValue() < 10)
                 && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25))
             //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
@@ -149,11 +150,11 @@ public class StrategyStoch {
 //        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
 //        EMAIndicator emaMacd = new EMAIndicator(macd, 9);
 //
-//        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
-//        StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
-//        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
-//        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
-//
+        RSIIndicator rsi = new RSIIndicator(closePrice, 14);
+        StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
+        SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
+        SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
+
 
         PlusDMIndicator plusDM = new PlusDMIndicator(series);
         MinusDMIndicator minusDM = new MinusDMIndicator(series);
@@ -172,6 +173,7 @@ public class StrategyStoch {
         if (curr[0] > curr[1]
                 && (prev[0] < prev[1])
                 && (prev[0] < curr[0])
+                && (smoothedStochRsi.getValue(maxIndex).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue())
                 && (dxIndicator.getValue(maxIndex).doubleValue() < 10)
             //           && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25))
             //           && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue()))
