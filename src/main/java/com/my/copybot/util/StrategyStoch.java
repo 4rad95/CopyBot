@@ -72,13 +72,13 @@ public class StrategyStoch {
                 if (dxIndicator.getValue(maxIndex).doubleValue() < 10) {
                     //                     && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
             //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
-                    System.out.println();
+                    //                  System.out.println();
                     Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1]);
                     return true;
                 }
             }
         }
-        System.out.println();
+
         return false;
 
 //        return (sma5.getValue(maxIndex - 1).multipliedBy(10000).intValue() > sma20.getValue(maxIndex - 1).multipliedBy(10000).intValue()
@@ -195,7 +195,6 @@ public class StrategyStoch {
                 }
             }
         }
-        System.out.println();
         return false;
 
 
