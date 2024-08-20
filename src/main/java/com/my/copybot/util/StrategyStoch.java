@@ -65,6 +65,7 @@ public class StrategyStoch {
                 && (prev[0] > prev[1]
                 && (prev[1] < curr[1])
                 && (smoothedStochRsi.getValue(maxIndex).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue())
+                && (smoothedStochRsi.getValue(maxIndex).doubleValue() > 20)
                 && (dxIndicator.getValue(maxIndex).doubleValue() < 10)
                 && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25))
             //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
@@ -174,6 +175,7 @@ public class StrategyStoch {
                 && (prev[0] < prev[1])
                 && (prev[0] < curr[0])
                 && (smoothedStochRsi.getValue(maxIndex).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue())
+                && (smoothedStochRsi.getValue(maxIndex).doubleValue() < 80)
                 && (dxIndicator.getValue(maxIndex).doubleValue() < 10)
                 && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)
             //           && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue()))
