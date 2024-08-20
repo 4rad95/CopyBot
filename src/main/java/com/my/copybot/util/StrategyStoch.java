@@ -69,7 +69,7 @@ public class StrategyStoch {
                     && (smoothedStochRsi.getValue(maxIndex).doubleValue() > 20)) {
                 System.out.println(" Stoch Ok");
 
-                if (dxIndicator.getValue(maxIndex).doubleValue() < 10) {
+                if (dxIndicator.getValue(maxIndex).doubleValue() < 20) {
                     //                     && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
             //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
                     Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1]);
@@ -184,7 +184,7 @@ public class StrategyStoch {
             if (smoothedStochRsi.getValue(maxIndex).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue()
                     && (smoothedStochRsi.getValue(maxIndex).doubleValue() < 80)) {
                 System.out.println(" Stoch Ok");
-                if (dxIndicator.getValue(maxIndex).doubleValue() < 10) {
+                if (dxIndicator.getValue(maxIndex).doubleValue() < 20) {
                     //                       && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
             //           && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue()))
             //
