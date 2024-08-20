@@ -64,15 +64,14 @@ public class StrategyStoch {
         if ((curr[0] < curr[1])
                 && prev[0] > prev[1]
                 && prev[1] < curr[1]) {
-            System.out.print("Short " + series.getName() + "-- -DI X +DI ");
+            System.out.println("Short " + series.getName() + "-- -DI X +DI ");
             if (smoothedStochRsi.getValue(maxIndex).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue()
                     && (smoothedStochRsi.getValue(maxIndex).doubleValue() > 20)) {
-                System.out.print(" Stoch Ok");
+                System.out.println(" Stoch Ok");
 
                 if (dxIndicator.getValue(maxIndex).doubleValue() < 10) {
                     //                     && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
             //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
-                    //                  System.out.println();
                     Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1]);
                     return true;
                 }
@@ -181,15 +180,14 @@ public class StrategyStoch {
         if (curr[0] > curr[1]
                 && (prev[0] < prev[1])
                 && (prev[0] < curr[0])) {
-            System.out.print("Long  " + series.getName() + "-- -DI X +DI .... ");
+            System.out.println("Long  " + series.getName() + "-- -DI X +DI .... ");
             if (smoothedStochRsi.getValue(maxIndex).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue()
                     && (smoothedStochRsi.getValue(maxIndex).doubleValue() < 80)) {
-                System.out.print(" Stoch Ok");
+                System.out.println(" Stoch Ok");
                 if (dxIndicator.getValue(maxIndex).doubleValue() < 10) {
                     //                       && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
             //           && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue()))
             //
-                    System.out.println();
             Log.info(StrategyStoch.class, series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1]);
                     return true;
                 }
