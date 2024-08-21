@@ -65,24 +65,15 @@ public class StrategyStoch {
                 && prev[0] > prev[1]
                 && prev[1] < curr[1]
                 && (smoothedStochRsi.getValue(maxIndex).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue()
-                && (smoothedStochRsi.getValue(maxIndex).doubleValue() > 20))
+                && (smoothedStochRsi.getValue(maxIndex).doubleValue() > 30))
                 && (dxIndicator.getValue(maxIndex - 1).doubleValue() < dxIndicator.getValue(maxIndex).doubleValue())
-                && (dxIndicator.getValue(maxIndex).doubleValue() < 30))
-        //                     && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
+                && (dxIndicator.getValue(maxIndex).doubleValue() < 30)
+                && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
             //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
-        {
             Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
                     return true;
         }
         return false;
-
-//        return (sma5.getValue(maxIndex - 1).multipliedBy(10000).intValue() > sma20.getValue(maxIndex - 1).multipliedBy(10000).intValue()
-//                && sma5.getValue(maxIndex).multipliedBy(10000).intValue() < sma20.getValue(maxIndex).multipliedBy(10000).intValue()
-//                && stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() - smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > 3
-//                && (stochRsiD.getValue(maxIndex - 1).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue())
-//                && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() < smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
-//                && (macd.getValue(maxIndex).doubleValue() < macd.getValue(maxIndex - 1).doubleValue()));
-
     }
 
     public static Boolean closeStochStrategyShort(TimeSeries series) {
@@ -91,7 +82,7 @@ public class StrategyStoch {
             throw new IllegalArgumentException("Series cannot be null");
         }
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-
+        SMAIndicator sma5 = new SMAIndicator(closePrice, 5);
         SMAIndicator sma20 = new SMAIndicator(closePrice, 20);
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
@@ -120,8 +111,10 @@ public class StrategyStoch {
         if (curr[0] > curr[1] && prev[0] > prev[1]) {
             Log.info(StrategyStoch.class, "DI UP. Change Trend");
             return true;
-        } else if (smoothedStochRsi.getValue(maxIndex).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue()) {
-            Log.info(StrategyStoch.class, "[StochRsi] K > D  . Position close.");
+        } else if (sma5.getValue(maxIndex).doubleValue() > sma20.getValue(maxIndex).doubleValue()
+                && sma5.getValue(maxIndex - 1).doubleValue() < sma20.getValue(maxIndex - 1).doubleValue()) {
+            Log.info(StrategyStoch.class, "[SMA5 & SMA20 ] SMA5 > SMA20  . Position close.");
+
             return true;
         } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()
                 && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
@@ -177,10 +170,10 @@ public class StrategyStoch {
                 && (prev[0] < prev[1])
                 && (prev[0] < curr[0])
                 && (smoothedStochRsi.getValue(maxIndex).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue())
-                && (smoothedStochRsi.getValue(maxIndex).doubleValue() < 80)
+                && (smoothedStochRsi.getValue(maxIndex).doubleValue() < 70)
                 && (dxIndicator.getValue(maxIndex - 1).doubleValue() < dxIndicator.getValue(maxIndex).doubleValue())
-                && (dxIndicator.getValue(maxIndex).doubleValue() < 30)) {
-                    //                       && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
+                && (dxIndicator.getValue(maxIndex).doubleValue() < 20)
+                && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
             //           && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue()))
             //
             Log.info(StrategyStoch.class, "[LONG] " + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
@@ -207,7 +200,7 @@ public class StrategyStoch {
         }
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-//        SMAIndicator sma5 = new SMAIndicator(closePrice, 5);
+        SMAIndicator sma5 = new SMAIndicator(closePrice, 5);
         SMAIndicator sma20 = new SMAIndicator(closePrice, 20);
 
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
@@ -235,8 +228,9 @@ public class StrategyStoch {
         if (curr[0] < curr[1] && prev[0] < prev[1]) {
             Log.info(StrategyStoch.class, "DI Down. Change Trend");
             return true;
-        } else if (smoothedStochRsi.getValue(maxIndex).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue()) {
-            Log.info(StrategyStoch.class, "[StochRsi ] K < D  . Position close.");
+        } else if (sma5.getValue(maxIndex).doubleValue() < sma20.getValue(maxIndex).doubleValue()
+                && sma5.getValue(maxIndex - 1).doubleValue() > sma20.getValue(maxIndex - 1).doubleValue()) {
+            Log.info(StrategyStoch.class, "[SMA5 & SMA20 ] SMA5 < SMA20  . Position close.");
             return true;
         } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()
                 && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
