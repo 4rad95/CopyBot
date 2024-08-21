@@ -67,8 +67,8 @@ public class StrategyStoch {
                 && (smoothedStochRsi.getValue(maxIndex).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue()
                 && (smoothedStochRsi.getValue(maxIndex).doubleValue() > 30))
                 && (dxIndicator.getValue(maxIndex - 1).doubleValue() < dxIndicator.getValue(maxIndex).doubleValue())
-                && (dxIndicator.getValue(maxIndex).doubleValue() < 30)
-                && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
+                && (dxIndicator.getValue(maxIndex).doubleValue() < 30)) {
+            //       && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
             //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
             Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
                     return true;
@@ -172,8 +172,8 @@ public class StrategyStoch {
                 && (smoothedStochRsi.getValue(maxIndex).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue())
                 && (smoothedStochRsi.getValue(maxIndex).doubleValue() < 70)
                 && (dxIndicator.getValue(maxIndex - 1).doubleValue() < dxIndicator.getValue(maxIndex).doubleValue())
-                && (dxIndicator.getValue(maxIndex).doubleValue() < 20)
-                && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
+                && (dxIndicator.getValue(maxIndex).doubleValue() < 20)) {
+            //            && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
             //           && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue()))
             //
             Log.info(StrategyStoch.class, "[LONG] " + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
