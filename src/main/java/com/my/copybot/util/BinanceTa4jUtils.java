@@ -1,6 +1,7 @@
 package com.my.copybot.util;
 
 import com.binance.api.client.domain.market.Candlestick;
+import com.my.copybot.Log;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.ATRIndicator;
 import org.ta4j.core.indicators.RSIIndicator;
@@ -82,8 +83,13 @@ public class BinanceTa4jUtils {
 		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 		int maxIndex = series.getEndIndex();
 		ATRIndicator atr = new ATRIndicator(series, 14);
-		return (smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100
-				&& (stochRsiD.getValue(maxIndex).doubleValue() < smoothedStochRsi.getValue(maxIndex).doubleValue());
+		if ((smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100
+				&& (stochRsiD.getValue(maxIndex).doubleValue() < smoothedStochRsi.getValue(maxIndex).doubleValue())) {
+			Log.info(BinanceTa4jUtils.class, series.getName() + "  Ok!");
+			return true;
+		}
+		Log.info(BinanceTa4jUtils.class, series.getName() + "  Cancel!");
+		return false;
 	}
 
 
@@ -103,8 +109,14 @@ public class BinanceTa4jUtils {
 		SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
 		ATRIndicator atr = new ATRIndicator(series, 14);
 
-		return (smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100
-				&& (stochRsiD.getValue(maxIndex).doubleValue() > smoothedStochRsi.getValue(maxIndex).doubleValue());
+		if ((smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100
+				&& (stochRsiD.getValue(maxIndex).doubleValue() > smoothedStochRsi.getValue(maxIndex).doubleValue())) {
+
+			Log.info(BinanceTa4jUtils.class, series.getName() + "  Ok!");
+			return true;
+		}
+		Log.info(BinanceTa4jUtils.class, series.getName() + "  Cancel!");
+		return false;
 	}
 
 	public static Decimal getATR(TimeSeries series) {
