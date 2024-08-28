@@ -120,9 +120,9 @@ public class StrategyStoch {
                 && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
             Log.info(StrategyStoch.class, "DX Low.");
             return true;
-        } else if (bbu.getValue(maxIndex).doubleValue() < closePrice.getValue(maxIndex).doubleValue()) {
-            Log.info(StrategyStoch.class, "ClosePrice high BB. Position close.");
-            return true;
+//        } else if (bbu.getValue(maxIndex).doubleValue() < closePrice.getValue(maxIndex).doubleValue()) {
+//            Log.info(StrategyStoch.class, "ClosePrice high BB. Position close.");
+//            return true;
         }
 
         return false;
@@ -236,9 +236,9 @@ public class StrategyStoch {
                 && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
             Log.info(StrategyStoch.class, "DX Lower. Position close.");
             return true;
-        } else if (bbl.getValue(maxIndex).doubleValue() > closePrice.getValue(maxIndex).doubleValue()) {
-            Log.info(StrategyStoch.class, "ClosePrice low BB .");
-            return true;
+//        } else if (bbl.getValue(maxIndex).doubleValue() > closePrice.getValue(maxIndex).doubleValue()) {
+//            Log.info(StrategyStoch.class, "ClosePrice low BB .");
+//            return true;
         }
 
         return false;
