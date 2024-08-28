@@ -85,10 +85,10 @@ public class BinanceTa4jUtils {
 		ATRIndicator atr = new ATRIndicator(series, 14);
 		if ((smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100
 				&& (stochRsiD.getValue(maxIndex).doubleValue() < smoothedStochRsi.getValue(maxIndex).doubleValue())) {
-			Log.info(BinanceTa4jUtils.class, series.getName() + "  Ok!");
+			Log.info(BinanceTa4jUtils.class, "[LONG]" + series.getName() + "  Ok!");
 			return true;
 		}
-		Log.info(BinanceTa4jUtils.class, series.getName() + "  Cancel!");
+		Log.info(BinanceTa4jUtils.class, "[LONG]" + series.getName() + "  Cancel!");
 		return false;
 	}
 
@@ -112,10 +112,10 @@ public class BinanceTa4jUtils {
 		if ((smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100
 				&& (stochRsiD.getValue(maxIndex).doubleValue() > smoothedStochRsi.getValue(maxIndex).doubleValue())) {
 
-			Log.info(BinanceTa4jUtils.class, series.getName() + "  Ok!");
+			Log.info(BinanceTa4jUtils.class, "[SHORT]" + series.getName() + "  Ok!");
 			return true;
 		}
-		Log.info(BinanceTa4jUtils.class, series.getName() + "  Cancel!");
+		Log.info(BinanceTa4jUtils.class, "[SHORT]" + series.getName() + "  Cancel!");
 		return false;
 	}
 
