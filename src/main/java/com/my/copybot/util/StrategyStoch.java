@@ -177,7 +177,7 @@ public class StrategyStoch {
             //            && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
             //           && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue()))
             //
-            Log.info(StrategyStoch.class, "[LONG] " + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
+            Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
                     return true;
 
 

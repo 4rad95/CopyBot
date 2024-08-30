@@ -83,12 +83,12 @@ public class BinanceTa4jUtils {
 		SMAIndicator stochRsiD = new SMAIndicator(smoothedStochRsi, 3);
 		int maxIndex = series.getEndIndex();
 		ATRIndicator atr = new ATRIndicator(series, 14);
-		if ((smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100
-				&& (stochRsiD.getValue(maxIndex).doubleValue() < smoothedStochRsi.getValue(maxIndex).doubleValue())) {
-			Log.info(BinanceTa4jUtils.class, "[LONG]" + series.getName() + "  Ok!");
+		if ((smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100) {
+//				&& (stochRsiD.getValue(maxIndex).doubleValue() < smoothedStochRsi.getValue(maxIndex).doubleValue())) {
+			Log.info(BinanceTa4jUtils.class, "[LONG]:" + series.getName() + "  Ok!");
 			return true;
 		}
-		Log.info(BinanceTa4jUtils.class, "[LONG]" + series.getName() + "  Cancel!");
+		Log.info(BinanceTa4jUtils.class, "[LONG]:" + series.getName() + "  Cancel!");
 		return false;
 	}
 
@@ -109,13 +109,13 @@ public class BinanceTa4jUtils {
 		SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
 		ATRIndicator atr = new ATRIndicator(series, 14);
 
-		if ((smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100
-				&& (stochRsiD.getValue(maxIndex).doubleValue() > smoothedStochRsi.getValue(maxIndex).doubleValue())) {
+		if ((smoothedPlusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100 < (smoothedMinusDM.getValue(maxIndex).doubleValue() / atr.getValue(maxIndex).doubleValue()) * 100) {
+			//	&& (stochRsiD.getValue(maxIndex).doubleValue() > smoothedStochRsi.getValue(maxIndex).doubleValue())) {
 
-			Log.info(BinanceTa4jUtils.class, "[SHORT]" + series.getName() + "  Ok!");
+			Log.info(BinanceTa4jUtils.class, "[SHORT]:" + series.getName() + "  Ok!");
 			return true;
 		}
-		Log.info(BinanceTa4jUtils.class, "[SHORT]" + series.getName() + "  Cancel!");
+		Log.info(BinanceTa4jUtils.class, "[SHORT]:" + series.getName() + "  Cancel!");
 		return false;
 	}
 
