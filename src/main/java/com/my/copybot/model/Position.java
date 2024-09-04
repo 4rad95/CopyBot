@@ -65,15 +65,14 @@ public class Position {
         String formattedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         item = item + formattedTime + "  | " +
                 formatStr(type, 5) + " | " +
-                formatStr(symbol, 10) + "    | " +
+                formatStr(symbol, 16) + "    | " +
                 formatStr(openPrice.toString(), 12) + "     | " +
                 formatStr(closePrice.toString(), 12) + "     | ";
         String proffitStr = proffit.toString();
         if (proffit > 0) {
             proffitStr = " " + proffitStr;
         }
-        System.out.println(item + proffitStr);
-
+        System.out.println(item + formatStr(proffitStr, 24) + "  | " + status);
 
     }
 

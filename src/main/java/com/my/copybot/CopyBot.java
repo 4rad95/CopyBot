@@ -16,7 +16,6 @@ import com.my.copybot.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.ta4j.core.Bar;
 import org.ta4j.core.Decimal;
-import org.ta4j.core.Strategy;
 import org.ta4j.core.TimeSeries;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -34,7 +33,7 @@ public class CopyBot {
     private static final Map<String, TimeSeries> timeSeriesCache = Collections.synchronizedMap(new HashMap<String, TimeSeries>());
     private static final Map<String, String> openTradesLong = Collections.synchronizedMap(new HashMap<String, String>());
     private static final Map<String, String> openTradesShort = Collections.synchronizedMap(new HashMap<String, String>());
-    private static final List<String> ordersToBeClosed = Collections.synchronizedList(new LinkedList<String>());
+    private static final Map<String, String> ordersToBeClosed = Collections.synchronizedMap(new HashMap<String, String>());
     private static final List<Position> closedPositions = Collections.synchronizedList(new LinkedList<Position>());
     private static final List<String> badSymbols = new LinkedList<String>();
     public static Boolean MAKE_LONG = true;
@@ -323,14 +322,21 @@ public class CopyBot {
                             }
                         }
                     }
+                    String status = null;
+                    if (null != openTradesLong.get(symbol)) {
+                        status = StrategyStoch.closeStochStrategyLong(series);
+                        if (status != null) {
 
-                    if ((null != openTradesLong.get(symbol)) && (StrategyStoch.closeStochStrategyLong(series))) {
-                        ordersToBeClosed.add(symbol);
+                            ordersToBeClosed.put(symbol, status);
                         Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
 
-                    } else if ((null != openTradesShort.get(symbol)) && (StrategyStoch.closeStochStrategyShort(series))) {
-                        ordersToBeClosed.add(symbol);
+                        }
+                    } else if (null != openTradesShort.get(symbol)) {
+                        status = StrategyStoch.closeStochStrategyShort(series);
+                        if (status != null) {
+                            ordersToBeClosed.put(symbol, status);
                         Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
+                        }
                     }
 
                 }
@@ -407,7 +413,7 @@ public class CopyBot {
      * @return if it should be closed or not
      */
     public static boolean shouldCloseOrder(String symbol) {
-        return ordersToBeClosed.contains(symbol);
+        return ordersToBeClosed.get(symbol).isEmpty();
     }
 
     public static boolean check(String symbol) {
@@ -439,16 +445,16 @@ public class CopyBot {
         return symbols;
     }
 
-    private static void checkStrategy(Strategy strategyLong, Strategy strategyShort, int endIndex, String symbol) {
-        if ((null != openTradesLong.get(symbol)) && (strategyLong.shouldExit(endIndex))) {
-                ordersToBeClosed.add(symbol);
-                Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
-
-        } else if ((null != openTradesShort.get(symbol)) && (strategyShort.shouldExit(endIndex))) {
-                ordersToBeClosed.add(symbol);
-                Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
-        }
-    }
+//    private static void checkStrategy(Strategy strategyLong, Strategy strategyShort, int endIndex, String symbol) {
+//        if ((null != openTradesLong.get(symbol)) && (strategyLong.shouldExit(endIndex))) {
+//                ordersToBeClosed.add(symbol);
+//                Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
+//
+//        } else if ((null != openTradesShort.get(symbol)) && (strategyShort.shouldExit(endIndex))) {
+//                ordersToBeClosed.add(symbol);
+//                Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
+//        }
+//    }
 
     private static BigDecimal printBalance() {
         try {
@@ -478,7 +484,7 @@ public class CopyBot {
         } else if (inputString.equals("STAT")) {
             outputPositionClosed(closedPositions);
         } else if (inputString.charAt(0) == 'D') {
-            ordersToBeClosed.add(inputString.substring(1) + "USDT");
+            ordersToBeClosed.put(inputString.substring(1) + "USDT", "Manual stop");
         } else {
             String inputTemp = inputString.substring(0, 2);
             inputString.substring(2);
@@ -510,10 +516,10 @@ public class CopyBot {
 
     public static void closeAllOrders() {
         for (String symbol : openTradesLong.keySet()) {
-            ordersToBeClosed.add(symbol);
+            ordersToBeClosed.put(symbol, "Manual all stoped");
         }
         for (String symbol : openTradesShort.keySet()) {
-            ordersToBeClosed.add(symbol);
+            ordersToBeClosed.put(symbol, "Manual all stoped");
         }
     }
 
@@ -551,8 +557,8 @@ public class CopyBot {
     }
 
     public static void outputPositionClosed(List<Position> closedPosition) {
-        System.out.println("| StartTime          | Work Time | TYPE  | Symbol        |  Open          |  Close         |  Profit   ");
-        //                  |19/04/2024 15:08:03 | 0:01:43   | SHORT | PHBUSDT       | 1.7599         | 1.7616         | -0.018700000000000383
+        System.out.println("| StartTime          | Work Time | TYPE  | Symbol         |  Open            |  Close         |  Profit                |   Status ");
+        //                  |19/04/2024 15:08:03 | 0:01:43   | SHORT | PHBUSDT        | 1.7599           | 1.7616         | -0.018700000000000383
         for (Position position : closedPosition) {
             position.printPosition();
         }
@@ -606,7 +612,7 @@ public class CopyBot {
             seconds = seconds - minutes * 60;
             String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
             Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.018 ( test Edition beta ADX Strategy. Good and Best!)    \u001B[0m");
+            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.018a ( test Edition beta ADX Strategy. Good and Best!)    \u001B[0m");
             //		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
             Log.info(CopyBot.class, " Open trades LONG: " + openTradesLong.keySet().size() + " SHORT:" + openTradesShort.keySet().size());
             Log.info(CopyBot.class, " LONG:  " + openTradesLong.keySet());
