@@ -33,7 +33,7 @@ public class CopyBot {
     private static final Map<String, TimeSeries> timeSeriesCache = Collections.synchronizedMap(new HashMap<String, TimeSeries>());
     private static final Map<String, String> openTradesLong = Collections.synchronizedMap(new HashMap<String, String>());
     private static final Map<String, String> openTradesShort = Collections.synchronizedMap(new HashMap<String, String>());
-    private static final Map<String, String> ordersToBeClosed = Collections.synchronizedMap(new HashMap<String, String>());
+    public static final Map<String, String> ordersToBeClosed = Collections.synchronizedMap(new HashMap<String, String>());
     private static final List<Position> closedPositions = Collections.synchronizedList(new LinkedList<Position>());
     private static final List<String> badSymbols = new LinkedList<String>();
     public static Boolean MAKE_LONG = true;

@@ -335,7 +335,7 @@ public class TradeTask implements Runnable {
             order.setCloseTime(System.currentTimeMillis());
             // Добавить статистику!
             CopyBot.closeOrder(symbol, order.getProfit(), null, type);
-            CopyBot.addPositionClosed(createStatisticPosition("Ok"));
+            CopyBot.addPositionClosed(createStatisticPosition(CopyBot.ordersToBeClosed.get(order.getSymbol())));
         } catch (Exception e) {
             CopyBot.closeOrder(symbol, 0.00, null, "Error");
             System.out.println(" --------------------------- " + symbol + "   closed");
