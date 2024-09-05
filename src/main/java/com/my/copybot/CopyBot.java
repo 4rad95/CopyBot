@@ -413,7 +413,7 @@ public class CopyBot {
      * @return if it should be closed or not
      */
     public static boolean shouldCloseOrder(String symbol) {
-        return ordersToBeClosed.get(symbol).isEmpty();
+        return ordersToBeClosed.get(symbol) != null;
     }
 
     public static boolean check(String symbol) {
