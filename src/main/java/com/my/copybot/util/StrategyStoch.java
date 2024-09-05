@@ -106,10 +106,11 @@ public class StrategyStoch {
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
 
 
-        if (curr[0] > curr[1] && prev[0] > prev[1] && curr[1] < prev[1]) {
-            Log.info(StrategyStoch.class, "DI UP. Change Trend");
-            return "DI UP. Change Trend";
-        } else if (sma7.getValue(maxIndex).doubleValue() > sma25.getValue(maxIndex).doubleValue()
+//        if (curr[0] > curr[1] && prev[0] > prev[1] && curr[1] < prev[1]) {
+//            Log.info(StrategyStoch.class, "DI UP. Change Trend");
+//            return "DI UP. Change Trend";
+//        } else
+        if (sma7.getValue(maxIndex).doubleValue() > sma25.getValue(maxIndex).doubleValue()
                 && sma7.getValue(maxIndex - 1).doubleValue() < sma25.getValue(maxIndex - 1).doubleValue()) {
             Log.info(StrategyStoch.class, "[SMA7 & SMA25 ] SMA7 > SMA25  . Position close.");
 
@@ -223,10 +224,11 @@ public class StrategyStoch {
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
 
-        if (curr[0] < curr[1] && prev[0] < prev[1] && curr[0] < prev[0]) {
-            Log.info(StrategyStoch.class, "DI Down. Change Trend");
-            return "DI Down. Change Trend";
-        } else if (sma7.getValue(maxIndex).doubleValue() < sma25.getValue(maxIndex).doubleValue()
+//        if (curr[0] < curr[1] && prev[0] < prev[1] && curr[0] < prev[0]) {
+//            Log.info(StrategyStoch.class, "DI Down. Change Trend");
+//            return "DI Down. Change Trend";
+//        } else
+        if (sma7.getValue(maxIndex).doubleValue() < sma25.getValue(maxIndex).doubleValue()
                 && sma7.getValue(maxIndex - 1).doubleValue() > sma25.getValue(maxIndex - 1).doubleValue()) {
             Log.info(StrategyStoch.class, "[SMA7 & SMA25 ] SMA7 < SMA25  . Position close.");
             return "[SMA7 & SMA25 ] SMA7 < SMA25  . Position close.";
