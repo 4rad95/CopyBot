@@ -526,11 +526,6 @@ public class CopyBot {
     public static void addTrade(String symbol, String type, Decimal ATR) {
 
         CopyBot copyBot = new CopyBot();
-        TradeTask tradeTask = new TradeTask(symbol, getCurrentPrice(symbol).toDouble(),
-                TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER, copyBot, ATR);
-        Thread thread = new Thread(tradeTask);
-        tradeTask.thisThread = thread;
-        thread.start();
         switch (type) {
             case "LONG": {
                 openTradesLong.put(symbol, "LONG");
@@ -541,6 +536,11 @@ public class CopyBot {
                 break;
             }
         }
+        TradeTask tradeTask = new TradeTask(symbol, getCurrentPrice(symbol).toDouble(),
+                TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER, copyBot, ATR);
+        Thread thread = new Thread(tradeTask);
+        tradeTask.thisThread = thread;
+        thread.start();
 
     }
 
