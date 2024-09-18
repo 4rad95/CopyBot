@@ -25,6 +25,7 @@ public class StrategyStoch {
             throw new IllegalArgumentException("Series cannot be null");
         }
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
+        OpenPriceIndicator openPrice = new OpenPriceIndicator(series);
         MaxPriceIndicator maxPrice = new MaxPriceIndicator(series);
 
 //
@@ -70,6 +71,14 @@ public class StrategyStoch {
             //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
             Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
                     return true;
+        } else if (
+                openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
+                        && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
+                        && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
+                        && prev[0] > prev[1]
+        ) {
+            Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Bearish Engulfing ");
+            return true;
         }
         return false;
     }
@@ -80,6 +89,7 @@ public class StrategyStoch {
             throw new IllegalArgumentException("Series cannot be null");
         }
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
+        OpenPriceIndicator openPrice = new OpenPriceIndicator(series);
         SMAIndicator sma7 = new SMAIndicator(closePrice, 7);
         SMAIndicator sma25 = new SMAIndicator(closePrice, 25);
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
@@ -122,8 +132,15 @@ public class StrategyStoch {
 //        } else if (bbu.getValue(maxIndex).doubleValue() < closePrice.getValue(maxIndex).doubleValue()) {
 //            Log.info(StrategyStoch.class, "ClosePrice high BB. Position close.");
 //            return true;
+        } else if (
+                openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
+                        && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
+                        && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
+            //                   && prev[0] < prev[1]
+        ) {
+            Log.info(StrategyStoch.class, "Bullish Engulfing  . Position close.");
+            return " Bullish Engulfing";
         }
-
         return null;
     }
 
@@ -133,6 +150,8 @@ public class StrategyStoch {
         }
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
+        OpenPriceIndicator openPrice = new OpenPriceIndicator(series);
+
         MinPriceIndicator minPrice = new MinPriceIndicator(series);
 //
 //        SMAIndicator sma5 = new SMAIndicator(closePrice, 5);
@@ -177,8 +196,14 @@ public class StrategyStoch {
             //
             Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
                     return true;
-
-
+        } else if (
+                openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
+                        && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
+                        && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
+                        && prev[0] < prev[1]
+        ) {
+            Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Bullish engulfing ");
+            return true;
         }
         return false;
 
@@ -199,6 +224,7 @@ public class StrategyStoch {
         }
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
+        OpenPriceIndicator openPrice = new OpenPriceIndicator(series);
         SMAIndicator sma7 = new SMAIndicator(closePrice, 7);
         SMAIndicator sma25 = new SMAIndicator(closePrice, 25);
 
@@ -239,8 +265,15 @@ public class StrategyStoch {
 //        } else if (bbl.getValue(maxIndex).doubleValue() > closePrice.getValue(maxIndex).doubleValue()) {
 //            Log.info(StrategyStoch.class, "ClosePrice low BB .");
 //            return true;
+        } else if (
+                openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
+                        && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
+                        && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
+            //           && prev[0] < prev[1]
+        ) {
+            Log.info(StrategyStoch.class, "Bearish Engulfing  . Position close.");
+            return " Bearish Engulfing";
         }
-
         return null;
     }
 
