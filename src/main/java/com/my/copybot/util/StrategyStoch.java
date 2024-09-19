@@ -73,6 +73,7 @@ public class StrategyStoch {
                     return true;
         } else if (
                 openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
+                        && openPrice.getValue(maxIndex - 1).doubleValue() == closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && prev[0] > prev[1]
@@ -125,10 +126,10 @@ public class StrategyStoch {
             Log.info(StrategyStoch.class, "[SMA7 & SMA25 ] SMA7 > SMA25  . Position close.");
 
             return "[SMA7 & SMA25 ] SMA7 > SMA25  . Position close.";
-        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()
-                && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
-            Log.info(StrategyStoch.class, "DX Low.");
-            return "DX Low.";
+//        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()
+//                && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
+//            Log.info(StrategyStoch.class, "DX Low.");
+//            return "DX Low.";
 //        } else if (bbu.getValue(maxIndex).doubleValue() < closePrice.getValue(maxIndex).doubleValue()) {
 //            Log.info(StrategyStoch.class, "ClosePrice high BB. Position close.");
 //            return true;
@@ -198,6 +199,7 @@ public class StrategyStoch {
                     return true;
         } else if (
                 openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
+                        && openPrice.getValue(maxIndex - 1).doubleValue() == closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                         && prev[0] < prev[1]
@@ -258,10 +260,10 @@ public class StrategyStoch {
                 && sma7.getValue(maxIndex - 1).doubleValue() > sma25.getValue(maxIndex - 1).doubleValue()) {
             Log.info(StrategyStoch.class, "[SMA7 & SMA25 ] SMA7 < SMA25  . Position close.");
             return "[SMA7 & SMA25 ] SMA7 < SMA25  . Position close.";
-        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()
-                && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
-            Log.info(StrategyStoch.class, "DX Lower. Position close.");
-            return "DX Lower. Position close.";
+//        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()
+//                && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
+//            Log.info(StrategyStoch.class, "DX Lower. Position close.");
+//            return "DX Lower. Position close.";
 //        } else if (bbl.getValue(maxIndex).doubleValue() > closePrice.getValue(maxIndex).doubleValue()) {
 //            Log.info(StrategyStoch.class, "ClosePrice low BB .");
 //            return true;
