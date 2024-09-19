@@ -7,9 +7,7 @@ import org.ta4j.core.indicators.ATRIndicator;
 import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
 import org.ta4j.core.indicators.StochasticRSIIndicator;
-import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.indicators.helpers.MinusDMIndicator;
-import org.ta4j.core.indicators.helpers.PlusDMIndicator;
+import org.ta4j.core.indicators.helpers.*;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -128,4 +126,21 @@ public class BinanceTa4jUtils {
 		return atrIndicator.getValue(series.getEndIndex());
 	}
 
+	public static Double getStopPriceLong(TimeSeries series) {
+		if (series == null) {
+			throw new IllegalArgumentException("Series cannot be null");
+		}
+		MinPriceIndicator minPriceIndicator = new MinPriceIndicator(series);
+
+		return minPriceIndicator.getValue(series.getEndIndex() - 1).doubleValue();
+	}
+
+	public static Double getStopPriceShort(TimeSeries series) {
+		if (series == null) {
+			throw new IllegalArgumentException("Series cannot be null");
+		}
+		MaxPriceIndicator maxPriceIndicator = new MaxPriceIndicator(series);
+
+		return maxPriceIndicator.getValue(series.getEndIndex() - 1).doubleValue();
+	}
 }

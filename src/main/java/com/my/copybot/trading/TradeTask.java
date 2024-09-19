@@ -47,11 +47,11 @@ public class TradeTask implements Runnable {
     private Double minPercent = 0.00;
     private Integer identLimitOredr = 20;
     private final Decimal ATR;
-    private Double multik;
+    private final Double stopPrice;
 
 
     public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
-                     Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type, Integer identLimitOredr, CopyBot copyBot, Decimal ATR) {
+                     Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type, Integer identLimitOredr, CopyBot copyBot, Decimal ATR, Double stopPrice) {
 
         this.symbol = symbol;
         this.alertPrice = alertPrice;
@@ -65,6 +65,7 @@ public class TradeTask implements Runnable {
         this.identLimitOredr = identLimitOredr;
         this.copyBot = copyBot;
         this.ATR = ATR;
+        this.stopPrice = stopPrice;
     }
 
     public static String multiplyAndRound(Double number, double multiplier) {
@@ -405,16 +406,18 @@ public class TradeTask implements Runnable {
 
             Double chkProffit = Double.parseDouble(proffit);
             setMaxPercent(chkProffit);
-            if (chkProffit > stopNoLoss) {
+            // if (chkProffit > stopNoLoss) {
 
                 Double temp = setStopLoss(chkProffit, price);
-                if (temp > order.getCurrentStopLoss() && order.getType().equals("LONG")) {
+            //if (temp > order.getCurrentStopLoss() && order.getType().equals("LONG")) {
+            if (price >= order.getProffit() && order.getType().equals("LONG")) {
                     order.setCurrentStopLoss(temp);
 
-                } else if (temp < order.getCurrentStopLoss() && order.getType().equals("SHORT")) {
+            } else if (price <= order.getProffit() && order.getType().equals("SHORT")) {
+                //(temp < order.getCurrentStopLoss() && order.getType().equals("SHORT")) {
                     order.setCurrentStopLoss(temp);
                 }
-            }
+            //}
             //
             if (counter == 30) {
             String msg =
@@ -437,7 +440,7 @@ public class TradeTask implements Runnable {
         counter++;
         switch (type) {
             case "SHORT": {
-                if (price >= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol) || (price <= order.getProffit()))      // Close stopLoss
+                if (price >= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol)) //|| (price <= order.getProffit()))      // Close stopLoss
                 {
                     sell(price);
                     Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
@@ -447,7 +450,7 @@ public class TradeTask implements Runnable {
                 break;
             }
             case "LONG": {
-                if (price <= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol) || (price >= order.getProffit()))      // Close stopLoss
+                if (price <= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol)) //|| (price >= order.getProffit()))      // Close stopLoss
                 {
                     sell(price);
                     Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
@@ -508,9 +511,10 @@ public class TradeTask implements Runnable {
                     order.setType(type);
                     order.setPrice(orderNew.getAvgPrice().doubleValue());
                     priceReal = orderNew.getAvgPrice().toString();
-                    order.setCurrentStopLoss((100 + stopLossPercentage) * order.getPrice() / (100.0));
-                    // order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 1.5));
-                    order.setProffit(order.getPrice() - (ATR.doubleValue() * 8));
+                    order.setCurrentStopLoss(stopPrice);
+                    //order.setCurrentStopLoss((100 + stopLossPercentage) * order.getPrice() / (100.0));
+                    //order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 1.5));
+                    order.setProffit(order.getPrice() - (ATR.doubleValue() * 3));
                     order.setSymbol(symbol);
                     order.setQuantity(quantity);
                     order.setInitialStopLoss(order.getCurrentStopLoss());
@@ -545,9 +549,10 @@ public class TradeTask implements Runnable {
                     order.setType(type);
                     order.setPrice(orderNew.getAvgPrice().doubleValue());
                     priceReal = orderNew.getAvgPrice().toString();
-                    order.setCurrentStopLoss((100.0 - (stopLossPercentage)) * alertPrice / (100.0));
+                    order.setCurrentStopLoss(stopPrice);
+                    //order.setCurrentStopLoss((100.0 - (stopLossPercentage)) * alertPrice / (100.0));
                     //          order.setCurrentStopLoss(order.getPrice() - (ATR.floatValue() * 1.5));
-                    order.setProffit(order.getPrice() + (ATR.floatValue() * 8));
+                    order.setProffit(order.getPrice() + (ATR.floatValue() * 3));
                     order.setSymbol(symbol);
                     order.setQuantity(quantity);
                     order.setInitialStopLoss(order.getCurrentStopLoss());

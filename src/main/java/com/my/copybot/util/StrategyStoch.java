@@ -117,10 +117,6 @@ public class StrategyStoch {
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
 
 
-//        if (curr[0] > curr[1] && prev[0] > prev[1] && curr[1] < prev[1]) {
-//            Log.info(StrategyStoch.class, "DI UP. Change Trend");
-//            return "DI UP. Change Trend";
-//        } else
         if (sma7.getValue(maxIndex).doubleValue() > sma25.getValue(maxIndex).doubleValue()
                 && sma7.getValue(maxIndex - 1).doubleValue() < sma25.getValue(maxIndex - 1).doubleValue()) {
             Log.info(StrategyStoch.class, "[SMA7 & SMA25 ] SMA7 > SMA25  . Position close.");
@@ -137,7 +133,6 @@ public class StrategyStoch {
                 openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
-            //                   && prev[0] < prev[1]
         ) {
             Log.info(StrategyStoch.class, "Bullish Engulfing  . Position close.");
             return " Bullish Engulfing";

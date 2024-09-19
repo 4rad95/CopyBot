@@ -292,7 +292,7 @@ public class CopyBot {
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
-                                    addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series));
+                                    addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series));
                                 }
                             }
                         }
@@ -317,7 +317,7 @@ public class CopyBot {
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
-                                    addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series));
+                                    addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series));
                                 }
                             }
                         }
@@ -502,10 +502,10 @@ public class CopyBot {
                 System.out.println("New value STOP_NO_LOSS = " + STOP_NO_LOSS);
             } else if (inputTemp.equals("AL")) {
                 System.out.println("Add new position LONG ..... " + inputString.substring(2) + "USDT");
-                addTrade(inputString.substring(2) + "USDT", "LONG", null);
+                addTrade(inputString.substring(2) + "USDT", "LONG", null, null);
             } else if (inputTemp.equals("AS")) {
                 System.out.println("Add new position SHORT  ..... " + inputString.substring(2) + "USDT");
-                addTrade(inputString.substring(2) + "USDT", "SHORT", null);
+                addTrade(inputString.substring(2) + "USDT", "SHORT", null, null);
             } else if (inputTemp.equals("RP")) {
                 System.out.println("Remove position in list (WARNING!!! Position not closed !!)  ..... " + inputString.substring(2) + "USDT");
                 clearPosition(inputString.substring(2) + "USDT");
@@ -523,7 +523,7 @@ public class CopyBot {
         }
     }
 
-    public static void addTrade(String symbol, String type, Decimal ATR) {
+    public static void addTrade(String symbol, String type, Decimal ATR, Double stopPrice) {
 
         CopyBot copyBot = new CopyBot();
         switch (type) {
@@ -537,7 +537,7 @@ public class CopyBot {
             }
         }
         TradeTask tradeTask = new TradeTask(symbol, getCurrentPrice(symbol).toDouble(),
-                TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER, copyBot, ATR);
+                TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER, copyBot, ATR, stopPrice);
         Thread thread = new Thread(tradeTask);
         tradeTask.thisThread = thread;
         thread.start();
@@ -557,7 +557,7 @@ public class CopyBot {
     }
 
     public static void outputPositionClosed(List<Position> closedPosition) {
-        System.out.println("| StartTime          | Work Time | TYPE  | Symbol         |  Open            |  Close         |  Profit                |   Status ");
+        System.out.println("| StartTime          | Work Time | TYPE  | Symbol               |  Open            |  Close         |  Profit                |   Status ");
         //                  |19/04/2024 15:08:03 | 0:01:43   | SHORT | PHBUSDT        | 1.7599           | 1.7616         | -0.018700000000000383
         for (Position position : closedPosition) {
             position.printPosition();
@@ -612,7 +612,7 @@ public class CopyBot {
             seconds = seconds - minutes * 60;
             String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
             Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.018a ( test Edition beta ADX Strategy. Good and Best!)    \u001B[0m");
+            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.019 ( test Edition beta ADX bis Strategy. Good and Best!)    \u001B[0m");
             //		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
             Log.info(CopyBot.class, " Open trades LONG: " + openTradesLong.keySet().size() + " SHORT:" + openTradesShort.keySet().size());
             Log.info(CopyBot.class, " LONG:  " + openTradesLong.keySet());
