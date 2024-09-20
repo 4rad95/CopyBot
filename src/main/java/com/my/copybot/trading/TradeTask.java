@@ -370,8 +370,8 @@ public class TradeTask implements Runnable {
             case "SHORT": {
                 if (chkProffit > 100) {
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
-
-                } else if (chkProffit > 24.00) {
+                    return proffitNew;
+                } else if (chkProffit > 50.00) {
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
                     return proffitNew;
                 } else {
@@ -383,7 +383,7 @@ public class TradeTask implements Runnable {
                 if (chkProffit > 100) {
                     proffitNew = order.getPrice() + (price - order.getPrice()) * 9 / 10;
                     return proffitNew;
-                } else if (chkProffit > 24.00) {
+                } else if (chkProffit > 50.00) {
                     proffitNew = order.getPrice() + ((price - order.getPrice()) * 9 / 10);
                     return proffitNew;
                 } else {
@@ -409,12 +409,12 @@ public class TradeTask implements Runnable {
             // if (chkProffit > stopNoLoss) {
 
                 Double temp = setStopLoss(chkProffit, price);
-            //if (temp > order.getCurrentStopLoss() && order.getType().equals("LONG")) {
-            if (price >= order.getProffit() && order.getType().equals("LONG")) {
+            if // (temp > order.getCurrentStopLoss() && order.getType().equals("LONG")) {
+            (price >= order.getProffit() && order.getType().equals("LONG")) {
                     order.setCurrentStopLoss(temp);
 
             } else if (price <= order.getProffit() && order.getType().equals("SHORT")) {
-                //(temp < order.getCurrentStopLoss() && order.getType().equals("SHORT")) {
+                // (temp < order.getCurrentStopLoss() && order.getType().equals("SHORT")) {
                     order.setCurrentStopLoss(temp);
                 }
             //}
