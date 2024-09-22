@@ -310,7 +310,7 @@ public class TradeTask implements Runnable {
 */
     private void sell(Double price) {
         try {
-
+            String str = CopyBot.ordersToBeClosed.get(order.getSymbol());
             RequestOptions options = new RequestOptions();
             SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
                     options);
@@ -331,19 +331,17 @@ public class TradeTask implements Runnable {
                     break;
                 }
             }
-            Log.info(getClass(), "Created CLOSE order: " + order.getOrderId() + " " + order.getSymbol());
+            Log.info(getClass(), "Created CLOSE order: " + order.getOrderId() + " " + order.getSymbol() + "  " + str);
             order.setClosePrice(price);
             order.setCloseTime(System.currentTimeMillis());
             // Добавить статистику!
             CopyBot.closeOrder(symbol, order.getProfit(), null, type);
-
-            CopyBot.addPositionClosed(createStatisticPosition(CopyBot.ordersToBeClosed.get(order.getSymbol())));
+            CopyBot.addPositionClosed(createStatisticPosition(str));
         } catch (Exception e) {
             CopyBot.closeOrder(symbol, 0.00, null, "Error");
             System.out.println(" --------------------------- " + symbol + "   closed");
             //           Log.severe(getClass(), "Unable to sell!", e);
             stopThread = true;
-
         }
     }
 
@@ -409,18 +407,15 @@ public class TradeTask implements Runnable {
 
             // if (chkProffit > stopNoLoss) {
 
-
+            setMaxPercent(chkProffit);
             if // (temp > order.getCurrentStopLoss() && order.getType().equals("LONG")) {
             (price >= order.getProffit() && order.getType().equals("LONG")) {
                 Double temp = setStopLoss(chkProffit, price);
                     order.setCurrentStopLoss(temp);
-                setMaxPercent(chkProffit);
-
             } else if (price <= order.getProffit() && order.getType().equals("SHORT")) {
                 // (temp < order.getCurrentStopLoss() && order.getType().equals("SHORT")) {
                 Double temp = setStopLoss(chkProffit, price);
                     order.setCurrentStopLoss(temp);
-                setMaxPercent(chkProffit);
                 }
             //}
             //
@@ -429,7 +424,7 @@ public class TradeTask implements Runnable {
                     type + " : " + symbol + ". Curr : " + showPrice(price)
                             + ", buy : " + showPrice(order.getPrice())
                             + ", stop : " + showPrice(order.getCurrentStopLoss())
-                            + ", profit : " + showPrice(order.getProffit())
+                            + ", profit : " + showPrice(order.getProffit()) + " " + order.getCurrentProfit(order.getProffit()) + " % "
                             + ", Max. : " + String.format("%.2f", maxPercent) + " % "
                             + ", Min. : " + String.format("%.2f", minPercent) + " % "
                             + ", profit: " + order.getCurrentProfit(price) + " %  "
