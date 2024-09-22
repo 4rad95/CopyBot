@@ -408,13 +408,12 @@ public class TradeTask implements Runnable {
             // if (chkProffit > stopNoLoss) {
 
             setMaxPercent(chkProffit);
+            Double temp = setStopLoss(chkProffit, price);
             if // (temp > order.getCurrentStopLoss() && order.getType().equals("LONG")) {
-            (price >= order.getProffit() && order.getType().equals("LONG")) {
-                Double temp = setStopLoss(chkProffit, price);
+            (price >= order.getProffit() && order.getType().equals("LONG") && temp > order.getCurrentStopLoss()) {
                     order.setCurrentStopLoss(temp);
-            } else if (price <= order.getProffit() && order.getType().equals("SHORT")) {
+            } else if (price <= order.getProffit() && order.getType().equals("SHORT") && temp < order.getCurrentStopLoss()) {
                 // (temp < order.getCurrentStopLoss() && order.getType().equals("SHORT")) {
-                Double temp = setStopLoss(chkProffit, price);
                     order.setCurrentStopLoss(temp);
                 }
             //}
