@@ -328,14 +328,14 @@ public class CopyBot {
                         if (status != null) {
 
                             ordersToBeClosed.put(symbol, status);
-                        Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
+                            Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + " " + status + "\u001B[0m");
 
                         }
                     } else if (null != openTradesShort.get(symbol)) {
                         status = StrategyStoch.closeStochStrategyShort(series);
                         if (status != null) {
                             ordersToBeClosed.put(symbol, status);
-                        Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
+                            Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + " " + status + "\u001B[0m");
                         }
                     }
 
@@ -557,8 +557,8 @@ public class CopyBot {
     }
 
     public static void outputPositionClosed(List<Position> closedPosition) {
-        System.out.println("| StartTime          | Work Time | TYPE  | Symbol               |  Open            |  Close         |  Profit                |   Status ");
-        //                  |19/04/2024 15:08:03 | 0:01:43   | SHORT | PHBUSDT        | 1.7599           | 1.7616         | -0.018700000000000383
+        System.out.println("| StartTime          | Work Time | TYPE  | Symbol              |  Open            |  Close           |  Profit                   |   Status ");
+        //                  |21/09/2024 07:54:35 | 00:16:17  | SHORT | XAIUSDT             | 0.202            | 0.2027           | -0.3464999999999893       | null
         for (Position position : closedPosition) {
             position.printPosition();
         }

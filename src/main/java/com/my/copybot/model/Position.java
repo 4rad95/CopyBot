@@ -121,6 +121,6 @@ public class Position {
                 " | " + openPrice +
                 " | " + closePrice +
                 " | " + proffit +
-                "  | ";
+                        "  | " + status;
     }
 }
