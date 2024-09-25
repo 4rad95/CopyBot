@@ -351,13 +351,13 @@ public class TradeTask implements Runnable {
         } else if (percentProfit < minPercent) {
             minPercent = percentProfit;
         }
-        if (maxPercent > stopNoLoss + 100) {
-            startColorStr = "\u001B[35m";
-        } else if (maxPercent > stopNoLoss + 50) {
-            startColorStr = "\u001B[36m";
-        } else if (maxPercent > stopNoLoss) {
-            startColorStr = "\u001B[33m";
-        }
+//        if (maxPercent > stopNoLoss + 100) {
+//            startColorStr = "\u001B[35m";
+//        } else if (maxPercent > stopNoLoss + 50) {
+//            startColorStr = "\u001B[36m";
+//        } else if (maxPercent > stopNoLoss) {
+//            startColorStr = "\u001B[33m";
+//        }
         return maxPercent;
     }
 
@@ -369,24 +369,30 @@ public class TradeTask implements Runnable {
             case "SHORT": {
                 if (chkProffit > 100) {
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
+                    startColorStr = "\u001B[35m";
                     return proffitNew;
                 } else if (chkProffit > 50.00) {
                     proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
+                    startColorStr = "\u001B[36m";
                     return proffitNew;
                 } else {
                     proffitNew = order.getPrice() - ((order.getPrice() - price)) * 9 / 10;
+                    startColorStr = "\u001B[33m";
                     return proffitNew;
                 }
             }
             case "LONG": {
                 if (chkProffit > 100) {
                     proffitNew = order.getPrice() + (price - order.getPrice()) * 9 / 10;
+                    startColorStr = "\u001B[35m";
                     return proffitNew;
                 } else if (chkProffit > 50.00) {
                     proffitNew = order.getPrice() + ((price - order.getPrice()) * 9 / 10);
+                    startColorStr = "\u001B[36m";
                     return proffitNew;
                 } else {
                     proffitNew = order.getPrice() + ((price - order.getPrice()) * 9 / 10);
+                    startColorStr = "\u001B[33m";
                     return proffitNew;
                 }
             }
@@ -513,7 +519,7 @@ public class TradeTask implements Runnable {
                     order.setCurrentStopLoss(stopPrice);
                     //order.setCurrentStopLoss((100 + stopLossPercentage) * order.getPrice() / (100.0));
                     //order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 1.5));
-                    order.setProffit(order.getPrice() - (ATR.doubleValue() * 2));
+                    order.setProffit(order.getPrice() - (ATR.doubleValue() * 0.5));
                     order.setSymbol(symbol);
                     order.setQuantity(quantity);
                     order.setInitialStopLoss(order.getCurrentStopLoss());
@@ -551,7 +557,7 @@ public class TradeTask implements Runnable {
                     order.setCurrentStopLoss(stopPrice);
                     //order.setCurrentStopLoss((100.0 - (stopLossPercentage)) * alertPrice / (100.0));
                     //          order.setCurrentStopLoss(order.getPrice() - (ATR.floatValue() * 1.5));
-                    order.setProffit(order.getPrice() + (ATR.floatValue() * 2));
+                    order.setProffit(order.getPrice() + (ATR.floatValue() * 0.5));
                     order.setSymbol(symbol);
                     order.setQuantity(quantity);
                     order.setInitialStopLoss(order.getCurrentStopLoss());
