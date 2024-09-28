@@ -59,19 +59,20 @@ public class StrategyStoch {
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
 
 
-        if (curr[0] < curr[1]
-                && prev[0] > prev[1]
-                && prev[1] < curr[1]
-                && (smoothedStochRsi.getValue(maxIndex).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue())
-                && (smoothedStochRsi.getValue(maxIndex).doubleValue() > 0.30)
-                && (dxIndicator.getValue(maxIndex - 1).doubleValue() < dxIndicator.getValue(maxIndex).doubleValue())
-                && (dxIndicator.getValue(maxIndex).doubleValue() < 30)
-        ) {
-            //       && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
-            //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
-            Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
-                    return true;
-        } else if (
+//        if (curr[0] < curr[1]
+//                && prev[0] > prev[1]
+//                && prev[1] < curr[1]
+//                && (smoothedStochRsi.getValue(maxIndex).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue())
+//                && (smoothedStochRsi.getValue(maxIndex).doubleValue() > 0.30)
+//                && (dxIndicator.getValue(maxIndex - 1).doubleValue() < dxIndicator.getValue(maxIndex).doubleValue())
+//                && (dxIndicator.getValue(maxIndex).doubleValue() < 30)
+//        ) {
+//            //       && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
+//            //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
+//            Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
+//                    return true;
+//        } else
+            if (
                 openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
                         && openPrice.getValue(maxIndex - 4).doubleValue() < closePrice.getValue(maxIndex - 4).doubleValue()
@@ -201,19 +202,20 @@ public class StrategyStoch {
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
 // nn [plus, minus]
-        if (curr[0] > curr[1]
-                && (prev[0] < prev[1])
-                && (prev[0] < curr[0])
-                && (smoothedStochRsi.getValue(maxIndex).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue())
-                && (smoothedStochRsi.getValue(maxIndex).doubleValue() < 0.70)
-                && (dxIndicator.getValue(maxIndex - 1).doubleValue() < dxIndicator.getValue(maxIndex).doubleValue())
-                && (dxIndicator.getValue(maxIndex).doubleValue() < 20)) {
-            //            && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
-            //           && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue()))
-            //
-            Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
-                    return true;
-        } else if (
+//        if (curr[0] > curr[1]
+//                && (prev[0] < prev[1])
+//                && (prev[0] < curr[0])
+//                && (smoothedStochRsi.getValue(maxIndex).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue())
+//                && (smoothedStochRsi.getValue(maxIndex).doubleValue() < 0.70)
+//                && (dxIndicator.getValue(maxIndex - 1).doubleValue() < dxIndicator.getValue(maxIndex).doubleValue())
+//                && (dxIndicator.getValue(maxIndex).doubleValue() < 20)) {
+//            //            && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
+//            //           && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue()))
+//            //
+//            Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
+//                    return true;
+//        } else
+            if (
                 openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
                         && openPrice.getValue(maxIndex - 4).doubleValue() > closePrice.getValue(maxIndex - 4).doubleValue()
