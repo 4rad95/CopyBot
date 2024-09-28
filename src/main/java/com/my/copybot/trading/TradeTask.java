@@ -408,12 +408,15 @@ public class TradeTask implements Runnable {
         // This is a bit harcoded, but just trying to avoid too many logs.. -*/
         try {
             String proffit = order.getCurrentProfit(price).replace(",", ".");
+            String currProffit = order.getCurrentProfit(order.getProffit()).replace(",", ".");
 
             Double chkProffit = Double.parseDouble(proffit);
-
-            // if (chkProffit > stopNoLoss) {
-
+            Double chkMaxProffit = Double.parseDouble(currProffit);
             setMaxPercent(chkProffit);
+
+             if (chkProffit > chkMaxProffit)  {//stopNoLoss) {
+
+
             Double temp = setStopLoss(chkProffit, price);
             if // (temp > order.getCurrentStopLoss() && order.getType().equals("LONG")) {
             (price >= order.getProffit() && order.getType().equals("LONG") && temp > order.getCurrentStopLoss()) {
@@ -422,7 +425,7 @@ public class TradeTask implements Runnable {
                 // (temp < order.getCurrentStopLoss() && order.getType().equals("SHORT")) {
                     order.setCurrentStopLoss(temp);
                 }
-            //}
+            }
             //
             if (counter == 30) {
             String msg =
