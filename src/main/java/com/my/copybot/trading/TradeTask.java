@@ -431,7 +431,7 @@ public class TradeTask implements Runnable {
             String msg =
                     type + " : " + symbol + ". Curr : " + showPrice(price)
                             + ", buy : " + showPrice(order.getPrice())
-                            + ", stop : " + showPrice(order.getCurrentStopLoss())
+                            + ", stop : " + showPrice(order.getCurrentStopLoss()) + " " + order.getCurrentProfit(order.getCurrentStopLoss()) + " % "
                             + ", profit : " + showPrice(order.getProffit()) + " " + order.getCurrentProfit(order.getProffit()) + " % "
                             + ", Max. : " + String.format("%.2f", maxPercent) + " % "
                             + ", Min. : " + String.format("%.2f", minPercent) + " % "
