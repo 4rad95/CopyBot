@@ -367,6 +367,7 @@ public class StrategyStoch {
                 if (index < period - 1) {
                     return Decimal.valueOf(0.0); // Не хватает данных
                 }
+
                 // Рассчитываем +DI и -DI
                 Decimal smoothedPlusDMValue = smoothedPlusDM.getValue(index);
                 Decimal smoothedMinusDMValue = smoothedMinusDM.getValue(index);
