@@ -1,5 +1,0 @@
-2024-06-20 21:06:05 [INFO] - Initializing Binance bot
-2024-06-20 21:06:06 [INFO] - === Detected config file path (VM argument, optional): null ===
-2024-06-20 21:06:06 [INFO] - Setting add1 candlestick interval to: 3m
-2024-06-20 21:06:06 [INFO] - Setting candlestick interval to: 1h
-2024-06-20 21:06:06 [INFO] - Setting add2 candlestick interval to: 12h
