@@ -331,7 +331,7 @@ public class TradeTask implements Runnable {
                     break;
                 }
             }
-            Log.info(getClass(), "Created CLOSE order: " + order.getOrderId() + " " + order.getSymbol() + "  " + str);
+            Log.info(getClass(), "Created CLOSE order: " + order.getOrderId() + " " + order.getSymbol() + "  " + str + "  " + order.getCurrentProfit(price) + " %  ");
             order.setClosePrice(price);
             order.setCloseTime(System.currentTimeMillis());
             // Добавить статистику!
