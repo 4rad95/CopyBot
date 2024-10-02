@@ -368,30 +368,30 @@ public class TradeTask implements Runnable {
 
             case "SHORT": {
                 if (chkProffit > 100) {
-                    proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
+                    proffitNew = order.getPrice() - (order.getPrice() - price) * 8 / 10;
                     startColorStr = "\u001B[35m";
                     return proffitNew;
                 } else if (chkProffit > 50.00) {
-                    proffitNew = order.getPrice() - (order.getPrice() - price) * 9 / 10;
+                    proffitNew = order.getPrice() - (order.getPrice() - price) * 8 / 10;
                     startColorStr = "\u001B[36m";
                     return proffitNew;
                 } else {
-                    proffitNew = order.getPrice() - ((order.getPrice() - price)) * 9 / 10;
+                    proffitNew = order.getPrice() - ((order.getPrice() - price)) * 8 / 10;
                     startColorStr = "\u001B[33m";
                     return proffitNew;
                 }
             }
             case "LONG": {
                 if (chkProffit > 100) {
-                    proffitNew = order.getPrice() + (price - order.getPrice()) * 9 / 10;
+                    proffitNew = order.getPrice() + (price - order.getPrice()) * 8 / 10;
                     startColorStr = "\u001B[35m";
                     return proffitNew;
                 } else if (chkProffit > 50.00) {
-                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 9 / 10);
+                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 8 / 10);
                     startColorStr = "\u001B[36m";
                     return proffitNew;
                 } else {
-                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 9 / 10);
+                    proffitNew = order.getPrice() + ((price - order.getPrice()) * 8 / 10);
                     startColorStr = "\u001B[33m";
                     return proffitNew;
                 }
@@ -522,7 +522,7 @@ public class TradeTask implements Runnable {
                     order.setCurrentStopLoss(stopPrice);
                     //order.setCurrentStopLoss((100 + stopLossPercentage) * order.getPrice() / (100.0));
                     //order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 1.5));
-                    order.setProffit(order.getPrice() - (ATR.doubleValue() * 0.75));
+                    order.setProffit(order.getPrice() - (ATR.doubleValue() * 0.5));
                     order.setSymbol(symbol);
                     order.setQuantity(quantity);
                     order.setInitialStopLoss(order.getCurrentStopLoss());
@@ -560,7 +560,7 @@ public class TradeTask implements Runnable {
                     order.setCurrentStopLoss(stopPrice);
                     //order.setCurrentStopLoss((100.0 - (stopLossPercentage)) * alertPrice / (100.0));
                     //          order.setCurrentStopLoss(order.getPrice() - (ATR.floatValue() * 1.5));
-                    order.setProffit(order.getPrice() + (ATR.floatValue() * 0.75));
+                    order.setProffit(order.getPrice() + (ATR.floatValue() * 0.5));
                     order.setSymbol(symbol);
                     order.setQuantity(quantity);
                     order.setInitialStopLoss(order.getCurrentStopLoss());
