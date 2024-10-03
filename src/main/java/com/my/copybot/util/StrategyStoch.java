@@ -445,25 +445,27 @@ public class StrategyStoch {
     // Найдем минимумы и максимумы за последние N периодов
     public static double findSupportLevel(TimeSeries series, int maxIndex, int period) {
         double supportLevel = Double.MAX_VALUE;
-        for (int i = maxIndex - period; i <= maxIndex; i++) {
+        for (int i = maxIndex - period; i < maxIndex; i++) {
             //double low = series.getBar(i).getMinPrice().doubleValue();
             double low = series.getBar(i).getClosePrice().doubleValue();
             if (low < supportLevel) {
                 supportLevel = low;
             }
         }
+   //     Log.info(StrategyStoch.class,  series.getName() +" Price broke support level at " + supportLevel + "   " + series.getBar(maxIndex).getClosePrice() + "     " + series.getBar(maxIndex).getAmount() );
         return supportLevel;
     }
 
     public static double findResistanceLevel(TimeSeries series, int maxIndex, int period) {
         double resistanceLevel = Double.MIN_VALUE;
-        for (int i = maxIndex - period; i <= maxIndex; i++) {
+        for (int i = maxIndex - period; i < maxIndex; i++) {
             //double high = series.getBar(i).getMaxPrice().doubleValue();
             double high = series.getBar(i).getClosePrice().doubleValue();
             if (high > resistanceLevel) {
                 resistanceLevel = high;
             }
         }
+   //     Log.info(StrategyStoch.class,  series.getName() +" Price broke resistensce level at " + resistanceLevel + "   " + series.getBar(maxIndex).getClosePrice() + "     " + series.getBar(maxIndex).getAmount() );
         return resistanceLevel;
     }
 
