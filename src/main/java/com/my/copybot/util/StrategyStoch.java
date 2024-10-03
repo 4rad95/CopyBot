@@ -80,7 +80,7 @@ public class StrategyStoch {
                         && prev[1] < curr[1]
                         && checkLevelBreakout(series, maxIndex, 10) < 0
         ) {
-                Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle");
+                Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle pattern detected");
                 return true;
             } else if (
                     openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
@@ -92,7 +92,7 @@ public class StrategyStoch {
                             && checkLevelBreakout(series, maxIndex, 10) <0
 
             ) {
-                Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Three Black Crows");
+                Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Three Black Crows pattern detected");
                 return true;
             } else if ( openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
                     && (openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
@@ -102,7 +102,7 @@ public class StrategyStoch {
                     && checkLevelBreakout(series, maxIndex, 10) < 0
             )
             {
-                Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " inverted hammer");
+                Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " inverted hammer pattern detected");
                 return true;
 
 //        } else if (
