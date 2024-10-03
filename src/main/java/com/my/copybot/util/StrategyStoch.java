@@ -78,7 +78,7 @@ public class StrategyStoch {
                         && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && prev[1] < curr[1]
-                        && checkLevelBreakout(series, maxIndex, 5) < 0
+                        && checkLevelBreakout(series, maxIndex, 10) < 0
         ) {
                 Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle");
                 return true;
@@ -89,7 +89,7 @@ public class StrategyStoch {
                             && Math.abs(openPrice.getValue(maxIndex - 1).doubleValue() - closePrice.getValue(maxIndex - 1).doubleValue()) > Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                             && Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue()) > Math.abs(openPrice.getValue(maxIndex - 3).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                             && prev[1] < curr[1]
-                            && checkLevelBreakout(series, maxIndex, 5) <0
+                            && checkLevelBreakout(series, maxIndex, 10) <0
 
             ) {
                 Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Three Black Crows");
@@ -99,7 +99,7 @@ public class StrategyStoch {
                     && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
                     && (maxPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 3 )
                     && prev[1] < curr[1]
-                    && checkLevelBreakout(series, maxIndex, 5) < 0
+                    && checkLevelBreakout(series, maxIndex, 10) < 0
             )
             {
                 Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " inverted hammer");
@@ -119,14 +119,14 @@ public class StrategyStoch {
                 && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue() // Бычья свеча
                 && closePrice.getValue(maxIndex - 1).doubleValue() < (openPrice.getValue(maxIndex - 2).doubleValue() + closePrice.getValue(maxIndex - 2).doubleValue()) / 2
                 && prev[1] < curr[1]
-                && checkLevelBreakout(series, maxIndex, 5) < 0
+                && checkLevelBreakout(series, maxIndex, 10) < 0
         ) {
             Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Dark Cloud Cover pattern detected");
             return true;
         } else if (openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
                 && (maxPrice.getValue(maxIndex - 1).doubleValue() - openPrice.getValue(maxIndex - 1).doubleValue()) > 2 * Math.abs(openPrice.getValue(maxIndex - 1).doubleValue() - closePrice.getValue(maxIndex - 1).doubleValue())
                 && prev[1] < curr[1]
-                && checkLevelBreakout(series, maxIndex, 5) < 0
+                && checkLevelBreakout(series, maxIndex, 10) < 0
             ) {
             Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Shooting Star pattern detected");
             return true;
@@ -260,7 +260,7 @@ public class StrategyStoch {
                         && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                         && (prev[0] < curr[0])
-                        && checkLevelBreakout(series, maxIndex, 5) > 0
+                        && checkLevelBreakout(series, maxIndex, 10) > 0
         ) {
                 Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Bullish engulfing 1 candle");
                 return true;
@@ -271,7 +271,7 @@ public class StrategyStoch {
                          && Math.abs(openPrice.getValue(maxIndex - 1).doubleValue() - closePrice.getValue(maxIndex - 1).doubleValue()) > Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                          && Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue()) > Math.abs(openPrice.getValue(maxIndex - 3).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                          && (prev[0] < curr[0])
-                         && checkLevelBreakout(series, maxIndex, 5) > 0
+                         && checkLevelBreakout(series, maxIndex, 10) > 0
             ) {
                 Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " 3 white soldiers");
                 return true;
@@ -280,7 +280,7 @@ public class StrategyStoch {
                     && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
                     && (minPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 3 )
                     && (prev[0] < curr[0])
-                    && checkLevelBreakout(series, maxIndex, 5) > 0
+                    && checkLevelBreakout(series, maxIndex, 10) > 0
             ) {
                 Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Hammer");
                 return true;
@@ -298,7 +298,7 @@ public class StrategyStoch {
                 && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue() // Медвежья свеча
                 && closePrice.getValue(maxIndex - 1).doubleValue() > (openPrice.getValue(maxIndex - 2).doubleValue() + closePrice.getValue(maxIndex - 2).doubleValue()) / 2 // Закрытие выше середины
                 && (prev[0] < curr[0])
-                && checkLevelBreakout(series, maxIndex, 5) > 0
+                && checkLevelBreakout(series, maxIndex, 10) > 0
         ) {
             Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Piercing Line pattern detected");
             return true;
