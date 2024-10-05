@@ -77,11 +77,12 @@ public class StrategyStoch {
                         && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
                         && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
+                        && maxPrice.getValue(maxIndex-2).doubleValue() < maxPrice.getValue(maxIndex-1).doubleValue()
                         && prev[1] < curr[1]
                         && checkLevel
         ) {
             //    Log.info(StrategyStoch.class,
-                System.out.print("[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle pattern detected | ");
+                System.out.print("[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle | ");
                 return true;
             } else if (
                     openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
@@ -94,18 +95,18 @@ public class StrategyStoch {
 
             ) {
                // Log.info(StrategyStoch.class,
-                System.out.print("[SHORT]:" + series.getName() + " Three Black Crows pattern detected | ");
+                System.out.print("[SHORT]:" + series.getName() + " Three Black Crows | ");
                 return true;
             } else if ( openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
                     && (openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
                     && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
-                    && (maxPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 3 )
+                    && (maxPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 5 )
                     && prev[1] < curr[1]
                     && checkLevel
             )
             {
                 //Log.info(StrategyStoch.class,
-                System.out.print("[SHORT]:" + series.getName() + " inverted hammer pattern detected | ");
+                System.out.print("[SHORT]:" + series.getName() + " Inverted hammer  | ");
                 return true;
 
 //        } else if (
@@ -118,22 +119,24 @@ public class StrategyStoch {
 //        ) {
 //            Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Bearish Engulfing 2 candle");
 //            return true;
-        } else if (openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
-                && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue() // Бычья свеча
-                && closePrice.getValue(maxIndex - 1).doubleValue() < (openPrice.getValue(maxIndex - 2).doubleValue() + closePrice.getValue(maxIndex - 2).doubleValue()) / 2
-                && prev[1] < curr[1]
-                && checkLevel
-        ) {
-            // Log.info(StrategyStoch.class,
-                System.out.print("[SHORT]:" + series.getName() + " Dark Cloud Cover pattern detected | ");
-            return true;
-        } else if (openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
-                && (maxPrice.getValue(maxIndex - 1).doubleValue() - openPrice.getValue(maxIndex - 1).doubleValue()) > 2 * Math.abs(openPrice.getValue(maxIndex - 1).doubleValue() - closePrice.getValue(maxIndex - 1).doubleValue())
+//        } else if (openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
+//                && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue() // Бычья свеча
+//                && closePrice.getValue(maxIndex - 1).doubleValue() < (openPrice.getValue(maxIndex - 2).doubleValue() + closePrice.getValue(maxIndex - 2).doubleValue()) / 2
+//                && prev[1] < curr[1]
+//                && checkLevel
+//        ) {
+//            // Log.info(StrategyStoch.class,
+//                System.out.print("[SHORT]:" + series.getName() + " Dark Cloud Cover pattern detected | ");
+//            return true;
+        } else if (openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue() // Бычья свеча
+                && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
+                && (maxPrice.getValue(maxIndex - 2).doubleValue() - openPrice.getValue(maxIndex - 2).doubleValue()) > 2 * Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
+                && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                 && prev[1] < curr[1]
                 && checkLevel
             ) {
             //Log.info(StrategyStoch.class,
-                System.out.print("[SHORT]:" + series.getName() + " Shooting Star pattern detected | ");
+                System.out.print("[SHORT]:" + series.getName() + " Evening Star  | ");
             return true;
         }
         return false;
@@ -244,6 +247,7 @@ public class StrategyStoch {
         int maxIndex = series.getEndIndex();
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
+        boolean checkLevel = checkLevelBreakout(series, maxIndex, 10) > 0;
 // nn [plus, minus]
 //        if (curr[0] > curr[1]
 //                && (prev[0] < prev[1])
@@ -261,11 +265,11 @@ public class StrategyStoch {
             if (
                 openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
-           //             || openPrice.getValue(maxIndex - 4).doubleValue() < closePrice.getValue(maxIndex - 4).doubleValue())
                         && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
+                        && minPrice.getValue(maxIndex-2).doubleValue() > minPrice.getValue(maxIndex-1).doubleValue()
                         && (prev[0] < curr[0])
-                        && checkLevelBreakout(series, maxIndex, 10) > 0
+                        && checkLevel
         ) {
               //  Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Bullish engulfing 1 candle | ");
@@ -278,7 +282,7 @@ public class StrategyStoch {
                          && Math.abs(openPrice.getValue(maxIndex - 1).doubleValue() - closePrice.getValue(maxIndex - 1).doubleValue()) > Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                          && Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue()) > Math.abs(openPrice.getValue(maxIndex - 3).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                          && (prev[0] < curr[0])
-                         && checkLevelBreakout(series, maxIndex, 10) > 0
+                         && checkLevel
             ) {
                // Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " 3 white soldiers | ");
@@ -286,12 +290,22 @@ public class StrategyStoch {
             } else if ( openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
                     && (openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
                     && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
-                    && (minPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 3 )
+                    && (minPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 5 )
                     && (prev[0] < curr[0])
-                    && checkLevelBreakout(series, maxIndex, 10) > 0
+                    && checkLevel
             ) {
                 // Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Hammer | ");
+                return true;
+            } else if (openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue() // Медвежья свеча
+                    && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()  // Бычья свеча
+                    && Math.abs(minPrice.getValue(maxIndex - 2).doubleValue() - openPrice.getValue(maxIndex - 2).doubleValue()) > 2 * Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
+                    && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
+                    && prev[1] < curr[1]
+                    && checkLevel
+            ) {
+                //Log.info(StrategyStoch.class,
+                System.out.print("[SHORT]:" + series.getName() + " Morning Star  | ");
                 return true;
 //        } else if (
 //                openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
@@ -303,15 +317,15 @@ public class StrategyStoch {
 //        ) {
 //            Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Bullish Engulfing 2 candle");
 //            return true;
-        } else if (openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue() // Бычья свеча
-                && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue() // Медвежья свеча
-                && closePrice.getValue(maxIndex - 1).doubleValue() > (openPrice.getValue(maxIndex - 2).doubleValue() + closePrice.getValue(maxIndex - 2).doubleValue()) / 2 // Закрытие выше середины
-                && (prev[0] < curr[0])
-                && checkLevelBreakout(series, maxIndex, 10) > 0
-        ) {
-            //Log.info(StrategyStoch.class,
-                System.out.print("[LONG]:" + series.getName() + " Piercing Line pattern detected | ");
-            return true;
+//        } else if (openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue() // Бычья свеча
+//                && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue() // Медвежья свеча
+//                && closePrice.getValue(maxIndex - 1).doubleValue() > (openPrice.getValue(maxIndex - 2).doubleValue() + closePrice.getValue(maxIndex - 2).doubleValue()) / 2 // Закрытие выше середины
+//                && (prev[0] < curr[0])
+//                && checkLevelBreakout(series, maxIndex, 10) > 0
+//        ) {
+//            //Log.info(StrategyStoch.class,
+//                System.out.print("[LONG]:" + series.getName() + " Piercing Line pattern detected | ");
+//            return true;
         }
         return false;
 
@@ -344,6 +358,7 @@ public class StrategyStoch {
 
         int maxIndex = series.getEndIndex();
         MaxPriceIndicator maxPrice = new MaxPriceIndicator(series);
+        MinPriceIndicator minPrice = new MinPriceIndicator(series);
         PlusDMIndicator plusDM = new PlusDMIndicator(series);
         MinusDMIndicator minusDM = new MinusDMIndicator(series);
         SMAIndicator smoothedPlusDM = new SMAIndicator(plusDM, 14);
@@ -377,6 +392,7 @@ public class StrategyStoch {
                 openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
+                        && minPrice.getValue(maxIndex-1).doubleValue() > minPrice.getValue(maxIndex-2).doubleValue()
             //           && prev[0] < prev[1]
         ) {
             Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Bearish Engulfing  . Position close.");
