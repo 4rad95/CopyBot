@@ -286,14 +286,15 @@ public class CopyBot {
                                         Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
                                         , symbol, interval2.getIntervalId());
 
-                                if (BinanceTa4jUtils.checkStrategyLong(series1)
-                                        && BinanceTa4jUtils.checkStrategyLong(series2)) {
-
+//                                if (BinanceTa4jUtils.checkStrategyLong(series1)
+//                                        && BinanceTa4jUtils.checkStrategyLong(series2)) {
+                                  if (StrategyStoch.openStochStrategyLong(series1)
+                                        && StrategyStoch.openStochStrategyLong(series2))     {
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
                                     addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series));
-                                }
+                                } else {System.out.println();}
                             }
                         }
                     }
@@ -311,14 +312,15 @@ public class CopyBot {
                                         Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
                                         , symbol, interval2.getIntervalId());
 
-                                if (BinanceTa4jUtils.checkStrategyShort(series1)
-                                        && BinanceTa4jUtils.checkStrategyShort(series2)) {
-
+//                                if (BinanceTa4jUtils.checkStrategyShort(series1)
+//                                        && BinanceTa4jUtils.checkStrategyShort(series2)) {
+                                if (StrategyStoch.openStochStrategyShort(series1)
+                                      && StrategyStoch.openStochStrategyShort(series2)  ){
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
                                     addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series));
-                                }
+                                } else {System.out.println();}
                             }
                         }
                     }

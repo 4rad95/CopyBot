@@ -57,7 +57,7 @@ public class StrategyStoch {
         ATRIndicator atr = new ATRIndicator(series, 14);
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
-
+        boolean checkLevel = (checkLevelBreakout(series, maxIndex, 10) < 0);
 
 //        if (curr[0] < curr[1]
 //                && prev[0] > prev[1]
@@ -78,9 +78,10 @@ public class StrategyStoch {
                         && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && prev[1] < curr[1]
-                        && checkLevelBreakout(series, maxIndex, 10) < 0
+                        && checkLevel
         ) {
-                Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle pattern detected");
+            //    Log.info(StrategyStoch.class,
+                System.out.print("[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle pattern detected | ");
                 return true;
             } else if (
                     openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
@@ -89,20 +90,22 @@ public class StrategyStoch {
                             && Math.abs(openPrice.getValue(maxIndex - 1).doubleValue() - closePrice.getValue(maxIndex - 1).doubleValue()) > Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                             && Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue()) > Math.abs(openPrice.getValue(maxIndex - 3).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                             && prev[1] < curr[1]
-                            && checkLevelBreakout(series, maxIndex, 10) <0
+                            && checkLevel
 
             ) {
-                Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Three Black Crows pattern detected");
+               // Log.info(StrategyStoch.class,
+                System.out.print("[SHORT]:" + series.getName() + " Three Black Crows pattern detected | ");
                 return true;
             } else if ( openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
                     && (openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
                     && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
                     && (maxPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 3 )
                     && prev[1] < curr[1]
-                    && checkLevelBreakout(series, maxIndex, 10) < 0
+                    && checkLevel
             )
             {
-                Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " inverted hammer pattern detected");
+                //Log.info(StrategyStoch.class,
+                System.out.print("[SHORT]:" + series.getName() + " inverted hammer pattern detected | ");
                 return true;
 
 //        } else if (
@@ -119,16 +122,18 @@ public class StrategyStoch {
                 && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue() // Бычья свеча
                 && closePrice.getValue(maxIndex - 1).doubleValue() < (openPrice.getValue(maxIndex - 2).doubleValue() + closePrice.getValue(maxIndex - 2).doubleValue()) / 2
                 && prev[1] < curr[1]
-                && checkLevelBreakout(series, maxIndex, 10) < 0
+                && checkLevel
         ) {
-            Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Dark Cloud Cover pattern detected");
+            // Log.info(StrategyStoch.class,
+                System.out.print("[SHORT]:" + series.getName() + " Dark Cloud Cover pattern detected | ");
             return true;
         } else if (openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
                 && (maxPrice.getValue(maxIndex - 1).doubleValue() - openPrice.getValue(maxIndex - 1).doubleValue()) > 2 * Math.abs(openPrice.getValue(maxIndex - 1).doubleValue() - closePrice.getValue(maxIndex - 1).doubleValue())
                 && prev[1] < curr[1]
-                && checkLevelBreakout(series, maxIndex, 10) < 0
+                && checkLevel
             ) {
-            Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Shooting Star pattern detected");
+            //Log.info(StrategyStoch.class,
+                System.out.print("[SHORT]:" + series.getName() + " Shooting Star pattern detected | ");
             return true;
         }
         return false;
@@ -262,7 +267,9 @@ public class StrategyStoch {
                         && (prev[0] < curr[0])
                         && checkLevelBreakout(series, maxIndex, 10) > 0
         ) {
-                Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Bullish engulfing 1 candle");
+              //  Log.info(StrategyStoch.class,
+                System.out.print("[LONG]:" + series.getName() + " Bullish engulfing 1 candle | ");
+
                 return true;
             } else if (
                             openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
@@ -273,7 +280,8 @@ public class StrategyStoch {
                          && (prev[0] < curr[0])
                          && checkLevelBreakout(series, maxIndex, 10) > 0
             ) {
-                Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " 3 white soldiers");
+               // Log.info(StrategyStoch.class,
+                System.out.print("[LONG]:" + series.getName() + " 3 white soldiers | ");
                 return true;
             } else if ( openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
                     && (openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
@@ -282,7 +290,8 @@ public class StrategyStoch {
                     && (prev[0] < curr[0])
                     && checkLevelBreakout(series, maxIndex, 10) > 0
             ) {
-                Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Hammer");
+                // Log.info(StrategyStoch.class,
+                System.out.print("[LONG]:" + series.getName() + " Hammer | ");
                 return true;
 //        } else if (
 //                openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
@@ -300,7 +309,8 @@ public class StrategyStoch {
                 && (prev[0] < curr[0])
                 && checkLevelBreakout(series, maxIndex, 10) > 0
         ) {
-            Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Piercing Line pattern detected");
+            //Log.info(StrategyStoch.class,
+                System.out.print("[LONG]:" + series.getName() + " Piercing Line pattern detected | ");
             return true;
         }
         return false;
@@ -477,12 +487,12 @@ public class StrategyStoch {
 
         // Проверка для шорта: пробой поддержки
         if (currentClose < supportLevel) {
-            Log.info(StrategyStoch.class, "[SHORT]: "+ series.getName() +" Price broke support level at " + supportLevel );
+       //     Log.info(StrategyStoch.class, "[SHORT]: "+ series.getName() +" Support level at " + supportLevel );
             return -1;
         }
         // Проверка для лонга: пробой сопротивления
         else if (currentClose > resistanceLevel) {
-            Log.info(StrategyStoch.class, "[LONG]: " + series.getName() + " Price broke resistance level at " + resistanceLevel);
+         //   Log.info(StrategyStoch.class, "[LONG]: " + series.getName() + "Resistance level at " + resistanceLevel);
             return 1;
         }
 

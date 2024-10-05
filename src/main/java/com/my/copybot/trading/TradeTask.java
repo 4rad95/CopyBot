@@ -479,7 +479,8 @@ public class TradeTask implements Runnable {
 
     private synchronized void buyLimit() {
         String quantity = getAmount(alertPrice);
-        Log.info(getClass(), "Trying to buy " + symbol + ", quantity: " + quantity + " using limit order");
+       // Log.info(getClass(),
+        System.out.println("  Trying to buy " + symbol + ", quantity: " + quantity);
         String priceReal = "";
         try {
 
