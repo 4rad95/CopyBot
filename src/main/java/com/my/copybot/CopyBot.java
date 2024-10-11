@@ -319,8 +319,8 @@ public class CopyBot {
                                         Sound.tone(15000, 100);
                                     }
                                     addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series));
-  //                              } else {System.out.println();}
-                            }
+                                } else {System.out.println();}
+  //                          }
                         }
                     }
                     String status = null;
