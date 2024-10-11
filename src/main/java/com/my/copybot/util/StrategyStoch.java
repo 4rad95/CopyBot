@@ -331,7 +331,7 @@ public class StrategyStoch {
                     && checkLevel
             ) {
                 //Log.info(StrategyStoch.class,
-                System.out.print("[SHORT]:" + series.getName() + " Morning Star  | ");
+                System.out.print("[LONG]:" + series.getName() + " Morning Star  | ");
                 return true;
 //        } else if (
 //                openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
