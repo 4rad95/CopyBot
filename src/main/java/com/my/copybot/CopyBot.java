@@ -294,8 +294,8 @@ public class CopyBot {
                                         Sound.tone(15000, 100);
                                     }
                                     addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series));
- //                               } else {System.out.println();}
-                            }
+                                } else {System.out.println();}
+//                            }
                         }
                     }
 
