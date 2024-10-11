@@ -84,6 +84,18 @@ public class StrategyStoch {
             //    Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle | ");
                 return true;
+            } else  if (
+                    openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
+                            && openPrice.getValue(maxIndex - 4).doubleValue() < closePrice.getValue(maxIndex - 4).doubleValue()
+                            && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
+                            && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
+                            && maxPrice.getValue(maxIndex-3).doubleValue() < maxPrice.getValue(maxIndex-2).doubleValue()
+                            && prev[1] < curr[1]
+                            && checkLevel
+            ) {
+                //    Log.info(StrategyStoch.class,
+                System.out.print("[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle  + 1 candele | ");
+                return true;
             } else if (
                     openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                             && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
@@ -130,7 +142,7 @@ public class StrategyStoch {
 //            return true;
         } else if (openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue() // Бычья свеча
                 && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
-                && (maxPrice.getValue(maxIndex - 2).doubleValue() - openPrice.getValue(maxIndex - 2).doubleValue()) > 2 * Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
+                && (maxPrice.getValue(maxIndex - 2).doubleValue() - openPrice.getValue(maxIndex - 2).doubleValue()) > 4 * Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                 && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                 && prev[1] < curr[1]
                 && checkLevel
@@ -248,6 +260,7 @@ public class StrategyStoch {
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
         boolean checkLevel = checkLevelBreakout(series, maxIndex, 10) > 0;
+
 // nn [plus, minus]
 //        if (curr[0] > curr[1]
 //                && (prev[0] < prev[1])
@@ -276,6 +289,19 @@ public class StrategyStoch {
 
                 return true;
             } else if (
+                    openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
+                            && openPrice.getValue(maxIndex - 4).doubleValue() > closePrice.getValue(maxIndex - 4).doubleValue()
+                            && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
+                            && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
+                            && minPrice.getValue(maxIndex-3).doubleValue() > minPrice.getValue(maxIndex-2).doubleValue()
+                            && (prev[0] < curr[0])
+                            && checkLevel
+            ) {
+                //  Log.info(StrategyStoch.class,
+                System.out.print("[LONG]:" + series.getName() + " Bullish engulfing 1 candle + 1 candle | ");
+
+                return true;
+            } else if (
                             openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                          && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
                          && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
@@ -297,9 +323,9 @@ public class StrategyStoch {
                 // Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Hammer | ");
                 return true;
-            } else if (openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue() // Медвежья свеча
-                    && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()  // Бычья свеча
-                    && Math.abs(minPrice.getValue(maxIndex - 2).doubleValue() - openPrice.getValue(maxIndex - 2).doubleValue()) > 2 * Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
+            } else if (openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue() // Медвежья свеча
+                    && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()  // Бычья свеча
+                    && Math.abs(minPrice.getValue(maxIndex - 2).doubleValue() - openPrice.getValue(maxIndex - 2).doubleValue()) > 4 * Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                     && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                     && prev[1] < curr[1]
                     && checkLevel

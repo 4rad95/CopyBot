@@ -288,13 +288,13 @@ public class CopyBot {
 
 //                                if (BinanceTa4jUtils.checkStrategyLong(series1)
 //                                        && BinanceTa4jUtils.checkStrategyLong(series2)) {
-                                  if (StrategyStoch.openStochStrategyLong(series1)
-                                        && StrategyStoch.openStochStrategyLong(series2))     {
+//                                  if (StrategyStoch.openStochStrategyLong(series1)
+//                                        && StrategyStoch.openStochStrategyLong(series2))     {
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
                                     addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series));
-                                } else {System.out.println();}
+ //                               } else {System.out.println();}
                             }
                         }
                     }
@@ -314,13 +314,12 @@ public class CopyBot {
 
 //                                if (BinanceTa4jUtils.checkStrategyShort(series1)
 //                                        && BinanceTa4jUtils.checkStrategyShort(series2)) {
-                                if (StrategyStoch.openStochStrategyShort(series1)
-                                      && StrategyStoch.openStochStrategyShort(series2)  ){
+
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
                                     addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series));
-                                } else {System.out.println();}
+  //                              } else {System.out.println();}
                             }
                         }
                     }
@@ -614,7 +613,7 @@ public class CopyBot {
             seconds = seconds - minutes * 60;
             String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
             Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.019 ( test Edition beta ADX bis Strategy. Good and Best!)    \u001B[0m");
+            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.020 ( test Edition beta ADX bis Strategy. Good and Best!)    \u001B[0m");
             //		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
             Log.info(CopyBot.class, " Open trades LONG: " + openTradesLong.keySet().size() + " SHORT:" + openTradesShort.keySet().size());
             Log.info(CopyBot.class, " LONG:  " + openTradesLong.keySet());
