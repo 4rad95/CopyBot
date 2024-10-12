@@ -279,12 +279,12 @@ public class CopyBot {
                             if (StrategyStoch.openStochStrategyLong(series)) {
                             if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
 
-                                TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
-                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
-                                        , symbol, interval1.getIntervalId());
-                                TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
-                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
-                                        , symbol, interval2.getIntervalId());
+//                                TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
+//                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
+//                                        , symbol, interval1.getIntervalId());
+//                                TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
+//                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
+//                                        , symbol, interval2.getIntervalId());
 
 //                                if (BinanceTa4jUtils.checkStrategyLong(series1)
 //                                        && BinanceTa4jUtils.checkStrategyLong(series2)) {
@@ -295,7 +295,7 @@ public class CopyBot {
                                     }
                                     addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series));
                                 } else {System.out.println();}
-//                            }
+                           // }
                         }
                     }
 
@@ -305,12 +305,12 @@ public class CopyBot {
                             if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
                                 // We create a new thread to short trade with the symbol
 
-                                TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
-                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), endIndex))
-                                        , symbol, interval1.getIntervalId());
-                                TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
-                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
-                                        , symbol, interval2.getIntervalId());
+//                                TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
+//                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), endIndex))
+//                                        , symbol, interval1.getIntervalId());
+//                                TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
+//                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
+//                                        , symbol, interval2.getIntervalId());
 
 //                                if (BinanceTa4jUtils.checkStrategyShort(series1)
 //                                        && BinanceTa4jUtils.checkStrategyShort(series2)) {
@@ -320,7 +320,7 @@ public class CopyBot {
                                     }
                                     addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series));
                                 } else {System.out.println();}
-  //                          }
+ //                           }
                         }
                     }
                     String status = null;
