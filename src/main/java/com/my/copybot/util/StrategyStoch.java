@@ -147,7 +147,7 @@ public class StrategyStoch {
         ATRIndicator atr = new ATRIndicator(series, 14);
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
-
+        boolean checkLevel = checkLevelBreakout(series, maxIndex, 10) > 0;
 
         if (sma7.getValue(maxIndex).doubleValue() > sma25.getValue(maxIndex).doubleValue()
                 && sma7.getValue(maxIndex - 1).doubleValue() < sma25.getValue(maxIndex - 1).doubleValue()) {
@@ -157,8 +157,12 @@ public class StrategyStoch {
 
         } else if (
                 openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
+                        && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
                         && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
+                        && minPrice.getValue(maxIndex-2).doubleValue() > minPrice.getValue(maxIndex-1).doubleValue()
+//                        && (prev[0] < curr[0])
+                        && checkLevel
         ) {
             Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Bullish Engulfing  . Position close.");
             return " Bullish Engulfing 1 candle";
@@ -168,6 +172,8 @@ public class StrategyStoch {
                         && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
+                        && minPrice.getValue(maxIndex-3).doubleValue() > minPrice.getValue(maxIndex-2).doubleValue()
+                        && checkLevel
         ) {
             Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Bullish Engulfing 2 candle");
             return " Bullish Engulfing 2 candle";
@@ -302,7 +308,7 @@ public class StrategyStoch {
         ATRIndicator atr = new ATRIndicator(series, 14);
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
-
+        boolean checkLevel = (checkLevelBreakout(series, maxIndex, 10) < 0);
 
         if (sma7.getValue(maxIndex).doubleValue() < sma25.getValue(maxIndex).doubleValue()
                 && sma7.getValue(maxIndex - 1).doubleValue() > sma25.getValue(maxIndex - 1).doubleValue()) {
@@ -311,10 +317,12 @@ public class StrategyStoch {
 
         } else if (
                 openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
+                        && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
                         && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
-                        && minPrice.getValue(maxIndex-1).doubleValue() > minPrice.getValue(maxIndex-2).doubleValue()
-            //           && prev[0] < prev[1]
+                        && maxPrice.getValue(maxIndex-2).doubleValue() < maxPrice.getValue(maxIndex-1).doubleValue()
+//                        && prev[1] < curr[1]
+                        && checkLevel
         ) {
             Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Bearish Engulfing  . Position close.");
             return "Bearish Engulfing 1 candle";
@@ -325,6 +333,9 @@ public class StrategyStoch {
                         && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
+                        && maxPrice.getValue(maxIndex-3).doubleValue() < maxPrice.getValue(maxIndex-2).doubleValue()
+//                        && prev[1] < curr[1]
+                        && checkLevel
         ) {
             Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Bearish Engulfing 2 candle. Position close.");
             return "Bearish Engulfing 2 candle";
