@@ -92,29 +92,7 @@ public class TradeTask implements Runnable {
         return string.replace(',', '.');
     }
 
-    /*
-        private Double getAmountDouble(Double price) {
-            // This method should be refactored... there is a method in Binance API to get symbol info
-            return usdtAmount / price;
-        }
 
-        private void monitorPrice() throws GeneralException {
-            while (true) {
-                RequestOptions options = new RequestOptions();
-                SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
-                        options);
-                List<MarkPrice> markPriceList = syncRequestClient.getMarkPrice(symbol);
-                BigDecimal price = markPriceList.get(0).getMarkPrice();
-                checkPrice(Double.parseDouble(price.toString()));
-                        try {
-                            wait(2000);
-
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-            }
-        }
-    */
     private static int getDecimalPlaces(double number) {
         String[] parts = Double.toString(number).split("\\.");
         return parts.length > 1 ? parts[1].length() : 0;
@@ -264,50 +242,6 @@ public class TradeTask implements Runnable {
 
     }
 
-    /*private void buySecond() throws GeneralException {
-        String quantity = getAmount(alertPrice);
-        Log.info(getClass(), "Second to buy " + symbol + ", quantity: " + quantity);
-
-        try {
-
-
-            RequestOptions options = new RequestOptions();
-            SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
-                    options);
-            // By now we will not be creating real orders
-
-            Order orderNew = syncRequestClient.postOrder(symbol,
-                    OrderSide.SELL, PositionSide.SHORT, OrderType.MARKET, null,quantity,
-                    null, null, null,null, null, null, null, null, null,
-                    NewOrderRespType.RESULT);
-
-//                        order = new ExecutedOrderShort();
-            //order.setSymbol(symbol);
-            order.setQuantityDouble(order.getQuantityDouble()+getAmountDouble(alertPrice));
-            order.setQuantity(getAmount(order.getQuantityDouble()));
-            // orderNew.getPositionSide());
-            order.setPrice((orderNew.getAvgPrice().doubleValue()+order.getPrice())/2);
-
-            //order.setCurrentStopLoss((100 + stopLossPercentage) * alertPrice / (100.0));
-            // order.setInitialStopLoss(order.getCurrentStopLoss());
-            // order.setOrderId(orderNew.getClientOrderId());
-
-        } catch (Exception e) {
-            CopyBot.closeOrder(symbol, 0.00, null,0);
-            throw new GeneralException(e);
-
-        }
-
-//		order = new ExecutedOrder();
-//		order.setSymbol(symbol);
-//		order.setQuantity(quantity);
-//		order.setPrice(alertPrice);
-//		// current stop loss - used for trailing stop
-//		order.setCurrentStopLoss((100.0 - stopLossPercentage) * alertPrice / 100.0);
-        order.setInitialStopLoss(order.getCurrentStopLoss());
-        order.setCreationTime(System.currentTimeMillis());
-    }
-*/
     private void sell(Double price) {
         try {
             String str = CopyBot.ordersToBeClosed.get(order.getSymbol());

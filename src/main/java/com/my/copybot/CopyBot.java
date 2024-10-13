@@ -266,11 +266,7 @@ public class CopyBot {
 
                 if ((openTradesLong.get(symbol) != null) || (openTradesShort.get(symbol) != null) ||
                         ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
-//                    Strategy strategyLong = buildStrategyLong(series, TRADING_STRATEGY);
-//                    Strategy strategyShort = buildStrategyShort(series, TRADING_STRATEGY);
-//
-//                    checkStrategy(strategyLong, strategyShort, endIndex, symbol);
-//
+
 
 
                         // If we have an open trade for the symbol, we do not create a new one
@@ -299,7 +295,7 @@ public class CopyBot {
                         }
                     }
 
-                        if (DO_TRADES && openTradesShort.get(symbol) == null && MAKE_SHORT) {
+                        if (DO_TRADES && openTradesShort.get(symbol) == null  && MAKE_SHORT) {
                             if (StrategyStoch.openStochStrategyShort(series)) {
                                 //	Decimal currentPrice = series.getLastBar().getClosePrice();
                             if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
@@ -446,16 +442,6 @@ public class CopyBot {
         return symbols;
     }
 
-//    private static void checkStrategy(Strategy strategyLong, Strategy strategyShort, int endIndex, String symbol) {
-//        if ((null != openTradesLong.get(symbol)) && (strategyLong.shouldExit(endIndex))) {
-//                ordersToBeClosed.add(symbol);
-//                Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
-//
-//        } else if ((null != openTradesShort.get(symbol)) && (strategyShort.shouldExit(endIndex))) {
-//                ordersToBeClosed.add(symbol);
-//                Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + "\u001B[0m");
-//        }
-//    }
 
     private static BigDecimal printBalance() {
         try {

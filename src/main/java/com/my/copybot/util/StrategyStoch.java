@@ -28,18 +28,6 @@ public class StrategyStoch {
         OpenPriceIndicator openPrice = new OpenPriceIndicator(series);
         MaxPriceIndicator maxPrice = new MaxPriceIndicator(series);
 
-//
-//        SMAIndicator sma5 = new SMAIndicator(closePrice, 5);
-//        SMAIndicator sma20 = new SMAIndicator(closePrice, 20);
-//
-//        // Полосы Боллинджера
-//        BollingerBandsMiddleIndicator bbm = new BollingerBandsMiddleIndicator(sma20);
-//        BollingerBandsUpperIndicator bbu = new BollingerBandsUpperIndicator(bbm, new StandardDeviationIndicator(closePrice, 20), Decimal.valueOf(2));
-//        BollingerBandsLowerIndicator bbl = new BollingerBandsLowerIndicator(bbm, new StandardDeviationIndicator(closePrice, 20), Decimal.valueOf(2));
-//
-//        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
-//        EMAIndicator emaMacd = new EMAIndicator(macd, 9);
-//
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
         SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
@@ -59,19 +47,6 @@ public class StrategyStoch {
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
         boolean checkLevel = (checkLevelBreakout(series, maxIndex, 10) < 0);
 
-//        if (curr[0] < curr[1]
-//                && prev[0] > prev[1]
-//                && prev[1] < curr[1]
-//                && (smoothedStochRsi.getValue(maxIndex).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue())
-//                && (smoothedStochRsi.getValue(maxIndex).doubleValue() > 0.30)
-//                && (dxIndicator.getValue(maxIndex - 1).doubleValue() < dxIndicator.getValue(maxIndex).doubleValue())
-//                && (dxIndicator.getValue(maxIndex).doubleValue() < 30)
-//        ) {
-//            //       && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
-//            //         && (maxPrice.getValue(maxIndex).doubleValue() > bbm.getValue(maxIndex).doubleValue())
-//            Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
-//                    return true;
-//        } else
             if (
                 openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
@@ -127,25 +102,6 @@ public class StrategyStoch {
                 System.out.print("[SHORT]:" + series.getName() + " Inverted hammer  | ");
                 return true;
 
-//        } else if (
-//                openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
-//                        && openPrice.getValue(maxIndex - 2).doubleValue() == closePrice.getValue(maxIndex - 3).doubleValue()
-//                        && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
-//                        && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
-//                        && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
-//                        && prev[0] > prev[1]
-//        ) {
-//            Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " Bearish Engulfing 2 candle");
-//            return true;
-//        } else if (openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
-//                && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue() // Бычья свеча
-//                && closePrice.getValue(maxIndex - 1).doubleValue() < (openPrice.getValue(maxIndex - 2).doubleValue() + closePrice.getValue(maxIndex - 2).doubleValue()) / 2
-//                && prev[1] < curr[1]
-//                && checkLevel
-//        ) {
-//            // Log.info(StrategyStoch.class,
-//                System.out.print("[SHORT]:" + series.getName() + " Dark Cloud Cover pattern detected | ");
-//            return true;
         } else if (openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue() // Бычья свеча
                 && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
                 && (maxPrice.getValue(maxIndex - 2).doubleValue() - openPrice.getValue(maxIndex - 2).doubleValue()) > 4 * Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
@@ -198,13 +154,7 @@ public class StrategyStoch {
             Log.info(StrategyStoch.class, "[SHORT]:" + series.getName() + " [SMA7 & SMA25 ] SMA7 > SMA25  . Position close.");
 
             return "[SMA7 & SMA25 ] SMA7 > SMA25  . Position close.";
-//        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()
-//                && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
-//            Log.info(StrategyStoch.class, "DX Low.");
-//            return "DX Low.";
-//        } else if (bbu.getValue(maxIndex).doubleValue() < closePrice.getValue(maxIndex).doubleValue()) {
-//            Log.info(StrategyStoch.class, "ClosePrice high BB. Position close.");
-//            return true;
+
         } else if (
                 openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
@@ -235,17 +185,7 @@ public class StrategyStoch {
 
         MinPriceIndicator minPrice = new MinPriceIndicator(series);
         MaxPriceIndicator maxPrice = new MaxPriceIndicator(series);
-//
-//        SMAIndicator sma5 = new SMAIndicator(closePrice, 5);
-//        SMAIndicator sma20 = new SMAIndicator(closePrice, 20);
-//        BollingerBandsMiddleIndicator bbm = new BollingerBandsMiddleIndicator(sma20);
-//        BollingerBandsUpperIndicator bbu = new BollingerBandsUpperIndicator(bbm, new StandardDeviationIndicator(closePrice, 20), Decimal.valueOf(2));
-//        BollingerBandsLowerIndicator bbl = new BollingerBandsLowerIndicator(bbm, new StandardDeviationIndicator(closePrice, 20), Decimal.valueOf(2));
-//
-//
-//        MACDIndicator macd = new MACDIndicator(closePrice, 12, 26);
-//        EMAIndicator emaMacd = new EMAIndicator(macd, 9);
-//
+
         RSIIndicator rsi = new RSIIndicator(closePrice, 14);
         StochasticRSIIndicator stochRsi = new StochasticRSIIndicator(rsi, 14);
         SMAIndicator smoothedStochRsi = new SMAIndicator(stochRsi, 3);
@@ -268,19 +208,7 @@ public class StrategyStoch {
         boolean checkLevel = checkLevelBreakout(series, maxIndex, 10) > 0;
 
 // nn [plus, minus]
-//        if (curr[0] > curr[1]
-//                && (prev[0] < prev[1])
-//                && (prev[0] < curr[0])
-//                && (smoothedStochRsi.getValue(maxIndex).doubleValue() > stochRsiD.getValue(maxIndex).doubleValue())
-//                && (smoothedStochRsi.getValue(maxIndex).doubleValue() < 0.70)
-//                && (dxIndicator.getValue(maxIndex - 1).doubleValue() < dxIndicator.getValue(maxIndex).doubleValue())
-//                && (dxIndicator.getValue(maxIndex).doubleValue() < 20)) {
-//            //            && (calculateADX(series, 14).getValue(maxIndex).doubleValue() > 25)) {
-//            //           && (minPrice.getValue(maxIndex).doubleValue() < bbm.getValue(maxIndex).doubleValue()))
-//            //
-//            Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " : ADX = " + calculateADX(series, 14).getValue(maxIndex) + "  D+ = " + curr[0] + "   D-= " + curr[1] + "   DX = " + dxIndicator.getValue(maxIndex));
-//                    return true;
-//        } else
+
             if (
                 openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
@@ -340,36 +268,9 @@ public class StrategyStoch {
                 //Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Morning Star  | ");
                 return true;
-//        } else if (
-//                openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
-//                        && openPrice.getValue(maxIndex - 2).doubleValue() == closePrice.getValue(maxIndex - 3).doubleValue()
-//                        && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
-//                        && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
-//                        && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
-//                        && prev[0] > prev[1]
-//        ) {
-//            Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " Bullish Engulfing 2 candle");
-//            return true;
-//        } else if (openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue() // Бычья свеча
-//                && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue() // Медвежья свеча
-//                && closePrice.getValue(maxIndex - 1).doubleValue() > (openPrice.getValue(maxIndex - 2).doubleValue() + closePrice.getValue(maxIndex - 2).doubleValue()) / 2 // Закрытие выше середины
-//                && (prev[0] < curr[0])
-//                && checkLevelBreakout(series, maxIndex, 10) > 0
-//        ) {
-//            //Log.info(StrategyStoch.class,
-//                System.out.print("[LONG]:" + series.getName() + " Piercing Line pattern detected | ");
-//            return true;
+
         }
         return false;
-
-
-
-//        return (sma5.getValue(maxIndex - 1).multipliedBy(10000).intValue() < sma20.getValue(maxIndex - 1).multipliedBy(10000).intValue()
-//                && sma5.getValue(maxIndex).multipliedBy(10000).intValue() > sma20.getValue(maxIndex).multipliedBy(10000).intValue()
-//                && smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() - stochRsiD.getValue(maxIndex).multipliedBy(100).intValue() > 3
-//                && (stochRsiD.getValue(maxIndex - 1).doubleValue() < stochRsiD.getValue(maxIndex).doubleValue())
-//                && (smoothedStochRsi.getValue(maxIndex).multipliedBy(100).intValue() > smoothedStochRsi.getValue(maxIndex - 1).multipliedBy(100).intValue())
-//                && (macd.getValue(maxIndex).doubleValue() > macd.getValue(maxIndex - 1).doubleValue()));
 
     }
 
@@ -398,29 +299,16 @@ public class StrategyStoch {
         SMAIndicator smoothedMinusDM = new SMAIndicator(minusDM, 14);
         DXIndicator dxIndicator = new DXIndicator(series, 14);
 
-//        BollingerBandsMiddleIndicator bbm = new BollingerBandsMiddleIndicator(sma20);
-//        BollingerBandsUpperIndicator bbu = new BollingerBandsUpperIndicator(bbm, new StandardDeviationIndicator(closePrice, 20), Decimal.valueOf(2));
-//        BollingerBandsLowerIndicator bbl = new BollingerBandsLowerIndicator(bbm, new StandardDeviationIndicator(closePrice, 20), Decimal.valueOf(2));
-
         ATRIndicator atr = new ATRIndicator(series, 14);
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
 
-//        if (curr[0] < curr[1] && prev[0] < prev[1] && curr[0] < prev[0]) {
-//            Log.info(StrategyStoch.class, "DI Down. Change Trend");
-//            return "DI Down. Change Trend";
-//        } else
+
         if (sma7.getValue(maxIndex).doubleValue() < sma25.getValue(maxIndex).doubleValue()
                 && sma7.getValue(maxIndex - 1).doubleValue() > sma25.getValue(maxIndex - 1).doubleValue()) {
             Log.info(StrategyStoch.class, "[LONG]:" + series.getName() + " [SMA7 & SMA25 ] SMA7 < SMA25  . Position close.");
             return "[SMA7 & SMA25 ] SMA7 < SMA25  . Position close.";
-//        } else if (dxIndicator.getValue(maxIndex).toDouble() < dxIndicator.getValue(maxIndex - 1).toDouble()
-//                && (dxIndicator.getValue(maxIndex).doubleValue() > 40)) {
-//            Log.info(StrategyStoch.class, "DX Lower. Position close.");
-//            return "DX Lower. Position close.";
-//        } else if (bbl.getValue(maxIndex).doubleValue() > closePrice.getValue(maxIndex).doubleValue()) {
-//            Log.info(StrategyStoch.class, "ClosePrice low BB .");
-//            return true;
+
         } else if (
                 openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
                         && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
