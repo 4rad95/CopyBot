@@ -84,16 +84,11 @@ public class StrategyStoch {
                // Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Three Black Crows | ");
                 return true;
-            } else if (( (openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
+            } else if ( (openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
                     && openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
                     && ((maxPrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 5 ))
                     && !checkLevel
-                ) || (
-                       openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
-                    && openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
-                    && ((minPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 5 ))
-                    && !checkLevel
-            )
+                )
             {
                 //Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Inverted hammer  | ");
@@ -249,16 +244,11 @@ public class StrategyStoch {
                // Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " 3 white soldiers | ");
                 return true;
-            } else if (( (openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
+            } else if ( (openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
                     && openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
                     && ((minPrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 5 ))
                     && !checkLevel
-            ) || (
-                    openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
-                     && openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
-                     && ((maxPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 5 ))
-                     && !checkLevel
-            ) {
+            )  {
                 // Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Hammer | ");
                 return true;
