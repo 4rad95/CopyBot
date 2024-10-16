@@ -20,7 +20,7 @@ public class StrategyStoch {
     private static final Logger log = LoggerFactory.getLogger(StrategyStoch.class);
 
 
-    public static Boolean openStochStrategyShort(TimeSeries series) {
+    public static String openStochStrategyShort(TimeSeries series) {
         if (series == null) {
             throw new IllegalArgumentException("Series cannot be null");
         }
@@ -59,7 +59,7 @@ public class StrategyStoch {
         ) {
             //    Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle | ");
-                return true;
+                return "[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle | ";
             } else  if (
                     openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
                             && openPrice.getValue(maxIndex - 4).doubleValue() < closePrice.getValue(maxIndex - 4).doubleValue()
@@ -71,7 +71,7 @@ public class StrategyStoch {
             ) {
                 //    Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle  + 1 candele | ");
-                return true;
+                return "[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle  + 1 candele | ";
             } else if (
                     openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                             && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
@@ -83,7 +83,7 @@ public class StrategyStoch {
             ) {
                // Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Three Black Crows | ");
-                return true;
+                return "[SHORT]:" + series.getName() + " Three Black Crows | ";
             } else if ( openPrice.getValue(maxIndex-3).doubleValue() < closePrice.getValue(maxIndex-3).doubleValue()
                     && openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
                     && openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
@@ -93,7 +93,7 @@ public class StrategyStoch {
             {
                 //Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Inverted hammer  | ");
-                return true;
+                return "[SHORT]:" + series.getName() + " Inverted hammer  | ";
 
         } else if (openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue() // Бычья свеча
                 && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
@@ -104,9 +104,9 @@ public class StrategyStoch {
             ) {
             //Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Evening Star  | ");
-            return true;
+            return "[SHORT]:" + series.getName() + " Evening Star  | ";
         }
-        return false;
+        return null;
     }
 
     public static String closeStochStrategyShort(TimeSeries series) {
@@ -174,7 +174,7 @@ public class StrategyStoch {
         return null;
     }
 
-    public static Boolean openStochStrategyLong(TimeSeries series) {
+    public static String openStochStrategyLong(TimeSeries series) {
         if (series == null) {
             throw new IllegalArgumentException("Series cannot be null");
         }
@@ -220,7 +220,7 @@ public class StrategyStoch {
               //  Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Bullish engulfing 1 candle | ");
 
-                return true;
+                return "[LONG]:" + series.getName() + " Bullish engulfing 1 candle | ";
             } else if (
                     openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
                             && openPrice.getValue(maxIndex - 4).doubleValue() > closePrice.getValue(maxIndex - 4).doubleValue()
@@ -233,7 +233,7 @@ public class StrategyStoch {
                 //  Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Bullish engulfing 1 candle + 1 candle | ");
 
-                return true;
+                return "[LONG]:" + series.getName() + " Bullish engulfing 1 candle + 1 candle | ";
             } else if (
                          openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                          && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
@@ -244,7 +244,7 @@ public class StrategyStoch {
             ) {
                // Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " 3 white soldiers | ");
-                return true;
+                return "[LONG]:" + series.getName() + " 3 white soldiers | ";
             } else if ( openPrice.getValue(maxIndex-3).doubleValue() > closePrice.getValue(maxIndex-23).doubleValue()
                     && openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
                     && openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
@@ -253,7 +253,7 @@ public class StrategyStoch {
               {
                 // Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Hammer | ");
-                return true;
+                return "[LONG]:" + series.getName() + " Hammer | ";
             } else if (openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue() // Медвежья свеча
                     && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()  // Бычья свеча
                     && Math.abs(minPrice.getValue(maxIndex - 2).doubleValue() - maxPrice.getValue(maxIndex - 2).doubleValue()) > 4 * Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
@@ -263,9 +263,9 @@ public class StrategyStoch {
             ) {
                 //Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Morning Star  | ");
-                return true;
+                return "[LONG]:" + series.getName() + " Morning Star  | ";
         }
-        return false;
+        return null;
 
     }
 

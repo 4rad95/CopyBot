@@ -272,7 +272,9 @@ public class CopyBot {
                         // If we have an open trade for the symbol, we do not create a new one
                         if (DO_TRADES && openTradesLong.get(symbol) == null && (MAKE_LONG)) {
                             //Decimal currentPrice = series.getLastBar().getClosePrice();
-                            if (StrategyStoch.openStochStrategyLong(series)) {
+                            String status = null;
+                            status = StrategyStoch.openStochStrategyLong(series);
+                            if (status != null) {
                             if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
 
 //                                TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
@@ -296,7 +298,9 @@ public class CopyBot {
                     }
 
                         if (DO_TRADES && openTradesShort.get(symbol) == null  && MAKE_SHORT) {
-                            if (StrategyStoch.openStochStrategyShort(series)) {
+                            String status = null;
+                            status = StrategyStoch.openStochStrategyShort(series);
+                            if (status != null) {
                                 //	Decimal currentPrice = series.getLastBar().getClosePrice();
                             if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
                                 // We create a new thread to short trade with the symbol
@@ -321,7 +325,7 @@ public class CopyBot {
                     }
                     String status = null;
                     if (null != openTradesLong.get(symbol)) {
-                        status = StrategyStoch.closeStochStrategyLong(series);
+                        status = StrategyStoch.openStochStrategyShort(series); //StrategyStoch.closeStochStrategyLong(series);
                         if (status != null) {
 
                             ordersToBeClosed.put(symbol, status);
@@ -329,7 +333,7 @@ public class CopyBot {
 
                         }
                     } else if (null != openTradesShort.get(symbol)) {
-                        status = StrategyStoch.closeStochStrategyShort(series);
+                        status =  StrategyStoch.openStochStrategyLong(series); //StrategyStoch.closeStochStrategyShort(series);
                         if (status != null) {
                             ordersToBeClosed.put(symbol, status);
                             Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + " " + status + "\u001B[0m");
