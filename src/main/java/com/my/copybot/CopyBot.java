@@ -325,7 +325,8 @@ public class CopyBot {
                     }
                     String status = null;
                     if (null != openTradesLong.get(symbol)) {
-                        status = StrategyStoch.openStochStrategyShort(series); //StrategyStoch.closeStochStrategyLong(series);
+                        status = StrategyStoch.openStochStrategyShort(series);
+                        if (status == null) {status =StrategyStoch.closeStochStrategyLong(series); }
                         if (status != null) {
 
                             ordersToBeClosed.put(symbol, status);
@@ -333,14 +334,16 @@ public class CopyBot {
 
                         }
                     } else if (null != openTradesShort.get(symbol)) {
-                        status =  StrategyStoch.openStochStrategyLong(series); //StrategyStoch.closeStochStrategyShort(series);
-                        if (status != null) {
-                            ordersToBeClosed.put(symbol, status);
-                            Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + " " + status + "\u001B[0m");
+                        status = StrategyStoch.openStochStrategyLong(series);
+                        if (status == null) {
+                            status = StrategyStoch.closeStochStrategyShort(series);
+                            if (status != null) {
+                                ordersToBeClosed.put(symbol, status);
+                                Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + " " + status + "\u001B[0m");
+                            }
                         }
-                    }
 
-                }
+                    }}
             } catch (GeneralException e) {
                 Log.severe(CopyBot.class, "Unable to check symbol " + symbol + "Error: " + e);
             } catch (LineUnavailableException e) {
@@ -374,7 +377,7 @@ public class CopyBot {
     }
 
 
-    public static synchronized void closeOrder(String symbol, Double profit, String errorMessage, String type) // 0-short, 1-long
+    public static synchronized void closeOrder(String symbol, Double profit,String errorMessage, String type) // 0-short, 1-long
     {
         int delta = 0;
         if (StringUtils.isNotEmpty(errorMessage)) {

@@ -46,7 +46,7 @@ public class StrategyStoch {
         ATRIndicator atr = new ATRIndicator(series, 14);
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
-        boolean checkLevel = (checkLevelBreakout(series, maxIndex, 10) < 0);
+        boolean checkLevel = (checkLevelBreakout(series, maxIndex, 14) < 0);
 
             if (
                 openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
@@ -87,7 +87,7 @@ public class StrategyStoch {
             } else if ( openPrice.getValue(maxIndex-3).doubleValue() < closePrice.getValue(maxIndex-3).doubleValue()
                     && openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
                     && openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
-                    && ((maxPrice.getValue(maxIndex-1).doubleValue()-minPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 8 )
+                    && ((maxPrice.getValue(maxIndex-1).doubleValue()-minPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 9 )
                     && !checkLevel
                 )
             {
@@ -204,7 +204,7 @@ public class StrategyStoch {
         int maxIndex = series.getEndIndex();
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
-        boolean checkLevel = checkLevelBreakout(series, maxIndex, 10) > 0;
+        boolean checkLevel = checkLevelBreakout(series, maxIndex, 14) > 0;
 
 // nn [plus, minus]
 
@@ -248,7 +248,7 @@ public class StrategyStoch {
             } else if ( openPrice.getValue(maxIndex-3).doubleValue() > closePrice.getValue(maxIndex-23).doubleValue()
                     && openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
                     && openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
-                    && ((minPrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 8 )
+                    && ((minPrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 9 )
                     && !checkLevel )
               {
                 // Log.info(StrategyStoch.class,
