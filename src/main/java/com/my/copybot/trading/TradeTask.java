@@ -48,7 +48,8 @@ public class TradeTask implements Runnable {
     private Integer identLimitOredr = 20;
     private final Decimal ATR;
     private final Double stopPrice;
-
+    private Long idStopLossOrder = 0L;
+    private String quantity;
 
     public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
                      Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type, Integer identLimitOredr, CopyBot copyBot, Decimal ATR, Double stopPrice) {
@@ -382,6 +383,10 @@ public class TradeTask implements Runnable {
         counter++;
         switch (type) {
             case "SHORT": {
+                if (price <= (order.getPrice() - (ATR.doubleValue() * 0.4) ) && idStopLossOrder > 0L ) {
+                        createStopLoss(PositionSide.SHORT,quantity, showPrice(order.getPrice() - (ATR.doubleValue() * 0.2) ));
+                        Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() - (ATR.doubleValue() * 0.2) ));
+                }
                 if (price >= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol)) //|| (price <= order.getProffit()))      // Close stopLoss
                 {
                     sell(price);
@@ -392,6 +397,10 @@ public class TradeTask implements Runnable {
                 break;
             }
             case "LONG": {
+                if (price <= (order.getPrice() + (ATR.doubleValue() * 0.4) ) && idStopLossOrder > 0L) {
+                    createStopLoss(PositionSide.LONG,quantity, showPrice(order.getPrice() + (ATR.doubleValue() * 0.2) ));
+                    Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() + (ATR.doubleValue() * 0.2) ));
+                }
                 if (price <= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol)) //|| (price >= order.getProffit()))      // Close stopLoss
                 {
                     sell(price);
@@ -412,7 +421,7 @@ public class TradeTask implements Runnable {
     }
 
     private synchronized void buyLimit() {
-        String quantity = getAmount(alertPrice);
+        quantity = getAmount(alertPrice);
        // Log.info(getClass(),
         System.out.println("  Trying to buy " + symbol + ", quantity: " + quantity);
         String priceReal = "";
@@ -526,6 +535,37 @@ public class TradeTask implements Runnable {
         }
         return 1.00;
     }
+
+private void createStopLoss(PositionSide typeOrder, String count, String price){
+    RequestOptions options = new RequestOptions();
+
+            SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
+            options);
+
+            if (idStopLossOrder != 0L) {
+                syncRequestClient.cancelOrder(symbol, idStopLossOrder, count);
+            }
+            Order orderNew = syncRequestClient.postOrder(
+            symbol, // Торговая пара
+            OrderSide.SELL, // Тип ордера - продажа
+            //PositionSide.LONG, // Открытая позиция - длинная
+            typeOrder,
+            OrderType.STOP_MARKET, // Тип ордера - стоп-ордер
+            TimeInForce.GTC, // Тайминг выполнения ордера: GTC (Good 'Till Canceled)
+            count, // Количество актива, который ты продаешь
+            null, // Цена исполнения ордера (не используется для STOP ордера)
+            null, // Цена исполнения тейк-профита (если нужен)
+            price , // Цена исполнения стоп-лимита (если нужен)
+            price, // Стоп-цена (trigger price) - цена, при которой ордер будет активирован
+            null , // Количество тейк-профита (если нужен)
+            count, // Количество стоп-лимита (если нужен)
+            null, // Отдельная стратегия исполнения, если есть
+            null, // Время исполнения, если требуется
+            null, // Рабочий процесс исполнения (например, если используешь OCO или другие сложные типы)
+            NewOrderRespType.RESULT // Тип ответа, который ты ожидаешь (например, полное подтверждение о новом ордере)
+    );
+            idStopLossOrder = orderNew.getOrderId();
+}
 
 
 }
