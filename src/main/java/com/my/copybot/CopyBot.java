@@ -331,28 +331,31 @@ public class CopyBot {
                         }
                     }
                     String status = null;
+                    String status1 = null;
 
                     if (null != openTradesLong.get(symbol)) {
-                        status = StrategyStoch.openStochStrategyShort(series) + StrategyStoch.closeStochStrategyLong(series);;
-                        if (status != null) {
-                            status = StrategyStoch.closeStochStrategyLong(series); }
+                        status = StrategyStoch.openStochStrategyShort(series);
+                        status1 = StrategyStoch.closeStochStrategyLong(series);;
+                        if ((status != null) || (status1 != null)) {
                             if (status == null) {
-                                        status = StrategyStoch.openStochStrategyShort(series);}
-                                ordersToBeClosed.put(symbol," Close: "+ status);
+                                status = status1;
+                            }
+                            ordersToBeClosed.put(symbol, " Close: " + status);
                             Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + " " + status + "\u001B[0m");
 
-
-                    } else if (null != openTradesShort.get(symbol)) {
-                        status = StrategyStoch.openStochStrategyLong(series) + StrategyStoch.closeStochStrategyShort(series);
-                        if (status != null) {
-                            status = StrategyStoch.closeStochStrategyShort(series);
-                            if (status != null) {
-                                status = StrategyStoch.openStochStrategyLong(series);}
-                                ordersToBeClosed.put(symbol, " Close: "+ status);
-                                Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + " " + status + "\u001B[0m");
                         }
+                    } else if (null != openTradesShort.get(symbol)) {
+                            status = StrategyStoch.openStochStrategyLong(series);
+                            status1 = StrategyStoch.closeStochStrategyShort(series);
+                            if ((status != null) || (status1 != null)) {
+                                if (status != null) {
+                                    status = status1;
+                                }
+                                ordersToBeClosed.put(symbol, " Close: " + status);
+                                Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + " " + status + "\u001B[0m");
+                            }
 
-                    }}
+                        }}
             } catch (GeneralException e) {
                 Log.severe(CopyBot.class, "Unable to check symbol " + symbol + "Error: " + e);
             } catch (LineUnavailableException e) {
