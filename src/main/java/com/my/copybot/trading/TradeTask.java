@@ -276,7 +276,7 @@ public class TradeTask implements Runnable {
             }
             // Добавить статистику!
             CopyBot.closeOrder(symbol, order.getProfit(), null, type);
-            CopyBot.addPositionClosed(createStatisticPosition("Max.:" + String.format("%.2f", maxPercent) + "%, Min.:" + String.format("%.2f", minPercent) + " % profit: " + order.getCurrentProfit(price) + "%  " + str));
+            CopyBot.addPositionClosed(createStatisticPosition("Max.:" + String.format("%.2f", maxPercent) + "%, Min.:" + String.format("%.2f", minPercent) + " % profit: " + order.getCurrentProfit(price) + "%  " + startDes + str));
         } catch (Exception e) {
             CopyBot.closeOrder(symbol, 0.00, null, "Error");
             System.out.println(" --------------------------- " + symbol + "   closed");
