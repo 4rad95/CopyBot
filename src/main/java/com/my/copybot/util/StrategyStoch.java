@@ -84,16 +84,16 @@ public class StrategyStoch {
                // Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Three Black Crows | ");
                 return "[SHORT]:" + series.getName() + " Three Black Crows | ";
-            } else if ( openPrice.getValue(maxIndex-3).doubleValue() < closePrice.getValue(maxIndex-3).doubleValue()
-                    && openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
-                    && openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
-                    && ((maxPrice.getValue(maxIndex-1).doubleValue()-minPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 9 )
-                    && !checkLevel
-                )
-            {
-                //Log.info(StrategyStoch.class,
-                System.out.print("[SHORT]:" + series.getName() + " Inverted hammer  | ");
-                return "[SHORT]:" + series.getName() + " Inverted hammer  | ";
+//            } else if ( openPrice.getValue(maxIndex-3).doubleValue() < closePrice.getValue(maxIndex-3).doubleValue()
+//                    && openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
+//                    && openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
+//                    && ((maxPrice.getValue(maxIndex-1).doubleValue()-minPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 9 )
+//                    && !checkLevel
+//                )
+//            {
+//                //Log.info(StrategyStoch.class,
+//                System.out.print("[SHORT]:" + series.getName() + " Inverted hammer  | ");
+//                return "[SHORT]:" + series.getName() + " Inverted hammer  | ";
 
         } else if (openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue() // Бычья свеча
                 && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
@@ -246,15 +246,15 @@ public class StrategyStoch {
                 System.out.print("[LONG]:" + series.getName() + " 3 white soldiers | ");
                 return "[LONG]:" + series.getName() + " 3 white soldiers | ";
 
-            } else if ( openPrice.getValue(maxIndex-3).doubleValue() > closePrice.getValue(maxIndex-23).doubleValue()
-                    && openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
-                    && openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
-                    && ((minPrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 9 )
-                    && !checkLevel )
-              {
-                // Log.info(StrategyStoch.class,
-                System.out.print("[LONG]:" + series.getName() + " Hammer | ");
-                return "[LONG]:" + series.getName() + " Hammer | ";
+//            } else if ( openPrice.getValue(maxIndex-3).doubleValue() > closePrice.getValue(maxIndex-23).doubleValue()
+//                    && openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
+//                    && openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
+//                    && ((minPrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 9 )
+//                    && !checkLevel )
+//              {
+//                // Log.info(StrategyStoch.class,
+//                System.out.print("[LONG]:" + series.getName() + " Hammer | ");
+//                return "[LONG]:" + series.getName() + " Hammer | ";
             } else if (openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue() // Медвежья свеча
                     && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()  // Бычья свеча
                     && Math.abs(minPrice.getValue(maxIndex - 2).doubleValue() - maxPrice.getValue(maxIndex - 2).doubleValue()) > 4 * Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
