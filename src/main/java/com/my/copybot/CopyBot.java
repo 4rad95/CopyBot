@@ -291,7 +291,10 @@ public class CopyBot {
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
-                                    addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series));
+                                ChochCalculator chochCalculator = new ChochCalculator();
+                                if (chochCalculator.detectChoch(series, 100) > 0) {
+                                    addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series),"Open:"+status);
+                                } else {System.out.println();}
                                 } else {System.out.println();}
                            // }
                         }
@@ -318,29 +321,35 @@ public class CopyBot {
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
-                                    addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series));
+                                    ChochCalculator chochCalculator = new ChochCalculator();
+                                    if (chochCalculator.detectChoch(series, 100) < 0){
+                                    addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series),"Open:"+status);
+                                    } else {System.out.println();}
+
                                 } else {System.out.println();}
  //                           }
                         }
                     }
                     String status = null;
-                    if (null != openTradesLong.get(symbol)) {
-                        status = StrategyStoch.openStochStrategyShort(series);
-                        if (status == null) {status =StrategyStoch.closeStochStrategyLong(series); }
-                        if (status != null) {
 
-                            ordersToBeClosed.put(symbol, status);
+                    if (null != openTradesLong.get(symbol)) {
+                        status = StrategyStoch.openStochStrategyShort(series) + StrategyStoch.closeStochStrategyLong(series);;
+                        if (status != null) {
+                            status = StrategyStoch.closeStochStrategyLong(series); }
+                            if (status == null) {
+                                        status = StrategyStoch.openStochStrategyShort(series);}
+                                ordersToBeClosed.put(symbol," Close: "+ status);
                             Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + " " + status + "\u001B[0m");
 
-                        }
+
                     } else if (null != openTradesShort.get(symbol)) {
-                        status = StrategyStoch.openStochStrategyLong(series);
-                        if (status == null) {
+                        status = StrategyStoch.openStochStrategyLong(series) + StrategyStoch.closeStochStrategyShort(series);
+                        if (status != null) {
                             status = StrategyStoch.closeStochStrategyShort(series);
                             if (status != null) {
-                                ordersToBeClosed.put(symbol, status);
+                                status = StrategyStoch.openStochStrategyLong(series);}
+                                ordersToBeClosed.put(symbol, " Close: "+ status);
                                 Log.info(CopyBot.class, "\u001B[33m [Close]  Close strategy for symbol = " + symbol + " " + status + "\u001B[0m");
-                            }
                         }
 
                     }}
@@ -496,10 +505,10 @@ public class CopyBot {
                 System.out.println("New value STOP_NO_LOSS = " + STOP_NO_LOSS);
             } else if (inputTemp.equals("AL")) {
                 System.out.println("Add new position LONG ..... " + inputString.substring(2) + "USDT");
-                addTrade(inputString.substring(2) + "USDT", "LONG", null, null);
+                addTrade(inputString.substring(2) + "USDT", "LONG", null, null,"Open Manual");
             } else if (inputTemp.equals("AS")) {
                 System.out.println("Add new position SHORT  ..... " + inputString.substring(2) + "USDT");
-                addTrade(inputString.substring(2) + "USDT", "SHORT", null, null);
+                addTrade(inputString.substring(2) + "USDT", "SHORT", null, null,"Open Manual");
             } else if (inputTemp.equals("RP")) {
                 System.out.println("Remove position in list (WARNING!!! Position not closed !!)  ..... " + inputString.substring(2) + "USDT");
                 clearPosition(inputString.substring(2) + "USDT");
@@ -517,7 +526,7 @@ public class CopyBot {
         }
     }
 
-    public static void addTrade(String symbol, String type, Decimal ATR, Double stopPrice) {
+    public static void addTrade(String symbol, String type, Decimal ATR, Double stopPrice, String startDesc) {
 
         CopyBot copyBot = new CopyBot();
         switch (type) {
@@ -531,7 +540,7 @@ public class CopyBot {
             }
         }
         TradeTask tradeTask = new TradeTask(symbol, getCurrentPrice(symbol).toDouble(),
-                TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER, copyBot, ATR, stopPrice);
+                TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER, copyBot, ATR, stopPrice, startDesc);
         Thread thread = new Thread(tradeTask);
         tradeTask.thisThread = thread;
         thread.start();
@@ -606,7 +615,7 @@ public class CopyBot {
             seconds = seconds - minutes * 60;
             String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
             Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.020 ( test Edition beta ADX bis Strategy. Good and Best!)    \u001B[0m");
+            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.021 ( test Edition beta ADX bis Strategy. Good and Best!)    \u001B[0m");
             //		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
             Log.info(CopyBot.class, " Open trades LONG: " + openTradesLong.keySet().size() + " SHORT:" + openTradesShort.keySet().size());
             Log.info(CopyBot.class, " LONG:  " + openTradesLong.keySet());

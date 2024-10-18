@@ -245,6 +245,7 @@ public class StrategyStoch {
                // Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " 3 white soldiers | ");
                 return "[LONG]:" + series.getName() + " 3 white soldiers | ";
+
             } else if ( openPrice.getValue(maxIndex-3).doubleValue() > closePrice.getValue(maxIndex-23).doubleValue()
                     && openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
                     && openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()

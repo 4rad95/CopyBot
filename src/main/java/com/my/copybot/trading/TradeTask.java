@@ -50,9 +50,10 @@ public class TradeTask implements Runnable {
     private final Double stopPrice;
     private Long idStopLossOrder = 0L;
     private String quantity;
+    private String startDes = "";
 
     public TradeTask(String symbol, Double alertPrice, Double btcAmount, Double usdtAmount,
-                     Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type, Integer identLimitOredr, CopyBot copyBot, Decimal ATR, Double stopPrice) {
+                     Double stopLossPercentage, Integer waitOrderLimit, boolean makeAvg, Integer stopNoLoss, String type, Integer identLimitOredr, CopyBot copyBot, Decimal ATR, Double stopPrice, String startDes) {
 
         this.symbol = symbol;
         this.alertPrice = alertPrice;
@@ -67,6 +68,7 @@ public class TradeTask implements Runnable {
         this.copyBot = copyBot;
         this.ATR = ATR;
         this.stopPrice = stopPrice;
+        this.startDes = startDes;
     }
 
     public static String multiplyAndRound(Double number, double multiplier) {
@@ -269,6 +271,9 @@ public class TradeTask implements Runnable {
             Log.info(getClass(), "Created CLOSE order: " + order.getOrderId() + " " + order.getSymbol() + "  " + str + "  " + order.getCurrentProfit(price) + " %  ");
             order.setClosePrice(price);
             order.setCloseTime(System.currentTimeMillis());
+            if (idStopLossOrder != 0L) {
+                syncRequestClient.cancelOrder(symbol, idStopLossOrder, quantity);
+            }
             // Добавить статистику!
             CopyBot.closeOrder(symbol, order.getProfit(), null, type);
             CopyBot.addPositionClosed(createStatisticPosition("Max.:" + String.format("%.2f", maxPercent) + "%, Min.:" + String.format("%.2f", minPercent) + " % profit: " + order.getCurrentProfit(price) + "%  " + str));
@@ -383,9 +388,13 @@ public class TradeTask implements Runnable {
         counter++;
         switch (type) {
             case "SHORT": {
-                if (price <= (order.getPrice() - (ATR.doubleValue() * 0.4) ) && idStopLossOrder > 0L ) {
+                if (price <= (order.getPrice() - (ATR.doubleValue() * 0.4) ) && idStopLossOrder == 0L ) {
                         createStopLoss(PositionSide.SHORT,quantity, showPrice(order.getPrice() - (ATR.doubleValue() * 0.2) ));
                         Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() - (ATR.doubleValue() * 0.2) ));
+                }
+                if (price <= (order.getPrice() - (ATR.doubleValue() * 0.85) ) && idStopLossOrder > 0L ) {
+                    createStopLoss(PositionSide.SHORT,quantity, showPrice(order.getPrice() - (ATR.doubleValue() * 0.5) ));
+                    Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() - (ATR.doubleValue() * 0.5) ));
                 }
                 if (price >= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol)) //|| (price <= order.getProffit()))      // Close stopLoss
                 {
@@ -397,9 +406,13 @@ public class TradeTask implements Runnable {
                 break;
             }
             case "LONG": {
-                if (price <= (order.getPrice() + (ATR.doubleValue() * 0.4) ) && idStopLossOrder > 0L) {
+                if (price >= (order.getPrice() + (ATR.doubleValue() * 0.4) ) && idStopLossOrder == 0L) {
                     createStopLoss(PositionSide.LONG,quantity, showPrice(order.getPrice() + (ATR.doubleValue() * 0.2) ));
                     Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() + (ATR.doubleValue() * 0.2) ));
+                }
+                if (price >= (order.getPrice() - (ATR.doubleValue() * 0.85) ) && idStopLossOrder > 0L ) {
+                    createStopLoss(PositionSide.LONG,quantity, showPrice(order.getPrice() + (ATR.doubleValue() * 0.5) ));
+                    Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() + (ATR.doubleValue() * 0.5) ));
                 }
                 if (price <= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol)) //|| (price >= order.getProffit()))      // Close stopLoss
                 {
@@ -537,13 +550,13 @@ public class TradeTask implements Runnable {
     }
 
 private void createStopLoss(PositionSide typeOrder, String count, String price){
-    RequestOptions options = new RequestOptions();
+            RequestOptions options = new RequestOptions();
 
             SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
             options);
 
             if (idStopLossOrder != 0L) {
-                syncRequestClient.cancelOrder(symbol, idStopLossOrder, count);
+                syncRequestClient.cancelOrder(symbol, idStopLossOrder,quantity);
             }
             Order orderNew = syncRequestClient.postOrder(
             symbol, // Торговая пара
@@ -552,13 +565,13 @@ private void createStopLoss(PositionSide typeOrder, String count, String price){
             typeOrder,
             OrderType.STOP_MARKET, // Тип ордера - стоп-ордер
             TimeInForce.GTC, // Тайминг выполнения ордера: GTC (Good 'Till Canceled)
-            count, // Количество актива, который ты продаешь
+            quantity, // Количество актива, который ты продаешь
             null, // Цена исполнения ордера (не используется для STOP ордера)
             null, // Цена исполнения тейк-профита (если нужен)
             price , // Цена исполнения стоп-лимита (если нужен)
             price, // Стоп-цена (trigger price) - цена, при которой ордер будет активирован
             null , // Количество тейк-профита (если нужен)
-            count, // Количество стоп-лимита (если нужен)
+            quantity, // Количество стоп-лимита (если нужен)
             null, // Отдельная стратегия исполнения, если есть
             null, // Время исполнения, если требуется
             null, // Рабочий процесс исполнения (например, если используешь OCO или другие сложные типы)
@@ -566,7 +579,5 @@ private void createStopLoss(PositionSide typeOrder, String count, String price){
     );
             idStopLossOrder = orderNew.getOrderId();
 }
-
-
 }
 
