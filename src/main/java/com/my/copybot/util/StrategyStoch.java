@@ -46,7 +46,7 @@ public class StrategyStoch {
         ATRIndicator atr = new ATRIndicator(series, 14);
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
-        boolean checkLevel = (checkLevelBreakout(series, maxIndex, 14) < 0);
+        boolean checkLevel = true; //(checkLevelBreakout(series, maxIndex, 14) < 0);
 
             if (
                 openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
@@ -54,6 +54,7 @@ public class StrategyStoch {
                         && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                         && maxPrice.getValue(maxIndex-2).doubleValue() < maxPrice.getValue(maxIndex-1).doubleValue()
+                        && (rsi.getValue(maxIndex-1).doubleValue() > 65 || rsi.getValue(maxIndex-2).doubleValue() > 65  )
                         && prev[1] < curr[1]
                         && checkLevel
         ) {
@@ -66,6 +67,7 @@ public class StrategyStoch {
                             && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
                             && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
                             && maxPrice.getValue(maxIndex-3).doubleValue() < maxPrice.getValue(maxIndex-2).doubleValue()
+                            && (rsi.getValue(maxIndex-3).doubleValue() > 65 || rsi.getValue(maxIndex-2).doubleValue() > 65  )
                             && prev[1] < curr[1]
                             && checkLevel
             ) {
@@ -77,6 +79,7 @@ public class StrategyStoch {
                             && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
                             && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
                             && openPrice.getValue(maxIndex - 4).doubleValue() < closePrice.getValue(maxIndex - 4).doubleValue()
+                            && (rsi.getValue(maxIndex-1).doubleValue() > 65 || rsi.getValue(maxIndex-2).doubleValue() > 65  )
                             && prev[1] < curr[1]
                             && checkLevel
 
@@ -84,21 +87,23 @@ public class StrategyStoch {
                // Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Three Black Crows | ");
                 return "[SHORT]:" + series.getName() + " Three Black Crows | ";
-//            } else if ( openPrice.getValue(maxIndex-3).doubleValue() < closePrice.getValue(maxIndex-3).doubleValue()
-//                    && openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
-//                    && openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
-//                    && ((maxPrice.getValue(maxIndex-1).doubleValue()-minPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 9 )
-//                    && !checkLevel
-//                )
-//            {
-//                //Log.info(StrategyStoch.class,
-//                System.out.print("[SHORT]:" + series.getName() + " Inverted hammer  | ");
-//                return "[SHORT]:" + series.getName() + " Inverted hammer  | ";
+            } else if ( openPrice.getValue(maxIndex-3).doubleValue() < closePrice.getValue(maxIndex-3).doubleValue()
+                    && openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
+                    && openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
+                    && ((maxPrice.getValue(maxIndex-1).doubleValue()-minPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 5)
+                    && (rsi.getValue(maxIndex-1).doubleValue() > 65 || rsi.getValue(maxIndex-2).doubleValue() > 65  )
+                    && checkLevel
+                )
+            {
+                //Log.info(StrategyStoch.class,
+                System.out.print("[SHORT]:" + series.getName() + " Inverted hammer  | ");
+                return "[SHORT]:" + series.getName() + " Inverted hammer  | ";
 
         } else if (openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue() // Бычья свеча
                 && openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue() // Медвежья свеча
                 && (maxPrice.getValue(maxIndex - 2).doubleValue() - openPrice.getValue(maxIndex - 2).doubleValue()) > 4 * Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                 && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
+                && (rsi.getValue(maxIndex-1).doubleValue() > 65 || rsi.getValue(maxIndex-2).doubleValue() > 65  )
                 && prev[1] < curr[1]
                 && checkLevel
             ) {
@@ -204,7 +209,7 @@ public class StrategyStoch {
         int maxIndex = series.getEndIndex();
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
-        boolean checkLevel = checkLevelBreakout(series, maxIndex, 14) > 0;
+        boolean checkLevel = true;// checkLevelBreakout(series, maxIndex, 14) > 0;
 
 // nn [plus, minus]
 
@@ -214,6 +219,7 @@ public class StrategyStoch {
                         && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                         && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                         && minPrice.getValue(maxIndex-2).doubleValue() > minPrice.getValue(maxIndex-1).doubleValue()
+                        && (rsi.getValue(maxIndex-1).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
                         && (prev[0] < curr[0])
                         && checkLevel
         ) {
@@ -227,6 +233,7 @@ public class StrategyStoch {
                             && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
                             && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
                             && minPrice.getValue(maxIndex-3).doubleValue() > minPrice.getValue(maxIndex-2).doubleValue()
+                            && (rsi.getValue(maxIndex-3).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
                             && (prev[0] < curr[0])
                             && checkLevel
             ) {
@@ -239,6 +246,7 @@ public class StrategyStoch {
                          && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
                          && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
                          && openPrice.getValue(maxIndex - 4).doubleValue() > closePrice.getValue(maxIndex - 4).doubleValue()
+                         && (rsi.getValue(maxIndex-1).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
                          && (prev[0] < curr[0])
                          && checkLevel
             ) {
@@ -246,19 +254,21 @@ public class StrategyStoch {
                 System.out.print("[LONG]:" + series.getName() + " 3 white soldiers | ");
                 return "[LONG]:" + series.getName() + " 3 white soldiers | ";
 
-//            } else if ( openPrice.getValue(maxIndex-3).doubleValue() > closePrice.getValue(maxIndex-23).doubleValue()
-//                    && openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
-//                    && openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
-//                    && ((minPrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 9 )
-//                    && !checkLevel )
-//              {
-//                // Log.info(StrategyStoch.class,
-//                System.out.print("[LONG]:" + series.getName() + " Hammer | ");
-//                return "[LONG]:" + series.getName() + " Hammer | ";
+            } else if ( openPrice.getValue(maxIndex-3).doubleValue() > closePrice.getValue(maxIndex-23).doubleValue()
+                    && openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
+                    && openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
+                    && ((minPrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 5 )
+                    && (rsi.getValue(maxIndex-1).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
+                    && checkLevel )
+              {
+                // Log.info(StrategyStoch.class,
+                System.out.print("[LONG]:" + series.getName() + " Hammer | ");
+                return "[LONG]:" + series.getName() + " Hammer | ";
             } else if (openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue() // Медвежья свеча
                     && openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()  // Бычья свеча
                     && Math.abs(minPrice.getValue(maxIndex - 2).doubleValue() - maxPrice.getValue(maxIndex - 2).doubleValue()) > 4 * Math.abs(openPrice.getValue(maxIndex - 2).doubleValue() - closePrice.getValue(maxIndex - 2).doubleValue())
                     && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
+                    && (rsi.getValue(maxIndex-1).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
                     && prev[1] < curr[1]
                     && checkLevel
             ) {

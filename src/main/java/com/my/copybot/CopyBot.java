@@ -292,7 +292,7 @@ public class CopyBot {
                                         Sound.tone(15000, 100);
                                     }
                                 ChochCalculator chochCalculator = new ChochCalculator();
-                                if (chochCalculator.detectChoch(series, 100) > 0) {
+                                if (true){//(chochCalculator.detectChoch(series, 100) > 0) {
                                     addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series),"Open:"+status);
                                 } else {System.out.println();}
                                 } else {System.out.println();}
@@ -322,7 +322,8 @@ public class CopyBot {
                                         Sound.tone(15000, 100);
                                     }
                                     ChochCalculator chochCalculator = new ChochCalculator();
-                                    if (chochCalculator.detectChoch(series, 100) < 0){
+                                    if (true){//(chochCalculator.detectChoch(series, 100) < 0)
+
                                     addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series),"Open:"+status);
                                     } else {System.out.println();}
 
