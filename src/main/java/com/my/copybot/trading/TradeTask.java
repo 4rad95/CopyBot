@@ -389,17 +389,19 @@ public class TradeTask implements Runnable {
         switch (type) {
             case "SHORT": {
                 if (price <= (order.getPrice() - (ATR.doubleValue() * 0.4) ) && idStopLossOrder == 0L ) {
-                        createStopLoss(PositionSide.SHORT,quantity, showPrice(order.getPrice() - (ATR.doubleValue() * 0.2) ));
-                        Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() - (ATR.doubleValue() * 0.2) ));
+  //                      createStopLoss(PositionSide.SHORT,quantity, showPrice(order.getPrice() - (ATR.doubleValue() * 0.2) ));
+                        order.setCurrentStopLoss(order.getPrice() - (ATR.doubleValue() * 0.2));
+                        Log.info(getClass(), "[NEW STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() - (ATR.doubleValue() * 0.2) ));
                 }
                 if (price <= (order.getPrice() - (ATR.doubleValue() * 0.85) ) && idStopLossOrder > 0L ) {
-                    createStopLoss(PositionSide.SHORT,quantity, showPrice(order.getPrice() - (ATR.doubleValue() * 0.5) ));
-                    Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() - (ATR.doubleValue() * 0.5) ));
+//                    createStopLoss(PositionSide.SHORT,quantity, showPrice(order.getPrice() - (ATR.doubleValue() * 0.5) ));
+                    order.setCurrentStopLoss(order.getPrice() - (ATR.doubleValue() * 0.5));
+                    Log.info(getClass(), "[NEW STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() - (ATR.doubleValue() * 0.5) ));
                 }
                 if (price >= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol)) //|| (price <= order.getProffit()))      // Close stopLoss
                 {
                     sell(price);
-                    Log.info(getClass(), "[STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
+                    Log.info(getClass(), "[NEW STOP][" + type + "] :  ---------  Closed order for symbol: " + symbol
                             + ". Current price: " + showPrice(price) + ", profit: " + order.getProfit());
                     stopThread = true;
                 }
@@ -407,11 +409,13 @@ public class TradeTask implements Runnable {
             }
             case "LONG": {
                 if (price >= (order.getPrice() + (ATR.doubleValue() * 0.4) ) && idStopLossOrder == 0L) {
-                    createStopLoss(PositionSide.LONG,quantity, showPrice(order.getPrice() + (ATR.doubleValue() * 0.2) ));
+                 //   createStopLoss(PositionSide.LONG,quantity, showPrice(order.getPrice() + (ATR.doubleValue() * 0.2) ));
+                    order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 0.2));
                     Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() + (ATR.doubleValue() * 0.2) ));
                 }
                 if (price >= (order.getPrice() - (ATR.doubleValue() * 0.85) ) && idStopLossOrder > 0L ) {
-                    createStopLoss(PositionSide.LONG,quantity, showPrice(order.getPrice() + (ATR.doubleValue() * 0.5) ));
+                    //createStopLoss(PositionSide.LONG,quantity, showPrice(order.getPrice() + (ATR.doubleValue() * 0.5) ));
+                    order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 0.2));
                     Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() + (ATR.doubleValue() * 0.5) ));
                 }
                 if (price <= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol)) //|| (price >= order.getProffit()))      // Close stopLoss
@@ -550,6 +554,8 @@ public class TradeTask implements Runnable {
     }
 
 private void createStopLoss(PositionSide typeOrder, String count, String price){
+
+    //        String priceTmp = multiplyAndRound(alertPrice, multikChange(identLimitOredr));
             RequestOptions options = new RequestOptions();
 
             SyncRequestClient syncRequestClient = SyncRequestClient.create(BinanceUtils.getApiKey(), BinanceUtils.getApiSecret(),
