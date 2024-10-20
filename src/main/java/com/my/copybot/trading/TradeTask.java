@@ -413,7 +413,7 @@ public class TradeTask implements Runnable {
                     order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 0.2));
                     Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() + (ATR.doubleValue() * 0.2) ));
                 }
-                if (price >= (order.getPrice() - (ATR.doubleValue() * 0.85) ) && order.getCurrentStopLoss() < (order.getPrice() + (ATR.doubleValue() * 0.5) )  ) {
+                if (price >= (order.getPrice() + (ATR.doubleValue() * 0.85) ) && order.getCurrentStopLoss() < (order.getPrice() + (ATR.doubleValue() * 0.5) )  ) {
                     //createStopLoss(PositionSide.LONG,quantity, showPrice(order.getPrice() + (ATR.doubleValue() * 0.5) ));
                     order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 0.2));
                     Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() + (ATR.doubleValue() * 0.5) ));

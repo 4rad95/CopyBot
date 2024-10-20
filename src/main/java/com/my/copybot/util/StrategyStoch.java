@@ -75,9 +75,9 @@ public class StrategyStoch {
                 System.out.print("[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle  + 1 candele | ");
                 return "[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle  + 1 candele | ";
             } else if (
-                    openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
-                            && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
-                            && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
+                    openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
+                            && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
+                            && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
                             && openPrice.getValue(maxIndex - 4).doubleValue() < closePrice.getValue(maxIndex - 4).doubleValue()
                             && (rsi.getValue(maxIndex-1).doubleValue() > 65 || rsi.getValue(maxIndex-2).doubleValue() > 65  )
                             && prev[1] < curr[1]
