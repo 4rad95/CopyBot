@@ -388,15 +388,17 @@ public class TradeTask implements Runnable {
         counter++;
         switch (type) {
             case "SHORT": {
-                if (price <= (order.getPrice() - (ATR.doubleValue() * 0.4) ) && order.getCurrentStopLoss() > (order.getPrice() - (ATR.doubleValue() * 0.4) ) ) {
+                if (price <= (order.getPrice() - (ATR.doubleValue() * 0.5) ) && order.getCurrentStopLoss() > (order.getPrice() - (ATR.doubleValue() * 0.3) ) ) {
   //                      createStopLoss(PositionSide.SHORT,quantity, showPrice(order.getPrice() - (ATR.doubleValue() * 0.2) ));
-                        order.setCurrentStopLoss(order.getPrice() - (ATR.doubleValue() * 0.2));
-                        Log.info(getClass(), "[NEW STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() - (ATR.doubleValue() * 0.2) ));
+                        order.setCurrentStopLoss(order.getPrice() - (ATR.doubleValue() * 0.3));
+                        Log.info(getClass(), "[NEW STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() - (ATR.doubleValue() * 0.3) ));
+                        break;
                 }
                 if (price <= (order.getPrice() - (ATR.doubleValue() * 0.85) ) && order.getCurrentStopLoss() > (order.getPrice() - (ATR.doubleValue() * 0.5) ) ) {
 //                    createStopLoss(PositionSide.SHORT,quantity, showPrice(order.getPrice() - (ATR.doubleValue() * 0.5) ));
                     order.setCurrentStopLoss(order.getPrice() - (ATR.doubleValue() * 0.5));
                     Log.info(getClass(), "[NEW STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() - (ATR.doubleValue() * 0.5) ));
+                    break;
                 }
                 if (price >= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol)) //|| (price <= order.getProffit()))      // Close stopLoss
                 {
@@ -408,15 +410,17 @@ public class TradeTask implements Runnable {
                 break;
             }
             case "LONG": {
-                if (price >= (order.getPrice() + (ATR.doubleValue() * 0.4) ) && order.getCurrentStopLoss() < (order.getPrice() + (ATR.doubleValue() * 0.2) ) ) {
+                if (price >= (order.getPrice() + (ATR.doubleValue() * 0.5) ) && order.getCurrentStopLoss() < (order.getPrice() + (ATR.doubleValue() * 0.3) ) ) {
                  //   createStopLoss(PositionSide.LONG,quantity, showPrice(order.getPrice() + (ATR.doubleValue() * 0.2) ));
-                    order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 0.2));
-                    Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() + (ATR.doubleValue() * 0.2) ));
+                    order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 0.3));
+                    Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() + (ATR.doubleValue() * 0.3) ));
+                    break;
                 }
                 if (price >= (order.getPrice() + (ATR.doubleValue() * 0.85) ) && order.getCurrentStopLoss() < (order.getPrice() + (ATR.doubleValue() * 0.5) )  ) {
                     //createStopLoss(PositionSide.LONG,quantity, showPrice(order.getPrice() + (ATR.doubleValue() * 0.5) ));
-                    order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 0.2));
+                    order.setCurrentStopLoss(order.getPrice() + (ATR.doubleValue() * 0.5));
                     Log.info(getClass(), "[STOPLOSS][" + type + "] :  ---------  " + symbol+ "  " + showPrice(order.getPrice() + (ATR.doubleValue() * 0.5) ));
+                    break;
                 }
                 if (price <= order.getCurrentStopLoss() || CopyBot.shouldCloseOrder(symbol)) //|| (price >= order.getProffit()))      // Close stopLoss
                 {
