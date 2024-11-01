@@ -74,19 +74,19 @@ public class StrategyStoch {
                 //    Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle  + 1 candele | ");
                 return "[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle  + 1 candele | ";
-            } else if (
-                    openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
-                            && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
-                            && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
-                            && openPrice.getValue(maxIndex - 4).doubleValue() < closePrice.getValue(maxIndex - 4).doubleValue()
-                            && (rsi.getValue(maxIndex-1).doubleValue() > 65 || rsi.getValue(maxIndex-2).doubleValue() > 65  )
-                            && prev[1] < curr[1]
-                            && checkLevel
-
-            ) {
-               // Log.info(StrategyStoch.class,
-                System.out.print("[SHORT]:" + series.getName() + " Three Black Crows | ");
-                return "[SHORT]:" + series.getName() + " Three Black Crows | ";
+//            } else if (
+//                    openPrice.getValue(maxIndex - 1).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
+//                            && openPrice.getValue(maxIndex - 2).doubleValue() > closePrice.getValue(maxIndex - 2).doubleValue()
+//                            && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 3).doubleValue()
+//                            && openPrice.getValue(maxIndex - 4).doubleValue() < closePrice.getValue(maxIndex - 4).doubleValue()
+//                            && (rsi.getValue(maxIndex-1).doubleValue() > 65 || rsi.getValue(maxIndex-2).doubleValue() > 65  )
+//                            && prev[1] < curr[1]
+//                            && checkLevel
+//
+//            ) {
+//               // Log.info(StrategyStoch.class,
+//                System.out.print("[SHORT]:" + series.getName() + " Three Black Crows | ");
+//                return "[SHORT]:" + series.getName() + " Three Black Crows | ";
             } else if ( openPrice.getValue(maxIndex-3).doubleValue() < closePrice.getValue(maxIndex-3).doubleValue()
                     && openPrice.getValue(maxIndex-2).doubleValue() < closePrice.getValue(maxIndex-2).doubleValue()
                     && openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
@@ -241,18 +241,18 @@ public class StrategyStoch {
                 System.out.print("[LONG]:" + series.getName() + " Bullish engulfing 1 candle + 1 candle | ");
 
                 return "[LONG]:" + series.getName() + " Bullish engulfing 1 candle + 1 candle | ";
-            } else if (
-                         openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
-                         && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
-                         && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
-                         && openPrice.getValue(maxIndex - 4).doubleValue() > closePrice.getValue(maxIndex - 4).doubleValue()
-                         && (rsi.getValue(maxIndex-1).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
-                         && (prev[0] < curr[0])
-                         && checkLevel
-            ) {
-               // Log.info(StrategyStoch.class,
-                System.out.print("[LONG]:" + series.getName() + " 3 white soldiers | ");
-                return "[LONG]:" + series.getName() + " 3 white soldiers | ";
+//            } else if (
+//                         openPrice.getValue(maxIndex - 1).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
+//                         && openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
+//                         && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 3).doubleValue()
+//                         && openPrice.getValue(maxIndex - 4).doubleValue() > closePrice.getValue(maxIndex - 4).doubleValue()
+//                         && (rsi.getValue(maxIndex-1).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
+//                         && (prev[0] < curr[0])
+//                         && checkLevel
+//            ) {
+//               // Log.info(StrategyStoch.class,
+//                System.out.print("[LONG]:" + series.getName() + " 3 white soldiers | ");
+//                return "[LONG]:" + series.getName() + " 3 white soldiers | ";
 
             } else if ( openPrice.getValue(maxIndex-3).doubleValue() > closePrice.getValue(maxIndex-23).doubleValue()
                     && openPrice.getValue(maxIndex-2).doubleValue() > closePrice.getValue(maxIndex-2).doubleValue()
@@ -432,14 +432,15 @@ public class StrategyStoch {
         double supportLevel = findSupportLevel(series, maxIndex, period);
         double resistanceLevel = findResistanceLevel(series, maxIndex, period);
         double currentClose = series.getBar(maxIndex).getClosePrice().doubleValue();
+        double currentOpen = series.getBar(maxIndex).getOpenPrice().doubleValue();
 
         // Проверка для шорта: пробой поддержки
-        if (currentClose < supportLevel) {
+        if (currentClose < supportLevel && currentOpen > supportLevel) {
        //     Log.info(StrategyStoch.class, "[SHORT]: "+ series.getName() +" Support level at " + supportLevel );
             return -1;
         }
         // Проверка для лонга: пробой сопротивления
-        else if (currentClose > resistanceLevel) {
+        else if (currentClose > resistanceLevel&& currentOpen < supportLevel) {
          //   Log.info(StrategyStoch.class, "[LONG]: " + series.getName() + "Resistance level at " + resistanceLevel);
             return 1;
         }
