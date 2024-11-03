@@ -46,7 +46,7 @@ public class StrategyStoch {
         ATRIndicator atr = new ATRIndicator(series, 14);
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
-        boolean checkLevel = (checkLevelBreakout(series, maxIndex, 34) < 0);
+        boolean checkLevel = (checkLevelBreakout(series, maxIndex, 14) < 0);
 
             if (
                 openPrice.getValue(maxIndex - 2).doubleValue() < closePrice.getValue(maxIndex - 2).doubleValue()
@@ -110,7 +110,10 @@ public class StrategyStoch {
             //Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Evening Star  | ");
             return "[SHORT]:" + series.getName() + " Evening Star  | ";
-        }
+        } else if (checkLevelBreakout(series, maxIndex, 34) < 0){
+                System.out.print("[SHORT]:" + series.getName() + " Level  | ");
+                return "[SHORT]:" + series.getName() + " Level  | ";
+            }
         return null;
     }
 
@@ -209,7 +212,7 @@ public class StrategyStoch {
         int maxIndex = series.getEndIndex();
         double[] prev = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex - 1).doubleValue(), atr.getValue(maxIndex - 1).doubleValue())};
         double[] curr = {calculatePlusDI(smoothedPlusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue()), calculateMinusDI(smoothedMinusDM.getValue(maxIndex).doubleValue(), atr.getValue(maxIndex).doubleValue())};
-        boolean checkLevel = checkLevelBreakout(series, maxIndex, 34) > 0;
+        boolean checkLevel = checkLevelBreakout(series, maxIndex, 14) > 0;
 
 // nn [plus, minus]
 
@@ -275,7 +278,10 @@ public class StrategyStoch {
                 //Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Morning Star  | ");
                 return "[LONG]:" + series.getName() + " Morning Star  | ";
-        }
+        } else if (checkLevelBreakout(series, maxIndex, 14) > 0) {
+                System.out.print("[LONG]:" + series.getName() + " Level  | ");
+                return "[LONG]:" + series.getName() + " Level  | ";
+            }
         return null;
 
     }
