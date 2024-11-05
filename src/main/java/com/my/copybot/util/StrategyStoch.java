@@ -279,7 +279,7 @@ public class StrategyStoch {
                 //Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Morning Star  | ");
                 return "[LONG]:" + series.getName() + " Morning Star  | ";
-        } else if (checkLevelBreakout(series, maxIndex, 14) > 0) {
+        } else if (checkLevelBreakout(series, maxIndex, 24) > 0) {
                 System.out.print("[LONG]:" + series.getName() + " Level  | ");
                 return "[LONG]:" + series.getName() + " Level  | ";
             }
