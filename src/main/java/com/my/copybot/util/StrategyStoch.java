@@ -274,7 +274,7 @@ public class StrategyStoch {
                     && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                     && (rsi.getValue(maxIndex-1).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
                     && prev[1] < curr[1]
-                    && checkLevel
+              //      && checkLevel
             ) {
                 //Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Morning Star  | ");
