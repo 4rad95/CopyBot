@@ -69,7 +69,7 @@ public class StrategyStoch {
                             && maxPrice.getValue(maxIndex-3).doubleValue() < maxPrice.getValue(maxIndex-2).doubleValue()
                             && (rsi.getValue(maxIndex-3).doubleValue() > 65 || rsi.getValue(maxIndex-2).doubleValue() > 65  )
                             && prev[1] < curr[1]
-                //            && checkLevel
+                            && checkLevel
             ) {
                 //    Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Bearish Engulfing 1 candle  + 1 candele | ");
@@ -92,7 +92,7 @@ public class StrategyStoch {
                     && openPrice.getValue(maxIndex-1).doubleValue() > closePrice.getValue(maxIndex-1).doubleValue()
                     && ((maxPrice.getValue(maxIndex-1).doubleValue()-minPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 5)
                     && (rsi.getValue(maxIndex-1).doubleValue() > 65 || rsi.getValue(maxIndex-2).doubleValue() > 65  )
-               //     && checkLevel
+                    && checkLevel
                 )
             {
                 //Log.info(StrategyStoch.class,
@@ -105,7 +105,7 @@ public class StrategyStoch {
                 && openPrice.getValue(maxIndex - 3).doubleValue() > closePrice.getValue(maxIndex - 1).doubleValue()
                 && (rsi.getValue(maxIndex-1).doubleValue() > 65 || rsi.getValue(maxIndex-2).doubleValue() > 65  )
                 && prev[1] < curr[1]
-      //          && checkLevel
+                && checkLevel
             ) {
             //Log.info(StrategyStoch.class,
                 System.out.print("[SHORT]:" + series.getName() + " Evening Star  | ");
@@ -224,7 +224,7 @@ public class StrategyStoch {
                         && minPrice.getValue(maxIndex-2).doubleValue() > minPrice.getValue(maxIndex-1).doubleValue()
                         && (rsi.getValue(maxIndex-1).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
                         && (prev[0] < curr[0])
-              //          && checkLevel
+                        && checkLevel
         ) {
               //  Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Bullish engulfing 1 candle | ");
@@ -238,7 +238,7 @@ public class StrategyStoch {
                             && minPrice.getValue(maxIndex-3).doubleValue() > minPrice.getValue(maxIndex-2).doubleValue()
                             && (rsi.getValue(maxIndex-3).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
                             && (prev[0] < curr[0])
-                    //        && checkLevel
+                            && checkLevel
             ) {
                 //  Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Bullish engulfing 1 candle + 1 candle | ");
@@ -262,7 +262,7 @@ public class StrategyStoch {
                     && openPrice.getValue(maxIndex-1).doubleValue() < closePrice.getValue(maxIndex-1).doubleValue()
                     && ((minPrice.getValue(maxIndex-1).doubleValue()-openPrice.getValue(maxIndex-1).doubleValue())/Math.abs(openPrice.getValue(maxIndex-1).doubleValue()-closePrice.getValue(maxIndex-1).doubleValue()) > 5 )
                     && (rsi.getValue(maxIndex-1).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
-               //     && checkLevel
+                   && checkLevel
              )
               {
                 // Log.info(StrategyStoch.class,
@@ -274,7 +274,7 @@ public class StrategyStoch {
                     && openPrice.getValue(maxIndex - 3).doubleValue() < closePrice.getValue(maxIndex - 1).doubleValue()
                     && (rsi.getValue(maxIndex-1).doubleValue() < 35 || rsi.getValue(maxIndex-2).doubleValue() > 35  )
                     && prev[1] < curr[1]
-              //      && checkLevel
+                    && checkLevel
             ) {
                 //Log.info(StrategyStoch.class,
                 System.out.print("[LONG]:" + series.getName() + " Morning Star  | ");
