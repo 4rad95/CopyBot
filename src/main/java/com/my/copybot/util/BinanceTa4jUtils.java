@@ -143,4 +143,44 @@ public class BinanceTa4jUtils {
 
 		return maxPriceIndicator.getValue(series.getEndIndex() - 1).doubleValue();
 	}
+
+	public static double findPreviousHigh(TimeSeries series) {
+		int currentIndex = series.getEndIndex();
+
+		// Проходим серию с конца, ищем локальный максимум
+		for (int i = currentIndex - 1; i >= 1; i--) {
+			double prevHigh = series.getBar(i - 1).getMaxPrice().doubleValue();
+			double currentHigh = series.getBar(i).getMaxPrice().doubleValue();
+			double nextHigh = series.getBar(i + 1).getMaxPrice().doubleValue();
+
+			// Проверяем условие локального максимума
+			if (currentHigh > prevHigh && currentHigh > nextHigh) {
+				return currentHigh;
+			}
+		}
+
+		// Если локальный максимум не найден, возвращаем NaN
+		return Double.NaN;
+	}
+
+	// Метод для поиска предыдущего локального минимума
+	public static double findPreviousLow(TimeSeries series) {
+		int currentIndex = series.getEndIndex();
+
+		// Проходим серию с конца, ищем локальный минимум
+		for (int i = currentIndex - 1; i >= 1; i--) {
+			double prevLow = series.getBar(i - 1).getMinPrice().doubleValue();
+			double currentLow = series.getBar(i).getMinPrice().doubleValue();
+			double nextLow = series.getBar(i + 1).getMinPrice().doubleValue();
+
+			// Проверяем условие локального минимума
+			if (currentLow < prevLow && currentLow < nextLow) {
+				return currentLow;
+			}
+		}
+
+		// Если локальный минимум не найден, возвращаем NaN
+		return Double.NaN;
+	}
+
 }

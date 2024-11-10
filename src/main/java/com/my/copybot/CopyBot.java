@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
 
+import static com.my.copybot.util.BinanceTa4jUtils.findPreviousHigh;
+import static com.my.copybot.util.BinanceTa4jUtils.findPreviousLow;
 import static java.lang.System.currentTimeMillis;
 import static java.lang.Thread.sleep;
 
@@ -293,7 +295,7 @@ public class CopyBot {
                                     }
                                 ChochCalculator chochCalculator = new ChochCalculator();
                                 if (chochCalculator.detectChoch(series, 100) > 0) {
-                                    addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series),"Open:"+status);
+                                    addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series),"Open:"+status , findPreviousHigh(series));
                                 } else {System.out.println();}
                                 } else {System.out.println();}
                            // }
@@ -324,7 +326,7 @@ public class CopyBot {
                                     ChochCalculator chochCalculator = new ChochCalculator();
                                     if (chochCalculator.detectChoch(series, 100) < 0) {
 
-                                    addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series),"Open:"+status);
+                                    addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series),"Open:"+status, findPreviousLow(series));
                                     } else {System.out.println();}
 
                                 } else {System.out.println();}
@@ -509,10 +511,10 @@ public class CopyBot {
                 System.out.println("New value STOP_NO_LOSS = " + STOP_NO_LOSS);
             } else if (inputTemp.equals("AL")) {
                 System.out.println("Add new position LONG ..... " + inputString.substring(2) + "USDT");
-                addTrade(inputString.substring(2) + "USDT", "LONG", null, null,"Open Manual");
+       //         addTrade(inputString.substring(2) + "USDT", "LONG", null, null,"Open Manual");
             } else if (inputTemp.equals("AS")) {
                 System.out.println("Add new position SHORT  ..... " + inputString.substring(2) + "USDT");
-                addTrade(inputString.substring(2) + "USDT", "SHORT", null, null,"Open Manual");
+       //         addTrade(inputString.substring(2) + "USDT", "SHORT", null, null,"Open Manual");
             } else if (inputTemp.equals("RP")) {
                 System.out.println("Remove position in list (WARNING!!! Position not closed !!)  ..... " + inputString.substring(2) + "USDT");
                 clearPosition(inputString.substring(2) + "USDT");
@@ -530,7 +532,7 @@ public class CopyBot {
         }
     }
 
-    public static void addTrade(String symbol, String type, Decimal ATR, Double stopPrice, String startDesc) {
+    public static void addTrade(String symbol, String type, Decimal ATR, Double stopPrice, String startDesc , Double enterPrice) {
 
         CopyBot copyBot = new CopyBot();
         switch (type) {
@@ -543,7 +545,7 @@ public class CopyBot {
                 break;
             }
         }
-        TradeTask tradeTask = new TradeTask(symbol, getCurrentPrice(symbol).toDouble(),
+        TradeTask tradeTask = new TradeTask(symbol,  enterPrice, //getCurrentPrice(symbol).toDouble(),
                 TRADE_SIZE_BTC, TRADE_SIZE_USDT, STOPLOSS_PERCENTAGE, WAIT_LIMIT_ORDER, MAKE_TRADE_AVG, STOP_NO_LOSS, type, IDENT_LIMIT_ORDER, copyBot, ATR, stopPrice, startDesc);
         Thread thread = new Thread(tradeTask);
         tradeTask.thisThread = thread;
