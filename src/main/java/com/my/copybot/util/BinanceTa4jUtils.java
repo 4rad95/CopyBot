@@ -145,41 +145,50 @@ public class BinanceTa4jUtils {
 	}
 
 	public static double findPreviousHigh(TimeSeries series) {
-		int currentIndex = series.getEndIndex();
+			int currentIndex = series.getEndIndex();
+			int count = 0; // Счетчик найденных максимумов
 
-		// Проходим серию с конца, ищем локальный максимум
-		for (int i = currentIndex - 1; i >= 1; i--) {
-			double prevHigh = series.getBar(i - 1).getMaxPrice().doubleValue();
-			double currentHigh = series.getBar(i).getMaxPrice().doubleValue();
-			double nextHigh = series.getBar(i + 1).getMaxPrice().doubleValue();
+			// Проходим серию с конца, ищем локальные максимумы
+			for (int i = currentIndex - 1; i >= 1; i--) {
+				double prevHigh = series.getBar(i - 1).getMaxPrice().doubleValue();
+				double currentHigh = series.getBar(i).getMaxPrice().doubleValue();
+				double nextHigh = series.getBar(i + 1).getMaxPrice().doubleValue();
 
-			// Проверяем условие локального максимума
-			if (currentHigh > prevHigh && currentHigh > nextHigh) {
-				return currentHigh;
+				// Проверка на локальный максимум
+				if (currentHigh > prevHigh && currentHigh > nextHigh) {
+					count++;
+					// Если найден второй максимум, возвращаем его
+					if (count == 2) {
+						return currentHigh;
+					}
+				}
 			}
+
+			// Если предпоследний максимум не найден, возвращаем null
+        return Double.NaN;
 		}
 
-		// Если локальный максимум не найден, возвращаем NaN
-		return Double.NaN;
-	}
 
 	// Метод для поиска предыдущего локального минимума
 	public static double findPreviousLow(TimeSeries series) {
 		int currentIndex = series.getEndIndex();
+		int count = 0; // Счетчик найденных минимумов
 
-		// Проходим серию с конца, ищем локальный минимум
+		// Проходим серию с конца, ищем локальные минимумы
 		for (int i = currentIndex - 1; i >= 1; i--) {
 			double prevLow = series.getBar(i - 1).getMinPrice().doubleValue();
 			double currentLow = series.getBar(i).getMinPrice().doubleValue();
 			double nextLow = series.getBar(i + 1).getMinPrice().doubleValue();
 
-			// Проверяем условие локального минимума
+			// Проверка на локальный минимум
 			if (currentLow < prevLow && currentLow < nextLow) {
-				return currentLow;
+				count++;
+				// Если найден второй минимум, возвращаем его
+				if (count == 2) {
+					return currentLow;
+				}
 			}
 		}
-
-		// Если локальный минимум не найден, возвращаем NaN
 		return Double.NaN;
 	}
 
