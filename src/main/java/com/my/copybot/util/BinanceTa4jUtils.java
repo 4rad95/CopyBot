@@ -127,18 +127,42 @@ public class BinanceTa4jUtils {
 	}
 
 	public static Double getStopPriceLong(TimeSeries series) {
-		if (series == null) {
-			throw new IllegalArgumentException("Series cannot be null");
-		}
-		MinPriceIndicator minPriceIndicator = new MinPriceIndicator(series);
+		int currentIndex = series.getEndIndex();
 
+		// Проходим серию с конца, ищем локальный минимум
+		for (int i = currentIndex - 1; i >= 1; i--) {
+			double prevLow = series.getBar(i - 1).getMinPrice().doubleValue();
+			double currentLow = series.getBar(i).getMinPrice().doubleValue();
+			double nextLow = series.getBar(i + 1).getMinPrice().doubleValue();
+
+			// Проверяем условие локального минимума
+			if (currentLow < prevLow && currentLow < nextLow) {
+				return currentLow;
+			}
+		}
+
+		MinPriceIndicator minPriceIndicator = new MinPriceIndicator(series);
 		return minPriceIndicator.getValue(series.getEndIndex() - 1).doubleValue();
+
+
+
 	}
 
 	public static Double getStopPriceShort(TimeSeries series) {
-		if (series == null) {
-			throw new IllegalArgumentException("Series cannot be null");
+		int currentIndex = series.getEndIndex();
+
+		// Проходим серию с конца, ищем локальный максимум
+		for (int i = currentIndex - 1; i >= 1; i--) {
+			double prevHigh = series.getBar(i - 1).getMaxPrice().doubleValue();
+			double currentHigh = series.getBar(i).getMaxPrice().doubleValue();
+			double nextHigh = series.getBar(i + 1).getMaxPrice().doubleValue();
+
+			// Проверяем условие локального максимума
+			if (currentHigh > prevHigh && currentHigh > nextHigh) {
+				return currentHigh;
+			}
 		}
+
 		MaxPriceIndicator maxPriceIndicator = new MaxPriceIndicator(series);
 
 		return maxPriceIndicator.getValue(series.getEndIndex() - 1).doubleValue();
