@@ -11,7 +11,7 @@ public class ChochCalculator {
 
         // Если недостаточно данных для анализа
         if (currentIndex < lookbackPeriod) {
-            return null;
+            return 0;
         }
 
 //        // Находим максимумы и минимумы за предыдущий период
