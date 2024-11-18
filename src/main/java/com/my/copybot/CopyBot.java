@@ -281,12 +281,12 @@ public class CopyBot {
                             if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
 
 
-                                TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
-                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
-                                        , symbol, interval2.getIntervalId());
                                 TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
-                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
+                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), endIndex))
                                         , symbol, interval1.getIntervalId());
+                                TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
+                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
+                                        , symbol, interval2.getIntervalId());
 //                                if (BinanceTa4jUtils.checkStrategyLong(series1)
 //                                        && BinanceTa4jUtils.checkStrategyLong(series2)) {
 //                                  if (StrategyStoch.openStochStrategyLong(series1)
