@@ -48,7 +48,7 @@ public class ChochDetector {
                 return currentHigh;
             }
         }
-        return null;
+        return 0.00;
     }
 
     // Метод для поиска предпоследнего локального максимума
@@ -66,7 +66,7 @@ public class ChochDetector {
                 }
             }
         }
-        return null;
+        return 0.00;
     }
 
     // Метод для поиска последнего локального минимума
@@ -80,7 +80,7 @@ public class ChochDetector {
                 return currentLow;
             }
         }
-        return null;
+        return 10000000.00;
     }
 
     // Метод для поиска предпоследнего локального минимума
@@ -98,6 +98,6 @@ public class ChochDetector {
                 }
             }
         }
-        return null;
+        return 10000000.00;
     }
 }
