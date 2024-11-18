@@ -115,7 +115,7 @@ public class StrategyStoch {
                 return "[SHORT]:" + series.getName() + " Level  | ";
         } else if (closePrice.getValue(maxIndex).doubleValue() >= BinanceTa4jUtils.getEnterPriceLong(series)) {
         //        System.out.print("[SHORT]:" + series.getName() + " Level Uper  | ");
-         //       return "[SHORT]:" + series.getName() + " Level Uper | ";
+                return "[SHORT]:" + series.getName() + " Level Uper | ";
             }
 
         return null;
@@ -284,14 +284,13 @@ public class StrategyStoch {
                 System.out.print("[LONG]:" + series.getName() + " Morning Star  | ");
                 return "[LONG]:" + series.getName() + " Morning Star  | ";
         } else if (checkLevelBreakout(series, maxIndex, 14) > 0) {
-                System.out.print("[LONG]:" + series.getName() + " Level  | ");
+           //     System.out.print("[LONG]:" + series.getName() + " Level  | ");
                 return "[LONG]:" + series.getName() + " Level  | ";
             } else if (closePrice.getValue(maxIndex).doubleValue() <= BinanceTa4jUtils.getEnterPriceLong(series)) {
-                System.out.print("[LONG]:" + series.getName() + " Level Down  | ");
+           //     System.out.print("[LONG]:" + series.getName() + " Level Down  | ");
                 return "[LONG]:" + series.getName() + " Level Down | ";
             }
         return null;
-
     }
 
     public static String closeStochStrategyLong(TimeSeries series) {
