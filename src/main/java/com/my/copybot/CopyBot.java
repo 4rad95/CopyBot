@@ -281,24 +281,25 @@ public class CopyBot {
                             if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
 
 
-                                TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
-                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), endIndex))
-                                        , symbol, interval1.getIntervalId());
-                                TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
-                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
-                                        , symbol, interval2.getIntervalId());
 //                                if (BinanceTa4jUtils.checkStrategyLong(series1)
 //                                        && BinanceTa4jUtils.checkStrategyLong(series2)) {
 //                                  if (StrategyStoch.openStochStrategyLong(series1)
 //                                        && StrategyStoch.openStochStrategyLong(series2))     {
 
                                 // ChochCalculator chochCalculator = new ChochCalculator();
-                                if (ChochDetector.detectChochDirection(series1) > 0) {
+                                if (ChochDetector.detectChochDirection(series) > 0) {
+                                    TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
+                                            Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
+                                            , symbol, interval1.getIntervalId());
+                                    if (ChochDetector.detectChochDirection(series1) > 0) {
+                                    TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
+                                            Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
+                                            , symbol, interval2.getIntervalId());
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
                                     addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series1),"Open:"+status , findPreviousHigh(series2));
-                                }
+                                }else {System.out.println();}}
                                 }
                            // }
                         }
@@ -313,24 +314,27 @@ public class CopyBot {
                             if (((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
                                 // We create a new thread to short trade with the symbol
 
-                                TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
-                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), endIndex))
-                                        , symbol, interval1.getIntervalId());
-                                TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
-                                        Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), endIndex))
-                                        , symbol, interval2.getIntervalId());
+
+
 
 //                                if (BinanceTa4jUtils.checkStrategyShort(series1)
 //                                        && BinanceTa4jUtils.checkStrategyShort(series2)) {
 
 
                                     // ChochCalculator chochCalculator = new ChochCalculator();
-                                    if (ChochDetector.detectChochDirection(series1) < 0) {
+                                    if (ChochDetector.detectChochDirection(series) < 0) {
+                                        TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
+                                                Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
+                                                , symbol, interval1.getIntervalId());
+                                        if (ChochDetector.detectChochDirection(series1) < 0) {
+                                        TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
+                                                Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
+                                                , symbol, interval2.getIntervalId());
                                         if (BEEP) {
                                             Sound.tone(15000, 100);
                                         }
                                     addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series1),"Open:"+status, findPreviousLow(series2));
-                                    }
+                                    }else {System.out.println();}}
                                 }
  //                           }
                         }
@@ -339,7 +343,7 @@ public class CopyBot {
                     String status1 = null;
 
                     if (null != openTradesLong.get(symbol)) {
-                        status = StrategyStoch.openStochStrategyShort(series);
+                        status = null; //StrategyStoch.openStochStrategyShort(series);
                         status1 = StrategyStoch.closeStochStrategyLong(series);;
                         if ((status != null) || (status1 != null)) {
                             if (status == null) {
@@ -350,7 +354,7 @@ public class CopyBot {
 
                         }
                     } else if (null != openTradesShort.get(symbol)) {
-                            status = StrategyStoch.openStochStrategyLong(series);
+                            status = null; // StrategyStoch.openStochStrategyLong(series);
                             status1 = StrategyStoch.closeStochStrategyShort(series);
                             if ((status != null) || (status1 != null)) {
                                 if (status != null) {
