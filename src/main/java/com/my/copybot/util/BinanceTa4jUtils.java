@@ -148,6 +148,47 @@ public class BinanceTa4jUtils {
 
 	}
 
+	public static Double getEnterPriceShort(TimeSeries series) {
+		int currentIndex = series.getEndIndex();
+
+		// Проходим серию с конца, ищем локальный максимум
+		for (int i = currentIndex - 1; i >= 1; i--) {
+			double prevHigh = series.getBar(i - 1).getClosePrice().doubleValue();
+			double currentHigh = series.getBar(i).getClosePrice().doubleValue();
+			double nextHigh = series.getBar(i + 1).getClosePrice().doubleValue();
+
+			// Проверяем условие локального максимума
+			if (currentHigh > prevHigh && currentHigh > nextHigh) {
+				return currentHigh;
+			}
+		}
+
+		MaxPriceIndicator maxPriceIndicator = new MaxPriceIndicator(series);
+
+		return maxPriceIndicator.getValue(series.getEndIndex() - 1).doubleValue();
+	}
+	public static Double getEnterPriceLong(TimeSeries series) {
+		int currentIndex = series.getEndIndex();
+
+		// Проходим серию с конца, ищем локальный минимум
+		for (int i = currentIndex - 1; i >= 1; i--) {
+			double prevLow = series.getBar(i - 1).getClosePrice().doubleValue();
+			double currentLow = series.getBar(i).getClosePrice().doubleValue();
+			double nextLow = series.getBar(i + 1).getClosePrice().doubleValue();
+
+			// Проверяем условие локального минимума
+			if (currentLow < prevLow && currentLow < nextLow) {
+				return currentLow;
+			}
+		}
+
+		MinPriceIndicator minPriceIndicator = new MinPriceIndicator(series);
+		return minPriceIndicator.getValue(series.getEndIndex() - 1).doubleValue();
+
+
+
+	}
+
 	public static Double getStopPriceShort(TimeSeries series) {
 		int currentIndex = series.getEndIndex();
 
@@ -167,7 +208,6 @@ public class BinanceTa4jUtils {
 
 		return maxPriceIndicator.getValue(series.getEndIndex() - 1).doubleValue();
 	}
-
 	public static double findPreviousHigh(TimeSeries series) {
 			int currentIndex = series.getEndIndex();
 			int count = 0; // Счетчик найденных максимумов

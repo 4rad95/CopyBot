@@ -291,11 +291,12 @@ public class CopyBot {
 //                                        && BinanceTa4jUtils.checkStrategyLong(series2)) {
 //                                  if (StrategyStoch.openStochStrategyLong(series1)
 //                                        && StrategyStoch.openStochStrategyLong(series2))     {
+
+                                // ChochCalculator chochCalculator = new ChochCalculator();
+                                if (ChochDetector.detectChochDirection(series1) > 0) {
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
-                                ChochCalculator chochCalculator = new ChochCalculator();
-                                if (chochCalculator.detectChoch(series1, 50) > 0) {
                                     addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceLong(series2),"Open:"+status , findPreviousHigh(series2));
                                 } else {System.out.println();}
                                 } else {System.out.println();}
@@ -322,12 +323,12 @@ public class CopyBot {
 //                                if (BinanceTa4jUtils.checkStrategyShort(series1)
 //                                        && BinanceTa4jUtils.checkStrategyShort(series2)) {
 
-                                    if (BEEP) {
-                                        Sound.tone(15000, 100);
-                                    }
-                                    ChochCalculator chochCalculator = new ChochCalculator();
-                                    if (chochCalculator.detectChoch(series1, 50) < 0) {
 
+                                    // ChochCalculator chochCalculator = new ChochCalculator();
+                                    if (ChochDetector.detectChochDirection(series1) < 0) {
+                                        if (BEEP) {
+                                            Sound.tone(15000, 100);
+                                        }
                                     addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series), BinanceTa4jUtils.getStopPriceShort(series2),"Open:"+status, findPreviousLow(series2));
                                     } else {System.out.println();}
 
