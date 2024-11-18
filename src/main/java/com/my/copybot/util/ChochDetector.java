@@ -26,11 +26,11 @@ public class ChochDetector {
 
         // Проверяем направление CHoCH
         if (currentHigh > lastHigh && lastHigh > secondLastHigh) {
-     //       System.out.print(" CHoCH Up | ");
+            System.out.print(series.getName() +  " CHoCH Up | ");
             return 1;
         }
         if (currentLow < lastLow && lastLow < secondLastLow) {
-       //     System.out.print(" CHoCH Down | ");
+            System.out.print(series.getName() + " CHoCH Down | ");
             return -1;
         }
 
