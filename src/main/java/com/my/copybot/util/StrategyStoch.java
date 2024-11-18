@@ -108,14 +108,14 @@ public class StrategyStoch {
            //     && checkLevel
             ) {
             //Log.info(StrategyStoch.class,
-                System.out.print("[SHORT]:" + series.getName() + " Evening Star  | ");
+            //    System.out.print("[SHORT]:" + series.getName() + " Evening Star  | ");
             return "[SHORT]:" + series.getName() + " Evening Star  | ";
         } else if (checkLevelBreakout(series, maxIndex, 14) < 0){
-                System.out.print("[SHORT]:" + series.getName() + " Level  | ");
+ //               System.out.print("[SHORT]:" + series.getName() + " Level  | ");
                 return "[SHORT]:" + series.getName() + " Level  | ";
         } else if (closePrice.getValue(maxIndex).doubleValue() >= BinanceTa4jUtils.getEnterPriceLong(series)) {
-                System.out.print("[SHORT]:" + series.getName() + " Level Uper  | ");
-                return "[SHORT]:" + series.getName() + " Level Uper | ";
+        //        System.out.print("[SHORT]:" + series.getName() + " Level Uper  | ");
+         //       return "[SHORT]:" + series.getName() + " Level Uper | ";
             }
 
         return null;
