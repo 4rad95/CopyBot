@@ -309,9 +309,9 @@ public class CopyBot {
                                            // BinanceTa4jUtils.getStopPriceLong(series1),
                                             "Open:"+status ,
                                             findPreviousHigh(series));
-                                }else {System.out.println();}}
+                                } // else {System.out.println();}}
                                 }
-                           // }
+                            }
               //          }
                     }
 
@@ -354,8 +354,8 @@ public class CopyBot {
                                           //  BinanceTa4jUtils.getStopPriceShort(series1),
                                             "Open:" + status,
                                             findPreviousLow(series));
-                                    }else {System.out.println();}}
-                            //    }
+                                    }//else {System.out.println();}}
+                                }
  //                           }
                         }
                     }
