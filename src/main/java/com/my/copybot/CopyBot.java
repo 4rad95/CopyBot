@@ -287,7 +287,7 @@ public class CopyBot {
 //                                        && StrategyStoch.openStochStrategyLong(series2))     {
 
                                 // ChochCalculator chochCalculator = new ChochCalculator();
-                                Double[] chochData = ChochTrendDetector.detectChochWithExtremes(series);
+                                Double[] chochData =  ChochTrendAnalyzer.detectChochAndTrend(series);
                                 if (chochData[0] > 0 ) {
 //                                if (ChochDetector.detectChochDirection(series) > 0) {
 //                                    TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
@@ -330,7 +330,7 @@ public class CopyBot {
 //                                if (BinanceTa4jUtils.checkStrategyShort(series1)
 //                                        && BinanceTa4jUtils.checkStrategyShort(series2)) {
 
-                                Double[] chochData = ChochTrendDetector.detectChochWithExtremes(series);
+                                Double[] chochData =  ChochTrendAnalyzer.detectChochAndTrend(series);
                                     // ChochCalculator chochCalculator = new ChochCalculator();
                                 //    if (ChochDetector.detectChochDirection(series) < 0) {
                                         if (chochData[0] < 0 ) {
