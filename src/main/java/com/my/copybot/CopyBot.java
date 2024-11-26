@@ -266,6 +266,10 @@ public class CopyBot {
                 // Now check the TA strategy with the refreshed time series
                 int endIndex = series.getEndIndex();
 
+                //---------------------------------------------------
+
+
+                // -------------------------------------------------
                 if ((openTradesLong.get(symbol) != null) || (openTradesShort.get(symbol) != null) ||
                         ((openTradesLong.keySet().size() + openTradesShort.keySet().size()) < MAX_SIMULTANEOUS_TRADES)) {
 
@@ -287,32 +291,33 @@ public class CopyBot {
 //                                        && StrategyStoch.openStochStrategyLong(series2))     {
 
                                 // ChochCalculator chochCalculator = new ChochCalculator();
-                                Double[] chochData =  ChochTrendAnalyzer.detectChochAndTrend(series);
-                                if (chochData[0] > 0 ) {
-//                                if (ChochDetector.detectChochDirection(series) > 0) {
-//                                    TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
-//                                            Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
-//                                            , symbol, interval1.getIntervalId());
-//                                    if (ChochDetector.detectChochDirection(series1) > 0) {
-//                                    TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
-//                                            Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
-//                                            , symbol, interval2.getIntervalId());
+                                TrendDetector.TrendResult result = TrendDetector.detectTrendWithExtremes(series, 150,3);
+     //                           Double[] chochData =  ChochTrendAnalyzer.detectChochAndTrend(series);
+                                if (result.typeD >0) {
+                                    TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
+                                            Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
+                                            , symbol, interval1.getIntervalId());
+                                    if (TrendDetector.detectTrendWithExtremes(series1, 50,3).typeD > 0) {
+                                    TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
+                                            Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
+                                            , symbol, interval2.getIntervalId());
                                     if (BEEP) {
                                         Sound.tone(15000, 100);
                                     }
-                                    System.out.println(series.getName() +"  Направление CHOCH: " + chochData[0]);
-                                    System.out.println("Уровень ключевого максимума: " + chochData[1]);
-                                    System.out.println("Уровень ключевого минимума: " + chochData[2]);
 
+                                    System.out.println(result);
                                     addTrade(symbol, "LONG", BinanceTa4jUtils.getATR(series),
-                                            chochData[2],
-                                           // BinanceTa4jUtils.getStopPriceLong(series1),
+                                            //chochData[2],
+                                            TrendDetector.detectTrendWithExtremes(series, 15,3).lowExtremes.get(0).value,
+                                            //BinanceTa4jUtils.getStopPriceLong(series2),
+                                           // result.lowExtremes.get(2).value,
                                             "Open:"+status ,
-                                            findPreviousHigh(series));
+                                          //result.highExtremes.get(2).value);
+                                            findPreviousHigh(series2));
                                 } // else {System.out.println();}}
                                 }
                             }
-              //          }
+                        }
                     }
 
                         if (DO_TRADES && openTradesShort.get(symbol) == null  && MAKE_SHORT) {
@@ -329,34 +334,39 @@ public class CopyBot {
 
 //                                if (BinanceTa4jUtils.checkStrategyShort(series1)
 //                                        && BinanceTa4jUtils.checkStrategyShort(series2)) {
-
-                                Double[] chochData =  ChochTrendAnalyzer.detectChochAndTrend(series);
+                                TrendDetector.TrendResult result = TrendDetector.detectTrendWithExtremes(series, 150,3);
+                //                Double[] chochData =  ChochTrendAnalyzer.detectChochAndTrend(series);
                                     // ChochCalculator chochCalculator = new ChochCalculator();
                                 //    if (ChochDetector.detectChochDirection(series) < 0) {
-                                        if (chochData[0] < 0 ) {
-//                                        TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
-//                                                Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
-//                                                , symbol, interval1.getIntervalId());
-//                                        if (ChochDetector.detectChochDirection(series1) < 0) {
-//                                        TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
-//                                                Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
-//                                                , symbol, interval2.getIntervalId());
+                                if (result.typeD <0) {
+                                 //       if (chochData[0] < 0 ) {
+                                        TimeSeries series1 = BinanceTa4jUtils.convertToTimeSeries(
+                                                Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval1.getIntervalId(), 100))
+                                                , symbol, interval1.getIntervalId());
+                                    if (TrendDetector.detectTrendWithExtremes(series1, 50,3).typeD < 0) {
+                                        TimeSeries series2 = BinanceTa4jUtils.convertToTimeSeries(
+                                                Objects.requireNonNull(BinanceUtils.getCandelSeries(symbol, interval2.getIntervalId(), 100))
+                                                , symbol, interval2.getIntervalId());
+                                    System.out.println(result);
                                         if (BEEP) {
                                             Sound.tone(15000, 100);
                                         }
 
-                                            System.out.println(series.getName() +"  Направление CHOCH: " + chochData[0]);
-                                            System.out.println("Уровень ключевого максимума: " + chochData[1]);
-                                            System.out.println("Уровень ключевого минимума: " + chochData[2]);
+//                                            System.out.println(series.getName() +"  Направление CHOCH: " + chochData[0]);
+//                                            System.out.println("Уровень ключевого максимума: " + chochData[1]);
+//                                            System.out.println("Уровень ключевого минимума: " + chochData[2]);
 
                                     addTrade(symbol, "SHORT", BinanceTa4jUtils.getATR(series),
-                                            chochData[1],
-                                          //  BinanceTa4jUtils.getStopPriceShort(series1),
+                                           // chochData[1],
+                                            //BinanceTa4jUtils.getStopPriceShort(series2),
+                                            TrendDetector.detectTrendWithExtremes(series, 15,3).highExtremes.get(0).value,
+                                            //result.highExtremes.get(2).value,
                                             "Open:" + status,
-                                            findPreviousLow(series));
+                                           // result.lowExtremes.get(2).value);
+                                            findPreviousLow(series2));
                                     }//else {System.out.println();}}
                                 }
- //                           }
+                            }
                         }
                     }
 //                    String status = null;
@@ -648,7 +658,7 @@ public class CopyBot {
             seconds = seconds - minutes * 60;
             String formattedTime = String.format("%d:%02d:%02d", hours, minutes, seconds);
             Log.info(CopyBot.class, "--------------------------------------------------------------------------------------------------------------------");
-            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.021 ( test Edition beta ADX bis Strategy. Good and Best!)    \u001B[0m");
+            Log.info(CopyBot.class, "\u001B[36m CopyBot 1.023 ( test Edition beta ADX bis Strategy. Good and Best!)    \u001B[0m");
             //		Log.info(CopyBot.class, "\u001B[36m Using new re-Made Trade Strategy  \u001B[0m");
             Log.info(CopyBot.class, " Open trades LONG: " + openTradesLong.keySet().size() + " SHORT:" + openTradesShort.keySet().size());
             Log.info(CopyBot.class, " LONG:  " + openTradesLong.keySet());

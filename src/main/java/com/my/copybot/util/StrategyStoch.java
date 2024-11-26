@@ -286,7 +286,7 @@ public class StrategyStoch {
         } else if (checkLevelBreakout(series, maxIndex, 14) > 0) {
            //     System.out.print("[LONG]:" + series.getName() + " Level  | ");
                 return "[LONG]:" + series.getName() + " Level  | ";
-            } else if (closePrice.getValue(maxIndex).doubleValue() <= BinanceTa4jUtils.getEnterPriceLong(series)) {
+            } else if (closePrice.getValue(maxIndex).doubleValue() <= BinanceTa4jUtils.getEnterPriceShort(series)) {
            //     System.out.print("[LONG]:" + series.getName() + " Level Down  | ");
                 return "[LONG]:" + series.getName() + " Level Down | ";
             }

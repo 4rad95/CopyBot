@@ -13,47 +13,50 @@ public class ChochTrendAnalyzer {
      *         [2] - уровень ключевого минимума.
      */
     public static Double[] detectChochAndTrend(TimeSeries series) {
-        int currentIndex = series.getEndIndex();
+        int endIndex = series.getEndIndex();
 
-        // Проверка достаточности данных
-        if (currentIndex < 3) {
-            return new Double[]{0.00, null, null};
+        // Если данных недостаточно, возвращаем ошибку
+        if (endIndex < 3) {
+            return new Double[]{0.0, null};  // Недостаточно данных
         }
 
-        Double lastHigh = null; // Ключевой максимум
-        Double lastLow = null;  // Ключевой минимум
-        double trendDirection = 0.00; // Направление тренда
+        // Переменные для хранения ключевых уровней
+        Double lastHigh = null;
+        Double lastLow = null;
+        Double prevHigh = null;
+        Double prevLow = null;
 
-        // Перебор баров с конца
-        for (int i = currentIndex; i >= 2; i--) {
-            double prevHigh = series.getBar(i - 1).getMaxPrice().doubleValue();
-            double prevLow = series.getBar(i - 1).getMinPrice().doubleValue();
-
+        // Перебор данных начиная с конца
+        for (int i = endIndex; i >= 2; i--) {
             double currentHigh = series.getBar(i).getMaxPrice().doubleValue();
             double currentLow = series.getBar(i).getMinPrice().doubleValue();
+            double previousHigh = series.getBar(i - 1).getMaxPrice().doubleValue();
+            double previousLow = series.getBar(i - 1).getMinPrice().doubleValue();
 
-            // Проверка слома тренда (CHOCH)
-            if (lastHigh != null && currentLow < lastLow) {
-                trendDirection = -1.00;
-                break;
-            }
-            if (lastLow != null && currentHigh > lastHigh) {
-                trendDirection = 1.00;
-                break;
+            // CHOCH вниз: если текущий минимум пробивает предыдущий минимум
+            if (lastLow != null && currentLow < lastLow) {
+                return new Double[]{-1.0, lastLow, currentLow};
             }
 
-            // Проверка подтверждения тренда
-            if (currentHigh > prevHigh) {
-                trendDirection = 1.00;
+            // CHOCH вверх: если текущий максимум пробивает предыдущий максимум
+            if (lastHigh != null && currentHigh > lastHigh) {
+                return new Double[]{1.0, lastHigh, currentHigh};
+            }
+
+            // Подтверждение восходящего тренда (по максимумам)
+            if (currentHigh > previousHigh) {
                 lastHigh = currentHigh;
-                lastLow = prevLow; // Минимум в восходящем тренде
-            } else if (currentLow < prevLow) {
-                trendDirection = -1.00;
+                lastLow = previousLow;  // Минимум подтверждает восходящий тренд
+            }
+
+            // Подтверждение нисходящего тренда (по минимумам)
+            if (currentLow < previousLow) {
                 lastLow = currentLow;
-                lastHigh = prevHigh; // Максимум в нисходящем тренде
+                lastHigh = previousHigh;  // Максимум подтверждает нисходящий тренд
             }
         }
 
-        return new Double[]{trendDirection, lastHigh, lastLow};
+        // Если изменений тренда не произошло, возвращаем "нет изменений"
+        return new Double[]{0.0, null};
     }
 }
